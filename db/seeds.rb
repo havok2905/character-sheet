@@ -29,7 +29,7 @@ character = Character.create([
     languages: "Common, Celestial, Druidic, Sylvan",
     name: "Ella Olkereth",
     passive_perception: 14,
-    personality_traits: "Humble and hospitable out of combat, cocky and arrogant under distress. I try to not spoil the future for myself."
+    personality_traits: "Humble and hospitable out of combat, cocky and arrogant under distress. I try to not spoil the future for myself.",
     proficiency_bonus: 2,
     race: "Aasimar",
     senses: "Darkvision 60ft.",
