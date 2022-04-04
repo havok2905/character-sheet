@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_04_195231) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_04_210356) do
+  create_table "character_features", force: :cascade do |t|
+    t.integer "character_id"
+    t.text "description"
+    t.string "feature_type"
+    t.string "name"
+    t.string "source"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_character_features_on_character_id"
+  end
+
   create_table "characters", force: :cascade do |t|
     t.integer "ac"
     t.text "background"
@@ -115,4 +126,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_04_195231) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "character_features", "characters"
 end

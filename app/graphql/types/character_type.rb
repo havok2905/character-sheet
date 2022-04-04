@@ -104,5 +104,7 @@ module Types
     field :survival_prof, String
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+
+    field :character_features, [Types::CharacterFeatureType], null: false
   end
 end
