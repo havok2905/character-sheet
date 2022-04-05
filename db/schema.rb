@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_05_070250) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_05_071546) do
   create_table "character_attacks", force: :cascade do |t|
     t.integer "character_id"
     t.integer "attack_bonus"
@@ -153,6 +153,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_05_070250) do
     t.string "survival_prof"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "alignment"
+    t.integer "copper_pieces"
+    t.integer "electrum_pieces"
+    t.integer "gold_pieces"
+    t.integer "platinum_pieces"
+    t.integer "silver_pieces"
   end
 
   add_foreign_key "character_attacks", "characters"

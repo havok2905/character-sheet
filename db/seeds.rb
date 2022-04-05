@@ -10,6 +10,7 @@ character = Character.create([
   {
     ac: 13,
     age: 26,
+    alignment: "Chaotic Good",
     armor_proficiencies: "Light Armor, Medium Armor, Shields (druids will not wear armor or use Shields made of metal)",
     background: "Guild Artisan",
     bonds: "I serve my library and am out on a research mission to finish my apprenticeship. I must return with new knowledge significant of acceptance.",
@@ -115,6 +116,12 @@ character = Character.create([
     sleight_of_hand_prof: "none",
     stealth_prof: "none",
     survival_prof: "none",
+
+    copper_pieces: 0,
+    silver_pieces: 0,
+    electrum_pieces: 0,
+    gold_pieces: 15,
+    platinum_pieces: 0,
 
     character_attacks: [
       CharacterAttack.create({
