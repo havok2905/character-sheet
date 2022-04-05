@@ -6,14 +6,7 @@ module Types
 
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
-
-    field :characters,
-    [Types::CharacterType],
-    null: false,
-    description: "Return a list of characters"
-
-    def characters
-      Character.all
-    end
+    field :character, resolver: Resolvers::FetchCharacter
+    field :characters, resolver: Resolvers::FetchCharacters
   end
 end
