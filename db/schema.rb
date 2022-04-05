@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_05_071546) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_05_074432) do
   create_table "character_attacks", force: :cascade do |t|
     t.integer "character_id"
     t.integer "attack_bonus"
@@ -49,6 +49,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_05_071546) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["character_id"], name: "index_character_features_on_character_id"
+  end
+
+  create_table "character_items", force: :cascade do |t|
+    t.integer "character_id"
+    t.text "description"
+    t.string "name"
+    t.integer "total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_character_items_on_character_id"
   end
 
   create_table "characters", force: :cascade do |t|
@@ -164,4 +174,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_05_071546) do
   add_foreign_key "character_attacks", "characters"
   add_foreign_key "character_feature_resources", "characters"
   add_foreign_key "character_features", "characters"
+  add_foreign_key "character_items", "characters"
 end
