@@ -93,6 +93,18 @@ module Types
     field :sleight_of_hand_mod, Integer
     field :sleight_of_hand_prof, String
     field :speed, Integer
+    field :spell_slots_eighth, Integer
+    field :spell_slots_fifth, Integer
+    field :spell_slots_first, Integer
+    field :spell_slots_fourth, Integer
+    field :spell_slots_ninth, Integer
+    field :spell_slots_second, Integer
+    field :spell_slots_seventh, Integer
+    field :spell_slots_sixth, Integer
+    field :spell_slots_third, Integer
+    field :spellcasting_ability, String
+    field :spellcasting_modifier, Integer
+    field :spellcasting_save_dc, Integer
     field :stealth_mod, Integer
     field :stealth_prof, String
     field :strength_mod, Integer

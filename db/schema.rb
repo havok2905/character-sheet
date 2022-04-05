@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_05_074432) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_05_075344) do
   create_table "character_attacks", force: :cascade do |t|
     t.integer "character_id"
     t.integer "attack_bonus"
@@ -169,6 +169,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_05_074432) do
     t.integer "gold_pieces"
     t.integer "platinum_pieces"
     t.integer "silver_pieces"
+    t.integer "spell_slots_first"
+    t.integer "spell_slots_second"
+    t.integer "spell_slots_third"
+    t.integer "spell_slots_fourth"
+    t.integer "spell_slots_fifth"
+    t.integer "spell_slots_sixth"
+    t.integer "spell_slots_seventh"
+    t.integer "spell_slots_eighth"
+    t.integer "spell_slots_ninth"
+    t.string "spellcasting_ability"
+    t.integer "spellcasting_modifier"
+    t.integer "spellcasting_save_dc"
   end
 
   add_foreign_key "character_attacks", "characters"
