@@ -10,7 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_04_210356) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_05_070250) do
+  create_table "character_attacks", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "attack_bonus"
+    t.integer "crit_range"
+    t.string "damage_dice_roll"
+    t.string "damage_two_dice_roll"
+    t.string "damage_two_type"
+    t.string "damage_type"
+    t.text "description"
+    t.boolean "is_saving_throw"
+    t.string "name"
+    t.string "range"
+    t.text "saving_throw_description"
+    t.integer "saving_throw_threshold"
+    t.string "saving_throw_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_character_attacks_on_character_id"
+  end
+
+  create_table "character_feature_resources", force: :cascade do |t|
+    t.integer "character_id"
+    t.string "name"
+    t.integer "total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_character_feature_resources_on_character_id"
+  end
+
   create_table "character_features", force: :cascade do |t|
     t.integer "character_id"
     t.text "description"
@@ -126,5 +155,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_04_210356) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "character_attacks", "characters"
+  add_foreign_key "character_feature_resources", "characters"
   add_foreign_key "character_features", "characters"
 end

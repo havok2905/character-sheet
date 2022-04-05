@@ -105,6 +105,8 @@ module Types
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
+    field :character_attacks, [Types::CharacterAttackType], null: false
+    field :character_feature_resources, [Types::CharacterFeatureResourceType]
     field :character_features, [Types::CharacterFeatureType], null: false
   end
 end

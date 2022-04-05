@@ -116,6 +116,38 @@ character = Character.create([
     stealth_prof: "none",
     survival_prof: "none",
 
+    character_attacks: [
+      CharacterAttack.create({
+        attack_bonus: 4,
+        crit_range: 20,
+        damage_dice_roll: "1d4+2",
+        damage_two_dice_roll: "",
+        damage_two_type: "",
+        damage_type: "Piercing",
+        description: "",
+        is_saving_throw: false,
+        name: "Dagger",
+        saving_throw_description: "",
+        saving_throw_threshold: 0,
+        saving_throw_type: ""
+      })
+    ],
+
+    character_feature_resources: [
+      CharacterFeatureResource.create({
+        name: "Healing Hands",
+        total: 1
+      }),
+      CharacterFeatureResource.create({
+        name: "Guiding Bolt",
+        total: 2
+      }),
+      CharacterFeatureResource.create({
+        name: "Wildshape",
+        total: 2
+      })
+    ],
+
     character_features: [
       CharacterFeature.create({
         description: "You know Druidic, the secret language of druids. You can speak the language and use it to leave hidden messages. You and others who know this language automatically spot such a message. Others spot the message's presence with a successful DC 15 Wisdom (Perception) check but can't decipher it without magic.",
