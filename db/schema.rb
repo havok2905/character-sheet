@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_05_075344) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_05_080447) do
   create_table "character_attacks", force: :cascade do |t|
     t.integer "character_id"
     t.integer "attack_bonus"
@@ -59,6 +59,27 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_05_075344) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["character_id"], name: "index_character_items_on_character_id"
+  end
+
+  create_table "character_spells", force: :cascade do |t|
+    t.integer "character_id"
+    t.string "casting_time"
+    t.string "components"
+    t.boolean "concentration"
+    t.text "description"
+    t.text "description_higher_levels"
+    t.string "duration"
+    t.integer "level"
+    t.boolean "material_components"
+    t.string "name"
+    t.string "range"
+    t.string "school"
+    t.boolean "somatic_components"
+    t.string "target"
+    t.boolean "verbal_components"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_character_spells_on_character_id"
   end
 
   create_table "characters", force: :cascade do |t|
@@ -187,4 +208,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_05_075344) do
   add_foreign_key "character_feature_resources", "characters"
   add_foreign_key "character_features", "characters"
   add_foreign_key "character_items", "characters"
+  add_foreign_key "character_spells", "characters"
 end

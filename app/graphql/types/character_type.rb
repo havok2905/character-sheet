@@ -129,5 +129,6 @@ module Types
     field :character_items, [Types::CharacterItemType], null: false
     field :character_feature_resources, [Types::CharacterFeatureResourceType]
     field :character_features, [Types::CharacterFeatureType], null: false
+    field :character_spells, [Types::CharacterSpellType], null: false
   end
 end
