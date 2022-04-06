@@ -7,7 +7,7 @@ module Types
 
     field :casting_time, String, "How long it takes to cast this spell."
     field :components, String, "What specific components are needed to cast this spell."
-    field :concentration, Boolean, "Specifies if this spell requires concentation."
+    field :concentration, Boolean, "Specifies if this spell requires concentration."
     field :description, String, "What the spell does."
     field :description_higher_levels, String, "What the spell does when cast at a higher level than this spell's base level."
     field :duration, String, "How long this spell's effects last for."

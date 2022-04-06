@@ -1,16 +1,16 @@
 module Resolvers
   module Mutations
-    class DestroyCharacterItemMutation < BaseMutation
+    class DestroyCharacterMutation < BaseMutation
       argument :id, ID, required: true
 
-      type Types::CharacterItemType
+      type Types::CharacterType
 
       def resolve input
-        character_item = CharacterItem.find(input[:id])
-        character_item.destroy
-        character_item
+        character = Character.find(input[:id])
+        character.destroy
+        character
       rescue ActiveRecord::RecordNotFound => _e
-        GraphQL::ExecutionError.new('Character item does not exist.')
+        GraphQL::ExecutionError.new('Character does not exist.')
       rescue ActiveRecord::RecordInvalid => e
         GraphQL::ExecutionError.new("Invalid attributes for #{e.record.class}:"\
           " #{e.record.errors.full_messages.join(', ')}")
