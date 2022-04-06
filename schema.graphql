@@ -1,0 +1,591 @@
+type Character {
+  ac: Int
+  acrobaticsMod: Int
+  acrobaticsProf: String
+  age: Int
+  alignment: String
+  animalHandlingMod: Int
+  animalHandlingProf: String
+  arcanaMod: Int
+  arcanaProf: String
+  armorProficiencies: String
+  athleticsMod: Int
+  athleticsProf: String
+  background: String
+  bonds: String
+  characterAttacks: [CharacterAttack!]!
+  characterClass: String
+  characterClassHitDice: Int
+  characterClassLevel: Int
+  characterFeatureResources: [CharacterFeatureResource!]
+  characterFeatures: [CharacterFeature!]!
+  characterItems: [CharacterItem!]!
+  characterSpells: [CharacterSpell!]!
+  characterSubClass: String
+  charismaMod: Int
+  charismaProf: String
+  charismaSave: Int
+  charismaScore: Int
+  conditionImmunities: String
+  conditionResistances: String
+  conditionVulnerabilities: String
+  constitutionMod: Int
+  constitutionProf: String
+  constitutionSave: Int
+  constitutionScore: Int
+  copperPieces: Int
+  createdAt: ISO8601DateTime!
+  damageImmunities: String
+  damageResistances: String
+  damageVulnerabilities: String
+  deceptionMod: Int
+  deceptionProf: String
+  dexterityMod: Int
+  dexterityProf: String
+  dexteritySave: Int
+  dexterityScore: Int
+  electrumPieces: Int
+  eyes: String
+  flaws: String
+  goldPieces: Int
+  hair: String
+  height: String
+  historyMod: Int
+  historyProf: String
+  hp: Int
+  id: ID!
+  ideals: String
+  initiative: Int
+  insightMod: Int
+  insightProf: String
+  intelligenceMod: Int
+  intelligenceProf: String
+  intelligenceSave: Int
+  intelligenceScore: Int
+  intimidationMod: Int
+  intimidationProf: String
+  investigationMod: Int
+  investigationProf: String
+  languages: String
+  medicineMod: Int
+  medicineProf: String
+  multiclassClass: String
+  multiclassClassHitDice: Int
+  multiclassClassLevel: Int
+  multiclassSubClass: String
+  name: String
+  natureMod: Int
+  natureProf: String
+  passivePerception: Int
+  perceptionMod: Int
+  perceptionProf: String
+  performanceMod: Int
+  performanceProf: String
+  personalityTraits: String
+  persuasionMod: Int
+  persuasionProf: String
+  platinumPieces: Int
+  proficiencyBonus: Int
+  race: String
+  religionMod: Int
+  religionProf: String
+  senses: String
+  silverPieces: Int
+  skin: String
+  sleightOfHandMod: Int
+  sleightOfHandProf: String
+  speed: Int
+  spellSlotsEighth: Int
+  spellSlotsFifth: Int
+  spellSlotsFirst: Int
+  spellSlotsFourth: Int
+  spellSlotsNinth: Int
+  spellSlotsSecond: Int
+  spellSlotsSeventh: Int
+  spellSlotsSixth: Int
+  spellSlotsThird: Int
+  spellcastingAbility: String
+  spellcastingModifier: Int
+  spellcastingSaveDc: Int
+  stealthMod: Int
+  stealthProf: String
+  strengthMod: Int
+  strengthProf: String
+  strengthSave: Int
+  strengthScore: Int
+  subRace: String
+  survivalMod: Int
+  survivalProf: String
+  toolProficiencies: String
+  updatedAt: ISO8601DateTime!
+  weaponProficiencies: String
+  weight: String
+  wisdomMod: Int
+  wisdomProf: String
+  wisdomSave: Int
+  wisdomScore: Int
+}
+
+type CharacterAttack {
+  """
+  Total added to the attack roll.
+  """
+  attackBonus: Int
+  character: Character!
+  characterId: Int!
+  createdAt: ISO8601DateTime!
+
+  """
+  When this attack is considered a critical hit.
+  """
+  critRange: Int
+
+  """
+  Dice roll formula for calculating damage (1dx).
+  """
+  damageDiceRoll: String
+
+  """
+  Dice roll formula for calculating secondary damage (1dx).
+  """
+  damageTwoDiceRoll: String
+
+  """
+  The kind of damage dealt by the attack (fire, cold, etc.).
+  """
+  damageTwoType: String
+
+  """
+  The kind of damage dealt by the attack (fire, cold, etc.).
+  """
+  damageType: String
+
+  """
+  Text description of other effects done by the attack.
+  """
+  description: String
+  id: ID!
+
+  """
+  Specifies if the attack requires a saving throw.
+  """
+  isSavingThrow: Boolean
+
+  """
+  The name of the attack.
+  """
+  name: String
+
+  """
+  How far the attack can target.
+  """
+  range: String
+
+  """
+  Text description of what happens when a saving throw is made.
+  """
+  savingThrowDescription: String
+
+  """
+  The DC for succeeding the saving throw of this attack.
+  """
+  savingThrowThreshold: Int
+
+  """
+  The ability associated with the saving throw (Wisdom, Dexterity, etc.).
+  """
+  savingThrowType: String
+  updatedAt: ISO8601DateTime!
+}
+
+input CharacterAttackInput {
+  attackBonus: Int!
+  critRange: Int!
+  damageDiceRoll: String!
+  damageTwoDiceRoll: String!
+  damageTwoType: String!
+  damageType: String!
+  description: String!
+  isSavingThrow: Boolean!
+  name: String!
+  range: String!
+  savingThrowDescription: String!
+  savingThrowThreshold: Int!
+  savingThrowType: String!
+}
+
+type CharacterFeature {
+  character: Character!
+  characterId: Int!
+  createdAt: ISO8601DateTime!
+
+  """
+  Text description of what this feature does.
+  """
+  description: String
+
+  """
+  What kind of feature ( Action, Bonus Action, Reaction, etc. ).
+  """
+  featureType: String
+  id: ID!
+
+  """
+  The name of the feature.
+  """
+  name: String
+
+  """
+  Where does this feature come from ( Class, sub class, race, etc. ).
+  """
+  source: String
+  updatedAt: ISO8601DateTime!
+}
+
+input CharacterFeatureInput {
+  description: String!
+  featureType: String!
+  name: String!
+  source: String!
+}
+
+type CharacterFeatureResource {
+  character: Character!
+  characterId: Int!
+  createdAt: ISO8601DateTime!
+  id: ID!
+
+  """
+  The name of the resource.
+  """
+  name: String
+
+  """
+  How many of this resource a character has.
+  """
+  total: Int
+  updatedAt: ISO8601DateTime!
+}
+
+input CharacterFeatureResourceInput {
+  name: String!
+  total: Int!
+}
+
+input CharacterInput {
+  ac: Int!
+  acrobaticsMod: Int!
+  acrobaticsProf: String!
+  age: Int!
+  alignment: String!
+  animalHandlingMod: Int!
+  animalHandlingProf: String!
+  arcanaMod: Int!
+  arcanaProf: String!
+  armorProficiencies: String!
+  athleticsMod: Int!
+  athleticsProf: String!
+  background: String!
+  bonds: String!
+  characterAttacks: [CharacterAttackInput!]!
+  characterClass: String!
+  characterClassHitDice: Int!
+  characterClassLevel: Int!
+  characterFeatureResources: [CharacterFeatureResourceInput!]!
+  characterFeatures: [CharacterFeatureInput!]!
+  characterItems: [CharacterItemInput!]!
+  characterSpells: [CharacterSpellInput!]!
+  characterSubClass: String!
+  charismaMod: Int!
+  charismaProf: String!
+  charismaSave: Int!
+  charismaScore: Int!
+  conditionImmunities: String!
+  conditionResistances: String!
+  conditionVulnerabilities: String!
+  constitutionMod: Int!
+  constitutionProf: String!
+  constitutionSave: Int!
+  constitutionScore: Int!
+  copperPieces: Int!
+  damageImmunities: String!
+  damageResistances: String!
+  damageVulnerabilities: String!
+  deceptionMod: Int!
+  deceptionProf: String!
+  dexterityMod: Int!
+  dexterityProf: String!
+  dexteritySave: Int!
+  dexterityScore: Int!
+  electrumPieces: Int!
+  eyes: String!
+  flaws: String!
+  goldPieces: Int!
+  hair: String!
+  height: String!
+  historyMod: Int!
+  historyProf: String!
+  hp: Int!
+  ideals: String!
+  initiative: Int!
+  insightMod: Int!
+  insightProf: String!
+  intelligenceMod: Int!
+  intelligenceProf: String!
+  intelligenceSave: Int!
+  intelligenceScore: Int!
+  intimidationMod: Int!
+  intimidationProf: String!
+  investigationMod: Int!
+  investigationProf: String!
+  languages: String!
+  medicineMod: Int!
+  medicineProf: String!
+  multiclassClass: String!
+  multiclassClassHitDice: Int!
+  multiclassClassLevel: Int!
+  multiclassSubClass: String!
+  name: String!
+  natureMod: Int!
+  natureProf: String!
+  passivePerception: Int!
+  perceptionMod: Int!
+  perceptionProf: String!
+  performanceMod: Int!
+  performanceProf: String!
+  personalityTraits: String!
+  persuasionMod: Int!
+  persuasionProf: String!
+  platinumPieces: Int!
+  proficiencyBonus: Int!
+  race: String!
+  religionMod: Int!
+  religionProf: String!
+  senses: String!
+  silverPieces: Int!
+  skin: String!
+  sleightOfHandMod: Int!
+  sleightOfHandProf: String!
+  speed: Int!
+  spellSlotsEighth: Int!
+  spellSlotsFifth: Int!
+  spellSlotsFirst: Int!
+  spellSlotsFourth: Int!
+  spellSlotsNinth: Int!
+  spellSlotsSecond: Int!
+  spellSlotsSeventh: Int!
+  spellSlotsSixth: Int!
+  spellSlotsThird: Int!
+  spellcastingAbility: String!
+  spellcastingModifier: Int!
+  spellcastingSaveDc: Int!
+  stealthMod: Int!
+  stealthProf: String!
+  strengthMod: Int!
+  strengthProf: String!
+  strengthSave: Int!
+  strengthScore: Int!
+  subRace: String!
+  survivalMod: Int!
+  survivalProf: String!
+  toolProficiencies: String!
+  weaponProficiencies: String!
+  weight: String!
+  wisdomMod: Int!
+  wisdomProf: String!
+  wisdomSave: Int!
+  wisdomScore: Int!
+}
+
+type CharacterItem {
+  """
+  The character that owns this item.
+  """
+  character: Character!
+  characterId: Int!
+  createdAt: ISO8601DateTime!
+
+  """
+  Information describing the item, its abilities, appearance, and what it can do.
+  """
+  description: String
+  id: ID!
+
+  """
+  The item's name.
+  """
+  name: String
+
+  """
+  How many of this item is in the character's inventory.
+  """
+  total: Int
+  updatedAt: ISO8601DateTime!
+}
+
+input CharacterItemInput {
+  description: String!
+  name: String!
+  total: Int!
+}
+
+type CharacterSpell {
+  """
+  How long it takes to cast this spell.
+  """
+  castingTime: String
+  character: Character!
+  characterId: Int!
+
+  """
+  What specific components are needed to cast this spell.
+  """
+  components: String
+
+  """
+  Specifies if this spell requires concentration.
+  """
+  concentration: Boolean
+  createdAt: ISO8601DateTime!
+
+  """
+  What the spell does.
+  """
+  description: String
+
+  """
+  What the spell does when cast at a higher level than this spell's base level.
+  """
+  descriptionHigherLevels: String
+
+  """
+  How long this spell's effects last for.
+  """
+  duration: String
+  id: ID!
+
+  """
+  The base spellslot level required to cast this spell.
+  """
+  level: Int
+
+  """
+  Specifies if this spell requires physical components to cast this spell.
+  """
+  materialComponents: Boolean
+
+  """
+  The name of the spell.
+  """
+  name: String
+
+  """
+  How far and what shape the spell effect can execute on.
+  """
+  range: String
+
+  """
+  Specifies the school of magic this spell belongs to.
+  """
+  school: String
+
+  """
+  Specifies if this spell requires movement to cast this spell.
+  """
+  somaticComponents: Boolean
+
+  """
+  Which or how many targets this spell can effect at one time.
+  """
+  target: String
+  updatedAt: ISO8601DateTime!
+
+  """
+  Specifies if this spell requires speech to cast this spell.
+  """
+  verbalComponents: Boolean
+}
+
+input CharacterSpellInput {
+  castingTime: String!
+  components: String!
+  concentration: Boolean!
+  description: String!
+  descriptionHigherLevels: String!
+  duration: String!
+  level: Int!
+  materialComponents: Boolean!
+  name: String!
+  range: String!
+  school: String!
+  somaticComponents: Boolean!
+  target: String!
+  verbalComponents: Boolean!
+}
+
+"""
+Autogenerated input type of CreateCharacterMutation
+"""
+input CreateCharacterMutationInput {
+  characterInput: CharacterInput!
+
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+}
+
+"""
+Autogenerated input type of DestroyCharacterMutation
+"""
+input DestroyCharacterMutationInput {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+  id: ID!
+}
+
+"""
+An ISO 8601-encoded datetime
+"""
+scalar ISO8601DateTime
+
+type Mutation {
+  createCharacter(
+    """
+    Parameters for CreateCharacterMutation
+    """
+    input: CreateCharacterMutationInput!
+  ): Character
+  destroyCharacter(
+    """
+    Parameters for DestroyCharacterMutation
+    """
+    input: DestroyCharacterMutationInput!
+  ): Character
+  updateCharacter(
+    """
+    Parameters for UpdateCharacterMutation
+    """
+    input: UpdateCharacterMutationInput!
+  ): Character
+}
+
+type Query {
+  character(id: ID!): Character!
+  characters: [Character!]!
+}
+
+"""
+Autogenerated input type of UpdateCharacterMutation
+"""
+input UpdateCharacterMutationInput {
+  characterId: ID!
+  characterInput: CharacterInput!
+
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+}
