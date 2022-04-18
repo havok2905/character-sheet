@@ -120,6 +120,7 @@ character = Character.create([
     survival_prof: "none",
     tool_proficiencies: "Cook's Utensils, Herbalism Kit",
     weapon_proficiencies: "clubs, daggers, darts, javelins, maces, quarterstaffs, scimitars, sickles, slings, spears",
+    weight: "110lbs",
     wisdom_prof: "prof",
     wisdom_mod: 4,
     wisdom_save: 6,
@@ -136,6 +137,7 @@ character = Character.create([
         description: "",
         is_saving_throw: false,
         name: "Dagger",
+        range: "20/40/60 ft.",
         saving_throw_description: "",
         saving_throw_threshold: 0,
         saving_throw_type: ""
