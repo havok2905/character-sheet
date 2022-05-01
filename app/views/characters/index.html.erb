@@ -1,0 +1,21 @@
+<div class="layout">
+  <div class="full">
+    <h1>Characters</h1>
+    <a class="button" href=<%= new_character_path %>>Create</a>
+    <ul>
+      <% @characters.each do |character| %>
+        <li>
+          <a href=<%= character_path character.id %>>
+            <div class="card card-link">
+              <h2><%= character.name %></h2>
+              <p><%= character.character_class %>, <%= character.character_sub_class %> ( <%= character.character_class_level %> )</p>
+              <% if character.multiclass_class.present?%>
+                <p><%= character.multiclass_class %>, <%= character.multiclass_sub_class %> ( <%= character.multiclass_class_level %> )</p>
+              <% end %>
+            </div>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

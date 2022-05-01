@@ -1,0 +1,370 @@
+<div class="layout">
+  <div class="full">
+    <a class="button" href=<%= edit_character_path @character.id %>>Edit</a>
+    <%= button_to "Delete", { :controller => :characters, :action => 'destroy', :id => @character.id }, :class => 'button button-destructive', :method => :delete %>
+  </div>
+  <div class="full">
+    <div class="character-sheet-header">
+      <img class="token" alt="character portrait" src="http://placekitten.com/200/200" />
+      <div>
+        <h1><%= @character.name %></h1>
+        <% if @character.character_sub_class.present? %>
+          <p><%= @character.character_class %>, <%= @character.character_sub_class %> ( <%= @character.character_class_level %> )</p>
+        <% else %>
+          <p><%= @character.character_class %> ( <%= @character.character_class_level %> )</p>
+        <%end%>
+        <% if @character.multiclass_class.present? %>
+          <% if @character.multiclass_sub_class.present? %>
+            <p><%= @character.multiclass_class %>, <%= @character.multiclass_sub_class %> ( <%= @character.multiclass_class_level %> )</p>
+          <% else %>
+            <p><%= @character.multiclass_class %> ( <%= @character.multiclass_class_level %> )</p>
+          <% end %>
+        <% end %>
+        <p><%= @character.race %> ( <%= @character.sub_race %> ), <%= @character.background %>, <%= @character.alignment %></p>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <table class="character-sheet-ability-table">
+      <thead>
+        <tr>
+          <th>AC</th>
+          <th>HP</th>
+          <th>Hit Dice</th>
+          <th>M Hit Dice</th>
+          <th>Initiative</th>
+          <th>Speed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @character.ac %></td>
+          <td><%= @character.hp %></td>
+          <td><%= @character.character_class_level %>d<%= @character.character_class_hit_dice %></td>
+          <td><%= @character.multiclass_class_level %>d<%= @character.multiclass_class_hit_dice %></td>
+          <td><%= @character.initiative %></td>
+          <td><%= @character.speed %></td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="character-sheet-ability-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>STR</th>
+          <th>DEX</th>
+          <th>CON</th>
+          <th>INT</th>
+          <th>WIS</th>
+          <th>CHA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Score</td>
+          <td><%= @character.strength_score %></td>
+          <td><%= @character.dexterity_score %></td>
+          <td><%= @character.constitution_score %></td>
+          <td><%= @character.intelligence_score %></td>
+          <td><%= @character.wisdom_score %></td>
+          <td><%= @character.charisma_score %></td>
+        </tr>
+        <tr>
+          <td>Mod</td>
+          <td><%= @character.strength_mod %></td>
+          <td><%= @character.dexterity_mod %></td>
+          <td><%= @character.constitution_mod %></td>
+          <td><%= @character.intelligence_mod %></td>
+          <td><%= @character.wisdom_mod %></td>
+          <td><%= @character.charisma_mod %></td>
+        </tr>
+        <tr>
+          <td>Save</td>
+          <td class=<%= get_profcient_class @character.strength_prof %>><%= @character.strength_save %></td>
+          <td class=<%= get_profcient_class @character.dexterity_prof %>><%= @character.dexterity_save %></td>
+          <td class=<%= get_profcient_class @character.constitution_prof %>><%= @character.constitution_save %></td>
+          <td class=<%= get_profcient_class @character.intelligence_prof %>><%= @character.intelligence_save %></td>
+          <td class=<%= get_profcient_class @character.wisdom_prof %>><%= @character.wisdom_save %></td>
+          <td class=<%= get_profcient_class @character.charisma_prof %>><%= @character.charisma_save %></td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="character-sheet-ability-table">
+      <thead>
+        <tr>
+          <th>Prof</th>
+          <th>Ability</th>
+          <th>Skill</th>
+          <th>Mod</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @character.acrobatics_prof %></td>
+          <td>Dex</td>
+          <td>Acrobatics</td>
+          <td class=<%= get_profcient_class @character.acrobatics_prof %>><%= @character.acrobatics_mod %></td>
+        </tr>
+        <tr>
+          <td><%= @character.animal_handling_prof %></td>
+          <td>Wis</td>
+          <td>Animal Handling</td>
+          <td class=<%= get_profcient_class @character.animal_handling_prof %>><%= @character.animal_handling_mod %></td>
+        </tr>
+        <tr>
+          <td><%= @character.arcana_prof %></td>
+          <td>Int</td>
+          <td>Arcana</td>
+          <td class=<%= get_profcient_class @character.arcana_prof %>><%= @character.arcana_mod %></td>
+        </tr>
+        <tr>
+          <td><%= @character.athletics_prof %></td>
+          <td>Str</td>
+          <td>Athletics</td>
+          <td class=<%= get_profcient_class @character.athletics_prof %>><%= @character.athletics_mod %></td>
+        </tr>
+        <tr>
+          <td><%= @character.deception_prof %></td>
+          <td>Cha</td>
+          <td>Deception</td>
+          <td class=<%= get_profcient_class @character.deception_prof %>><%= @character.deception_mod %></td>
+        </tr>
+        <tr>
+          <td><%= @character.history_prof %></td>
+          <td>Int</td>
+          <td>History</td>
+          <td class=<%= get_profcient_class @character.history_prof %>><%= @character.history_mod %></td>
+        </tr>
+        <tr>
+          <td><%= @character.insight_prof %></td>
+          <td>Wis</td>
+          <td>Insight</td>
+          <td class=<%= get_profcient_class @character.insight_prof %>><%= @character.insight_mod %></td>
+        </tr>
+        <tr>
+          <td><%= @character.intimidation_prof %></td>
+          <td>Cha</td>
+          <td>Intimidation</td>
+          <td class=<%= get_profcient_class @character.intimidation_prof %>><%= @character.intimidation_mod %></td>
+        </tr>
+        <tr>
+          <td><%= @character.investigation_prof %></td>
+          <td>Int</td>
+          <td>Investigation</td>
+          <td class=<%= get_profcient_class @character.investigation_prof %>><%= @character.investigation_mod %></td>
+        </tr>
+        <tr>
+          <td><%= @character.medicine_prof %></td>
+          <td>Wis</td>
+          <td>Medicine</td>
+          <td class=<%= get_profcient_class @character.medicine_prof %>><%= @character.medicine_mod %></td>
+        </tr>
+        <tr>
+          <td><%= @character.nature_prof %></td>
+          <td>Int</td>
+          <td>Nature</td>
+          <td class=<%= get_profcient_class @character.nature_prof %>><%= @character.nature_mod %></td>
+        </tr>
+        <tr>
+          <td><%= @character.perception_prof %></td>
+          <td>Wis</td>
+          <td>Perception</td>
+          <td class=<%= get_profcient_class @character.perception_prof %>><%= @character.perception_mod %></td>
+        </tr>
+        <tr>
+          <td><%= @character.performance_prof %></td>
+          <td>Cha</td>
+          <td>Performance</td>
+          <td class=<%= get_profcient_class @character.performance_prof %>><%= @character.performance_mod %></td>
+        </tr>
+        <tr>
+          <td><%= @character.persuasion_prof %></td>
+          <td>Cha</td>
+          <td>Persuasion</td>
+          <td class=<%= get_profcient_class @character.persuasion_prof %>><%= @character.persuasion_mod %></td>
+        </tr>
+        <tr>
+          <td><%= @character.religion_prof %></td>
+          <td>int</td>
+          <td>Religion</td>
+          <td class=<%= get_profcient_class @character.religion_prof %>><%= @character.religion_mod %></td>
+        </tr>
+        <tr>
+          <td><%= @character.sleight_of_hand_prof %></td>
+          <td>Dex</td>
+          <td>Sleight of Hand</td>
+          <td class=<%= get_profcient_class @character.sleight_of_hand_prof %>><%= @character.sleight_of_hand_mod %></td>
+        </tr>
+        <tr>
+          <td><%= @character.stealth_prof %></td>
+          <td>Dex</td>
+          <td>Stealth</td>
+          <td class=<%= get_profcient_class @character.stealth_prof %>><%= @character.stealth_mod %></td>
+        </tr>
+        <tr>
+          <td><%= @character.survival_prof %></td>
+          <td>Wis</td>
+          <td>Survival</td>
+          <td class=<%= get_profcient_class @character.survival_prof %>><%= @character.survival_mod %></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="card">
+      <h2>Proficinencies</h2>
+      <p><strong>Armor Proficiencies:</strong> <%= @character.armor_proficiencies %></p>
+      <p><strong>Condition Immunities:</strong> <%= @character.condition_immunities %></p>
+      <p><strong>Condition Resistences:</strong> <%= @character.condition_resistances %></p>
+      <p><strong>Condition Vulnerabilities:</strong> <%= @character.condition_vulnerabilities %></p>
+      <p><strong>Damage Immunities:</strong> <%= @character.damage_immunities %></p>
+      <p><strong>Damage Resistences:</strong> <%= @character.damage_resistances %></p>
+      <p><strong>Damage Vulnerabilities:</strong> <%= @character.damage_vulnerabilities %></p>
+      <p><strong>Languages:</strong> <%= @character.languages %></p>
+      <p><strong>Tool Proficiencies:</strong> <%= @character.tool_proficiencies %></p>
+      <p><strong>Weapon Proficiencies:</strong> <%= @character.weapon_proficiencies %></p>
+    </div>
+    <div class="card">
+      <h2>Inventory</h2>
+      <% @character.character_items.each do |item| %>
+        <%= render layout: "toggle-item", locals: { heading: "#{item.name}: #{item.total.to_s}" } do %>
+          <p><%= item.description %></p>
+        <% end %>
+      <% end %>
+    </div>
+    <table class="character-sheet-ability-table">
+      <thead>
+        <tr>
+          <th>Copper</th>
+          <th>Silver</th>
+          <th>Electrum</th>
+          <th>Gold</th>
+          <th>Platinum</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @character.copper_pieces %></td>
+          <td><%= @character.silver_pieces %></td>
+          <td><%= @character.electrum_pieces %></td>
+          <td><%= @character.gold_pieces %></td>
+          <td><%= @character.platinum_pieces %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="column">
+    <div class="card">
+      <h2>Biography</h2>
+      <p><strong>Age:</strong> <%= @character.age %></p>
+      <p><strong>Height:</strong> <%= @character.height %></p>
+      <p><strong>Weight:</strong> <%= @character.weight %></p>
+      <p><strong>Hair:</strong> <%= @character.hair %></p>
+      <p><strong>Skin:</strong> <%= @character.skin %></p>
+      <p><strong>Eyes:</strong> <%= @character.eyes %></p>
+      <p><strong>Personality Traits:</strong> <%= @character.personality_traits %></p>
+      <p><strong>Ideals:</strong> <%= @character.ideals %></p>
+      <p><strong>Bonds:</strong> <%= @character.bonds %></p>
+      <p><strong>Flaws:</strong> <%= @character.flaws %></p>
+    </div>
+    <div class="card">
+      <h2>Resources</h2>
+      <% @character.character_feature_resources.each do |resource| %>
+        <p><%= resource.name %>: <%= resource.total %></p>
+      <% end %>
+    </div>
+    <div class="card">
+      <h2>Attacks</h2>
+      <% @character.character_attacks.each do |attack| %>
+        <%= render layout: "toggle-item", locals: { heading: attack.name } do %>
+          <p>Atatck Bonus: <%= attack.attack_bonus %></p>
+          <p>Crit Range: <%= attack.crit_range %></p>
+          <p>Damage Dice Roll: <%= attack.damage_dice_roll %></p>
+          <p>Damage Two Dice Roll: <%= attack.damage_two_dice_roll %></p>
+          <p>Damage Two Type: <%= attack.damage_two_type %></p>
+          <p>Damage Type: <%= attack.damage_type %></p>
+          <p>Description: <%= attack.description %></p>
+          <p>Is Saving Throw: <%= attack.is_saving_throw %></p>
+          <p>Range: <%= attack.range %></p>
+          <p>Saving Throw Description: <%= attack.saving_throw_description %></p>
+          <p>Saving Throw Threshold: <%= attack.saving_throw_threshold %></p>
+          <p>Saving Throw Type: <%= attack.saving_throw_type %></p>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="card">
+      <h2>Features</h2>
+      <% @character.character_features.each do |feature| %>
+        <%= render layout: "toggle-item", locals: { heading: feature.name } do %>
+          <p><strong>Source:</strong> <%= feature.source %></p>
+          <p><strong>Feature Type:</strong> <%= feature.feature_type %></p>
+          <p><strong>Description:</strong> <%= feature.description %></p>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="card">
+      <h2>Spellbook</h2>
+      <p><strong>Ability:</strong> <%= @character.spellcasting_ability %></p>
+      <p><strong>Bonus:</strong> <%= @character.spellcasting_modifier %></p>
+      <p><strong>Save DC:</strong> <%= @character.spellcasting_save_dc %></p>
+      <p><strong>Cantrips</strong></h2>
+      <% get_spells_by_level(0).each do |spell| %>
+        <%= render layout: "toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+      <p><strong>1st Level Spells (<%= @character.spell_slots_first %>)</strong></p>
+      <% get_spells_by_level(1).each do |spell| %>
+        <%= render layout: "toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+      <p><strong>2nd Level Spells (<%= @character.spell_slots_second %>)</strong></p>
+      <% get_spells_by_level(2).each do |spell| %>
+        <%= render layout: "toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+      <p><strong>3rd Level Spells (<%= @character.spell_slots_third %>)</strong></p>
+      <% get_spells_by_level(3).each do |spell| %>
+        <%= render layout: "toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+      <p><strong>4th Level Spells (<%= @character.spell_slots_fourth %>)</strong></p>
+      <% get_spells_by_level(4).each do |spell| %>
+        <%= render layout: "toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+      <p><strong>5th Level Spells (<%= @character.spell_slots_fifth %>)</strong></p>
+      <% get_spells_by_level(5).each do |spell| %>
+        <%= render layout: "toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+      <p><strong>6th Level Spells (<%= @character.spell_slots_sixth %>)</strong></p>
+      <% get_spells_by_level(6).each do |spell| %>
+        <%= render layout: "toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+      <p><strong>7th Level Spells (<%= @character.spell_slots_seventh %>)</strong></p>
+      <% get_spells_by_level(7).each do |spell| %>
+        <%= render layout: "toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+      <p><strong>8th Level Spells (<%= @character.spell_slots_eighth %>)</strong></p>
+      <% get_spells_by_level(8).each do |spell| %>
+        <%= render layout: "toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+      <p><strong>9th Level Spells (<%= @character.spell_slots_ninth %>)</strong></p>
+      <% get_spells_by_level(9).each do |spell| %>
+        <%= render layout: "toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

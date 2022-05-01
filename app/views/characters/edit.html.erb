@@ -1,0 +1,8 @@
+<div class="layout">
+  <div class="full">
+    <h1>Edit Character</h1>
+    <h2><%= @character.name %></h2>
+    <a class="button" href=<%= character_path @character.id %>>View</a>
+    <%= render "form" %>
+  </div>
+</div>

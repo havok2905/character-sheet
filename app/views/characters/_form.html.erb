@@ -1,0 +1,410 @@
+<%= form_for @character do |f| %>
+  <div class="layout">
+    <div class="column">
+      <h3>Character Details</h3>
+      <fieldset>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+        <%= f.label :alignment %>
+        <%= f.text_field :alignment %>
+        <%= f.label :background %>
+        <%= f.text_field :background %>
+        <%= f.label :race %>
+        <%= f.text_field :race %>
+        <%= f.label :sub_race %>
+        <%= f.text_field :sub_race %>
+      </fieldset>
+      <h3>Character Class</h3>
+      <fieldset>
+        <%= f.label :character_class %>
+        <%= f.text_field :character_class %>
+        <%= f.label :character_sub_class %>
+        <%= f.text_field :character_sub_class %>
+        <%= f.label :character_class_hit_dice %>
+        <%= f.text_field :character_class_hit_dice %>
+        <%= f.label :character_class_level %>
+        <%= f.number_field :character_class_level %>
+      </fieldset>
+      <h3>Character Multiclass</h3>
+      <fieldset>
+        <%= f.label :multiclass_class %>
+        <%= f.text_field :multiclass_class %>
+        <%= f.label :multiclass_sub_class %>
+        <%= f.text_field :multiclass_sub_class %>
+        <%= f.label :multiclass_class_hit_dice %>
+        <%= f.text_field :multiclass_class_hit_dice %>
+        <%= f.label :multiclass_class_level %>
+        <%= f.number_field :multiclass_class_level %>
+      </fieldset>
+      <h3>Character Stats</h3>
+      <fieldset>
+        <%= f.label :hp %>
+        <%= f.number_field :hp %>
+        <%= f.label :ac %>
+        <%= f.number_field :ac %>
+        <%= f.label :initiative %>
+        <%= f.number_field :initiative %>
+        <%= f.label :speed %>
+        <%= f.number_field :speed %>
+        <%= f.label :proficiency_bonus %>
+        <%= f.number_field :proficiency_bonus %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :strength_score %>
+        <%= f.number_field :strength_score %>
+        <%= f.label :strength_mod %>
+        <%= f.number_field :strength_mod %>
+        <%= f.label :strength_save %>
+        <%= f.number_field :strength_save %>
+        <%= f.select :strength_prof, ["none", "prof", "exp"], selected: @character.strength_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :dexterity_score %>
+        <%= f.number_field :dexterity_score %>
+        <%= f.label :dexterity_mod %>
+        <%= f.number_field :dexterity_mod %>
+        <%= f.label :dexterity_save %>
+        <%= f.number_field :dexterity_save %>
+        <%= f.select :dexterity_prof, ["none", "prof", "exp"], selected: @character.dexterity_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :constitution_score %>
+        <%= f.number_field :constitution_score %>
+        <%= f.label :constitution_mod %>
+        <%= f.number_field :constitution_mod %>
+        <%= f.label :constitution_save %>
+        <%= f.number_field :constitution_save %>
+        <%= f.select :constitution_prof, ["none", "prof", "exp"], selected: @character.constitution_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :intelligence_score %>
+        <%= f.number_field :intelligence_score %>
+        <%= f.label :intelligence_mod %>
+        <%= f.number_field :intelligence_mod %>
+        <%= f.label :intelligence_save %>
+        <%= f.number_field :intelligence_save %>
+        <%= f.select :intelligence_prof, ["none", "prof", "exp"], selected: @character.intelligence_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :wisdom_score %>
+        <%= f.number_field :wisdom_score %>
+        <%= f.label :wisdom_mod %>
+        <%= f.number_field :wisdom_mod %>
+        <%= f.label :wisdom_save %>
+        <%= f.number_field :wisdom_save %>
+        <%= f.select :wisdom_prof, ["none", "prof", "exp"], selected: @character.wisdom_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :charisma_score %>
+        <%= f.number_field :charisma_score %>
+        <%= f.label :charisma_mod %>
+        <%= f.number_field :charisma_mod %>
+        <%= f.label :charisma_save %>
+        <%= f.number_field :charisma_save %>
+        <%= f.select :charisma_prof, ["none", "prof", "exp"], selected: @character.charisma_prof %>
+      </fieldset>
+      <h3>Abilities</h3>
+      <fieldset>
+        <%= f.label :acrobatics_mod %>
+        <%= f.number_field :acrobatics_mod %>
+        <%= f.select :acrobatics_prof, ["none", "prof", "exp"], selected: @character.acrobatics_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :animal_handling_mod %>
+        <%= f.number_field :animal_handling_mod %>
+        <%= f.select :animal_handling_prof, ["none", "prof", "exp"], selected: @character.animal_handling_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :arcana_mod %>
+        <%= f.number_field :arcana_mod %>
+        <%= f.select :arcana_prof, ["none", "prof", "exp"], selected: @character.arcana_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :athletics_mod %>
+        <%= f.number_field :athletics_mod %>
+        <%= f.select :athletics_prof, ["none", "prof", "exp"], selected: @character.athletics_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :deception_mod %>
+        <%= f.number_field :deception_mod %>
+        <%= f.select :deception_prof, ["none", "prof", "exp"], selected: @character.deception_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :history_mod %>
+        <%= f.number_field :history_mod %>
+        <%= f.select :history_prof, ["none", "prof", "exp"], selected: @character.history_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :insight_mod %>
+        <%= f.number_field :insight_mod %>
+        <%= f.select :insight_prof, ["none", "prof", "exp"], selected: @character.insight_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :intimidation_mod %>
+        <%= f.number_field :intimidation_mod %>
+        <%= f.select :intimidation_prof, ["none", "prof", "exp"], selected: @character.intimidation_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :investigation_mod %>
+        <%= f.number_field :investigation_mod %>
+        <%= f.select :investigation_prof, ["none", "prof", "exp"], selected: @character.investigation_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :medicine_mod %>
+        <%= f.number_field :medicine_mod %>
+        <%= f.select :medicine_prof, ["none", "prof", "exp"], selected: @character.medicine_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :nature_mod %>
+        <%= f.number_field :nature_mod %>
+        <%= f.select :nature_prof, ["none", "prof", "exp"], selected: @character.nature_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :perception_mod %>
+        <%= f.number_field :perception_mod %>
+        <%= f.select :perception_prof, ["none", "prof", "exp"], selected: @character.perception_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :performance_mod %>
+        <%= f.number_field :performance_mod %>
+        <%= f.select :performance_prof, ["none", "prof", "exp"], selected: @character.performance_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :persuasion_mod %>
+        <%= f.number_field :persuasion_mod %>
+        <%= f.select :persuasion_prof, ["none", "prof", "exp"], selected: @character.persuasion_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :religion_mod %>
+        <%= f.number_field :religion_mod %>
+        <%= f.select :religion_prof, ["none", "prof", "exp"], selected: @character.religion_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :sleight_of_hand_mod %>
+        <%= f.number_field :sleight_of_hand_mod %>
+        <%= f.select :sleight_of_hand_prof, ["none", "prof", "exp"], selected: @character.sleight_of_hand_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :stealth_mod %>
+        <%= f.number_field :stealth_mod %>
+        <%= f.select :stealth_prof, ["none", "prof", "exp"], selected: @character.stealth_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :survival_mod %>
+        <%= f.number_field :survival_mod %>
+        <%= f.select :survival_prof, ["none", "prof", "exp"], selected: @character.survival_prof %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :passive_perception %>
+        <%= f.number_field :passive_perception %>
+      </fieldset>
+      <h3>Character Proficiencies</h3>
+      <fieldset>
+        <%= f.label :armor_proficiencies %>
+        <%= f.text_field :armor_proficiencies %>
+        <%= f.label :tool_proficiencies %>
+        <%= f.text_field :tool_proficiencies %>
+        <%= f.label :weapon_proficiencies %>
+        <%= f.text_field :weapon_proficiencies %>
+        <%= f.label :condition_immunities %>
+        <%= f.text_field :condition_immunities %>
+        <%= f.label :condition_resistances %>
+        <%= f.text_field :condition_resistances %>
+        <%= f.label :condition_vulnerabilities %>
+        <%= f.text_field :condition_vulnerabilities %>
+        <%= f.label :damage_immunities %>
+        <%= f.text_field :damage_immunities %>
+        <%= f.label :damage_resistances %>
+        <%= f.text_field :damage_resistances %>
+        <%= f.label :damage_vulnerabilities %>
+        <%= f.text_field :damage_vulnerabilities %>
+        <%= f.label :senses %>
+        <%= f.text_field :senses %>
+        <%= f.label :languages %>
+        <%= f.text_field :languages %>
+      </fieldset>
+      <h3>Biography</h3>
+      <fieldset>
+        <%= f.label :personality_traits %>
+        <%= f.text_area :personality_traits %>
+        <%= f.label :ideals %>
+        <%= f.text_area :ideals %>
+        <%= f.label :bonds %>
+        <%= f.text_area :bonds %>
+        <%= f.label :flaws %>
+        <%= f.text_area :flaws %>
+        <%= f.label :age %>
+        <%= f.number_field :age %>
+        <%= f.label :eyes %>
+        <%= f.text_field :eyes %>
+        <%= f.label :hair %>
+        <%= f.text_field :hair %>
+        <%= f.label :height %>
+        <%= f.text_field :height %>
+        <%= f.label :skin %>
+        <%= f.text_field :skin %>
+        <%= f.label :weight %>
+        <%= f.text_field :weight %>
+      </fieldset>
+      <h3>Inventory</h3>
+      <%= f.fields_for :character_items do |item| %>
+        <fieldset>
+          <%= item.label :name %>
+          <%= item.text_field :name %>
+          <%= item.label :total %>
+          <%= item.number_field :total %>
+          <%= item.label :description %>
+          <%= item.text_area :description %>
+          <%= item.label(:_destroy, "Remove") %>
+          <%= item.check_box(:_destroy) %>
+        </fieldset>
+      <% end %>
+      <fieldset>
+        <%= f.label :copper_pieces %>
+        <%= f.number_field :copper_pieces %>
+        <%= f.label :silver_pieces %>
+        <%= f.number_field :silver_pieces %>
+        <%= f.label :electrum_pieces %>
+        <%= f.number_field :electrum_pieces %>
+        <%= f.label :gold_pieces %>
+        <%= f.number_field :gold_pieces %>
+        <%= f.label :platinum_pieces %>
+        <%= f.number_field :platinum_pieces %>
+      </fieldset>
+    </div>
+    <div class="column">
+      <h3>Attacks</h3>
+      <div id="character-form-attacks">
+        <%= f.fields_for :character_attacks do |attack| %>
+          <fieldset>
+            <%= attack.label :name %>
+            <%= attack.text_field :name %>
+            <%= attack.label :attack_bonus %>
+            <%= attack.number_field :attack_bonus %>
+            <%= attack.label :crit_range %>
+            <%= attack.number_field :crit_range %>
+            <%= attack.label :damage_dice_roll %>
+            <%= attack.text_field :damage_dice_roll %>
+            <%= attack.label :damage_two_dice_roll %>
+            <%= attack.text_field :damage_two_dice_roll %>
+            <%= attack.label :damage_two_type %>
+            <%= attack.text_field :damage_two_type %>
+            <%= attack.label :damage_type %>
+            <%= attack.text_field :damage_type %>
+            <%= attack.label :description %>
+            <%= attack.text_area :description %>
+            <%= attack.label :is_saving_throw %>
+            <%= attack.check_box :is_saving_throw %>
+            <%= attack.label :range %>
+            <%= attack.text_area :range %>
+            <%= attack.label :saving_throw_description %>
+            <%= attack.text_area :saving_throw_description %>
+            <%= attack.label :saving_throw_threshold %>
+            <%= attack.number_field :saving_throw_threshold %>
+            <%= attack.label :saving_throw_type %>
+            <%= attack.text_field :saving_throw_type %>
+            <%= attack.label(:_destroy, "Remove") %>
+            <%= attack.check_box(:_destroy) %>
+          </fieldset>
+        <% end %>
+      </div>
+      <button name="character-form-add-attack-button" type="button">Add Attack</button>
+      <h3>Features</h3>
+      <div id="character-form-features">
+        <%= f.fields_for :character_features do |feature| %>
+          <fieldset>
+            <%= feature.label :name %>
+            <%= feature.text_field :name %>
+            <%= feature.label :source %>
+            <%= feature.text_field :source %>
+            <%= feature.label :feature_type %>
+            <%= feature.text_field :feature_type %>
+            <%= feature.label :description %>
+            <%= feature.text_area :description %>
+            <%= feature.label(:_destroy, "Remove") %>
+            <%= feature.check_box(:_destroy) %>
+          </fieldset>
+        <% end %>
+      </div>
+      <button name="character-form-add-feature-button" type="button">Add Feature</button>
+      <h3>Feature Resources</h3>
+      <div id="character-form-feature-resources">
+        <%= f.fields_for :character_feature_resources, remote: true do |feature_resource| %>
+          <fieldset>
+            <%= feature_resource.label :name %>
+            <%= feature_resource.text_field :name %>
+            <%= feature_resource.label :total %>
+            <%= feature_resource.number_field :total %>
+            <%= feature_resource.label(:_destroy, "Remove") %>
+            <%= feature_resource.check_box(:_destroy) %>
+          </fieldset>
+        <% end %>
+      </div>
+      <button name="character-form-add-feature-resource-button" type="button">Add Feature Resource</button>
+      <h3>Spellcasting</h3>
+      <fieldset>
+        <%= f.label :spellcasting_ability %>
+        <%= f.text_field :spellcasting_ability %>
+        <%= f.label :spellcasting_modifier %>
+        <%= f.text_field :spellcasting_modifier %>
+        <%= f.label :spellcasting_save_dc %>
+        <%= f.number_field :spellcasting_save_dc %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :spell_slots_first %>
+        <%= f.number_field :spell_slots_first %>
+        <%= f.label :spell_slots_second %>
+        <%= f.number_field :spell_slots_second %>
+        <%= f.label :spell_slots_third %>
+        <%= f.number_field :spell_slots_third %>
+        <%= f.label :spell_slots_fourth %>
+        <%= f.number_field :spell_slots_fourth %>
+        <%= f.label :spell_slots_fifth %>
+        <%= f.number_field :spell_slots_fifth %>
+        <%= f.label :spell_slots_sixth %>
+        <%= f.number_field :spell_slots_sixth %>
+        <%= f.label :spell_slots_seventh %>
+        <%= f.number_field :spell_slots_seventh %>
+        <%= f.label :spell_slots_eighth %>
+        <%= f.number_field :spell_slots_eighth %>
+        <%= f.label :spell_slots_ninth %>
+        <%= f.number_field :spell_slots_ninth %>
+      </fieldset>
+      <%= f.fields_for :character_spells do |spell| %>
+        <fieldset>
+          <%= spell.label :name %>
+          <%= spell.text_field :name %>
+          <%= spell.label :level %>
+          <%= spell.number_field :level %>
+          <%= spell.label :school %>
+          <%= spell.text_field :school %>
+          <%= spell.label :casting_time %>
+          <%= spell.text_field :casting_time %>
+          <%= spell.label :duration %>
+          <%= spell.text_field :duration %>
+          <%= spell.label :range %>
+          <%= spell.text_field :range %>
+          <%= spell.label :target %>
+          <%= spell.text_field :target %>
+          <%= spell.label :components %>
+          <%= spell.text_field :components %>
+          <%= spell.label :concentration %>
+          <%= spell.check_box :concentration %>
+          <%= spell.label :material_components %>
+          <%= spell.check_box :material_components %>
+          <%= spell.label :somatic_components %>
+          <%= spell.check_box :somatic_components %>
+          <%= spell.label :verbal_components %>
+          <%= spell.check_box :verbal_components %>
+          <%= spell.label :description %>
+          <%= spell.text_area :description %>
+          <%= spell.label :description_higher_levels %>
+          <%= spell.text_area :description_higher_levels %>
+          <%= spell.label(:_destroy, "Remove") %>
+          <%= spell.check_box(:_destroy) %>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
+  <%= f.submit :class => 'button button-constructive' %>
+<% end %>
