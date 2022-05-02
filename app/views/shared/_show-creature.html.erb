@@ -157,72 +157,74 @@
         <% end %>
       </div>
     <% end %>
-    <div class="card">
-      <h2>Spellcasting</h2>
-      <p><strong>Level:</strong> <%= creature.spellcasting_level %></p>
-      <p><strong>Ability:</strong> <%= creature.spellcasting_ability %></p>
-      <p><strong>Bonus:</strong> <%= creature.spellcasting_modifier %></p>
-      <p><strong>Save DC:</strong> <%= creature.spellcasting_save_dc %></p>
-      <p><strong>Cantrips</strong></p>
-      <% get_spells_by_level(0).each do |spell| %>
-        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
-          <%= render partial: "spell", locals: { spell: spell } %>
+    <% if creature.creature_spells.any? %>
+      <div class="card">
+        <h2>Spellcasting</h2>
+        <p><strong>Level:</strong> <%= creature.spellcasting_level %></p>
+        <p><strong>Ability:</strong> <%= creature.spellcasting_ability %></p>
+        <p><strong>Bonus:</strong> <%= creature.spellcasting_modifier %></p>
+        <p><strong>Save DC:</strong> <%= creature.spellcasting_save_dc %></p>
+        <p><strong>Cantrips</strong></p>
+        <% get_spells_by_level(0).each do |spell| %>
+          <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+            <%= render partial: "shared/spell", locals: { spell: spell } %>
+          <% end %>
         <% end %>
-      <% end %>
-      <p><strong>1st Level Spells (<%= creature.spell_slots_first %>)</strong></p>
-      <% get_spells_by_level(1).each do |spell| %>
-        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
-          <%= render partial: "spell", locals: { spell: spell } %>
+        <p><strong>1st Level Spells (<%= creature.spell_slots_first %>)</strong></p>
+        <% get_spells_by_level(1).each do |spell| %>
+          <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+            <%= render partial: "shared/spell", locals: { spell: spell } %>
+          <% end %>
         <% end %>
-      <% end %>
-      <p><strong>2nd Level Spells (<%= creature.spell_slots_second %>)</strong></p>
-      <% get_spells_by_level(2).each do |spell| %>
-        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
-          <%= render partial: "spell", locals: { spell: spell } %>
+        <p><strong>2nd Level Spells (<%= creature.spell_slots_second %>)</strong></p>
+        <% get_spells_by_level(2).each do |spell| %>
+          <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+            <%= render partial: "shared/spell", locals: { spell: spell } %>
+          <% end %>
         <% end %>
-      <% end %>
-      <p><strong>3rd Level Spells (<%= creature.spell_slots_third %>)</strong></p>
-      <% get_spells_by_level(3).each do |spell| %>
-        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
-          <%= render partial: "spell", locals: { spell: spell } %>
+        <p><strong>3rd Level Spells (<%= creature.spell_slots_third %>)</strong></p>
+        <% get_spells_by_level(3).each do |spell| %>
+          <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+            <%= render partial: "shared/spell", locals: { spell: spell } %>
+          <% end %>
         <% end %>
-      <% end %>
-      <p><strong>4th Level Spells (<%= creature.spell_slots_fourth %>)</strong></p>
-      <% get_spells_by_level(4).each do |spell| %>
-        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
-          <%= render partial: "spell", locals: { spell: spell } %>
+        <p><strong>4th Level Spells (<%= creature.spell_slots_fourth %>)</strong></p>
+        <% get_spells_by_level(4).each do |spell| %>
+          <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+            <%= render partial: "shared/spell", locals: { spell: spell } %>
+          <% end %>
         <% end %>
-      <% end %>
-      <p><strong>5th Level Spells (<%= creature.spell_slots_fifth %>)</strong></p>
-      <% get_spells_by_level(5).each do |spell| %>
-        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
-          <%= render partial: "spell", locals: { spell: spell } %>
+        <p><strong>5th Level Spells (<%= creature.spell_slots_fifth %>)</strong></p>
+        <% get_spells_by_level(5).each do |spell| %>
+          <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+            <%= render partial: "shared/spell", locals: { spell: spell } %>
+          <% end %>
         <% end %>
-      <% end %>
-      <p><strong>6th Level Spells (<%= creature.spell_slots_sixth %>)</strong></p>
-      <% get_spells_by_level(6).each do |spell| %>
-        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
-          <%= render partial: "spell", locals: { spell: spell } %>
+        <p><strong>6th Level Spells (<%= creature.spell_slots_sixth %>)</strong></p>
+        <% get_spells_by_level(6).each do |spell| %>
+          <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+            <%= render partial: "shared/spell", locals: { spell: spell } %>
+          <% end %>
         <% end %>
-      <% end %>
-      <p><strong>7th Level Spells (<%= creature.spell_slots_seventh %>)</strong></p>
-      <% get_spells_by_level(7).each do |spell| %>
-        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
-          <%= render partial: "spell", locals: { spell: spell } %>
+        <p><strong>7th Level Spells (<%= creature.spell_slots_seventh %>)</strong></p>
+        <% get_spells_by_level(7).each do |spell| %>
+          <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+            <%= render partial: "shared/spell", locals: { spell: spell } %>
+          <% end %>
         <% end %>
-      <% end %>
-      <p><strong>8th Level Spells (<%= creature.spell_slots_eighth %>)</strong></p>
-      <% get_spells_by_level(8).each do |spell| %>
-        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
-          <%= render partial: "spell", locals: { spell: spell } %>
+        <p><strong>8th Level Spells (<%= creature.spell_slots_eighth %>)</strong></p>
+        <% get_spells_by_level(8).each do |spell| %>
+          <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+            <%= render partial: "shared/spell", locals: { spell: spell } %>
+          <% end %>
         <% end %>
-      <% end %>
-      <p><strong>9th Level Spells (<%= creature.spell_slots_ninth %>)</strong></p>
-      <% get_spells_by_level(9).each do |spell| %>
-        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
-          <%= render partial: "spell", locals: { spell: spell } %>
+        <p><strong>9th Level Spells (<%= creature.spell_slots_ninth %>)</strong></p>
+        <% get_spells_by_level(9).each do |spell| %>
+          <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+            <%= render partial: "shared/spell", locals: { spell: spell } %>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
 </div>

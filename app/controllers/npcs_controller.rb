@@ -44,7 +44,7 @@ class NpcsController < ApplicationController
 
   helper_method :get_spells_by_level
   def get_spells_by_level level
-    []
+    @npc.creature_spells.select { |spell|  spell.level == level }
   end
 
   private

@@ -71,6 +71,4 @@ group :test do
   gem "webdrivers"
 end
 
-gem "graphql", "~> 2.0"
-gem "graphiql-rails", group: :development
 gem 'pry', '~> 0.13.1'

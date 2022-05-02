@@ -44,7 +44,7 @@ class MonstersController < ApplicationController
 
   helper_method :get_spells_by_level
   def get_spells_by_level level
-    []
+    @monster.creature_spells.select { |spell|  spell.level == level }
   end
 
   private

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_02_022733) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_02_070933) do
   create_table "character_attacks", force: :cascade do |t|
     t.integer "character_id"
     t.integer "attack_bonus"
@@ -258,6 +258,27 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_02_022733) do
     t.index ["creature_id"], name: "index_creature_regional_effects_on_creature_id"
   end
 
+  create_table "creature_spells", force: :cascade do |t|
+    t.integer "creature_id"
+    t.string "casting_time"
+    t.string "components"
+    t.boolean "concentration"
+    t.text "description"
+    t.text "description_higher_levels"
+    t.string "duration"
+    t.integer "level"
+    t.boolean "material_components"
+    t.string "name"
+    t.string "range"
+    t.string "school"
+    t.boolean "somatic_components"
+    t.string "target"
+    t.boolean "verbal_components"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creature_id"], name: "index_creature_spells_on_creature_id"
+  end
+
   create_table "creatures", force: :cascade do |t|
     t.integer "ac"
     t.string "alignment"
@@ -331,4 +352,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_02_022733) do
   add_foreign_key "creature_lair_actions", "creatures"
   add_foreign_key "creature_legendary_actions", "creatures"
   add_foreign_key "creature_regional_effects", "creatures"
+  add_foreign_key "creature_spells", "creatures"
 end
