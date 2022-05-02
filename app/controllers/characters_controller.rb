@@ -63,7 +63,7 @@ class CharactersController < ApplicationController
 
   helper_method :get_profcient_class
   def get_profcient_class prof
-    prof == 'prof' || prof == 'exp' ? 'character-sheet-table-data-bolded' : nil
+    prof == 'prof' || prof == 'exp' ? 'sheet-table-data-bolded' : nil
   end
 
   helper_method :get_spells_by_level

@@ -1,0 +1,7 @@
+<div class="layout">
+  <div class="full">
+    <h1>New Monster</h1>
+    <a class="button" href="<%= monsters_path %>">Back</a>
+    <%= render partial: "shared/creature-form", locals: { creature: @monster, form_url: monsters_path } %>
+  </div>
+</div>

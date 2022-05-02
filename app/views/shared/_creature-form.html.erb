@@ -1,0 +1,115 @@
+<%= form_for creature, :url => form_url do |f| %>
+  <div class="layout">
+    <div class="full">
+      <%= f.submit :class => 'button button-constructive' %>
+    </div>
+    <div class="column">
+      <h3>Creature Details</h3>
+      <fieldset>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+        <%= f.label :size %>
+        <%= f.text_field :size %>
+        <%= f.label :creature_type %>
+        <%= f.text_field :creature_type %>
+        <%= f.label :alignment %>
+        <%= f.text_field :alignment %>
+        <%= f.label :cr %>
+        <%= f.number_field :cr %>
+        <%= f.label :ac %>
+        <%= f.number_field :ac %>
+        <%= f.label :hp %>
+        <%= f.number_field :hp %>
+        <%= f.label :speed %>
+        <%= f.text_field :speed %>
+      </fieldset>
+      <h3>Creature Abilities</h3>
+      <fieldset>
+        <%= f.label :skills %>
+        <%= f.text_field :skills %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :strength_score %>
+        <%= f.number_field :strength_score %>
+        <%= f.label :strength_mod %>
+        <%= f.number_field :strength_mod %>
+        <%= f.label :strength_save %>
+        <%= f.number_field :strength_save %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :dexterity_score %>
+        <%= f.number_field :dexterity_score %>
+        <%= f.label :dexterity_mod %>
+        <%= f.number_field :dexterity_mod %>
+        <%= f.label :dexterity_save %>
+        <%= f.number_field :dexterity_save %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :constitution_score %>
+        <%= f.number_field :constitution_score %>
+        <%= f.label :constitution_mod %>
+        <%= f.number_field :constitution_mod %>
+        <%= f.label :constitution_save %>
+        <%= f.number_field :constitution_save %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :intelligence_score %>
+        <%= f.number_field :intelligence_score %>
+        <%= f.label :intelligence_mod %>
+        <%= f.number_field :intelligence_mod %>
+        <%= f.label :intelligence_save %>
+        <%= f.number_field :intelligence_save %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :wisdom_score %>
+        <%= f.number_field :wisdom_score %>
+        <%= f.label :wisdom_mod %>
+        <%= f.number_field :wisdom_mod %>
+        <%= f.label :wisdom_save %>
+        <%= f.number_field :wisdom_save %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :charisma_score %>
+        <%= f.number_field :charisma_score %>
+        <%= f.label :charisma_mod %>
+        <%= f.number_field :charisma_mod %>
+        <%= f.label :charisma_save %>
+        <%= f.number_field :charisma_save %>
+      </fieldset>
+      <h3>Creature Proficiencies</h3>
+      <fieldset>
+        <%= f.label :condition_immunities %>
+        <%= f.text_field :condition_immunities %>
+        <%= f.label :condition_resistances %>
+        <%= f.text_field :condition_resistances %>
+        <%= f.label :condition_vulnerabilities %>
+        <%= f.text_field :condition_vulnerabilities %>
+        <%= f.label :damage_immunities %>
+        <%= f.text_field :damage_immunities %>
+        <%= f.label :damage_resistances %>
+        <%= f.text_field :damage_resistances %>
+        <%= f.label :damage_vulnerabilities %>
+        <%= f.text_field :damage_vulnerabilities %>
+        <%= f.label :senses %>
+        <%= f.text_field :senses %>
+        <%= f.label :languages %>
+        <%= f.text_field :languages %>
+      </fieldset>
+    </div>
+    <div class="column">
+      <h2>About</h2>
+      <fieldset>
+        <%= f.label :personality_traits %>
+        <%= f.text_area :personality_traits %>
+        <%= f.label :ideals %>
+        <%= f.text_area :ideals %>
+        <%= f.label :bonds %>
+        <%= f.text_area :bonds %>
+        <%= f.label :flaws %>
+        <%= f.text_area :flaws %>
+        <%= f.label :description %>
+        <%= f.text_area :description %>
+      </fieldset>
+    </div>
+  <div class="layout">
+<% end %>

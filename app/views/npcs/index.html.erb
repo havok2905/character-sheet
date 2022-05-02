@@ -1,0 +1,18 @@
+<div class="layout">
+  <div class="full">
+    <h1>NPCs</h1>
+    <a class="button" href="<%= new_npc_path %>">Create</a>
+    <ul>
+      <% @npcs.each do |npc| %>
+        <li>
+          <a href="<%= npc_path npc %>">
+            <div class="card card-link">
+              <h2><%= npc.name %></h2>
+              <p><%= npc.size %>, <%= npc.creature_type %> ( CR: <%= npc.cr %> )</p>
+            </div>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

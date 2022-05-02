@@ -374,3 +374,306 @@ You choose whether your equipment falls to the ground in your space, merges into
     ]
   }
 ])
+
+monster = Creature.create([
+  {
+    ac: 22,
+    armor: "Natural",
+    alignment: "Chaotic Evil",
+    bonds: "",
+    charisma_mod: 6,
+    charisma_save: 13,
+    charisma_score: 23,
+    condition_immunities: "",
+    condition_resistances: "",
+    condition_vulnerabilities: "",
+    constitution_mod: 9,
+    constitution_save: 16,
+    constitution_score: 29,
+    cr: 24,
+    creature_category: "Monster",
+    creature_type: "Dragon",
+    damage_immunities: "fire",
+    damage_resistances: "",
+    damage_vulnerabilities: "",
+    description: "",
+    dexterity_mod: 0,
+    dexterity_save: 7,
+    dexterity_score: 10,
+    flaws: "",
+    hp: 546,
+    ideals: "",
+    intelligence_mod: 4,
+    intelligence_save: 4,
+    intelligence_score: 18,
+    languages: "Common, Draconic",
+    lair_actions_text: "On Initiative count 20 (losing Initiative ties), the Dragon takes a lair action to cause one of the following effects; the Dragon can’t use the same Effect two rounds in a row:",
+    legendary_actions_text: "Ancient Red Dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. Ancient Red Dragon regains spent legendary actions at the start of their turn.",
+    name: "Ancient Red Dragon",
+    personality_traits: "",
+    regional_effects_text: "The region containing a legendary red dragon's lair is warped by the dragon's magic, which creates one or more of the following effects. If the Dragon dies, these Effects fade over the course of 1d10 days.",
+    senses: "blindsight 60 ft., darkvision 120 ft., passive Perception 26",
+    size: "Gargantuan",
+    skills: "Perception +16, Stealth +7",
+    speed: "40 ft., climb 40 ft., fly 80 ft.",
+    spell_slots_eighth: 0,
+    spell_slots_fifth: 0,
+    spell_slots_first: 0,
+    spell_slots_fourth: 0,
+    spell_slots_ninth: 0,
+    spell_slots_second: 0,
+    spell_slots_seventh: 0,
+    spell_slots_sixth: 0,
+    spell_slots_third: 0,
+    spellcasting_ability: "",
+    spellcasting_level: 0,
+    spellcasting_modifier: 0,
+    spellcasting_save_dc: 0,
+    strength_mod: 10,
+    strength_save: 10,
+    strength_score: 30,
+    wisdom_mod: 2,
+    wisdom_save: 9,
+    wisdom_score: 15,
+
+    creature_actions: [
+      CreatureAction.create({
+        description: "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
+        action_type: "Passive",
+        action_combat_type: "",
+        attack_bonus: 0,
+        damage_dice_roll: "",
+        damage_two_dice_roll: "",
+        damage_two_type: "",
+        damage_type: "",
+        name: "Multiattack",
+        range: "",
+        saving_throw_dc: 0,
+        saving_throw_type: ""
+      }),
+      CreatureAction.create({
+        description: "",
+        action_type: "Action",
+        action_combat_type: "Melee Weapon Attack",
+        attack_bonus: 17,
+        damage_dice_roll: "2d10 + 10",
+        damage_two_dice_roll: "4d6",
+        damage_two_type: "Fire",
+        damage_type: "Piercing",
+        name: "Bite",
+        range: "15ft.",
+        saving_throw_dc: 0,
+        saving_throw_type: ""
+      }),
+      CreatureAction.create({
+        description: "",
+        action_type: "Action",
+        action_combat_type: "Melee Weapon Attack",
+        attack_bonus: 17,
+        damage_dice_roll: "2d6 + 10",
+        damage_two_dice_roll: "",
+        damage_two_type: "",
+        damage_type: "Piercing",
+        name: "Claw",
+        range: "10ft.",
+        saving_throw_dc: 0,
+        saving_throw_type: ""
+      }),
+      CreatureAction.create({
+        description: "",
+        action_type: "Action",
+        action_combat_type: "Melee Weapon Attack",
+        attack_bonus: 17,
+        damage_dice_roll: "2d8 + 10",
+        damage_two_dice_roll: "",
+        damage_two_type: "",
+        damage_type: "Bludgeoning",
+        name: "Tail",
+        range: "20ft.",
+        saving_throw_dc: 0,
+        saving_throw_type: ""
+      }),
+      CreatureAction.create({
+        description: "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 21 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+        action_type: "Action",
+        action_combat_type: "",
+        attack_bonus: "",
+        damage_dice_roll: "",
+        damage_two_dice_roll: "",
+        damage_two_type: "",
+        damage_type: "",
+        name: "Frightful Presence",
+        range: "",
+        saving_throw_dc: 0,
+        saving_throw_type: ""
+      }),
+      CreatureAction.create({
+        description: "The dragon exhales fire in a 90-foot cone. Each creature in that area must make a DC 24 Dexterity saving throw, taking 91 (26d6) fire damage on a failed save, or half as much damage on a successful one.",
+        action_type: "Action",
+        action_combat_type: "",
+        attack_bonus: "",
+        damage_dice_roll: "26d6",
+        damage_two_dice_roll: "",
+        damage_two_type: "",
+        damage_type: "Fire",
+        name: "Fire Breath (Recharge 5-6)",
+        range: "90 foot cone",
+        saving_throw_dc: 24,
+        saving_throw_type: "Dexterity"
+      })
+    ],
+
+    creature_features: [
+      CreatureFeature.create({
+        description: "If the dragon fails a saving throw, it can choose to succeed instead.",
+        feature_type: "Passive",
+        name: "Legendary Resistance (3/Day)"
+      })
+    ],
+
+    creature_lair_actions: [
+      CreatureLairAction.create({
+        description: "Magma erupts from a point on the ground the Dragon can see within 120 feet of it, creating a 20-foot-high, 5-foot-radius geyser. Each creature in the geyser's area must make a DC 15 Dexterity saving throw, taking 21 (6d6) fire damage on a failed save, or half as much damage on a successful one."
+      }),
+      CreatureLairAction.create({
+        description: "A tremor shakes the lair in a 60-foot radius around the Dragon. Each creature other than the Dragon on the ground in that area must succeed on a DC 15 Dexterity saving throw or be knocked prone."
+      }),
+      CreatureLairAction.create({
+        description: "Volcanic gases form a cloud in a 20-foot-radius Sphere centered on a point the Dragon can see within 120 feet of it. The Sphere spreads around corners, and its area is lightly obscured. It lasts until Initiative count 20 on the next round. Each creature that starts its turn in the cloud must succeed on a DC 13 Constitution saving throw or be Poisoned until the end of its turn. While Poisoned in this way, a creature is Incapacitated."
+      })
+    ],
+
+    creature_legendary_actions: [
+      CreatureLegendaryAction.create({
+        description: "The dragon makes a Wisdom (Perception) check.",
+        name: "Detect"
+      }),
+      CreatureLegendaryAction.create({
+        description: "The dragon makes a tail attack.",
+        name: "Tail Attack"
+      }),
+      CreatureLegendaryAction.create({
+        description: "The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 25 Dexterity saving throw or take 17 (2d6 + 10) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.",
+        name: "Wing Attack (Costs 2 Actions)"
+      })
+    ],
+
+    creature_regional_effects: [
+      CreatureRegionalEffect.create({
+        description: "Small earthquakes are Common within 6 miles of the dragon's lair."
+      }),
+      CreatureRegionalEffect.create({
+        description: "Water sources within 1 mile of the lair are supernaturally warm and tainted by sulfur."
+      }),
+      CreatureRegionalEffect.create({
+        description: "Rocky fissures within 1 mile of the dragon's lair form Portals to the Elemental Plane of Fire, allowing Creatures of elemental fire into the world to dwell nearby."
+      })
+    ]
+  }
+])
+
+npc = Creature.create([
+  {
+    ac: 12,
+    armor: "15 with Mage Armor",
+    alignment: "Chaotic Evil",
+    bonds: "Has many evil children",
+    charisma_mod: 0,
+    charisma_save: 0,
+    charisma_score: 11,
+    condition_immunities: "",
+    condition_resistances: "",
+    condition_vulnerabilities: "",
+    constitution_mod: 0,
+    constitution_save: 0,
+    constitution_score: 11,
+    cr: 6,
+    creature_category: "NPC",
+    creature_type: "Humanoid (Human)",
+    damage_immunities: "",
+    damage_resistances: "",
+    damage_vulnerabilities: "",
+    description: "Very very very evil",
+    dexterity_mod: 2,
+    dexterity_save: 2,
+    dexterity_score: 14,
+    flaws: "Has a huge ego",
+    hp: 40,
+    ideals: "Only studying. Never play.",
+    intelligence_mod: 3,
+    intelligence_save: 6,
+    intelligence_score: 17,
+    languages: "Common, Draconic, Elvish, Infernal",
+    lair_actions_text: "",
+    legendary_actions_text: "",
+    name: "The Mighty Mage",
+    personality_traits: "Coughs every other word",
+    regional_effects_text: "",
+    senses: "passive Perception 11",
+    size: "Medium",
+    skills: "Arcana +6, History +6",
+    speed: "30 ft.",
+    spell_slots_eighth: 0,
+    spell_slots_fifth: 1,
+    spell_slots_first: 4,
+    spell_slots_fourth: 3,
+    spell_slots_ninth: 0,
+    spell_slots_second: 3,
+    spell_slots_seventh: 0,
+    spell_slots_sixth: 0,
+    spell_slots_third: 3,
+    spellcasting_ability: "Intelligence",
+    spellcasting_level: 9,
+    spellcasting_modifier: 6,
+    spellcasting_save_dc: 14,
+    strength_mod: -1,
+    strength_save: -1,
+    strength_score: 9,
+    wisdom_mod: 1,
+    wisdom_save: 4,
+    wisdom_score: 12,
+
+    creature_actions: [
+      CreatureAction.create({
+        description: "",
+        action_type: "Action",
+        action_combat_type: "Melee Weapon Attack",
+        attack_bonus: 5,
+        damage_dice_roll: "1d4+2",
+        damage_two_dice_roll: "",
+        damage_two_type: "",
+        damage_type: "Piercing",
+        name: "Dagger",
+        range: "5ft.",
+        saving_throw_dc: 0,
+        saving_throw_type: ""
+      }),
+      CreatureAction.create({
+        description: "",
+        action_type: "Action",
+        action_combat_type: "Ranged Weapon Attack",
+        attack_bonus: 5,
+        damage_dice_roll: "1d4+2",
+        damage_two_dice_roll: "",
+        damage_two_type: "",
+        damage_type: "Piercing",
+        name: "Dagger - Ranged",
+        range: "20/60ft.",
+        saving_throw_dc: 0,
+        saving_throw_type: ""
+      })
+    ],
+
+    creature_features: [
+    ],
+
+    creature_lair_actions: [
+    ],
+
+    creature_legendary_actions: [
+    ],
+
+    creature_regional_effects: [
+    ]
+  }
+])

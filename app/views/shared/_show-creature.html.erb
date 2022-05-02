@@ -1,0 +1,228 @@
+<div class="layout">
+  <div class="full">
+    <div class="sheet-header">
+      <a class="sheet-header-settings" href="<%= settings_url %>">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+          <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+        </svg>
+      </a>
+      <img class="token" alt="character portrait" src="http://placekitten.com/200/200" />
+      <div>
+        <h1><%= creature.name %></h1>
+        <p><%= creature.size %> <%= creature.creature_type %>, <%= creature.alignment %></p>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <table >
+      <thead>
+        <tr>
+          <th>CR</th>
+          <th>AC</th>
+          <th>HP</th>
+          <th>Speed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= creature.cr %></td>
+          <td><%= creature.ac %>, ( <%= creature.armor %> )</td>
+          <td><%= creature.hp %></td>
+          <td><%= creature.speed %></td>
+        </tr>
+      </tbody>
+    </table>
+    <table >
+      <thead>
+        <tr>
+          <th></th>
+          <th>STR</th>
+          <th>DEX</th>
+          <th>CON</th>
+          <th>INT</th>
+          <th>WIS</th>
+          <th>CHA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Score</td>
+          <td><%= creature.strength_score %></td>
+          <td><%= creature.dexterity_score %></td>
+          <td><%= creature.constitution_score %></td>
+          <td><%= creature.intelligence_score %></td>
+          <td><%= creature.wisdom_score %></td>
+          <td><%= creature.charisma_score %></td>
+        </tr>
+        <tr>
+          <td>Mod</td>
+          <td><%= creature.strength_mod %></td>
+          <td><%= creature.dexterity_mod %></td>
+          <td><%= creature.constitution_mod %></td>
+          <td><%= creature.intelligence_mod %></td>
+          <td><%= creature.wisdom_mod %></td>
+          <td><%= creature.charisma_mod %></td>
+        </tr>
+        <tr>
+          <td>Save</td>
+          <td><%= creature.strength_save %></td>
+          <td><%= creature.dexterity_save %></td>
+          <td><%= creature.constitution_save %></td>
+          <td><%= creature.intelligence_save %></td>
+          <td><%= creature.wisdom_save %></td>
+          <td><%= creature.charisma_save %></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="card">
+      <h2>Skills</h2>
+      <%= creature.skills %>
+      <h2>Senses</h2>
+      <%= creature.senses %>
+      <h2>Proficiencies</h2>
+      <p><strong>Condition Immunities:</strong> <%= creature.condition_immunities %></p>
+      <p><strong>Condition Resistences:</strong> <%= creature.condition_resistances %></p>
+      <p><strong>Condition Vulnerabilities:</strong> <%= creature.condition_vulnerabilities %></p>
+      <p><strong>Damage Immunities:</strong> <%= creature.damage_immunities %></p>
+      <p><strong>Damage Resistences:</strong> <%= creature.damage_resistances %></p>
+      <p><strong>Damage Vulnerabilities:</strong> <%= creature.damage_vulnerabilities %></p>
+      <p><strong>Languages:</strong> <%= creature.languages %></p>
+    </div>
+    <div class="card">
+      <h2>About</h2>
+      <p><strong>Personality Traits:</strong> <%= creature.personality_traits %></p>
+      <p><strong>Ideals:</strong> <%= creature.ideals %></p>
+      <p><strong>Bonds:</strong> <%= creature.bonds %></p>
+      <p><strong>Flaws:</strong> <%= creature.flaws %></p>
+      <p><strong>Description:</strong> <%= creature.description %></p>
+    </div>
+    <% if creature.creature_lair_actions.any? %>
+      <div class="card">
+        <h2>Lair Actions</h2>
+        <p><%= creature.lair_actions_text %></p>
+        <ul>
+          <% creature.creature_lair_actions.each do |action| %>
+            <li><p><%= action.description %></p></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if creature.creature_regional_effects.any? %>
+      <div class="card">
+        <h2>Regional Effects</h2>
+        <p><%= creature.regional_effects_text %></p>
+        <ul>
+          <% creature.creature_regional_effects.each do |effect| %>
+            <li><p><%= effect.description %></p></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+  <div class="column">
+    <% if creature.creature_features.any? %>
+      <div class="card">
+        <h2>Features</h2>
+        <% creature.creature_features.each do |feature| %>
+          <%= render layout: "shared/toggle-item", locals: { heading: "#{feature.name}: #{feature.feature_type}" } do %>
+            <p><%= feature.description %></p>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if creature.creature_actions.any? %>
+      <div class="card">
+        <h2>Actions</h2>
+        <% creature.creature_actions.each do |action| %>
+          <%= render layout: "shared/toggle-item", locals: { heading: "#{action.name}: #{action.action_type}" } do %>
+            <p><%= action.action_combat_type %></p>
+            <p>To Hit: <%= action.attack_bonus %></p>
+            <p>Damage<%= action.damage_dice_roll %> <%= action.damage_type %></p>
+            <p>Damage Two<%= action.damage_two_dice_roll %> <%= action.damage_two_type %></p>
+            <p>Range: <%= action.range %></p>
+            <p>Save DC: DC<%= action.saving_throw_dc %> <%= action.saving_throw_type %></p>
+            <p><%= action.description %></p>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if creature.creature_legendary_actions.any? %>
+      <div class="card">
+        <h2>Legendary Actions</h2>
+        <p><%= creature.legendary_actions_text %></p>
+        <% creature.creature_legendary_actions.each do |action| %>
+          <%= render layout: "shared/toggle-item", locals: { heading: action.name } do %>
+            <p><%= action.description %></p>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="card">
+      <h2>Spellcasting</h2>
+      <p><strong>Level:</strong> <%= creature.spellcasting_level %></p>
+      <p><strong>Ability:</strong> <%= creature.spellcasting_ability %></p>
+      <p><strong>Bonus:</strong> <%= creature.spellcasting_modifier %></p>
+      <p><strong>Save DC:</strong> <%= creature.spellcasting_save_dc %></p>
+      <p><strong>Cantrips</strong></p>
+      <% get_spells_by_level(0).each do |spell| %>
+        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+      <p><strong>1st Level Spells (<%= creature.spell_slots_first %>)</strong></p>
+      <% get_spells_by_level(1).each do |spell| %>
+        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+      <p><strong>2nd Level Spells (<%= creature.spell_slots_second %>)</strong></p>
+      <% get_spells_by_level(2).each do |spell| %>
+        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+      <p><strong>3rd Level Spells (<%= creature.spell_slots_third %>)</strong></p>
+      <% get_spells_by_level(3).each do |spell| %>
+        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+      <p><strong>4th Level Spells (<%= creature.spell_slots_fourth %>)</strong></p>
+      <% get_spells_by_level(4).each do |spell| %>
+        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+      <p><strong>5th Level Spells (<%= creature.spell_slots_fifth %>)</strong></p>
+      <% get_spells_by_level(5).each do |spell| %>
+        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+      <p><strong>6th Level Spells (<%= creature.spell_slots_sixth %>)</strong></p>
+      <% get_spells_by_level(6).each do |spell| %>
+        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+      <p><strong>7th Level Spells (<%= creature.spell_slots_seventh %>)</strong></p>
+      <% get_spells_by_level(7).each do |spell| %>
+        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+      <p><strong>8th Level Spells (<%= creature.spell_slots_eighth %>)</strong></p>
+      <% get_spells_by_level(8).each do |spell| %>
+        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+      <p><strong>9th Level Spells (<%= creature.spell_slots_ninth %>)</strong></p>
+      <% get_spells_by_level(9).each do |spell| %>
+        <%= render layout: "shared/toggle-item", locals: { heading: spell.name } do %>
+          <%= render partial: "spell", locals: { spell: spell } %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

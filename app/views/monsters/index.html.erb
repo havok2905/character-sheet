@@ -1,0 +1,18 @@
+<div class="layout">
+  <div class="full">
+    <h1>Monsters</h1>
+    <a class="button" href="<%= new_monster_path %>">Create</a>
+    <ul>
+      <% @monsters.each do |monster| %>
+        <li>
+          <a href="<%= monster_path monster %>">
+            <div class="card card-link">
+              <h2><%= monster.name %></h2>
+              <p><%= monster.size %>, <%= monster.creature_type %> ( CR: <%= monster.cr %> )</p>
+            </div>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

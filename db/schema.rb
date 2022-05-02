@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_05_080447) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_02_022733) do
   create_table "character_attacks", force: :cascade do |t|
     t.integer "character_id"
     t.integer "attack_bonus"
@@ -204,9 +204,131 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_05_080447) do
     t.integer "spellcasting_save_dc"
   end
 
+  create_table "creature_actions", force: :cascade do |t|
+    t.integer "creature_id"
+    t.text "description"
+    t.string "action_type"
+    t.string "action_combat_type"
+    t.integer "attack_bonus"
+    t.string "damage_dice_roll"
+    t.string "damage_two_dice_roll"
+    t.string "damage_two_type"
+    t.string "damage_type"
+    t.string "name"
+    t.string "range"
+    t.integer "saving_throw_dc"
+    t.string "saving_throw_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creature_id"], name: "index_creature_actions_on_creature_id"
+  end
+
+  create_table "creature_features", force: :cascade do |t|
+    t.integer "creature_id"
+    t.text "description"
+    t.string "feature_type"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creature_id"], name: "index_creature_features_on_creature_id"
+  end
+
+  create_table "creature_lair_actions", force: :cascade do |t|
+    t.integer "creature_id"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creature_id"], name: "index_creature_lair_actions_on_creature_id"
+  end
+
+  create_table "creature_legendary_actions", force: :cascade do |t|
+    t.integer "creature_id"
+    t.text "description"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creature_id"], name: "index_creature_legendary_actions_on_creature_id"
+  end
+
+  create_table "creature_regional_effects", force: :cascade do |t|
+    t.integer "creature_id"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creature_id"], name: "index_creature_regional_effects_on_creature_id"
+  end
+
+  create_table "creatures", force: :cascade do |t|
+    t.integer "ac"
+    t.string "alignment"
+    t.string "armor"
+    t.text "bonds"
+    t.integer "charisma_mod"
+    t.integer "charisma_save"
+    t.integer "charisma_score"
+    t.text "condition_immunities"
+    t.text "condition_resistances"
+    t.text "condition_vulnerabilities"
+    t.integer "constitution_mod"
+    t.integer "constitution_save"
+    t.integer "constitution_score"
+    t.integer "cr"
+    t.string "creature_category"
+    t.string "creature_type"
+    t.text "damage_immunities"
+    t.text "damage_resistances"
+    t.text "damage_vulnerabilities"
+    t.text "description"
+    t.integer "dexterity_mod"
+    t.integer "dexterity_save"
+    t.integer "dexterity_score"
+    t.text "flaws"
+    t.integer "hp"
+    t.text "ideals"
+    t.integer "intelligence_mod"
+    t.integer "intelligence_save"
+    t.integer "intelligence_score"
+    t.string "languages"
+    t.text "lair_actions_text"
+    t.text "legendary_actions_text"
+    t.string "name"
+    t.text "personality_traits"
+    t.text "regional_effects_text"
+    t.text "senses"
+    t.string "size"
+    t.text "skills"
+    t.string "speed"
+    t.integer "spell_slots_first"
+    t.integer "spell_slots_second"
+    t.integer "spell_slots_third"
+    t.integer "spell_slots_fourth"
+    t.integer "spell_slots_fifth"
+    t.integer "spell_slots_sixth"
+    t.integer "spell_slots_seventh"
+    t.integer "spell_slots_eighth"
+    t.integer "spell_slots_ninth"
+    t.integer "spellcasting_ability"
+    t.integer "spellcasting_level"
+    t.integer "spellcasting_modifier"
+    t.integer "spellcasting_save_dc"
+    t.integer "strength_mod"
+    t.integer "strength_save"
+    t.integer "strength_score"
+    t.integer "wisdom_mod"
+    t.integer "wisdom_save"
+    t.integer "wisdom_score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "character_attacks", "characters"
   add_foreign_key "character_feature_resources", "characters"
   add_foreign_key "character_features", "characters"
   add_foreign_key "character_items", "characters"
   add_foreign_key "character_spells", "characters"
+  add_foreign_key "creature_actions", "creatures"
+  add_foreign_key "creature_features", "creatures"
+  add_foreign_key "creature_lair_actions", "creatures"
+  add_foreign_key "creature_legendary_actions", "creatures"
+  add_foreign_key "creature_regional_effects", "creatures"
 end
