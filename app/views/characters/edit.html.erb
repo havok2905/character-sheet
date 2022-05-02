@@ -6,8 +6,9 @@
     <a class="button" href=<%= character_edit_inventory_path @character %>>Inventory</a>
     <a class="button" href=<%= character_edit_resources_path @character %>>Resources</a>
     <a class="button" href=<%= character_edit_spells_path @character %>>Spells</a>
-    <%= button_to "Delete", { :controller => :characters, :action => 'destroy', :id => @character.id }, :class => 'button button-destructive', :method => :delete %>
     <h2><%= @character.name %></h2>
+    <a class="button" href="<%= character_path @character %>">Back</a>
     <%= render "form" %>
+    <%= button_to "Delete", { :controller => :characters, :action => 'destroy', :id => @character.id }, :class => 'button button-destructive', :method => :delete %>
   </div>
 </div>
