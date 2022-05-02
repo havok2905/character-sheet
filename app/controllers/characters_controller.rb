@@ -1,18 +1,18 @@
 class CharactersController < ApplicationController
   def index
-    @characters = Character.all
+    @characters = characters
   end
 
   def show
-    @character = Character.find(params[:id])
+    @character = character_by_id
   end
 
   def new
-    @character = Character.new
+    @character = new_character
   end
 
   def create
-    @character = Character.new(character_params)
+    @character = new_character_with_params
 
     if @character.save
       redirect_to @character
@@ -22,13 +22,33 @@ class CharactersController < ApplicationController
   end
 
   def edit
-    @character = Character.find(params[:id])
+    @character = character_by_id
+  end
+
+  def edit_attacks
+    @character = character_by_id
+  end
+
+  def edit_features
+    @character = character_by_id
+  end
+
+  def edit_inventory
+    @character = character_by_id
+  end
+
+  def edit_resources
+    @character = character_by_id
+  end
+
+  def edit_spells
+    @character = character_by_id
   end
 
   def update
-    @character = Character.find(params[:id])
+    @character = character_by_id
     
-    if @character.update(character_params)
+    if @character.update character_params
       redirect_to @character
     else
       render :edit, status: :unprocessable_entity
@@ -36,7 +56,7 @@ class CharactersController < ApplicationController
   end
 
   def destroy
-    @character = Character.find(params[:id])
+    @character = character_by_id
     @character.destroy
     redirect_to characters_path
   end
@@ -53,7 +73,23 @@ class CharactersController < ApplicationController
 
   private
 
+  def characters
+    Character.all
+  end
+
+  def character_by_id
+    Character.find params[:id]
+  end
+
   def character_params
     params.require(:character).permit!
+  end
+
+  def new_character
+    Character.new
+  end
+
+  def new_character_with_params
+    Character.new character_params
   end
 end

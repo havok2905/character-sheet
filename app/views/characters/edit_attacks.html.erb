@@ -1,0 +1,45 @@
+<div class="layout">
+  <div class="full">
+    <h1>Character Settings - Edit Attacks</h1>
+    <h2><%= @character.name %></h2>
+    <a class="button" href="<%= edit_character_path @character %>">Back</a>
+    <%= form_for @character do |f| %>
+      <div id="character-attacks-form">
+        <%= f.fields_for :character_attacks do |attack| %>
+          <fieldset>
+            <%= attack.label :name %>
+            <%= attack.text_field :name %>
+            <%= attack.label :attack_bonus %>
+            <%= attack.number_field :attack_bonus %>
+            <%= attack.label :crit_range %>
+            <%= attack.number_field :crit_range %>
+            <%= attack.label :damage_dice_roll %>
+            <%= attack.text_field :damage_dice_roll %>
+            <%= attack.label :damage_two_dice_roll %>
+            <%= attack.text_field :damage_two_dice_roll %>
+            <%= attack.label :damage_two_type %>
+            <%= attack.text_field :damage_two_type %>
+            <%= attack.label :damage_type %>
+            <%= attack.text_field :damage_type %>
+            <%= attack.label :description %>
+            <%= attack.text_area :description %>
+            <%= attack.label :is_saving_throw %>
+            <%= attack.check_box :is_saving_throw %>
+            <%= attack.label :range %>
+            <%= attack.number_field :range %>
+            <%= attack.label :saving_throw_description %>
+            <%= attack.text_area :saving_throw_description %>
+            <%= attack.label :saving_throw_threshold %>
+            <%= attack.number_field :saving_throw_threshold %>
+            <%= attack.label :saving_throw_type %>
+            <%= attack.text_field :saving_throw_type %>
+            <%= attack.label(:_destroy, "Remove") %>
+            <%= attack.check_box(:_destroy) %>
+          </fieldset>
+        <% end %>
+      </div>
+      <button name="character-form-add-attack-button" type="button">Add Attack</button>
+      <%= f.submit :class => 'button button-constructive' %>
+    <% end %>
+  </div>
+</div>

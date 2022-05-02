@@ -1,7 +1,6 @@
 <div class="layout">
-  <div class="full">
-    <a class="button" href=<%= edit_character_path @character.id %>>Edit</a>
-    <%= button_to "Delete", { :controller => :characters, :action => 'destroy', :id => @character.id }, :class => 'button button-destructive', :method => :delete %>
+  <div class="full">    
+    <a class="button" href=<%= edit_character_path @character.id %>>Character Settings</a>
   </div>
   <div class="full">
     <div class="character-sheet-header">

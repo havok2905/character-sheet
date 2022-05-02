@@ -1,5 +1,8 @@
 <%= form_for @character do |f| %>
   <div class="layout">
+    <div class="full">
+      <%= f.submit :class => 'button button-constructive' %>
+    </div>
     <div class="column">
       <h3>Character Details</h3>
       <fieldset>
@@ -14,6 +17,31 @@
         <%= f.label :sub_race %>
         <%= f.text_field :sub_race %>
       </fieldset>
+      <h3>Biography</h3>
+      <fieldset>
+        <%= f.label :personality_traits %>
+        <%= f.text_area :personality_traits %>
+        <%= f.label :ideals %>
+        <%= f.text_area :ideals %>
+        <%= f.label :bonds %>
+        <%= f.text_area :bonds %>
+        <%= f.label :flaws %>
+        <%= f.text_area :flaws %>
+        <%= f.label :age %>
+        <%= f.number_field :age %>
+        <%= f.label :eyes %>
+        <%= f.text_field :eyes %>
+        <%= f.label :hair %>
+        <%= f.text_field :hair %>
+        <%= f.label :height %>
+        <%= f.text_field :height %>
+        <%= f.label :skin %>
+        <%= f.text_field :skin %>
+        <%= f.label :weight %>
+        <%= f.text_field :weight %>
+      </fieldset>
+    </div>
+    <div class="column">
       <h3>Character Class</h3>
       <fieldset>
         <%= f.label :character_class %>
@@ -223,188 +251,6 @@
         <%= f.label :languages %>
         <%= f.text_field :languages %>
       </fieldset>
-      <h3>Biography</h3>
-      <fieldset>
-        <%= f.label :personality_traits %>
-        <%= f.text_area :personality_traits %>
-        <%= f.label :ideals %>
-        <%= f.text_area :ideals %>
-        <%= f.label :bonds %>
-        <%= f.text_area :bonds %>
-        <%= f.label :flaws %>
-        <%= f.text_area :flaws %>
-        <%= f.label :age %>
-        <%= f.number_field :age %>
-        <%= f.label :eyes %>
-        <%= f.text_field :eyes %>
-        <%= f.label :hair %>
-        <%= f.text_field :hair %>
-        <%= f.label :height %>
-        <%= f.text_field :height %>
-        <%= f.label :skin %>
-        <%= f.text_field :skin %>
-        <%= f.label :weight %>
-        <%= f.text_field :weight %>
-      </fieldset>
-      <h3>Inventory</h3>
-      <%= f.fields_for :character_items do |item| %>
-        <fieldset>
-          <%= item.label :name %>
-          <%= item.text_field :name %>
-          <%= item.label :total %>
-          <%= item.number_field :total %>
-          <%= item.label :description %>
-          <%= item.text_area :description %>
-          <%= item.label(:_destroy, "Remove") %>
-          <%= item.check_box(:_destroy) %>
-        </fieldset>
-      <% end %>
-      <fieldset>
-        <%= f.label :copper_pieces %>
-        <%= f.number_field :copper_pieces %>
-        <%= f.label :silver_pieces %>
-        <%= f.number_field :silver_pieces %>
-        <%= f.label :electrum_pieces %>
-        <%= f.number_field :electrum_pieces %>
-        <%= f.label :gold_pieces %>
-        <%= f.number_field :gold_pieces %>
-        <%= f.label :platinum_pieces %>
-        <%= f.number_field :platinum_pieces %>
-      </fieldset>
-    </div>
-    <div class="column">
-      <h3>Attacks</h3>
-      <div id="character-form-attacks">
-        <%= f.fields_for :character_attacks do |attack| %>
-          <fieldset>
-            <%= attack.label :name %>
-            <%= attack.text_field :name %>
-            <%= attack.label :attack_bonus %>
-            <%= attack.number_field :attack_bonus %>
-            <%= attack.label :crit_range %>
-            <%= attack.number_field :crit_range %>
-            <%= attack.label :damage_dice_roll %>
-            <%= attack.text_field :damage_dice_roll %>
-            <%= attack.label :damage_two_dice_roll %>
-            <%= attack.text_field :damage_two_dice_roll %>
-            <%= attack.label :damage_two_type %>
-            <%= attack.text_field :damage_two_type %>
-            <%= attack.label :damage_type %>
-            <%= attack.text_field :damage_type %>
-            <%= attack.label :description %>
-            <%= attack.text_area :description %>
-            <%= attack.label :is_saving_throw %>
-            <%= attack.check_box :is_saving_throw %>
-            <%= attack.label :range %>
-            <%= attack.text_area :range %>
-            <%= attack.label :saving_throw_description %>
-            <%= attack.text_area :saving_throw_description %>
-            <%= attack.label :saving_throw_threshold %>
-            <%= attack.number_field :saving_throw_threshold %>
-            <%= attack.label :saving_throw_type %>
-            <%= attack.text_field :saving_throw_type %>
-            <%= attack.label(:_destroy, "Remove") %>
-            <%= attack.check_box(:_destroy) %>
-          </fieldset>
-        <% end %>
-      </div>
-      <button name="character-form-add-attack-button" type="button">Add Attack</button>
-      <h3>Features</h3>
-      <div id="character-form-features">
-        <%= f.fields_for :character_features do |feature| %>
-          <fieldset>
-            <%= feature.label :name %>
-            <%= feature.text_field :name %>
-            <%= feature.label :source %>
-            <%= feature.text_field :source %>
-            <%= feature.label :feature_type %>
-            <%= feature.text_field :feature_type %>
-            <%= feature.label :description %>
-            <%= feature.text_area :description %>
-            <%= feature.label(:_destroy, "Remove") %>
-            <%= feature.check_box(:_destroy) %>
-          </fieldset>
-        <% end %>
-      </div>
-      <button name="character-form-add-feature-button" type="button">Add Feature</button>
-      <h3>Feature Resources</h3>
-      <div id="character-form-feature-resources">
-        <%= f.fields_for :character_feature_resources, remote: true do |feature_resource| %>
-          <fieldset>
-            <%= feature_resource.label :name %>
-            <%= feature_resource.text_field :name %>
-            <%= feature_resource.label :total %>
-            <%= feature_resource.number_field :total %>
-            <%= feature_resource.label(:_destroy, "Remove") %>
-            <%= feature_resource.check_box(:_destroy) %>
-          </fieldset>
-        <% end %>
-      </div>
-      <button name="character-form-add-feature-resource-button" type="button">Add Feature Resource</button>
-      <h3>Spellcasting</h3>
-      <fieldset>
-        <%= f.label :spellcasting_ability %>
-        <%= f.text_field :spellcasting_ability %>
-        <%= f.label :spellcasting_modifier %>
-        <%= f.text_field :spellcasting_modifier %>
-        <%= f.label :spellcasting_save_dc %>
-        <%= f.number_field :spellcasting_save_dc %>
-      </fieldset>
-      <fieldset>
-        <%= f.label :spell_slots_first %>
-        <%= f.number_field :spell_slots_first %>
-        <%= f.label :spell_slots_second %>
-        <%= f.number_field :spell_slots_second %>
-        <%= f.label :spell_slots_third %>
-        <%= f.number_field :spell_slots_third %>
-        <%= f.label :spell_slots_fourth %>
-        <%= f.number_field :spell_slots_fourth %>
-        <%= f.label :spell_slots_fifth %>
-        <%= f.number_field :spell_slots_fifth %>
-        <%= f.label :spell_slots_sixth %>
-        <%= f.number_field :spell_slots_sixth %>
-        <%= f.label :spell_slots_seventh %>
-        <%= f.number_field :spell_slots_seventh %>
-        <%= f.label :spell_slots_eighth %>
-        <%= f.number_field :spell_slots_eighth %>
-        <%= f.label :spell_slots_ninth %>
-        <%= f.number_field :spell_slots_ninth %>
-      </fieldset>
-      <%= f.fields_for :character_spells do |spell| %>
-        <fieldset>
-          <%= spell.label :name %>
-          <%= spell.text_field :name %>
-          <%= spell.label :level %>
-          <%= spell.number_field :level %>
-          <%= spell.label :school %>
-          <%= spell.text_field :school %>
-          <%= spell.label :casting_time %>
-          <%= spell.text_field :casting_time %>
-          <%= spell.label :duration %>
-          <%= spell.text_field :duration %>
-          <%= spell.label :range %>
-          <%= spell.text_field :range %>
-          <%= spell.label :target %>
-          <%= spell.text_field :target %>
-          <%= spell.label :components %>
-          <%= spell.text_field :components %>
-          <%= spell.label :concentration %>
-          <%= spell.check_box :concentration %>
-          <%= spell.label :material_components %>
-          <%= spell.check_box :material_components %>
-          <%= spell.label :somatic_components %>
-          <%= spell.check_box :somatic_components %>
-          <%= spell.label :verbal_components %>
-          <%= spell.check_box :verbal_components %>
-          <%= spell.label :description %>
-          <%= spell.text_area :description %>
-          <%= spell.label :description_higher_levels %>
-          <%= spell.text_area :description_higher_levels %>
-          <%= spell.label(:_destroy, "Remove") %>
-          <%= spell.check_box(:_destroy) %>
-        </fieldset>
-      <% end %>
     </div>
   </div>
-  <%= f.submit :class => 'button button-constructive' %>
 <% end %>
