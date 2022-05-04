@@ -11,8 +11,8 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_05_04_063503) do
-  create_table "character_attacks", force: :cascade do |t|
-    t.integer "character_id"
+  create_table "character_attacks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "character_id"
     t.integer "attack_bonus"
     t.integer "crit_range"
     t.string "damage_dice_roll"
@@ -31,8 +31,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_04_063503) do
     t.index ["character_id"], name: "index_character_attacks_on_character_id"
   end
 
-  create_table "character_feature_resources", force: :cascade do |t|
-    t.integer "character_id"
+  create_table "character_feature_resources", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "character_id"
     t.string "name"
     t.integer "total"
     t.datetime "created_at", null: false
@@ -40,8 +40,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_04_063503) do
     t.index ["character_id"], name: "index_character_feature_resources_on_character_id"
   end
 
-  create_table "character_features", force: :cascade do |t|
-    t.integer "character_id"
+  create_table "character_features", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "character_id"
     t.text "description"
     t.string "feature_type"
     t.string "name"
@@ -51,8 +51,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_04_063503) do
     t.index ["character_id"], name: "index_character_features_on_character_id"
   end
 
-  create_table "character_items", force: :cascade do |t|
-    t.integer "character_id"
+  create_table "character_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "character_id"
     t.text "description"
     t.string "name"
     t.integer "total"
@@ -61,8 +61,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_04_063503) do
     t.index ["character_id"], name: "index_character_items_on_character_id"
   end
 
-  create_table "character_spells", force: :cascade do |t|
-    t.integer "character_id"
+  create_table "character_spells", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "character_id"
     t.string "casting_time"
     t.string "components"
     t.boolean "concentration"
@@ -82,7 +82,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_04_063503) do
     t.index ["character_id"], name: "index_character_spells_on_character_id"
   end
 
-  create_table "characters", force: :cascade do |t|
+  create_table "characters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "ac"
     t.text "background"
     t.string "character_class"
@@ -204,8 +204,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_04_063503) do
     t.integer "spellcasting_save_dc"
   end
 
-  create_table "creature_actions", force: :cascade do |t|
-    t.integer "creature_id"
+  create_table "creature_actions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "creature_id"
     t.text "description"
     t.string "action_type"
     t.string "action_combat_type"
@@ -223,8 +223,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_04_063503) do
     t.index ["creature_id"], name: "index_creature_actions_on_creature_id"
   end
 
-  create_table "creature_features", force: :cascade do |t|
-    t.integer "creature_id"
+  create_table "creature_features", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "creature_id"
     t.text "description"
     t.string "feature_type"
     t.string "name"
@@ -233,16 +233,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_04_063503) do
     t.index ["creature_id"], name: "index_creature_features_on_creature_id"
   end
 
-  create_table "creature_lair_actions", force: :cascade do |t|
-    t.integer "creature_id"
+  create_table "creature_lair_actions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "creature_id"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creature_id"], name: "index_creature_lair_actions_on_creature_id"
   end
 
-  create_table "creature_legendary_actions", force: :cascade do |t|
-    t.integer "creature_id"
+  create_table "creature_legendary_actions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "creature_id"
     t.text "description"
     t.string "name"
     t.datetime "created_at", null: false
@@ -250,16 +250,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_04_063503) do
     t.index ["creature_id"], name: "index_creature_legendary_actions_on_creature_id"
   end
 
-  create_table "creature_regional_effects", force: :cascade do |t|
-    t.integer "creature_id"
+  create_table "creature_regional_effects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "creature_id"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creature_id"], name: "index_creature_regional_effects_on_creature_id"
   end
 
-  create_table "creature_spells", force: :cascade do |t|
-    t.integer "creature_id"
+  create_table "creature_spells", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "creature_id"
     t.string "casting_time"
     t.string "components"
     t.boolean "concentration"
@@ -279,7 +279,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_04_063503) do
     t.index ["creature_id"], name: "index_creature_spells_on_creature_id"
   end
 
-  create_table "creatures", force: :cascade do |t|
+  create_table "creatures", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "ac"
     t.string "alignment"
     t.string "armor"
@@ -342,7 +342,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_04_063503) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "username", default: "", null: false
     t.string "encrypted_password", default: "", null: false
