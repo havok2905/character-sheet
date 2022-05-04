@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users, :skip => [:registrations]
+
   get '/', to: 'home#index'
   
   get '/characters/:id/edit_attacks', to: 'characters#edit_attacks', as: 'character_edit_attacks'
@@ -18,6 +20,5 @@ Rails.application.routes.draw do
   get '/creatures/:id/edit_spells', to: 'creatures#edit_spells', as: 'creature_edit_spells'
   resources :creatures
   
-
   root 'home#index'
 end

@@ -71,4 +71,5 @@ group :test do
   gem "webdrivers"
 end
 
+gem 'devise', '~> 4.8', '>= 4.8.1'
 gem 'pry', '~> 0.13.1'

@@ -1,4 +1,18 @@
 class CreaturesController < ApplicationController
+  before_action :authenticate_user!, :only => [
+    :create,
+    :destroy,
+    :edit,
+    :edit_actions,
+    :edit_features,
+    :edit_lair_actions,
+    :edit_legendary_actions,
+    :edit_regional_effects,
+    :edit_spells,
+    :new,
+    :update
+  ]
+
   def index
     @creatures = creatures
   end
@@ -76,6 +90,11 @@ class CreaturesController < ApplicationController
   helper_method :get_spells_by_level
   def get_spells_by_level level
     @creature.creature_spells.select { |spell|  spell.level == level }
+  end
+
+  helper_method :modify_creature
+  def modify_creature
+    user_signed_in?
   end
 
   private

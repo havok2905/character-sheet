@@ -1,4 +1,6 @@
-<a class="button" href="<%= new_creature_path %>">Create</a>
+<% if modify_creature %>
+  <a class="button" href="<%= new_creature_path %>">Create</a>
+<% end %>
 <ul>
   <% creatures.each do |creature| %>
     <li>

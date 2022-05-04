@@ -1,4 +1,17 @@
 class CharactersController < ApplicationController
+  before_action :authenticate_user!, :only => [
+    :create,
+    :destroy,
+    :edit,
+    :edit_attacks,
+    :edit_features,
+    :edit_inventory,
+    :edit_resources,
+    :edit_spells,
+    :new,
+    :update
+  ]
+
   def index
     @characters = characters
   end
@@ -69,6 +82,11 @@ class CharactersController < ApplicationController
   helper_method :get_spells_by_level
   def get_spells_by_level level
     @character.character_spells.select { |spell|  spell.level == level }
+  end
+
+  helper_method :modify_character
+  def modify_character
+    user_signed_in?
   end
 
   private
