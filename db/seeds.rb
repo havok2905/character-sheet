@@ -13,6 +13,13 @@ user.password = 'password'
 user.password_confirmation = 'password'
 user.save!
 
+campaign = Campaign.create([
+  {
+    name: "Light up the Night",
+    description: "Swashbuckling adventure to save the realm from a goddess of destruction, bent on restarting all of civilization."
+  }
+])
+
 character = Character.create([
   {
     ac: 13,

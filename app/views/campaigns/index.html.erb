@@ -1,0 +1,19 @@
+<div class="layout">
+  <div class="full">
+    <h1>Campaigns</h1>
+    <% if modify_campaign %>
+      <a class="button" href="<%= new_campaign_path %>">Create</a>
+    <% end %>
+    <ul>
+      <% @campaigns.each do |campaign| %>
+        <li>
+          <a href="<%= campaign_path campaign %>">
+            <div class="card card-link">
+              <h2><%= campaign.name %></h2>
+            </div>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

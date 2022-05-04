@@ -1,0 +1,8 @@
+<div class="layout">
+  <div class="full">
+    <h1>Edit Campaign</h1>
+    <a class="button" href="<%= campaigns_path %>">Back</a>
+    <%= render partial: 'form', locals: { campaign: @campaign, form_url: campaign_path(@campaign) } %>
+    <%= button_to "Delete", { :controller => :campaigns, :action => 'destroy', :id => @campaign.id }, :class => 'button button-destructive', :method => :delete %>
+  </div>
+</div>
