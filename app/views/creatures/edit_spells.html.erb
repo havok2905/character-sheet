@@ -1,0 +1,77 @@
+<div class="layout">
+  <div class="full">
+    <h1>Creature Settings - Edit Spells</h1>
+    <h2><%= @creature.name %></h2>
+    <a class="button" href="<%= edit_creature_path @creature %>">Back</a>
+    <%= form_for @creature do |f| %>
+      <fieldset>
+        <%= f.label :spellcasting_level %>
+        <%= f.number_field :spellcasting_level %>
+        <%= f.label :spellcasting_ability %>
+        <%= f.text_field :spellcasting_ability %>
+        <%= f.label :spellcasting_modifier %>
+        <%= f.text_field :spellcasting_modifier %>
+        <%= f.label :spellcasting_save_dc %>
+        <%= f.number_field :spellcasting_save_dc %>
+      </fieldset>
+      <fieldset>
+        <%= f.label :spell_slots_first %>
+        <%= f.number_field :spell_slots_first %>
+        <%= f.label :spell_slots_second %>
+        <%= f.number_field :spell_slots_second %>
+        <%= f.label :spell_slots_third %>
+        <%= f.number_field :spell_slots_third %>
+        <%= f.label :spell_slots_fourth %>
+        <%= f.number_field :spell_slots_fourth %>
+        <%= f.label :spell_slots_fifth %>
+        <%= f.number_field :spell_slots_fifth %>
+        <%= f.label :spell_slots_sixth %>
+        <%= f.number_field :spell_slots_sixth %>
+        <%= f.label :spell_slots_seventh %>
+        <%= f.number_field :spell_slots_seventh %>
+        <%= f.label :spell_slots_eighth %>
+        <%= f.number_field :spell_slots_eighth %>
+        <%= f.label :spell_slots_ninth %>
+        <%= f.number_field :spell_slots_ninth %>
+      </fieldset>
+      <div id="creature-spells-form">
+        <%= f.fields_for :creature_spells do |spell| %>
+          <fieldset>
+            <%= spell.label :name %>
+            <%= spell.text_field :name %>
+            <%= spell.label :level %>
+            <%= spell.number_field :level %>
+            <%= spell.label :school %>
+            <%= spell.text_field :school %>
+            <%= spell.label :casting_time %>
+            <%= spell.text_field :casting_time %>
+            <%= spell.label :duration %>
+            <%= spell.text_field :duration %>
+            <%= spell.label :range %>
+            <%= spell.text_field :range %>
+            <%= spell.label :target %>
+            <%= spell.text_field :target %>
+            <%= spell.label :components %>
+            <%= spell.text_field :components %>
+            <%= spell.label :concentration %>
+            <%= spell.check_box :concentration %>
+            <%= spell.label :material_components %>
+            <%= spell.check_box :material_components %>
+            <%= spell.label :somatic_components %>
+            <%= spell.check_box :somatic_components %>
+            <%= spell.label :verbal_components %>
+            <%= spell.check_box :verbal_components %>
+            <%= spell.label :description %>
+            <%= spell.text_area :description %>
+            <%= spell.label :description_higher_levels %>
+            <%= spell.text_area :description_higher_levels %>
+            <%= spell.label(:_destroy, "Remove") %>
+            <%= spell.check_box(:_destroy) %>
+          </fieldset>
+        <% end %>
+      </div>
+      <button name="creature-form-add-spell-button" type="button">Add Spell</button>
+      <%= f.submit :class => 'button button-constructive' %>
+    <% end %>
+  </div>
+</div>

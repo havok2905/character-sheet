@@ -1,0 +1,23 @@
+<div class="layout">
+  <div class="full">
+    <h1>Creature Settings - Edit Legendary Actions</h1>
+    <h2><%= @creature.name %></h2>
+    <a class="button" href="<%= edit_creature_path @creature %>">Back</a>
+    <%= form_for @creature do |f| %>
+      <div id="creature-legendary-actions-form">
+        <%= f.fields_for :creature_legendary_actions do |legendary_action| %>
+          <fieldset>
+            <%= legendary_action.label :name %>
+            <%= legendary_action.text_field :name %>
+            <%= legendary_action.label :description %>
+            <%= legendary_action.text_area :description %>
+            <%= legendary_action.label(:_destroy, "Remove") %>
+            <%= legendary_action.check_box(:_destroy) %>
+          </fieldset>
+        <% end %>
+      </div>
+      <button name="creature-form-add-legendary-action-button" type="button">Add Legendary Action</button>
+      <%= f.submit :class => 'button button-constructive' %>
+    <% end %>
+  </div>
+</div>

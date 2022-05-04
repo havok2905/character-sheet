@@ -1,0 +1,43 @@
+<div class="layout">
+  <div class="full">
+    <h1>Creature Settings - Edit Actions</h1>
+    <h2><%= @creature.name %></h2>
+    <a class="button" href="<%= edit_creature_path @creature %>">Back</a>
+    <%= form_for @creature do |f| %>
+      <div id="creature-actions-form">
+        <%= f.fields_for :creature_actions do |action| %>
+          <fieldset>
+            <%= action.label :name %>
+            <%= action.text_field :name %>
+            <%= action.label :action_type %>
+            <%= action.text_field :action_type %>
+            <%= action.label :action_combat_type %>
+            <%= action.text_field :action_combat_type %>
+            <%= action.label :range %>
+            <%= action.text_field :range %>
+            <%= action.label :attack_bonus %>
+            <%= action.number_field :attack_bonus %>
+            <%= action.label :damage_dice_roll %>
+            <%= action.text_field :damage_dice_roll %>
+            <%= action.label :damage_type %>
+            <%= action.text_field :damage_type %>
+            <%= action.label :damage_two_dice_roll %>
+            <%= action.text_field :damage_two_dice_roll %>
+            <%= action.label :damage_two_type %>
+            <%= action.text_field :damage_two_type %>
+            <%= action.label :saving_throw_dc %>
+            <%= action.number_field :saving_throw_dc %>
+            <%= action.label :saving_throw_type %>
+            <%= action.text_field :saving_throw_type %>
+            <%= action.label :description %>
+            <%= action.text_area :description %>
+            <%= action.label(:_destroy, "Remove") %>
+            <%= action.check_box(:_destroy) %>
+          </fieldset>
+        <% end %>
+      </div>
+      <button name="creature-form-add-action-button" type="button">Add Action</button>
+      <%= f.submit :class => 'button button-constructive' %>
+    <% end %>
+  </div>
+</div>

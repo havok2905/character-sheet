@@ -1,0 +1,8 @@
+<div class="layout">
+  <div class="full">
+    <h1>Creatures</h1>
+    <a class="button" href="<%= creatures_monsters_path %>">Monsters</a>
+    <a class="button" href="<%= creatures_npcs_path %>">NPCs</a>
+    <%= render partial: 'show_creatures', locals: { creatures: @creatures, title: 'Creatures' } %>
+  </div>
+</div>

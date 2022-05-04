@@ -1,0 +1,21 @@
+<div class="layout">
+  <div class="full">
+    <h1>Creature Settings - Edit Regional Effects</h1>
+    <h2><%= @creature.name %></h2>
+    <a class="button" href="<%= edit_creature_path @creature %>">Back</a>
+    <%= form_for @creature do |f| %>
+      <div id="creature-regional-effects-form">
+        <%= f.fields_for :creature_regional_effects do |regional_effect| %>
+          <fieldset>
+            <%= regional_effect.label :description %>
+            <%= regional_effect.text_area :description %>
+            <%= regional_effect.label(:_destroy, "Remove") %>
+            <%= regional_effect.check_box(:_destroy) %>
+          </fieldset>
+        <% end %>
+      </div>
+      <button name="creature-form-add-add-regional-effect-button" type="button">Add Regional Effect</button>
+      <%= f.submit :class => 'button button-constructive' %>
+    <% end %>
+  </div>
+</div>

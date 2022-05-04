@@ -4,7 +4,7 @@
       <%= f.submit :class => 'button button-constructive' %>
     </div>
     <div class="column">
-      <h3>Character Details</h3>
+      <h2>Character Details</h2>
       <fieldset>
         <%= f.label :name %>
         <%= f.text_field :name %>
@@ -17,7 +17,7 @@
         <%= f.label :sub_race %>
         <%= f.text_field :sub_race %>
       </fieldset>
-      <h3>Biography</h3>
+      <h2>Biography</h2>
       <fieldset>
         <%= f.label :personality_traits %>
         <%= f.text_area :personality_traits %>
@@ -42,7 +42,7 @@
       </fieldset>
     </div>
     <div class="column">
-      <h3>Character Class</h3>
+      <h2>Character Class</h2>
       <fieldset>
         <%= f.label :character_class %>
         <%= f.text_field :character_class %>
@@ -53,7 +53,7 @@
         <%= f.label :character_class_level %>
         <%= f.number_field :character_class_level %>
       </fieldset>
-      <h3>Character Multiclass</h3>
+      <h2>Character Multiclass</h2>
       <fieldset>
         <%= f.label :multiclass_class %>
         <%= f.text_field :multiclass_class %>
@@ -64,7 +64,7 @@
         <%= f.label :multiclass_class_level %>
         <%= f.number_field :multiclass_class_level %>
       </fieldset>
-      <h3>Character Stats</h3>
+      <h2>Character Stats</h2>
       <fieldset>
         <%= f.label :hp %>
         <%= f.number_field :hp %>
@@ -131,7 +131,7 @@
         <%= f.number_field :charisma_save %>
         <%= f.select :charisma_prof, ["none", "prof", "exp"], selected: @character.charisma_prof %>
       </fieldset>
-      <h3>Abilities</h3>
+      <h2>Abilities</h2>
       <fieldset>
         <%= f.label :acrobatics_mod %>
         <%= f.number_field :acrobatics_mod %>
@@ -226,7 +226,7 @@
         <%= f.label :passive_perception %>
         <%= f.number_field :passive_perception %>
       </fieldset>
-      <h3>Character Proficiencies</h3>
+      <h2>Character Proficiencies</h2>
       <fieldset>
         <%= f.label :armor_proficiencies %>
         <%= f.text_field :armor_proficiencies %>

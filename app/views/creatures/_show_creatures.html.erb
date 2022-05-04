@@ -1,0 +1,13 @@
+<a class="button" href="<%= new_creature_path %>">Create</a>
+<ul>
+  <% creatures.each do |creature| %>
+    <li>
+      <a href="<%= creature_path creature %>">
+        <div class="card card-link">
+          <h2><%= creature.name %></h2>
+          <p><%= creature.size %>, <%= creature.creature_type %> ( CR: <%= creature.cr %> )</p>
+        </div>
+      </a>
+    </li>
+  <% end %>
+</ul>
