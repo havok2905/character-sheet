@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_04_193414) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_05_052428) do
   create_table "campaigns", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "description"
     t.string "name"
@@ -349,6 +349,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_04_193414) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "encounter_phases", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "encounter_id"
+    t.text "description"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["encounter_id"], name: "index_encounter_phases_on_encounter_id"
+  end
+
+  create_table "encounters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "description"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "username", default: "", null: false
@@ -376,4 +392,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_04_193414) do
   add_foreign_key "creature_legendary_actions", "creatures"
   add_foreign_key "creature_regional_effects", "creatures"
   add_foreign_key "creature_spells", "creatures"
+  add_foreign_key "encounter_phases", "encounters"
 end

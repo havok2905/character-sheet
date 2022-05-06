@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   get '/creatures/:id/edit_regional_effects', to: 'creatures#edit_regional_effects', as: 'creature_edit_regional_effects'
   get '/creatures/:id/edit_spells', to: 'creatures#edit_spells', as: 'creature_edit_spells'
   resources :creatures
+
+  resources :encounters
   
   root 'home#index'
 end
