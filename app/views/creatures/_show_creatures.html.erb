@@ -5,9 +5,14 @@
   <% creatures.each do |creature| %>
     <li>
       <a href="<%= creature_path creature %>">
-        <div class="card card-link">
-          <h2><%= creature.name %></h2>
-          <p><%= creature.size %>, <%= creature.creature_type %> ( CR: <%= creature.cr %> )</p>
+        <div class="card card-link card-with-icon">
+          <% if creature.image.attached? %>
+            <img alt="character portrait" class="token" src="<%= url_for creature.image %>"/>
+          <% end %>
+          <div>
+            <h2><%= creature.name %></h2>
+            <p><%= creature.size %>, <%= creature.creature_type %> ( CR: <%= creature.cr %> )</p>
+          </div>
         </div>
       </a>
     </li>

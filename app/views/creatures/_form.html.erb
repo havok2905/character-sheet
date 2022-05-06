@@ -6,6 +6,9 @@
     <div class="column">
       <h2>Creature Category</h2>
       <fieldset>
+        <%= f.file_field :image %>
+      </fieldset>
+      <fieldset>
         <%= f.label :creature_category %>
         <%= f.select :creature_category, ["Monster", "NPC"], selected: @creature.creature_category %>
       </fieldset>

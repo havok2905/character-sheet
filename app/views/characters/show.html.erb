@@ -8,7 +8,9 @@
           </svg>
         </a>
       <% end %>
-      <img class="token" alt="character portrait" src="http://placekitten.com/200/200" />
+      <% if @character.image.attached? %>
+        <img alt="character portrait" class="token" src="<%= url_for @character.image %>"/>
+      <% end %>
       <div>
         <h1><%= @character.name %></h1>
         <% if @character.character_sub_class.present? %>

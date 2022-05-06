@@ -6,6 +6,9 @@
     <div class="column">
       <h2>Character Details</h2>
       <fieldset>
+        <%= f.file_field :image %>
+      </fieldset>
+      <fieldset>
         <%= f.label :name %>
         <%= f.text_field :name %>
         <%= f.label :alignment %>
