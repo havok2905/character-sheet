@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class CampaignsController < ApplicationController
-  before_action :authenticate_user!, :only => [
-    :create,
-    :destroy,
-    :edit,
-    :new,
-    :update
+  before_action :authenticate_user!, only: %i[
+    create
+    destroy
+    edit
+    new
+    update
   ]
 
   def index
@@ -21,7 +23,7 @@ class CampaignsController < ApplicationController
 
   def update
     @campaign = campaign_by_id
-    
+
     if @campaign.update campaign_params
       redirect_to @campaign
     else

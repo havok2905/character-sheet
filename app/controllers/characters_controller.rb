@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 class CharactersController < ApplicationController
-  before_action :authenticate_user!, :only => [
-    :create,
-    :destroy,
-    :edit,
-    :edit_attacks,
-    :edit_creatures,
-    :edit_features,
-    :edit_inventory,
-    :edit_resources,
-    :edit_spells,
-    :new,
-    :update
+  before_action :authenticate_user!, only: %i[
+    create
+    destroy
+    edit
+    edit_attacks
+    edit_creatures
+    edit_features
+    edit_inventory
+    edit_resources
+    edit_spells
+    new
+    update
   ]
 
   def index
@@ -66,7 +68,7 @@ class CharactersController < ApplicationController
 
   def update
     @character = character_by_id
-    
+
     if @character.update character_params
       redirect_to @character
     else
@@ -81,13 +83,13 @@ class CharactersController < ApplicationController
   end
 
   helper_method :get_profcient_class
-  def get_profcient_class prof
-    prof == 'prof' || prof == 'exp' ? 'sheet-table-data-bolded' : nil
+  def get_profcient_class(prof)
+    %w[prof exp].include?(prof) ? 'sheet-table-data-bolded' : nil
   end
 
   helper_method :get_spells_by_level
-  def get_spells_by_level level
-    @character.character_spells.select { |spell|  spell.level == level }
+  def get_spells_by_level(level)
+    @character.character_spells.select { |spell| spell.level == level }
   end
 
   helper_method :modify_character

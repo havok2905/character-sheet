@@ -1,0 +1,9 @@
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'db/**/*'
+Naming/AccessorMethodName:
+  Enabled: false
+Style/Documentation:
+  Enabled: false

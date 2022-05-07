@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 class CreaturesController < ApplicationController
-  before_action :authenticate_user!, :only => [
-    :create,
-    :destroy,
-    :edit,
-    :edit_actions,
-    :edit_features,
-    :edit_lair_actions,
-    :edit_legendary_actions,
-    :edit_regional_effects,
-    :edit_spells,
-    :new,
-    :update
+  before_action :authenticate_user!, only: %i[
+    create
+    destroy
+    edit
+    edit_actions
+    edit_features
+    edit_lair_actions
+    edit_legendary_actions
+    edit_regional_effects
+    edit_spells
+    new
+    update
   ]
 
   def index
@@ -73,7 +75,7 @@ class CreaturesController < ApplicationController
 
   def update
     @creature = creature_by_id
-    
+
     if @creature.update creature_params
       redirect_to creature_path @creature
     else
@@ -88,8 +90,8 @@ class CreaturesController < ApplicationController
   end
 
   helper_method :get_spells_by_level
-  def get_spells_by_level level
-    @creature.creature_spells.select { |spell|  spell.level == level }
+  def get_spells_by_level(level)
+    @creature.creature_spells.select { |spell| spell.level == level }
   end
 
   helper_method :modify_creature
@@ -118,7 +120,7 @@ class CreaturesController < ApplicationController
   def get_npcs
     Creature.where creature_category: 'NPC'
   end
-  
+
   def new_creature
     Creature.new
   end

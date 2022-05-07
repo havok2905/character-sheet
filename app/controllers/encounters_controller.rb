@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class EncountersController < ApplicationController
-  before_action :authenticate_user!, :only => [
-    :create,
-    :destroy,
-    :edit,
-    :new,
-    :update
+  before_action :authenticate_user!, only: %i[
+    create
+    destroy
+    edit
+    new
+    update
   ]
 
   def index
@@ -35,7 +37,7 @@ class EncountersController < ApplicationController
 
   def update
     @encounter = encounter_by_id
-    
+
     if @encounter.update encounter_params
       redirect_to encounter_path @encounter
     else
@@ -67,7 +69,7 @@ class EncountersController < ApplicationController
   def encounters
     Encounter.all
   end
-  
+
   def new_encounter
     Encounter.new
   end
