@@ -1,0 +1,34 @@
+// COLORS
+
+$dark-black: #0c0c0d;
+$light-black: #151518;
+$true-black: #000000;
+$faded-white: #cacaca;
+$true-white: #ffffff;
+$green: #64b13b;
+$red: #83261a;
+
+// BORDERS
+
+$border-standard: 1px $light-black solid;
+
+// BOX SHADOWS
+
+$box-shadow-heavy: 0 10px 10px $true-black;
+$box-shadow-field: inset 0 0 5px $true-black;
+$box-shadow-light: 0px 0px 5px $true-black;
+
+// FONT SIZES
+
+$body-text-size: 16px;
+
+// SIZES
+
+$small-spacing: 10px;
+$standard-spacing: 20px;
+$border-radius: 5px;
+$border-radius-circle: 50%;
+$token-size-small: 100px;
+$token-size-standard: 200px;
+$column-width: 470px;
+$layout-width: 1000px;

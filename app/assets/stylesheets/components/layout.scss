@@ -1,0 +1,19 @@
+@import "../shared/variables.scss";
+
+.column {
+  width: $column-width;
+}
+
+.full {
+  width: 100%;
+}
+
+.layout {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: $standard-spacing;
+  width: $layout-width;
+}

@@ -1,0 +1,24 @@
+@import "../shared/variables.scss";
+
+.toggle-content {
+  height: 0;
+  visibility: hidden;
+}
+
+.toggle-content.toggle-content-open {
+  height: auto;
+  visibility: visible;
+}
+
+.toggle-header {
+  cursor: pointer;
+}
+
+.toggle-header svg {
+  margin-right: $small-spacing;
+  vertical-align: middle;
+}
+
+.toggle-item:not(:last-of-type) {
+  border-bottom: $border-standard;
+}

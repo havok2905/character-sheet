@@ -1,0 +1,7 @@
+@import "../shared/variables.scss";
+
+.token {
+  border-radius: $border-radius-circle;
+  height: $token-size-standard;
+  width: $token-size-standard;
+}

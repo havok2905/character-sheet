@@ -1,0 +1,23 @@
+@import "../shared/variables.scss";
+
+.card {
+  background-color: $dark-black;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow-light;
+  box-sizing: border-box;
+  margin: $standard-spacing 0;
+  padding: $standard-spacing;
+  position: relative;
+
+  &.card-link:hover {
+    box-shadow: $box-shadow-heavy;
+  }
+
+  &.card-with-icon {
+    display: flex;
+  
+    img {
+      margin-right: $standard-spacing;
+    }
+  }
+}

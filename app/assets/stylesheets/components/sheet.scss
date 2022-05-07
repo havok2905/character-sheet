@@ -1,0 +1,21 @@
+@import "../shared/variables.scss";
+
+.sheet-header {
+  display: flex;
+  position: relative;
+
+  img {
+    margin-right: $standard-spacing;
+  }
+}
+
+.sheet-header-settings {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.sheet-table-data-bolded {
+  color: $green;
+  font-weight: 900;
+}
