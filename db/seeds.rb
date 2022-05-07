@@ -717,3 +717,7 @@ npc = Creature.create([
     ]
   }
 ])
+
+character.first.creatures.push monster
+
+character.first.save!

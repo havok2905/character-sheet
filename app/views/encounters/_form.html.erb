@@ -1,0 +1,10 @@
+<%= form_for @encounter do |f| %>
+  <fieldset>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </fieldset>
+  <%= f.submit :class => 'button button-constructive' %>
+<% end %>
+

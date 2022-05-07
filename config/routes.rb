@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :campaigns
 
   get '/characters/:id/edit_attacks', to: 'characters#edit_attacks', as: 'character_edit_attacks'
+  get '/characters/:id/edit_creatures', to: 'characters#edit_creatures', as: 'character_edit_creatures'
   get '/characters/:id/edit_features', to: 'characters#edit_features', as: 'character_edit_features'
   get '/characters/:id/edit_inventory', to: 'characters#edit_inventory', as: 'character_edit_inventory'
   get '/characters/:id/edit_resources', to: 'characters#edit_resources', as: 'character_edit_resources'

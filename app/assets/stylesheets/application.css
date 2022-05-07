@@ -153,6 +153,7 @@ table tr:last-of-type td {
   box-sizing: border-box;
   margin: 20px 0;
   padding: 20px;
+  position: relative;
 }
 
 .card-with-icon {
@@ -165,6 +166,27 @@ table tr:last-of-type td {
 
 .card.card-link:hover {
   box-shadow: 0 10px 10px #000000;
+}
+
+.pet-and-associate-link {
+  display: block;
+}
+
+.pet-and-associate-link:hover {
+  background-color: #151518;
+}
+
+.pet-and-associate-link-content {
+  align-items: center;
+  display: flex;
+  padding: 8px;
+  width: 100%
+}
+
+.pet-and-associate-link-content .token {
+  margin-right: 20px;
+  height: 100px;
+  width: 100px;
 }
 
 .sheet-header {

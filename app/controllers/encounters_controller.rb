@@ -50,7 +50,7 @@ class EncountersController < ApplicationController
   end
 
   helper_method :modify_encounter
-  def modify_encounter_params
+  def modify_encounter
     user_signed_in?
   end
 

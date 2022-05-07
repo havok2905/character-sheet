@@ -262,6 +262,25 @@
     </div>
   </div>
   <div class="column">
+    <% if @character.creatures.any? %>
+      <div class="card">
+        <h2>Pets and NPCs</h2>
+        <% @character.creatures.each do |creature| %>
+          <ul>
+            <li>
+              <a class="pet-and-associate-link" href="<%= creature_path creature %>">
+                <div class="pet-and-associate-link-content">
+                  <% if creature.image.attached? %>
+                    <img alt="character portrait" class="token" src="<%= url_for creature.image %>"/>
+                  <% end %>
+                  <%= creature.name %>
+                </div>
+              </a>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+    <% end %>
     <div class="card">
       <h2>Biography</h2>
       <p><strong>Age:</strong> <%= @character.age %></p>

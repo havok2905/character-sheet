@@ -4,6 +4,7 @@ class CharactersController < ApplicationController
     :destroy,
     :edit,
     :edit_attacks,
+    :edit_creatures,
     :edit_features,
     :edit_inventory,
     :edit_resources,
@@ -40,6 +41,11 @@ class CharactersController < ApplicationController
 
   def edit_attacks
     @character = character_by_id
+  end
+
+  def edit_creatures
+    @character = character_by_id
+    @creatures = creatures
   end
 
   def edit_features
@@ -101,6 +107,10 @@ class CharactersController < ApplicationController
 
   def character_params
     params.require(:character).permit!
+  end
+
+  def creatures
+    Creature.all
   end
 
   def new_character

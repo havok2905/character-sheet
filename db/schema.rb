@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_06_164547) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_06_221530) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -237,6 +237,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_06_164547) do
     t.string "spellcasting_ability"
     t.integer "spellcasting_modifier"
     t.integer "spellcasting_save_dc"
+  end
+
+  create_table "characters_creatures", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "character_id", null: false
+    t.bigint "creature_id", null: false
+    t.index ["character_id"], name: "index_characters_creatures_on_character_id"
+    t.index ["creature_id"], name: "index_characters_creatures_on_creature_id"
   end
 
   create_table "creature_actions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
