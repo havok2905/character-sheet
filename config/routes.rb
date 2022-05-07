@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, :skip => [:registrations]
 
-  get '/', to: 'home#index'
+  get '/', to: 'characters#index'
   
   resources :campaigns
 
@@ -25,5 +25,5 @@ Rails.application.routes.draw do
 
   resources :encounters
   
-  root 'home#index'
+  root 'characters#index'
 end
