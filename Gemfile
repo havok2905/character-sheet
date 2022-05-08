@@ -40,7 +40,7 @@ gem 'rails', '~> 7.0.1'
 # gem "redis", "~> 4.0"
 
 # Use Sass to process CSS
-gem "sassc-rails"
+gem 'sassc-rails'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
