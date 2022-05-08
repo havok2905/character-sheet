@@ -21,6 +21,8 @@ This is a personal tool that is still under development.
 
 ## TODO
 
+- Dedupe spells
+- Build spells CRUD UI
 - Encounter builder UI
 - Encounter builder data structures
 - Support recursive Pets/NPCs in encounter deadliness calculator
