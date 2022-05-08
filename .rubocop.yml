@@ -3,6 +3,8 @@ AllCops:
     - 'bin/**/*'
     - 'config/**/*'
     - 'db/**/*'
+Metrics/BlockLength:
+  Enabled: false
 Naming/AccessorMethodName:
   Enabled: false
 Style/Documentation:
