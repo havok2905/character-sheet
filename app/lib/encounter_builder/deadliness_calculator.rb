@@ -45,13 +45,12 @@ module EncounterBuilder
       return 0 if hostile_party.empty?
 
       num_monsters = hostile_party.count
-      return 1 if num_monsters == 1
-      return 1.5 if num_monsters == 2
-      return 2 if num_monsters >= 3 && num_monsters <= 6
-      return 2.5 if num_monsters >= 7 && num_monsters <= 10
-      return 3 if num_monsters >= 11 && num_monsters <= 14
 
-      4
+      CoreRules::MonsterMultiplierTable::MONSTER_MULTIPLIER_TABLE.each do |item|
+        return item[:value] if num_monsters >= item[:min] && num_monsters <= item[:max]
+      end
+
+      CoreRules::MonsterMultiplierTable::MONSTER_MULTIPLIER_TABLE.last[:value]
     end
   end
 end
