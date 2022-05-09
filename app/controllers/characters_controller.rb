@@ -64,6 +64,7 @@ class CharactersController < ApplicationController
 
   def edit_spells
     @character = character_by_id
+    @spells = spells
   end
 
   def update
@@ -89,7 +90,7 @@ class CharactersController < ApplicationController
 
   helper_method :get_spells_by_level
   def get_spells_by_level(level)
-    @character.character_spells.select { |spell| spell.level == level }
+    @character.spells.select { |spell| spell.level == level }
   end
 
   helper_method :modify_character
@@ -121,5 +122,9 @@ class CharactersController < ApplicationController
 
   def new_character_with_params
     Character.new character_params
+  end
+
+  def spells
+    Spell.all
   end
 end

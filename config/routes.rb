@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   resources :creatures
 
   resources :encounters
+
+  resources :spells
   
   root 'characters#index'
 end

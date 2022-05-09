@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_08_090737) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_08_233019) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -94,27 +94,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_08_090737) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["character_id"], name: "index_character_items_on_character_id"
-  end
-
-  create_table "character_spells", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "character_id"
-    t.string "casting_time"
-    t.string "components"
-    t.boolean "concentration"
-    t.text "description"
-    t.text "description_higher_levels"
-    t.string "duration"
-    t.integer "level"
-    t.boolean "material_components"
-    t.string "name"
-    t.string "range"
-    t.string "school"
-    t.boolean "somatic_components"
-    t.string "target"
-    t.boolean "verbal_components"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["character_id"], name: "index_character_spells_on_character_id"
   end
 
   create_table "characters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -246,6 +225,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_08_090737) do
     t.index ["creature_id"], name: "index_characters_creatures_on_creature_id"
   end
 
+  create_table "characters_spells", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "character_id", null: false
+    t.bigint "spell_id", null: false
+    t.index ["character_id"], name: "index_characters_spells_on_character_id"
+    t.index ["spell_id"], name: "index_characters_spells_on_spell_id"
+  end
+
   create_table "creature_actions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "creature_id"
     t.text "description"
@@ -298,27 +284,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_08_090737) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creature_id"], name: "index_creature_regional_effects_on_creature_id"
-  end
-
-  create_table "creature_spells", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "creature_id"
-    t.string "casting_time"
-    t.string "components"
-    t.boolean "concentration"
-    t.text "description"
-    t.text "description_higher_levels"
-    t.string "duration"
-    t.integer "level"
-    t.boolean "material_components"
-    t.string "name"
-    t.string "range"
-    t.string "school"
-    t.boolean "somatic_components"
-    t.string "target"
-    t.boolean "verbal_components"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["creature_id"], name: "index_creature_spells_on_creature_id"
   end
 
   create_table "creatures", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -384,6 +349,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_08_090737) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "creatures_spells", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "creature_id", null: false
+    t.bigint "spell_id", null: false
+    t.index ["creature_id"], name: "index_creatures_spells_on_creature_id"
+    t.index ["spell_id"], name: "index_creatures_spells_on_spell_id"
+  end
+
   create_table "encounter_phases", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "encounter_id"
     t.text "description"
@@ -398,6 +370,29 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_08_090737) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "spells", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "character_id"
+    t.bigint "creature_id"
+    t.string "casting_time"
+    t.string "components"
+    t.boolean "concentration"
+    t.text "description"
+    t.text "description_higher_levels"
+    t.string "duration"
+    t.integer "level"
+    t.boolean "material_components"
+    t.string "name"
+    t.string "range"
+    t.string "school"
+    t.boolean "somatic_components"
+    t.string "target"
+    t.boolean "verbal_components"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_spells_on_character_id"
+    t.index ["creature_id"], name: "index_spells_on_creature_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -422,12 +417,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_08_090737) do
   add_foreign_key "character_feature_resources", "characters"
   add_foreign_key "character_features", "characters"
   add_foreign_key "character_items", "characters"
-  add_foreign_key "character_spells", "characters"
   add_foreign_key "creature_actions", "creatures"
   add_foreign_key "creature_features", "creatures"
   add_foreign_key "creature_lair_actions", "creatures"
   add_foreign_key "creature_legendary_actions", "creatures"
   add_foreign_key "creature_regional_effects", "creatures"
-  add_foreign_key "creature_spells", "creatures"
   add_foreign_key "encounter_phases", "encounters"
+  add_foreign_key "spells", "characters"
+  add_foreign_key "spells", "creatures"
 end

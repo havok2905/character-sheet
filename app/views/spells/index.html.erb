@@ -1,0 +1,19 @@
+<div class="layout">
+  <div class="full">
+    <h1>Spells</h1>
+    <% if modify_spell %>
+      <a class="button" href="<%= new_spell_path %>">Create</a>
+    <% end %>
+    <ul>
+      <% @spells.each do |spell| %>
+        <li>
+          <a href=<%= spell_path spell %>>
+            <div class="card card-link">
+              <h2><%= spell.name %></h2>
+            </div>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

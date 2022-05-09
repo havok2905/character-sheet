@@ -20,6 +20,75 @@ campaign = Campaign.create([
   }
 ])
 
+spells = Spell.create([
+  {
+    casting_time: "1 Action",
+    components: "",
+    concentration: false,
+    character_id: nil,
+    creature_id: nil,
+    description: "You cause numbing frost to form on one creature that you can see within range. The target must make a Constitution saving throw. On a failed save, the target takes 1d6 cold damage, and it has disadvantage on the next weapon attack roll it makes before the end of its next turn.",
+    description_higher_levels: "The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
+    duration: "Instantaneous",
+    level: 0,
+    material_components: false,
+    name: "Frostbite",
+    range: "60ft.",
+    school: "Evocation",
+    somatic_components: true,
+    target: "One target",
+    verbal_components: true
+  },
+  {
+    casting_time: "1 Action",
+    components: "",
+    concentration: false,
+    description: "A flash of light streaks toward a creature of your choice within range. Make a ranged spell attack against the target. On a hit, the target takes 4d6 radiant damage, and the next attack roll made against this target before the end of your next turn has advantage, thanks to the mystical dim light glittering on the target until then.",
+    description_higher_levels: "When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d6 for each slot level above 1st.",
+    duration: "1 Round",
+    level: 1,
+    material_components: false,
+    name: "Guiding Bolt",
+    range: "120ft.",
+    school: "Evocation",
+    somatic_components: true,
+    target: "A creature of your choice within range",
+    verbal_components: true
+  },
+  {
+    casting_time: "1 Action",
+    components: "A small, straight piece of iron",
+    concentration: true,
+    description: "Choose a humanoid that you can see within range. The target must succeed on a Wisdom saving throw or be paralyzed for the duration. At the end of each of its turns, the target can make another Wisdom saving throw. On a success, the spell ends on the target.",
+    description_higher_levels: "When you cast this spell using a spell slot of 3rd level or higher, you can target on additional humanoid for each slot level above 2nd. The humanoids must be within 30 feet of each other when you target them.",
+    duration: "Up to 1 minute",
+    level: 2,
+    material_components: true,
+    name: "Hold Person",
+    range: "60ft.",
+    school: "Enchantment",
+    somatic_components: true,
+    target: "A creature of your choice within range",
+    verbal_components: true
+  },
+  {
+    casting_time: "1 Action",
+    components: "",
+    concentration: false,
+    description: "A spectral, floating hand appears at a point you choose within range. The hand lasts for the duration or until you dismiss it as an action. The hand vanishes if it is ever more than 30 feet away from you or if you cast this spell again. You can use your action to control the hand. You can use the hand to manipulate an object, open an unlocked door or container, stow or retrieve an item from an open container, or pour the contents out of a vial. You can move the hand up to 30 feet each time you use it. The hand can't attack, activate magic items, or carry more than 10 pounds.",
+    description_higher_levels: "",
+    duration: "1 Minute",
+    level: 0,
+    material_components: false,
+    name: "Mage Hand",
+    range: "30ft.",
+    school: "Conjuration",
+    somatic_components: true,
+    target: "",
+    verbal_components: true
+  }
+])
+
 character = Character.create([
   {
     ac: 13,
@@ -336,55 +405,7 @@ You choose whether your equipment falls to the ground in your space, merges into
       })
     ],
 
-    character_spells: [
-      CharacterSpell.create({
-        casting_time: "1 Action",
-        components: "",
-        concentration: false,
-        description: "You cause numbing frost to form on one creature that you can see within range. The target must make a Constitution saving throw. On a failed save, the target takes 1d6 cold damage, and it has disadvantage on the next weapon attack roll it makes before the end of its next turn.",
-        description_higher_levels: "The spell’s damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
-        duration: "Instantaneous",
-        level: 0,
-        material_components: false,
-        name: "Frostbite",
-        range: "60ft.",
-        school: "Evocation",
-        somatic_components: true,
-        target: "One target",
-        verbal_components: true
-      }),
-      CharacterSpell.create({
-        casting_time: "1 Action",
-        components: "",
-        concentration: false,
-        description: "A flash of light streaks toward a creature of your choice within range. Make a ranged spell attack against the target. On a hit, the target takes 4d6 radiant damage, and the next attack roll made against this target before the end of your next turn has advantage, thanks to the mystical dim light glittering on the target until then.",
-        description_higher_levels: "When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d6 for each slot level above 1st.",
-        duration: "1 Round",
-        level: 1,
-        material_components: false,
-        name: "Guiding Bolt",
-        range: "120ft.",
-        school: "Evocation",
-        somatic_components: true,
-        target: "A creature of your choice within range",
-        verbal_components: true
-      }),
-      CharacterSpell.create({
-        casting_time: "1 Action",
-        components: "A small, straight piece of iron",
-        concentration: true,
-        description: "Choose a humanoid that you can see within range. The target must succeed on a Wisdom saving throw or be paralyzed for the duration. At the end of each of its turns, the target can make another Wisdom saving throw. On a success, the spell ends on the target.",
-        description_higher_levels: "When you cast this spell using a spell slot of 3rd level or higher, you can target on additional humanoid for each slot level above 2nd. The humanoids must be within 30 feet of each other when you target them.",
-        duration: "Up to 1 minute",
-        level: 2,
-        material_components: true,
-        name: "Hold Person",
-        range: "60ft.",
-        school: "Enchantment",
-        somatic_components: true,
-        target: "A creature of your choice within range",
-        verbal_components: true
-      })
+    spells: [
     ]
   }
 ])
@@ -584,7 +605,7 @@ monster = Creature.create([
       })
     ],
 
-    creature_spells: [
+    spells: [
     ]
   }
 ])
@@ -693,31 +714,10 @@ npc = Creature.create([
     creature_regional_effects: [
     ],
 
-    creature_spells: [
-      CreatureSpell.create({
-        casting_time: "1 Action",
-        components: "",
-        concentration: false,
-        description: "A spectral, floating hand appears at a point you choose within range. The hand lasts for the duration or until you dismiss it as an action. The hand vanishes if it is ever more than 30 feet away from you or if you cast this spell again.
-
-        You can use your action to control the hand. You can use the hand to manipulate an object, open an unlocked door or container, stow or retrieve an item from an open container, or pour the contents out of a vial. You can move the hand up to 30 feet each time you use it.
-        
-        The hand can't attack, activate magic items, or carry more than 10 pounds.",
-        description_higher_levels: "",
-        duration: "1 Minute",
-        level: 0,
-        material_components: false,
-        name: "Mage Hand",
-        range: "30ft.",
-        school: "Conjuration",
-        somatic_components: true,
-        target: "",
-        verbal_components: true
-      })
+    spells: [
     ]
   }
 ])
 
 character.first.creatures.push monster
-
 character.first.save!

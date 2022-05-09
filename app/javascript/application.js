@@ -5,16 +5,14 @@ import {
   CharacterAttackForm,
   CharacterFeatureForm,
   CharacterItemForm,
-  CharacterResourceForm,
-  CharacterSpellForm
+  CharacterResourceForm
 } from './components/CharacterForm';
 import {
   CreatureActionsForm,
   CreatureFeatureForm,
   CreatureLairActionForm,
   CreatureLegendaryActionForm,
-  CreatureRegionalEffectsForm,
-  CreatureSpellsForm
+  CreatureRegionalEffectsForm
 } from './components/CreatureForm';
 import {
   ToggleItem
@@ -25,12 +23,10 @@ document.addEventListener('turbo:load', function() {
   CharacterFeatureForm.run();
   CharacterItemForm.run();
   CharacterResourceForm.run();
-  CharacterSpellForm.run();
   CreatureActionsForm.run();
   CreatureFeatureForm.run();
   CreatureLairActionForm.run();
   CreatureLegendaryActionForm.run();
   CreatureRegionalEffectsForm.run();
-  CreatureSpellsForm.run();
   ToggleItem.run();
 });

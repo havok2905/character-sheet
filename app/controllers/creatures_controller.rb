@@ -71,6 +71,7 @@ class CreaturesController < ApplicationController
 
   def edit_spells
     @creature = creature_by_id
+    @spells = spells
   end
 
   def update
@@ -91,7 +92,7 @@ class CreaturesController < ApplicationController
 
   helper_method :get_spells_by_level
   def get_spells_by_level(level)
-    @creature.creature_spells.select { |spell| spell.level == level }
+    @creature.spells.select { |spell| spell.level == level }
   end
 
   helper_method :modify_creature
@@ -127,5 +128,9 @@ class CreaturesController < ApplicationController
 
   def new_creature_with_params
     Creature.new creature_params
+  end
+
+  def spells
+    Spell.all
   end
 end

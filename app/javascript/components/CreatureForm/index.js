@@ -136,59 +136,10 @@ const CreatureRegionalEffectsForm = {
   }
 };
 
-const CreatureSpellsForm = {
-  run() {
-    const button = document.querySelector('[name="creature-form-add-spell-button"]');
-
-    if (!button) return;
-  
-    button.addEventListener('click', () => {
-      const items = document.querySelector('#creature-spells-form');
-      const fieldsets = document.querySelectorAll('#creature-spells-form fieldset');
-      const newFieldset = document.createElement('fieldset');
-      const index = fieldsets.length;
-  
-      newFieldset.innerHTML = `
-        <label for="creature_creature_spells_attributes_${index}_name">Name</label>
-        <input type="text" value="" name="creature[creature_spells_attributes][${index}][name]" id="creature_creature_spells_attributes_${index}_name">
-        <label for="creature_creature_spells_attributes_${index}_level">Level</label>
-        <input type="number" value="" name="creature[creature_spells_attributes][${index}][level]" id="creature_creature_spells_attributes_${index}_level">
-        <label for="creature_creature_spells_attributes_${index}_school">School</label>
-        <input type="text" value="" name="creature[creature_spells_attributes][${index}][school]" id="creature_creature_spells_attributes_${index}_school">
-        <label for="creature_creature_spells_attributes_${index}_casting_time">Casting time</label>
-        <input type="text" value="" name="creature[creature_spells_attributes][${index}][casting_time]" id="creature_creature_spells_attributes_${index}_casting_time">
-        <label for="creature_creature_spells_attributes_${index}_duration">Duration</label>
-        <input type="text" value="" name="creature[creature_spells_attributes][${index}][duration]" id="creature_creature_spells_attributes_${index}_duration">
-        <label for="creature_creature_spells_attributes_${index}_range">Range</label>
-        <input type="text" value="" name="creature[creature_spells_attributes][${index}][range]" id="creature_creature_spells_attributes_${index}_range">
-        <label for="creature_creature_spells_attributes_${index}_target">Target</label>
-        <input type="text" value="" name="creature[creature_spells_attributes][${index}][target]" id="creature_creature_spells_attributes_${index}_target">
-        <label for="creature_creature_spells_attributes_${index}_components">Components</label>
-        <input type="text" value="" name="creature[creature_spells_attributes][${index}][components]" id="creature_creature_spells_attributes_${index}_components">
-        <label for="creature_creature_spells_attributes_${index}_concentration">Concentration</label>
-        <input name="creature[creature_spells_attributes][${index}][concentration]" type="hidden" value="0" autocomplete="off"><input type="checkbox" value="1" name="creature[creature_spells_attributes][${index}][concentration]" id="creature_creature_spells_attributes_${index}_concentration">
-        <label for="creature_creature_spells_attributes_${index}_material_components">Material components</label>
-        <input name="creature[creature_spells_attributes][${index}][material_components]" type="hidden" value="0" autocomplete="off"><input type="checkbox" value="1" name="creature[creature_spells_attributes][${index}][material_components]" id="creature_creature_spells_attributes_${index}_material_components">
-        <label for="creature_creature_spells_attributes_${index}_somatic_components">Somatic components</label>
-        <input name="creature[creature_spells_attributes][${index}][somatic_components]" type="hidden" value="0" autocomplete="off"><input type="checkbox" value="1" name="creature[creature_spells_attributes][${index}][somatic_components]" id="creature_creature_spells_attributes_${index}_somatic_components">
-        <label for="creature_creature_spells_attributes_${index}_verbal_components">Verbal components</label>
-        <input name="creature[creature_spells_attributes][${index}][verbal_components]" type="hidden" value="0" autocomplete="off"><input type="checkbox" value="1" name="creature[creature_spells_attributes][${index}][verbal_components]" id="creature_creature_spells_attributes_${index}_verbal_components">
-        <label for="creature_creature_spells_attributes_${index}_description">Description</label>
-        <textarea name="creature[creature_spells_attributes][${index}][description]" id="creature_creature_spells_attributes_${index}_description"></textarea>
-        <label for="creature_creature_spells_attributes_${index}_description_higher_levels">Description higher levels</label>
-        <textarea name="creature[creature_spells_attributes][${index}][description_higher_levels]" id="creature_creature_spells_attributes_${index}_description_higher_levels"></textarea>
-      `;
-  
-      items.append(newFieldset);
-    });
-  }
-};
-
 export {
   CreatureActionsForm,
   CreatureFeatureForm,
   CreatureLairActionForm,
   CreatureLegendaryActionForm,
-  CreatureRegionalEffectsForm,
-  CreatureSpellsForm
+  CreatureRegionalEffectsForm
 };
