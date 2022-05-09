@@ -13,12 +13,43 @@ user.password = 'password'
 user.password_confirmation = 'password'
 user.save!
 
-campaign = Campaign.create([
-  {
-    name: "Light up the Night",
-    description: "Swashbuckling adventure to save the realm from a goddess of destruction, bent on restarting all of civilization."
-  }
-])
+encounter_phase = EncounterPhase.create({
+  name: "The fight",
+  description: "The fight takes place"
+})
+
+encounter = Encounter.create({
+  name: "Fight with the guards",
+  description: "The players get into a fight with the guards along the wall",
+  encounter_phases: [
+    encounter_phase
+  ]
+})
+
+campaign_arc_session = CampaignArcSession.create({
+  name: "At the Wall",
+  description: "The players figure out to to bypass the enormous wall surrounding the city.",
+  encounters: [
+    encounter
+  ]
+})
+
+
+campaign_arc = CampaignArc.create({
+  name: "Journey to Habarashi",
+  description: "The players journey through the desert to the Habarashi metropolis.",
+  campaign_arc_sessions: [
+    campaign_arc_session
+  ]
+})
+
+campaign = Campaign.create({
+  name: "Light up the Night",
+  description: "Swashbuckling adventure to save the realm from a goddess of destruction, bent on restarting all of civilization.",
+  campaign_arcs: [
+    campaign_arc
+  ]
+})
 
 spells = Spell.create([
   {

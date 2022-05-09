@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_08_233019) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_09_010927) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -37,6 +37,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_08_233019) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "campaign_arc_sessions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "campaign_arc_id"
+    t.text "description"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_arc_id"], name: "index_campaign_arc_sessions_on_campaign_arc_id"
+  end
+
+  create_table "campaign_arcs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "campaign_id"
+    t.text "description"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_campaign_arcs_on_campaign_id"
   end
 
   create_table "campaigns", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -370,6 +388,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_08_233019) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "campaign_arc_session_id"
+    t.index ["campaign_arc_session_id"], name: "index_encounters_on_campaign_arc_session_id"
   end
 
   create_table "spells", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -413,6 +433,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_08_233019) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "campaign_arc_sessions", "campaign_arcs"
+  add_foreign_key "campaign_arcs", "campaigns"
   add_foreign_key "character_attacks", "characters"
   add_foreign_key "character_feature_resources", "characters"
   add_foreign_key "character_features", "characters"
