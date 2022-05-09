@@ -34,7 +34,6 @@ This is a personal tool that is still under development.
 - User admin page -- user generation and management
 - Explore better ways of handling JS behaviors for forms
 - S3 bucket or equivilent for image uploads
-- Github Actions for testing and linting
 - Integration tests
 
 ## Possible Long Term TODOs
