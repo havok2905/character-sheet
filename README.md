@@ -21,7 +21,6 @@ This is a personal tool that is still under development.
 
 ## TODO
 
-- Dedupe spells
 - Build spells CRUD UI
 - Creature search and filter
 - Encounter builder UI
