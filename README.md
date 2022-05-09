@@ -18,31 +18,3 @@ This is a personal tool that is still under development.
 **To lint:** `bundle exec rubocop`
 
 **To test:** `bundle exec rspec`
-
-## TODO
-
-- Build spells CRUD UI
-- Creature search and filter
-- Encounter builder UI
-- Encounter builder data structures
-- Support recursive Pets/NPCs in encounter deadliness calculator
-- Improved Character/Creature form UI
-- Character form validation
-- Creature form validation
-- Encounter form validation
-- Campaign form validation
-- User admin page -- user generation and management
-- Explore better ways of handling JS behaviors for forms
-- S3 bucket or equivilent for image uploads
-- Integration tests
-
-## Possible Long Term TODOs
-
-- Campaign difficulty curve tracker
-- Campaign auditing and reporting tooling
-- Campaign session notes CMS
-- Character relation graphs
-- Faction groupings
-- Campaign event timelines
-- Campaign calendars
-- Weather and natural disaster tracking
