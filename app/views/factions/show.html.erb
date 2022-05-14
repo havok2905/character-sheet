@@ -17,7 +17,7 @@
       <p><strong>Ideals: </strong><%= @faction.ideals %></p>
       <p><strong>Allies: </strong><%= @faction.allies %></p>
       <p><strong>Rivals: </strong><%= @faction.rivals %></p>
-      <p><strong>Description: </strong><%= @faction.description %></p>
+      <%= simple_format(@faction.description).html_safe %>
     </div>
     <h2>Member NPCs</h2>
     <ul>

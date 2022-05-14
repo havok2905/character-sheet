@@ -16,8 +16,14 @@
       <p><strong>Duration: </strong><%= @spell.duration %></p>
       <p><strong>Range: </strong><%= @spell.range %></p>
       <p><strong>Target: </strong><%= @spell.target %></p>
-      <p><strong>Description: </strong><%= @spell.description %></p>
-      <p><strong>Description at Higher Levels: </strong><%= @spell.description_higher_levels %></p>
+      <p>
+        <strong>Description: </strong>
+        <%= simple_format(@spell.description).html_safe %>
+      </p>
+      <p>
+        <strong>Description at Higher Levels: </strong>
+        <%= simple_format(@spell.description_higher_levels).html_safe %>
+      </p>
     </div>
   </div>
 </div>

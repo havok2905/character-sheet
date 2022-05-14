@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_14_100731) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_14_134837) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -209,6 +209,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_14_100731) do
     t.integer "wisdom_score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "backstory"
   end
 
   create_table "characters_creatures", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -347,6 +348,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_14_100731) do
     t.integer "wisdom_score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "backstory"
   end
 
   create_table "creatures_factions", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

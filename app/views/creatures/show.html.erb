@@ -92,21 +92,31 @@
       <p><strong>Damage Vulnerabilities:</strong> <%= @creature.damage_vulnerabilities %></p>
       <p><strong>Languages:</strong> <%= @creature.languages %></p>
     </div>
-    <div class="card">
-      <h2>About</h2>
-      <p><strong>Personality Traits:</strong> <%= @creature.personality_traits %></p>
-      <p><strong>Ideals:</strong> <%= @creature.ideals %></p>
-      <p><strong>Bonds:</strong> <%= @creature.bonds %></p>
-      <p><strong>Flaws:</strong> <%= @creature.flaws %></p>
-      <p><strong>Description:</strong> <%= @creature.description %></p>
-    </div>
+    <% if @creature.personality_traits.present? || @creature.ideals.present? || @creature.bonds.present? || @creature.flaws.present? || @creature.description.present? %>
+      <div class="card">
+        <h2>About</h2>
+        <p><strong>Personality Traits:</strong> <%= @creature.personality_traits %></p>
+        <p><strong>Ideals:</strong> <%= @creature.ideals %></p>
+        <p><strong>Bonds:</strong> <%= @creature.bonds %></p>
+        <p><strong>Flaws:</strong> <%= @creature.flaws %></p>
+        <%= simple_format(@creature.description).html_safe %>
+      </div>
+    <% end %>
+    <% if @creature.backstory.present? %>
+      <div class="card">
+        <h2>Backstory</h2>
+        <%= simple_format(@creature.backstory).html_safe %>
+      </div>
+    <% end %>
     <% if @creature.creature_lair_actions.any? %>
       <div class="card">
         <h2>Lair Actions</h2>
         <p><%= @creature.lair_actions_text %></p>
         <ul>
           <% @creature.creature_lair_actions.each do |action| %>
-            <li><p><%= action.description %></p></li>
+            <li>
+              <%= simple_format(action.description).html_safe %>
+            </li>
           <% end %>
         </ul>
       </div>
@@ -117,7 +127,9 @@
         <p><%= @creature.regional_effects_text %></p>
         <ul>
           <% @creature.creature_regional_effects.each do |effect| %>
-            <li><p><%= effect.description %></p></li>
+            <li>
+              <%= simple_format(effect.description).html_safe %>
+            </li>
           <% end %>
         </ul>
       </div>
@@ -148,7 +160,7 @@
         <h2>Features</h2>
         <% @creature.creature_features.each do |feature| %>
           <%= render layout: 'shared/toggle-item', locals: { heading: "#{feature.name}: #{feature.feature_type}" } do %>
-            <p><%= feature.description %></p>
+            <%= simple_format(feature.description).html_safe %>
           <% end %>
         <% end %>
       </div>
@@ -164,7 +176,7 @@
             <p>Damage Two<%= action.damage_two_dice_roll %> <%= action.damage_two_type %></p>
             <p>Range: <%= action.range %></p>
             <p>Save DC: DC<%= action.saving_throw_dc %> <%= action.saving_throw_type %></p>
-            <p><%= action.description %></p>
+            <%= simple_format(action.description).html_safe %>
           <% end %>
         <% end %>
       </div>
@@ -175,7 +187,7 @@
         <p><%= @creature.legendary_actions_text %></p>
         <% @creature.creature_legendary_actions.each do |action| %>
           <%= render layout: 'shared/toggle-item', locals: { heading: action.name } do %>
-            <p><%= action.description %></p>
+            <%= simple_format(action.description).html_safe %>
           <% end %>
         <% end %>
       </div>

@@ -216,23 +216,7 @@
         </tr>
       </tbody>
     </table>
-    <div class="card">
-      <h2>Senses</h2>
-      <p><%= @character.senses %></p>
-      <p><strong>Passive Perception:</strong> <%= @character.passive_perception %></p>
-      <h2>Proficinencies</h2>
-      <p><strong>Armor Proficiencies:</strong> <%= @character.armor_proficiencies %></p>
-      <p><strong>Condition Immunities:</strong> <%= @character.condition_immunities %></p>
-      <p><strong>Condition Resistences:</strong> <%= @character.condition_resistances %></p>
-      <p><strong>Condition Vulnerabilities:</strong> <%= @character.condition_vulnerabilities %></p>
-      <p><strong>Damage Immunities:</strong> <%= @character.damage_immunities %></p>
-      <p><strong>Damage Resistences:</strong> <%= @character.damage_resistances %></p>
-      <p><strong>Damage Vulnerabilities:</strong> <%= @character.damage_vulnerabilities %></p>
-      <p><strong>Languages:</strong> <%= @character.languages %></p>
-      <p><strong>Tool Proficiencies:</strong> <%= @character.tool_proficiencies %></p>
-      <p><strong>Weapon Proficiencies:</strong> <%= @character.weapon_proficiencies %></p>
-    </div>
-    <table >
+    <table>
       <thead>
         <tr>
           <th>Copper</th>
@@ -256,9 +240,26 @@
       <h2>Inventory</h2>
       <% @character.character_items.each do |item| %>
         <%= render layout: "shared/toggle-item", locals: { heading: "#{item.name}: #{item.total.to_s}" } do %>
-          <p><%= item.description %></p>
+          <%= simple_format(item.description).html_safe %>
         <% end %>
       <% end %>
+    </div>
+    <div class="card">
+      <h2>Biography</h2>
+      <p><strong>Age:</strong> <%= @character.age %></p>
+      <p><strong>Height:</strong> <%= @character.height %></p>
+      <p><strong>Weight:</strong> <%= @character.weight %></p>
+      <p><strong>Hair:</strong> <%= @character.hair %></p>
+      <p><strong>Skin:</strong> <%= @character.skin %></p>
+      <p><strong>Eyes:</strong> <%= @character.eyes %></p>
+      <p><strong>Personality Traits:</strong> <%= @character.personality_traits %></p>
+      <p><strong>Ideals:</strong> <%= @character.ideals %></p>
+      <p><strong>Bonds:</strong> <%= @character.bonds %></p>
+      <p><strong>Flaws:</strong> <%= @character.flaws %></p>
+    </div>
+    <div class="card">
+      <h2>Backstory</h2>
+      <%= simple_format(@character.backstory).html_safe %>
     </div>
   </div>
   <div class="column">
@@ -301,17 +302,20 @@
       </div>
     <% end %>
     <div class="card">
-      <h2>Biography</h2>
-      <p><strong>Age:</strong> <%= @character.age %></p>
-      <p><strong>Height:</strong> <%= @character.height %></p>
-      <p><strong>Weight:</strong> <%= @character.weight %></p>
-      <p><strong>Hair:</strong> <%= @character.hair %></p>
-      <p><strong>Skin:</strong> <%= @character.skin %></p>
-      <p><strong>Eyes:</strong> <%= @character.eyes %></p>
-      <p><strong>Personality Traits:</strong> <%= @character.personality_traits %></p>
-      <p><strong>Ideals:</strong> <%= @character.ideals %></p>
-      <p><strong>Bonds:</strong> <%= @character.bonds %></p>
-      <p><strong>Flaws:</strong> <%= @character.flaws %></p>
+      <h2>Senses</h2>
+      <p><%= @character.senses %></p>
+      <p><strong>Passive Perception:</strong> <%= @character.passive_perception %></p>
+      <h2>Proficinencies</h2>
+      <p><strong>Armor Proficiencies:</strong> <%= @character.armor_proficiencies %></p>
+      <p><strong>Condition Immunities:</strong> <%= @character.condition_immunities %></p>
+      <p><strong>Condition Resistences:</strong> <%= @character.condition_resistances %></p>
+      <p><strong>Condition Vulnerabilities:</strong> <%= @character.condition_vulnerabilities %></p>
+      <p><strong>Damage Immunities:</strong> <%= @character.damage_immunities %></p>
+      <p><strong>Damage Resistences:</strong> <%= @character.damage_resistances %></p>
+      <p><strong>Damage Vulnerabilities:</strong> <%= @character.damage_vulnerabilities %></p>
+      <p><strong>Languages:</strong> <%= @character.languages %></p>
+      <p><strong>Tool Proficiencies:</strong> <%= @character.tool_proficiencies %></p>
+      <p><strong>Weapon Proficiencies:</strong> <%= @character.weapon_proficiencies %></p>
     </div>
     <div class="card">
       <h2>Resources</h2>
@@ -323,18 +327,21 @@
       <h2>Attacks</h2>
       <% @character.character_attacks.each do |attack| %>
         <%= render layout: "shared/toggle-item", locals: { heading: attack.name } do %>
-          <p>Atatck Bonus: <%= attack.attack_bonus %></p>
-          <p>Crit Range: <%= attack.crit_range %></p>
-          <p>Damage Dice Roll: <%= attack.damage_dice_roll %></p>
-          <p>Damage Two Dice Roll: <%= attack.damage_two_dice_roll %></p>
-          <p>Damage Two Type: <%= attack.damage_two_type %></p>
-          <p>Damage Type: <%= attack.damage_type %></p>
-          <p>Description: <%= attack.description %></p>
-          <p>Is Saving Throw: <%= attack.is_saving_throw %></p>
-          <p>Range: <%= attack.range %></p>
-          <p>Saving Throw Description: <%= attack.saving_throw_description %></p>
-          <p>Saving Throw Threshold: <%= attack.saving_throw_threshold %></p>
-          <p>Saving Throw Type: <%= attack.saving_throw_type %></p>
+          <p><strong>Atatck Bonus: </strong><%= attack.attack_bonus %></p>
+          <p><strong>Crit Range: </strong><%= attack.crit_range %></p>
+          <p><strong>Damage Dice Roll: </strong><%= attack.damage_dice_roll %></p>
+          <p><strong>Damage Two Dice Roll: </strong><%= attack.damage_two_dice_roll %></p>
+          <p><strong>Damage Two Type: </strong><%= attack.damage_two_type %></p>
+          <p><strong>Damage Type: </strong><%= attack.damage_type %></p>
+          <p>
+            <strong>Description: </strong>
+            <%= simple_format(attack.description).html_safe %>
+          </p>
+          <p><strong>Is Saving Throw: </strong><%= attack.is_saving_throw %></p>
+          <p><strong>Range: </strong><%= attack.range %></p>
+          <p><strong>Saving Throw Description: </strong><%= attack.saving_throw_description %></p>
+          <p><strong>Saving Throw Threshold: </strong><%= attack.saving_throw_threshold %></p>
+          <p><strong>Saving Throw Type: </strong><%= attack.saving_throw_type %></p>
         <% end %>
       <% end %>
     </div>
@@ -344,7 +351,10 @@
         <%= render layout: "shared/toggle-item", locals: { heading: feature.name } do %>
           <p><strong>Source:</strong> <%= feature.source %></p>
           <p><strong>Feature Type:</strong> <%= feature.feature_type %></p>
-          <p><strong>Description:</strong> <%= feature.description %></p>
+          <p>
+            <strong>Description:</strong>
+            <%= simple_format(feature.description).html_safe %>
+          </p>
         <% end %>
       <% end %>
     </div>

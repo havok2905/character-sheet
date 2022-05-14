@@ -4,5 +4,5 @@
 <p>Duration: <%= spell.duration %></p>
 <p>Range: <%= spell.range %></p>
 <p>Target: <%= spell.target %></p>
-<p><%= spell.description %></p>
-<p><%= spell.description_higher_levels %></p>
+<%= simple_format(spell.description).html_safe %>
+<%= simple_format(spell.description_higher_levels).html_safe %>
