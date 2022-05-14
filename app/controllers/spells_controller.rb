@@ -5,7 +5,9 @@ class SpellsController < ApplicationController
     create
     destroy
     edit
+    index
     new
+    show
     update
   ]
 
