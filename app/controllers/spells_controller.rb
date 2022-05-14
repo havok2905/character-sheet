@@ -12,7 +12,7 @@ class SpellsController < ApplicationController
   ]
 
   def index
-    @spells = spells.order 'level ASC, name'
+    @spells = spells_search
   end
 
   def show
@@ -75,6 +75,18 @@ class SpellsController < ApplicationController
 
   def spells
     Spell.all
+  end
+
+  def spells_search
+    level = params[:search_by_level]
+    name = params[:search_by_name]
+    school = params[:search_by_school]
+
+    found_spells = Spell.order('level ASC, name')
+    found_spells = found_spells.where(level: level) if level.present?
+    found_spells = found_spells.where(school: school) if school.present?
+    found_spells = found_spells.where("name LIKE ?", "%" + name + "%") if name.present?
+    found_spells
   end
 
   def new_spell

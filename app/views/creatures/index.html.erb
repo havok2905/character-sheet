@@ -1,8 +1,22 @@
 <div class="layout">
   <div class="full">
     <h1>Creatures</h1>
-    <a class="button" href="<%= creatures_monsters_path %>">Monsters</a>
-    <a class="button" href="<%= creatures_npcs_path %>">NPCs</a>
+    <div>
+      <% if modify_creature %>
+        <a class="button" href="<%= new_creature_path %>">Create</a>
+      <% end %>
+    </div>
+    <%= form_tag(creatures_path, method: :get) do %>
+      <fieldset>
+        <%= label_tag :search_by_category, 'Category' %>
+        <%= select_tag "search_by_category", options_for_select([nil, 'Monster', 'NPC'], params[:search_by_category]) %>
+        <%= label_tag :search_by_name, 'Name' %>
+        <%= text_field_tag :search_by_name, params[:search_by_name] %>
+        <%= label_tag :search_by_cr, 'CR' %>
+        <%= text_field_tag :search_by_cr, params[:search_by_cr] %>
+        <%= submit_tag 'Search', class: 'button' %>
+      </fieldset>
+    <% end %>
     <%= render partial: 'show_creatures', locals: { creatures: @creatures, title: 'Creatures' } %>
   </div>
 </div>

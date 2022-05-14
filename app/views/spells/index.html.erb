@@ -4,6 +4,17 @@
     <% if modify_spell %>
       <a class="button" href="<%= new_spell_path %>">Create</a>
     <% end %>
+    <%= form_tag(spells_path, method: :get) do %>
+      <fieldset>
+        <%= label_tag :search_by_name, 'Name' %>
+        <%= text_field_tag :search_by_name, params[:search_by_name] %>
+        <%= label_tag :search_by_level, 'Level' %>
+        <%= text_field_tag :search_by_level, params[:search_by_level] %>
+        <%= label_tag :search_by_school, 'School' %>
+        <%= select_tag :search_by_school, options_for_select([nil, 'Abjuration', 'Conjuration', 'Divination', 'Enchantment', 'Evocation', 'Illusion', 'Necromancy', 'Transmutation'], params[:search_by_school]) %>
+        <%= submit_tag 'Search', class: 'button' %>
+      </fieldset>
+    <% end %>
     <table>
       <thead>
         <tr>

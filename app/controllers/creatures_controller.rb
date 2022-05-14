@@ -17,15 +17,7 @@ class CreaturesController < ApplicationController
   ]
 
   def index
-    @creatures = creatures
-  end
-
-  def monsters
-    @creatures = get_monsters
-  end
-
-  def npcs
-    @creatures = get_npcs
+    @creatures = creatures_search
   end
 
   def show
@@ -120,16 +112,20 @@ class CreaturesController < ApplicationController
     Creature.all
   end
 
+  def creatures_search
+    cr = params[:search_by_cr]
+    creature_category = params[:search_by_category]
+    name = params[:search_by_name]
+
+    found_creatures = Creature.order(:name)
+    found_creatures = found_creatures.where(cr: cr) if cr.present?
+    found_creatures = found_creatures.where(creature_category: creature_category) if creature_category.present?
+    found_creatures = found_creatures.where("name LIKE ?", "%" + name + "%") if name.present?
+    found_creatures
+  end
+
   def factions
     Faction.all
-  end
-
-  def get_monsters
-    Creature.where creature_category: 'Monster'
-  end
-
-  def get_npcs
-    Creature.where creature_category: 'NPC'
   end
 
   def new_creature
