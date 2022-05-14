@@ -6,6 +6,7 @@ class CreaturesController < ApplicationController
     destroy
     edit
     edit_actions
+    edit_factions
     edit_features
     edit_lair_actions
     edit_legendary_actions

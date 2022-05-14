@@ -7,6 +7,7 @@ class CharactersController < ApplicationController
     edit
     edit_attacks
     edit_creatures
+    edit_factions
     edit_features
     edit_inventory
     edit_resources
