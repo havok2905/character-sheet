@@ -12,7 +12,7 @@ class SpellsController < ApplicationController
   ]
 
   def index
-    @spells = spells
+    @spells = spells.order 'level ASC, name'
   end
 
   def show
