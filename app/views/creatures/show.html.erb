@@ -124,6 +124,25 @@
     <% end %>
   </div>
   <div class="column">
+    <% if @creature.factions.any? %>
+      <div class="card">
+        <h2>Factions</h2>
+        <% @creature.factions.each do |faction| %>
+          <ul>
+            <li>
+              <a class="pet-and-associate-link" href="<%= faction_path faction %>">
+                <div class="pet-and-associate-link-content">
+                  <% if faction.image.attached? %>
+                    <img alt="faction portrait" class="token" src="<%= url_for faction.image %>"/>
+                  <% end %>
+                  <%= faction.name %>
+                </div>
+              </a>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+    <% end %>
     <% if @creature.creature_features.any? %>
       <div class="card">
         <h2>Features</h2>

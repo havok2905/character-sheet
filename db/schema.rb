@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_14_062227) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_14_100731) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -218,6 +218,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_14_062227) do
     t.index ["creature_id"], name: "index_characters_creatures_on_creature_id"
   end
 
+  create_table "characters_factions", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "character_id", null: false
+    t.bigint "faction_id", null: false
+    t.index ["character_id"], name: "index_characters_factions_on_character_id"
+    t.index ["faction_id"], name: "index_characters_factions_on_faction_id"
+  end
+
   create_table "characters_spells", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "character_id", null: false
     t.bigint "spell_id", null: false
@@ -342,11 +349,30 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_14_062227) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "creatures_factions", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "creature_id", null: false
+    t.bigint "faction_id", null: false
+    t.index ["creature_id"], name: "index_creatures_factions_on_creature_id"
+    t.index ["faction_id"], name: "index_creatures_factions_on_faction_id"
+  end
+
   create_table "creatures_spells", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "creature_id", null: false
     t.bigint "spell_id", null: false
     t.index ["creature_id"], name: "index_creatures_spells_on_creature_id"
     t.index ["spell_id"], name: "index_creatures_spells_on_spell_id"
+  end
+
+  create_table "factions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "alignment"
+    t.text "allies"
+    t.text "description"
+    t.text "goals"
+    t.text "ideals"
+    t.string "name"
+    t.text "rivals"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "spells", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

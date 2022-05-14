@@ -53,6 +53,11 @@ class CreaturesController < ApplicationController
     @creature = creature_by_id
   end
 
+  def edit_factions
+    @creature = creature_by_id
+    @factions = factions
+  end
+
   def edit_features
     @creature = creature_by_id
   end
@@ -112,6 +117,10 @@ class CreaturesController < ApplicationController
 
   def creatures
     Creature.all
+  end
+
+  def factions
+    Faction.all
   end
 
   def get_monsters

@@ -1,0 +1,24 @@
+<%= form_for @faction do |f| %>
+  <fieldset>
+    <%= f.file_field :image %>
+  </fieldset>
+  <fieldset>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :alignment %>
+    <%= f.text_field :alignment %>
+    <%= f.label :goals %>
+    <%= f.text_area :goals %>
+    <%= f.label :ideals %>
+    <%= f.text_area :ideals %>
+    <%= f.label :allies %>
+    <%= f.text_area :allies %>
+    <%= f.label :rivals %>
+    <%= f.text_area :rivals %>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </fieldset>
+  <fieldset>
+    <%= f.submit :class => 'button button-constructive' %>
+  </fieldset>
+<% end %>

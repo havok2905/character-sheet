@@ -50,6 +50,11 @@ class CharactersController < ApplicationController
     @creatures = creatures
   end
 
+  def edit_factions
+    @character = character_by_id
+    @factions = factions
+  end
+
   def edit_features
     @character = character_by_id
   end
@@ -114,6 +119,10 @@ class CharactersController < ApplicationController
 
   def creatures
     Creature.all
+  end
+
+  def factions
+    Faction.all
   end
 
   def new_character

@@ -1,0 +1,25 @@
+<div class="layout">
+  <div class="full">
+    <h1>Factions</h1>
+    <% if modify_faction %>
+      <a class="button" href="<%= new_faction_path %>">Create</a>
+    <% end %>
+    <ul>
+      <% @factions.each do |faction| %>
+        <li>
+          <a href="<%= faction_path faction %>">
+            <div class="card card-link card-with-icon">
+              <% if faction.image.attached? %>
+                <img alt="factions portrait" class="token" src="<%= url_for faction.image %>"/>
+              <% end %>
+              <div>
+                <h2><%= faction.name %></h2>
+                <p><%= faction.alignment %></p>
+              </div>
+            </div>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

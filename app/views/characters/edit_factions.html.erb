@@ -1,0 +1,35 @@
+<%= form_for @character do |f| %>
+  <div class="layout">
+    <div class="full">
+      <h1>Character Settings - Edit Factions</h1>
+      <h2><%= @character.name %></h2>
+      <a class="button" href="<%= edit_character_path @character %>">Back</a>
+    </div>
+    <div class="full">
+      <input type="hidden" name="character[faction_ids][]" value="" autocomplete="off">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>View</th>
+            <th>Include</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @factions.each do |faction| %>
+            <tr>
+              <td><%= faction.name %></td>
+              <td><a href="<%= faction_path faction %>">View</a></td>
+              <td><%= f.check_box :faction_ids, { multiple: true }, faction.id, nil %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="full">
+      <fieldset>
+        <%= f.submit :class => 'button button-constructive' %>
+      </fieldset>
+    </div>
+  </div>
+<% end %>

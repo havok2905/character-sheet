@@ -15,9 +15,12 @@
 
   &.card-with-icon {
     display: flex;
-  
-    img {
+
+    .token {
+      border-radius: $border-radius-circle;
+      height: $token-size-small;
       margin-right: $standard-spacing;
+      width: $token-size-small;
     }
   }
 }

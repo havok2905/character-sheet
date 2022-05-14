@@ -1,0 +1,8 @@
+<div class="layout">
+  <div class="full">
+    <h1>Edit Faction</h1>
+    <a class="button" href="<%= faction_path @faction %>">Back</a>
+    <%= render "form" %>
+    <%= button_to "Delete", { :controller => :spells, :action => 'destroy', :id => @faction.id }, :class => 'button button-destructive', :method => :delete %>
+  </div>
+</div>

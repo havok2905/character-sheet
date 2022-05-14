@@ -262,6 +262,25 @@
     </div>
   </div>
   <div class="column">
+    <% if @character.factions.any? %>
+      <div class="card">
+        <h2>Factions</h2>
+        <% @character.factions.each do |faction| %>
+          <ul>
+            <li>
+              <a class="pet-and-associate-link" href="<%= faction_path faction %>">
+                <div class="pet-and-associate-link-content">
+                  <% if faction.image.attached? %>
+                    <img alt="faction portrait" class="token" src="<%= url_for faction.image %>"/>
+                  <% end %>
+                  <%= faction.name %>
+                </div>
+              </a>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+    <% end %>
     <% if @character.creatures.any? %>
       <div class="card">
         <h2>Pets and NPCs</h2>

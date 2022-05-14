@@ -712,5 +712,15 @@ npc = Creature.create([
   }
 ])
 
+faction = Faction.create({
+  alignment: "Chaotic Evil",
+  allies: "Preists of Enkiem",
+  description: "Evil bad evil bad people in dark cloaks",
+  goals: "Revive Enkiem",
+  ideals: "The world should be reborn anew, led by us",
+  name: "The Ravens",
+  rivals: "The Tunnel Snakes"
+})
+
 character.first.creatures.push monster
 character.first.save!
