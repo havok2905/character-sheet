@@ -2,8 +2,6 @@ Rails.application.routes.draw do
   devise_for :users, :skip => [:registrations]
 
   get '/', to: 'characters#index'
-  
-  resources :campaigns
 
   get '/characters/:id/edit_attacks', to: 'characters#edit_attacks', as: 'character_edit_attacks'
   get '/characters/:id/edit_creatures', to: 'characters#edit_creatures', as: 'character_edit_creatures'
@@ -22,8 +20,6 @@ Rails.application.routes.draw do
   get '/creatures/:id/edit_regional_effects', to: 'creatures#edit_regional_effects', as: 'creature_edit_regional_effects'
   get '/creatures/:id/edit_spells', to: 'creatures#edit_spells', as: 'creature_edit_spells'
   resources :creatures
-
-  resources :encounters
 
   resources :spells
   

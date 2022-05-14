@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_09_010927) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_14_062227) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -37,31 +37,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_09_010927) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-  end
-
-  create_table "campaign_arc_sessions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "campaign_arc_id"
-    t.text "description"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["campaign_arc_id"], name: "index_campaign_arc_sessions_on_campaign_arc_id"
-  end
-
-  create_table "campaign_arcs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "campaign_id"
-    t.text "description"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["campaign_id"], name: "index_campaign_arcs_on_campaign_id"
-  end
-
-  create_table "campaigns", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.text "description"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "character_attacks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -116,124 +91,124 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_09_010927) do
 
   create_table "characters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "ac"
+    t.integer "acrobatics_mod"
+    t.string "acrobatics_prof"
+    t.integer "age"
+    t.string "alignment"
+    t.integer "animal_handling_mod"
+    t.string "animal_handling_prof"
+    t.integer "arcana_mod"
+    t.string "arcana_prof"
+    t.integer "athletics_mod"
+    t.string "athletics_prof"
+    t.text "armor_proficiencies"
     t.text "background"
+    t.text "bonds"
     t.string "character_class"
     t.integer "character_class_hit_dice"
     t.integer "character_class_level"
     t.string "character_sub_class"
+    t.integer "charisma_mod"
+    t.string "charisma_prof"
+    t.integer "charisma_save"
+    t.integer "charisma_score"
     t.text "condition_immunities"
     t.text "condition_resistances"
     t.text "condition_vulnerabilities"
+    t.integer "constitution_mod"
+    t.string "constitution_prof"
+    t.integer "constitution_save"
+    t.integer "constitution_score"
+    t.integer "copper_pieces"
     t.text "damage_immunities"
     t.text "damage_resistances"
     t.text "damage_vulnerabilities"
+    t.integer "deception_mod"
+    t.string "deception_prof"
+    t.integer "dexterity_mod"
+    t.string "dexterity_prof"
+    t.integer "dexterity_save"
+    t.integer "dexterity_score"
+    t.integer "electrum_pieces"
+    t.string "eyes"
+    t.text "flaws"
+    t.integer "gold_pieces"
+    t.string "hair"
+    t.string "height"
+    t.integer "history_mod"
+    t.string "history_prof"
+    t.integer "insight_mod"
     t.integer "hp"
+    t.text "ideals"
     t.integer "initiative"
+    t.string "insight_prof"
+    t.integer "intelligence_mod"
+    t.string "intelligence_prof"
+    t.integer "intelligence_save"
+    t.integer "intelligence_score"
+    t.integer "intimidation_mod"
+    t.string "intimidation_prof"
+    t.integer "investigation_mod"
+    t.string "investigation_prof"
     t.string "languages"
+    t.integer "medicine_mod"
+    t.string "medicine_prof"
     t.string "multiclass_class"
     t.integer "multiclass_class_hit_dice"
     t.integer "multiclass_class_level"
     t.string "multiclass_sub_class"
     t.integer "passive_perception"
     t.integer "proficiency_bonus"
-    t.string "race"
-    t.text "senses"
-    t.integer "speed"
-    t.string "sub_race"
-    t.text "armor_proficiencies"
-    t.text "tool_proficiencies"
-    t.text "weapon_proficiencies"
-    t.integer "age"
-    t.text "bonds"
-    t.string "eyes"
-    t.text "flaws"
-    t.string "hair"
-    t.string "height"
-    t.text "ideals"
     t.string "name"
-    t.text "personality_traits"
-    t.string "skin"
-    t.string "weight"
-    t.integer "charisma_score"
-    t.integer "constitution_score"
-    t.integer "dexterity_score"
-    t.integer "intelligence_score"
-    t.integer "strength_score"
-    t.integer "wisdom_score"
-    t.integer "charisma_mod"
-    t.integer "constitution_mod"
-    t.integer "dexterity_mod"
-    t.integer "intelligence_mod"
-    t.integer "strength_mod"
-    t.integer "wisdom_mod"
-    t.integer "charisma_save"
-    t.integer "constitution_save"
-    t.integer "dexterity_save"
-    t.integer "intelligence_save"
-    t.integer "strength_save"
-    t.integer "wisdom_save"
-    t.string "charisma_prof"
-    t.string "constitution_prof"
-    t.string "dexterity_prof"
-    t.string "intelligence_prof"
-    t.string "strength_prof"
-    t.string "wisdom_prof"
-    t.integer "acrobatics_mod"
-    t.integer "animal_handling_mod"
-    t.integer "arcana_mod"
-    t.integer "athletics_mod"
-    t.integer "deception_mod"
-    t.integer "history_mod"
-    t.integer "insight_mod"
-    t.integer "intimidation_mod"
-    t.integer "investigation_mod"
-    t.integer "medicine_mod"
     t.integer "nature_mod"
-    t.integer "perception_mod"
-    t.integer "performance_mod"
-    t.integer "persuasion_mod"
-    t.integer "religion_mod"
-    t.integer "sleight_of_hand_mod"
-    t.integer "stealth_mod"
-    t.integer "survival_mod"
-    t.string "acrobatics_prof"
-    t.string "animal_handling_prof"
-    t.string "arcana_prof"
-    t.string "athletics_prof"
-    t.string "deception_prof"
-    t.string "history_prof"
-    t.string "insight_prof"
-    t.string "intimidation_prof"
-    t.string "investigation_prof"
-    t.string "medicine_prof"
     t.string "nature_prof"
+    t.integer "perception_mod"
     t.string "perception_prof"
+    t.integer "performance_mod"
     t.string "performance_prof"
+    t.text "personality_traits"
+    t.integer "persuasion_mod"
     t.string "persuasion_prof"
-    t.string "religion_prof"
-    t.string "sleight_of_hand_prof"
-    t.string "stealth_prof"
-    t.string "survival_prof"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "alignment"
-    t.integer "copper_pieces"
-    t.integer "electrum_pieces"
-    t.integer "gold_pieces"
     t.integer "platinum_pieces"
+    t.string "race"
+    t.integer "religion_mod"
+    t.string "religion_prof"
+    t.text "senses"
     t.integer "silver_pieces"
-    t.integer "spell_slots_first"
-    t.integer "spell_slots_second"
-    t.integer "spell_slots_third"
-    t.integer "spell_slots_fourth"
-    t.integer "spell_slots_fifth"
-    t.integer "spell_slots_sixth"
-    t.integer "spell_slots_seventh"
+    t.string "skin"
+    t.integer "sleight_of_hand_mod"
+    t.string "sleight_of_hand_prof"
     t.integer "spell_slots_eighth"
+    t.integer "spell_slots_fifth"
+    t.integer "spell_slots_first"
+    t.integer "spell_slots_fourth"
     t.integer "spell_slots_ninth"
+    t.integer "spell_slots_second"
+    t.integer "spell_slots_seventh"
+    t.integer "spell_slots_sixth"
+    t.integer "spell_slots_third"
     t.string "spellcasting_ability"
     t.integer "spellcasting_modifier"
     t.integer "spellcasting_save_dc"
+    t.integer "stealth_mod"
+    t.string "stealth_prof"
+    t.integer "strength_mod"
+    t.string "strength_prof"
+    t.integer "strength_save"
+    t.integer "strength_score"
+    t.integer "speed"
+    t.string "sub_race"
+    t.integer "survival_mod"
+    t.string "survival_prof"
+    t.text "tool_proficiencies"
+    t.text "weapon_proficiencies"
+    t.string "weight"
+    t.integer "wisdom_mod"
+    t.string "wisdom_prof"
+    t.integer "wisdom_save"
+    t.integer "wisdom_score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "characters_creatures", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -374,24 +349,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_09_010927) do
     t.index ["spell_id"], name: "index_creatures_spells_on_spell_id"
   end
 
-  create_table "encounter_phases", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "encounter_id"
-    t.text "description"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["encounter_id"], name: "index_encounter_phases_on_encounter_id"
-  end
-
-  create_table "encounters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.text "description"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "campaign_arc_session_id"
-    t.index ["campaign_arc_session_id"], name: "index_encounters_on_campaign_arc_session_id"
-  end
-
   create_table "spells", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "character_id"
     t.bigint "creature_id"
@@ -433,8 +390,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_09_010927) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "campaign_arc_sessions", "campaign_arcs"
-  add_foreign_key "campaign_arcs", "campaigns"
   add_foreign_key "character_attacks", "characters"
   add_foreign_key "character_feature_resources", "characters"
   add_foreign_key "character_features", "characters"
@@ -444,7 +399,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_09_010927) do
   add_foreign_key "creature_lair_actions", "creatures"
   add_foreign_key "creature_legendary_actions", "creatures"
   add_foreign_key "creature_regional_effects", "creatures"
-  add_foreign_key "encounter_phases", "encounters"
   add_foreign_key "spells", "characters"
   add_foreign_key "spells", "creatures"
 end

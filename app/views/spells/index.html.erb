@@ -4,16 +4,30 @@
     <% if modify_spell %>
       <a class="button" href="<%= new_spell_path %>">Create</a>
     <% end %>
-    <ul>
-      <% @spells.each do |spell| %>
-        <li>
-          <a href=<%= spell_path spell %>>
-            <div class="card card-link">
-              <h2><%= spell.name %></h2>
-            </div>
-          </a>
-        </li>
-      <% end %>
-    </ul>
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Level</th>
+          <th>School</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @spells.each do |spell| %>
+          <tr>
+            <td><%= spell.id %></td>
+            <td><%= spell.name %></td>
+            <td><%= spell.level %></td>
+            <td><%= spell.school %></td>
+            <td>
+              <a href="<%= spell_path spell %>">View</a>
+              <a href="<%= edit_spell_path spell %>">Edit</a>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </tabe>
   </div>
 </div>
