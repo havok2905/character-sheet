@@ -1,0 +1,45 @@
+@import "../shared/variables.scss";
+
+.image-panels {
+  display: flex;
+  justify-content: space-between;
+}
+
+.image-panel {
+  box-shadow: $box-shadow-light;
+  display: block;
+  height: 200px;
+  position: relative;
+  text-align: center;
+  width: 200px;
+
+  &:hover {
+    box-shadow: $box-shadow-heavy;
+  }
+
+  img {
+    left: 0;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+  }
+
+  .image-panel-content {
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgb(0, 0, 0) 100%);
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+
+    h2 {
+      height: 100%;
+      margin: 0;
+      position: relative;
+      text-shadow: $box-shadow-heavy;
+      top: 84px;
+    }
+  }
+}

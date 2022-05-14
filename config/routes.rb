@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, :skip => [:registrations]
 
-  get '/', to: 'characters#index'
+  get '/', to: 'home#index'
 
   get '/characters/:id/edit_attacks', to: 'characters#edit_attacks', as: 'character_edit_attacks'
   get '/characters/:id/edit_creatures', to: 'characters#edit_creatures', as: 'character_edit_creatures'
@@ -27,5 +27,5 @@ Rails.application.routes.draw do
 
   resources :spells
   
-  root 'characters#index'
+  root 'home#index'
 end
