@@ -3,8 +3,12 @@ AllCops:
     - 'bin/**/*'
     - 'config/**/*'
     - 'db/**/*'
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
 Metrics/BlockLength:
   Enabled: false
+Metrics/ClassLength:
+  Max: 300
 Naming/AccessorMethodName:
   Enabled: false
 Style/Documentation:

@@ -12,16 +12,24 @@
     <%= javascript_importmap_tags %>
   </head>
   <body>
+    <% flash.each do |type, msg| %>
+      <div class="alert">
+        <%= msg %>
+      </div>
+    <% end %>
     <nav>
       <ul>
         <li><a href=<%= root_path %>>Home</a></li>
         <li><a href=<%= characters_path %>>Characters</a></li>
         <li><a href=<%= creatures_path %>>Creatures</a></li>
         <li><a href=<%= factions_path %>>Factions</a></li>
-        <li><a href=<%= spells_path %>>Spells</a></li>
+        <% if user_signed_in? %>
+          <li><a href=<%= spells_path %>>Spells</a></li>
+        <% end %>
       </ul>
       <div id="user_nav">
         <% if user_signed_in? %>
+          <span class="user-nav-username">Signed in as: <%= current_user.username %></span>
           <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete } %>
         <% else %>
           <%= link_to 'Sign in', new_user_session_path %>

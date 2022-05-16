@@ -26,6 +26,12 @@ Rails.application.routes.draw do
   resources :factions
 
   resources :spells
-  
+
+  resources :users, only: [:create, :destroy, :edit, :index]
+  patch '/users/:id/update_email', to: 'users#update_email', as: 'user_update_email'
+  patch '/users/:id/update_role', to: 'users#update_role', as: 'user_update_role'
+  patch '/users/:id/update_password', to: 'users#update_password', as: 'user_update_password'
+  patch '/users/:id/update_username', to: 'users#update_username', as: 'user_update_username'
+
   root 'home#index'
 end

@@ -1,0 +1,56 @@
+<div class="layout">
+  <div class="full">
+    <h1>Users</h1>
+    <%= form_tag(users_path, method: :post) do %>
+      <%= fields_for :user do |ff| %>
+        <fieldset>
+          <%= ff.label :username, 'Username' %>
+          <%= ff.text_field :username %>
+          <%= ff.label :email, 'Email' %>
+          <%= ff.email_field :email %>
+          <%= ff.label :password, 'Password' %>
+          <%= ff.password_field :password %>
+          <%= ff.label :password_confirmation, 'Password Confirmation' %>
+          <%= ff.password_field :password_confirmation %>
+          <%= ff.label :role, 'Role' %>
+          <%= ff.select :role, options_for_select([Permissions::Roles::GUEST_ROLE, Permissions::Roles::ADMIN_ROLE]) %>
+        </fieldset>
+        <fieldset>
+          <%= submit_tag 'Create', class: 'button button-constructive' %>
+        </fieldset>
+      <% end %>
+    <% end %>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Sign In Count</th>
+          <th>Current Sign In</th>
+          <th>Current IP</th>
+          <th>Last Sign In</th>
+          <th>Last IP</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.username %></td>
+            <td><%= user.email %></td>
+            <td><%= user.role %></td>
+            <td><%= user.sign_in_count %></td>
+            <td><%= user.current_sign_in_at %></td>
+            <td><%= user.current_sign_in_ip %></td>
+            <td><%= user.last_sign_in_at %></td>
+            <td><%= user.last_sign_in_ip %></td>
+            <td><a href="<%= edit_user_path user %>">Settings</a></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

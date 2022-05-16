@@ -7,11 +7,20 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 user = User.new
-user.email = 'test@example.com'
+user.email = 'admin@example.com'
 user.username = "admin"
 user.password = 'password'
 user.password_confirmation = 'password'
+user.role = Permissions::Roles::ADMIN_ROLE
 user.save!
+
+userb = User.new
+userb.email = 'guest@example.com'
+userb.username = "guest"
+userb.password = 'password'
+userb.password_confirmation = 'password'
+userb.role = Permissions::Roles::GUEST_ROLE
+userb.save!
 
 spells = Spell.create([
   {

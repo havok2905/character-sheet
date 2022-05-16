@@ -83,9 +83,9 @@ class SpellsController < ApplicationController
     school = params[:search_by_school]
 
     found_spells = Spell.order('level ASC, name')
-    found_spells = found_spells.where(level: level) if level.present?
-    found_spells = found_spells.where(school: school) if school.present?
-    found_spells = found_spells.where("name LIKE ?", "%" + name + "%") if name.present?
+    found_spells = found_spells.where(level:) if level.present?
+    found_spells = found_spells.where(school:) if school.present?
+    found_spells = found_spells.where('name LIKE ?', "%#{name}%") if name.present?
     found_spells
   end
 

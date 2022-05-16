@@ -1,0 +1,7 @@
+@import "../shared/variables.scss";
+
+.alert {
+  background-color: $red;
+  color: $true-white;
+  padding: $standard-spacing;
+}

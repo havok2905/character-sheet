@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Faction < ApplicationRecord
   has_one_attached :image
   has_and_belongs_to_many :characters

@@ -118,9 +118,9 @@ class CreaturesController < ApplicationController
     name = params[:search_by_name]
 
     found_creatures = Creature.order(:name)
-    found_creatures = found_creatures.where(cr: cr) if cr.present?
-    found_creatures = found_creatures.where(creature_category: creature_category) if creature_category.present?
-    found_creatures = found_creatures.where("name LIKE ?", "%" + name + "%") if name.present?
+    found_creatures = found_creatures.where(cr:) if cr.present?
+    found_creatures = found_creatures.where(creature_category:) if creature_category.present?
+    found_creatures = found_creatures.where('name LIKE ?', "%#{name}%") if name.present?
     found_creatures
   end
 
