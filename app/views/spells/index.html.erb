@@ -11,7 +11,19 @@
         <%= label_tag :search_by_level, 'Level' %>
         <%= text_field_tag :search_by_level, params[:search_by_level] %>
         <%= label_tag :search_by_school, 'School' %>
-        <%= select_tag :search_by_school, options_for_select([nil, 'Abjuration', 'Conjuration', 'Divination', 'Enchantment', 'Evocation', 'Illusion', 'Necromancy', 'Transmutation'], params[:search_by_school]) %>
+        <%= 
+          select_tag :search_by_school, options_for_select([
+            nil,
+            CoreRules::SpellSchools::ABJURATION,
+            CoreRules::SpellSchools::CONJURATION,
+            CoreRules::SpellSchools::DIVINATION,
+            CoreRules::SpellSchools::ENCHANTMENT,
+            CoreRules::SpellSchools::EVOCATION,
+            CoreRules::SpellSchools::ILLUSION,
+            CoreRules::SpellSchools::NECROMANCY,
+            CoreRules::SpellSchools::TRANSMUTATION
+          ], params[:search_by_school])  
+        %>
         <%= submit_tag 'Search', class: 'button' %>
       </fieldset>
     <% end %>

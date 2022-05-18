@@ -52,7 +52,7 @@ spells = Spell.create([
     material_components: false,
     name: "Frostbite",
     range: "60ft.",
-    school: "Evocation",
+    school: CoreRules::SpellSchools::EVOCATION,
     somatic_components: true,
     target: "One target",
     verbal_components: true
@@ -68,7 +68,7 @@ spells = Spell.create([
     material_components: false,
     name: "Guiding Bolt",
     range: "120ft.",
-    school: "Evocation",
+    school: CoreRules::SpellSchools::EVOCATION,
     somatic_components: true,
     target: "A creature of your choice within range",
     verbal_components: true
@@ -84,7 +84,7 @@ spells = Spell.create([
     material_components: true,
     name: "Hold Person",
     range: "60ft.",
-    school: "Enchantment",
+    school: CoreRules::SpellSchools::ENCHANTMENT,
     somatic_components: true,
     target: "A creature of your choice within range",
     verbal_components: true
@@ -100,7 +100,7 @@ spells = Spell.create([
     material_components: false,
     name: "Mage Hand",
     range: "30ft.",
-    school: "Conjuration",
+    school: CoreRules::SpellSchools::CONJURATION,
     somatic_components: true,
     target: "",
     verbal_components: true

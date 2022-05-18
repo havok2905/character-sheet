@@ -5,7 +5,19 @@
     <%= f.label :level %>
     <%= f.number_field :level %>
     <%= f.label :school %>
-    <%= f.text_field :school %>
+    <%= 
+      f.select :school, options_for_select([
+        nil,
+        CoreRules::SpellSchools::ABJURATION,
+        CoreRules::SpellSchools::CONJURATION,
+        CoreRules::SpellSchools::DIVINATION,
+        CoreRules::SpellSchools::ENCHANTMENT,
+        CoreRules::SpellSchools::EVOCATION,
+        CoreRules::SpellSchools::ILLUSION,
+        CoreRules::SpellSchools::NECROMANCY,
+        CoreRules::SpellSchools::TRANSMUTATION
+      ], @spell.school)
+    %>
     <%= f.label :casting_time %>
     <%= f.text_field :casting_time %>
     <%= f.label :duration %>
