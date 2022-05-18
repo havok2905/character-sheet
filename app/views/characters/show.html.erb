@@ -255,10 +255,12 @@
       <p><strong>Bonds:</strong> <%= @character.bonds %></p>
       <p><strong>Flaws:</strong> <%= @character.flaws %></p>
     </div>
-    <div class="card">
-      <h2>Backstory</h2>
-      <%= simple_format(@character.backstory).html_safe %>
-    </div>
+    <% if @character.backstory.present? %>
+      <div class="card">
+        <h2>Backstory</h2>
+        <%= simple_format(@character.backstory).html_safe %>
+      </div>
+    <% end %>
   </div>
   <div class="column">
     <% if @character.factions.any? %>
