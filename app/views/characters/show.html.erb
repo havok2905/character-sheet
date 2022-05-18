@@ -275,14 +275,7 @@
         <% @character.factions.each do |faction| %>
           <ul>
             <li>
-              <a class="pet-and-associate-link" href="<%= faction_path faction %>">
-                <div class="pet-and-associate-link-content">
-                  <% if faction.image.attached? %>
-                    <img alt="faction portrait" class="token" src="<%= url_for faction.image %>"/>
-                  <% end %>
-                  <%= faction.name %>
-                </div>
-              </a>
+              <%= render partial: 'shared/association_with_token_link', locals: { association_url: faction_path(faction), image_alt_text: image_alt_text(faction), image_url: image_url(faction), link_label: faction.name }  %>
             </li>
           </ul>
         <% end %>
@@ -294,14 +287,7 @@
         <% @character.creatures.each do |creature| %>
           <ul>
             <li>
-              <a class="pet-and-associate-link" href="<%= creature_path creature %>">
-                <div class="pet-and-associate-link-content">
-                  <% if creature.image.attached? %>
-                    <img alt="character portrait" class="token" src="<%= url_for creature.image %>"/>
-                  <% end %>
-                  <%= creature.name %>
-                </div>
-              </a>
+              <%= render partial: 'shared/association_with_token_link', locals: { association_url: creature_path(creature), image_alt_text: image_alt_text(creature), image_url: image_url(creature), link_label: creature.name }  %>
             </li>
           </ul>
         <% end %>
