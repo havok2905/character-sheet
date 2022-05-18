@@ -1,6 +1,31 @@
 # Runbook
 
+## Dependencies
+
+- **Ruby:** 3.1.0
+- **Rails:** 7.0.2.3
+- **Bundler:** 2.3.6
+- **MySQL:** 8.0.29
+
+## Setup
+
+1. Clone main
+2. `bundle install`
+3. `rake db:create`
+4. `rake db:migrate`
+5. `rake db:seed`
+6. `rails s`
+
 ## Routine Operations
+
+### Automated Tests
+
+`bundle exec rspec`
+
+### Linting
+
+- `bundle exec rubocop`
+- `bundle exec rubocop --auto-correct`
 
 ### Image Dumps and Backups
 
