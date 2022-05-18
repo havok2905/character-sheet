@@ -72,7 +72,7 @@ class FactionsController < ApplicationController
   end
 
   def factions
-    Faction.all
+    Faction.order :name
   end
 
   def new_faction

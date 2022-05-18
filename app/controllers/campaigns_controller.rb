@@ -63,7 +63,7 @@ class CampaignsController < ApplicationController
   end
 
   def campaigns
-    Campaign.all
+    Campaign.order :name
   end
 
   def campaign_params

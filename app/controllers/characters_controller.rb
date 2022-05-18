@@ -118,7 +118,7 @@ class CharactersController < ApplicationController
   private
 
   def characters
-    Character.all
+    Character.order :name
   end
 
   def character_by_id
