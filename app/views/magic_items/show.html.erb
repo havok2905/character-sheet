@@ -1,7 +1,13 @@
 <div class="layout">
-  <% if modify_magic_item %>
-    <%= render partial: 'shared/edit_gear_button', locals: { edit_path: edit_magic_item_path(@magic_item) } %>
-  <% end %>
+  <div class="full">
+    <div class="sheet-header">
+      <% if modify_magic_item %>
+        <div class="sheet-header-settings">
+          <%= render partial: 'shared/edit_gear_button', locals: { edit_path: edit_magic_item_path(@magic_item) } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
   <div class="full">
     <% if @magic_item.image.attached? %>
       <img alt="<%= "#{@magic_item.name} token" %>" class="token" src="<%= url_for(@magic_item.image) %>"/>
