@@ -1,6 +1,16 @@
 # frozen_string_literal: true
 
 class FactionsController < ApplicationController
+  include UiCharacterable
+  include UiCreatureable
+  include UiImagable
+
+  helper_method :character_class_row
+  helper_method :character_multiclass_row
+  helper_method :creature_row
+  helper_method :image_alt_text
+  helper_method :image_url
+
   before_action :authenticate_user!, only: %i[
     create
     destroy

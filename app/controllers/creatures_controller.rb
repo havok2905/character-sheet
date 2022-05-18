@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class CreaturesController < ApplicationController
+  include UiCreatureable
   include UiImagable
 
+  helper_method :creature_row
   helper_method :image_alt_text
   helper_method :image_url
 

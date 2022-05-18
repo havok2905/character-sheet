@@ -7,20 +7,7 @@
     <ul>
       <% @characters.each do |character| %>
         <li>
-          <a href=<%= character_path character.id %>>
-            <div class="card card-link card-with-icon">
-              <% if character.image.attached? %>
-                <img alt="character portrait" class="token" src="<%= url_for character.image %>"/>
-              <% end %>
-              <div>
-                <h2><%= character.name %></h2>
-                <p><%= character.character_class %>, <%= character.character_sub_class %> ( <%= character.character_class_level %> )</p>
-                <% if character.multiclass_class.present?%>
-                  <p><%= character.multiclass_class %>, <%= character.multiclass_sub_class %> ( <%= character.multiclass_class_level %> )</p>
-                <% end %>
-              </div>
-            </div>
-          </a>
+          <%= render partial: 'shared/item_with_token', locals: { description: character_class_row(character), image_alt_text: image_alt_text(character), image_url: image_url(character), item_path: character_path(character), sub_description: character_multiclass_row(character), title: character.name } %>
         </li>
       <% end %>
     </ul>

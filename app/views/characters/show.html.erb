@@ -11,17 +11,9 @@
       <% end %>
       <div>
         <h1><%= @character.name %></h1>
-        <% if @character.character_sub_class.present? %>
-          <p><%= @character.character_class %>, <%= @character.character_sub_class %> ( <%= @character.character_class_level %> )</p>
-        <% else %>
-          <p><%= @character.character_class %> ( <%= @character.character_class_level %> )</p>
-        <%end%>
+        <p><%= character_class_row @character %></p>
         <% if @character.multiclass_class.present? %>
-          <% if @character.multiclass_sub_class.present? %>
-            <p><%= @character.multiclass_class %>, <%= @character.multiclass_sub_class %> ( <%= @character.multiclass_class_level %> )</p>
-          <% else %>
-            <p><%= @character.multiclass_class %> ( <%= @character.multiclass_class_level %> )</p>
-          <% end %>
+          <p><%= character_multiclass_row @character %></p>
         <% end %>
         <p><%= @character.race %> ( <%= @character.sub_race %> ), <%= @character.background %>, <%= @character.alignment %></p>
       </div>

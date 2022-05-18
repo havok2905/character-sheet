@@ -7,17 +7,7 @@
     <ul>
       <% @factions.each do |faction| %>
         <li>
-          <a href="<%= faction_path faction %>">
-            <div class="card card-link card-with-icon">
-              <% if faction.image.attached? %>
-                <img alt="factions portrait" class="token" src="<%= url_for faction.image %>"/>
-              <% end %>
-              <div>
-                <h2><%= faction.name %></h2>
-                <p><%= faction.alignment %></p>
-              </div>
-            </div>
-          </a>
+          <%= render partial: 'shared/item_with_token', locals: { description: faction.alignment, image_alt_text: image_alt_text(faction), image_url: image_url(faction), item_path: faction_path(faction), sub_description: nil, title: faction.name } %>
         </li>
       <% end %>
     </ul>

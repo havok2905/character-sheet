@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 class CharactersController < ApplicationController
+  include UiCharacterable
   include UiImagable
 
+  helper_method :character_class_row
+  helper_method :character_multiclass_row
   helper_method :image_alt_text
   helper_method :image_url
 
