@@ -22,6 +22,22 @@ userb.password_confirmation = 'password'
 userb.role = Permissions::Roles::GUEST_ROLE
 userb.save!
 
+magic_item = MagicItem.create(
+  {
+    attunement: true,
+    category: CoreRules::ItemCategory::WEAPON,
+    description: "When you hit with an Attack using this magic sword, the target takes an extra 1d6 cold damage. In addition, while you hold the sword, you have Resistance to fire damage.
+  
+    In freezing temperatures, the blade sheds bright light in a 10-foot radius and dim light for an additional 10 feet.
+
+    When you draw this weapon, you can extinguish all nonmagical flames within 30 feet of you. This property can be used no more than once per hour.
+    ",
+    name: "Frost Brand",
+    rarity: CoreRules::ItemRarity::VERY_RARE,
+    sub_category: 'any sword'
+  }
+)
+
 spells = Spell.create([
   {
     casting_time: "1 Action",
@@ -91,7 +107,7 @@ spells = Spell.create([
   }
 ])
 
-character = Character.create([
+character = Character.create(
   {
     ac: 13,
     acrobatics_mod: 2,
@@ -407,12 +423,15 @@ You choose whether your equipment falls to the ground in your space, merges into
       })
     ],
 
+    magic_items: [
+    ],
+
     spells: [
     ]
   }
-])
+)
 
-monster = Creature.create([
+monster = Creature.create(
   {
     ac: 22,
     armor: "Natural",
@@ -610,9 +629,9 @@ monster = Creature.create([
     spells: [
     ]
   }
-])
+)
 
-npc = Creature.create([
+npc = Creature.create(
   {
     ac: 12,
     armor: "15 with Mage Armor",
@@ -719,7 +738,7 @@ npc = Creature.create([
     spells: [
     ]
   }
-])
+)
 
 faction = Faction.create({
   alignment: "Chaotic Evil",
@@ -731,5 +750,9 @@ faction = Faction.create({
   rivals: "The Tunnel Snakes"
 })
 
-character.first.creatures.push monster
-character.first.save!
+character.creatures.push monster
+character.magic_items.push magic_item
+character.save!
+
+npc.magic_items.push magic_item
+npc.save!

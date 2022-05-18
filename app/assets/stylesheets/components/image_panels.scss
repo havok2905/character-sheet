@@ -1,10 +1,5 @@
 @import "../shared/variables.scss";
 
-.image-panels {
-  display: flex;
-  justify-content: space-between;
-}
-
 .image-panel {
   box-shadow: $box-shadow-light;
   display: block;
@@ -42,4 +37,11 @@
       top: 84px;
     }
   }
+}
+
+.image-panel-grid {
+  display: grid;
+  grid-column-gap: 66px;
+  grid-row-gap: 66px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }

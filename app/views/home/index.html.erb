@@ -1,32 +1,13 @@
 <div class="layout">
   <div class="full">
     <h1>The D&D Compendium</h1>
-    <div class="image-panels">
-      <a class="image-panel" href="<%= characters_path %>">
-        <%= image_tag "home-page-characters-tile.png", height: 200 %>
-        <div class="image-panel-content">
-          <h2>Characters</h2>
-        </div>
-      </a>
-      <a class="image-panel" href="<%= creatures_path %>">
-        <%= image_tag "home-page-creatures-tile.png", height: 200 %>
-        <div class="image-panel-content">
-          <h2>Creatures</h2>
-        </div>
-      </a>
-      <a class="image-panel" href="<%= factions_path %>">
-        <%= image_tag "home-page-factions-tile.png", height: 200 %>
-        <div class="image-panel-content">
-          <h2>Factions</h2>
-        </div>
-      </a>
+    <div class="image-panel-grid">
+      <%= render partial: 'shared/image_panel', locals: { image_panel_path: characters_path, image_panel_image_path: 'home-page-characters-tile.png', image_panel_title: 'Characters' } %>
+      <%= render partial: 'shared/image_panel', locals: { image_panel_path: creatures_path, image_panel_image_path: 'home-page-creatures-tile.png', image_panel_title: 'Creatures' } %>
+      <%= render partial: 'shared/image_panel', locals: { image_panel_path: factions_path, image_panel_image_path: 'home-page-factions-tile.png', image_panel_title: 'Factions' } %>
+      <%= render partial: 'shared/image_panel', locals: { image_panel_path: magic_items_path, image_panel_image_path: 'home-page-factions-tile.png', image_panel_title: 'Magic Items' } %>
       <% if user_signed_in? %>
-        <a class="image-panel" href="<%= spells_path %>">
-          <%= image_tag "home-page-spells-tile.png", height: 200 %>
-          <div class="image-panel-content">
-            <h2>Spells</h2>
-          </div>
-        </a>
+        <%= render partial: 'shared/image_panel', locals: { image_panel_path: spells_path, image_panel_image_path: 'home-page-spells-tile.png', image_panel_title: 'Spells' } %>
       <% end %>
     </div>
   </div>

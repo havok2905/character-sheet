@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class CreaturesController < ApplicationController
+  include UiImagable
+
+  helper_method :image_alt_text
+  helper_method :image_url
+
   before_action :authenticate_user!, only: %i[
     create
     destroy
@@ -10,6 +15,7 @@ class CreaturesController < ApplicationController
     edit_features
     edit_lair_actions
     edit_legendary_actions
+    edit_magic_items
     edit_regional_effects
     edit_spells
     new
@@ -63,6 +69,11 @@ class CreaturesController < ApplicationController
     @creature = creature_by_id
   end
 
+  def edit_magic_items
+    @creature = creature_by_id
+    @magic_items = magic_items
+  end
+
   def edit_regional_effects
     @creature = creature_by_id
   end
@@ -109,7 +120,7 @@ class CreaturesController < ApplicationController
   end
 
   def creatures
-    Creature.all
+    Creature.order :name
   end
 
   def creatures_search
@@ -125,7 +136,11 @@ class CreaturesController < ApplicationController
   end
 
   def factions
-    Faction.all
+    Faction.order :name
+  end
+
+  def magic_items
+    MagicItem.order :name
   end
 
   def new_creature
@@ -137,6 +152,6 @@ class CreaturesController < ApplicationController
   end
 
   def spells
-    Spell.all
+    Spell.order 'level ASC, name'
   end
 end

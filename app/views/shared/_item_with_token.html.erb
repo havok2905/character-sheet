@@ -1,0 +1,16 @@
+<li>
+  <a href=<%= item_path %>>
+    <div class="card card-link card-with-icon">
+      <% if image_url.present? %>
+        <img alt="<%= image_alt_text %>" class="token" src="<%= image_url %>"/>
+      <% end %>
+      <div>
+        <h2><%= title %></h2>
+        <p><%= description %></p>
+        <% if sub_description.present?%>
+          <p><%= sub_description %></p>
+        <% end %>
+      </div>
+    </div>
+  </a>
+</li>

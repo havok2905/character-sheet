@@ -1,0 +1,8 @@
+<a class="pet-and-associate-link" href="<%= association_url %>">
+  <div class="pet-and-associate-link-content">
+    <% if image_url.present? %>
+      <img alt="<%= image_alt_text %>" class="token" src="<%= image_url %>"/>
+    <% end %>
+    <%= link_label %>
+  </div>
+</a>

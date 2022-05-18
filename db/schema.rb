@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_16_042054) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_18_062429) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -226,6 +226,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_16_042054) do
     t.index ["faction_id"], name: "index_characters_factions_on_faction_id"
   end
 
+  create_table "characters_magic_items", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "character_id", null: false
+    t.bigint "magic_item_id", null: false
+    t.index ["character_id"], name: "index_characters_magic_items_on_character_id"
+    t.index ["magic_item_id"], name: "index_characters_magic_items_on_magic_item_id"
+  end
+
   create_table "characters_spells", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "character_id", null: false
     t.bigint "spell_id", null: false
@@ -358,6 +365,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_16_042054) do
     t.index ["faction_id"], name: "index_creatures_factions_on_faction_id"
   end
 
+  create_table "creatures_magic_items", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "creature_id", null: false
+    t.bigint "magic_item_id", null: false
+    t.index ["creature_id"], name: "index_creatures_magic_items_on_creature_id"
+    t.index ["magic_item_id"], name: "index_creatures_magic_items_on_magic_item_id"
+  end
+
   create_table "creatures_spells", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "creature_id", null: false
     t.bigint "spell_id", null: false
@@ -373,6 +387,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_16_042054) do
     t.text "ideals"
     t.string "name"
     t.text "rivals"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "magic_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.boolean "attunement"
+    t.string "category"
+    t.text "description"
+    t.string "rarity"
+    t.string "sub_category"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

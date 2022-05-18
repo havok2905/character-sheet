@@ -1,0 +1,8 @@
+<div class="layout">
+  <div class="full">
+    <h1>Edit Magic Item</h1>
+    <a class="button" href="<%= magic_item_path @magic_item %>">Back</a>
+    <%= render partial: 'form', locals: { magic_item: @magic_item } %>
+    <%= button_to 'Delete', { :controller => :magic_items, :action => 'destroy', :id => @magic_item.id }, :class => 'button button-destructive', :method => :delete %>
+  </div>
+</div>

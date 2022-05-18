@@ -1,0 +1,21 @@
+<div class="layout">
+  <% if modify_magic_item %>
+    <%= render partial: 'shared/edit_gear_button', locals: { edit_path: edit_magic_item_path(@magic_item) } %>
+  <% end %>
+  <div class="full">
+    <% if @magic_item.image.attached? %>
+      <img alt="<%= "#{@magic_item.name} token" %>" class="token" src="<%= url_for(@magic_item.image) %>"/>
+    <% end %>
+    <h1><%= @magic_item.name %></h1>
+    <div class="card">
+      <p><strong>Attunement: </strong><%= @magic_item.attunement ? 'Has attunement' : '' %></p>
+      <p><strong>Category: </strong><%= @magic_item.category %></p>
+      <p><strong>Sub Category: </strong><%= @magic_item.sub_category %></p>
+      <p><strong>Rarity: </strong><%= @magic_item.rarity %></p>
+      <p>
+        <strong>Description: </strong>
+        <%= simple_format(@magic_item.description).html_safe %>
+      </p>
+    </div>
+  </div>
+</div>

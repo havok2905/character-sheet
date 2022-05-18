@@ -192,6 +192,14 @@
         <% end %>
       </div>
     <% end %>
+    <% if @creature.magic_items.any? %>
+      <div class="card">
+        <h2>Magic Items</h2>
+        <% @creature.magic_items.each do |magic_item| %>
+          <%= render partial: 'shared/association_with_token_link', locals: { association_url: magic_item_path(magic_item), image_alt_text: image_alt_text(magic_item), image_url: image_url(magic_item), link_label: magic_item.name }  %>
+        <% end %>
+      </div>
+    <% end %>
     <% if @creature.spells.any? %>
       <div class="card">
         <h2>Spellcasting</h2>
