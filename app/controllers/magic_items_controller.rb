@@ -5,7 +5,7 @@ class MagicItemsController < ApplicationController
 
   helper_method :image_alt_text
   helper_method :image_url
-  
+
   before_action :authenticate_user!, only: %i[
     create
     destroy
@@ -59,7 +59,7 @@ class MagicItemsController < ApplicationController
   helper_method :description
   def description(magic_item)
     return unless magic_item.present?
-    attunement = magic_item.attunement ? " (requires attunement)" : nil
+    attunement = magic_item.attunement ? ' (requires attunement)' : nil
     sub_category = magic_item.sub_category ? " (#{magic_item.sub_category})" : nil
     "#{magic_item.category}#{sub_category}, #{magic_item.rarity}#{attunement}"
   end

@@ -80,9 +80,7 @@ class UsersController < ApplicationController
   end
 
   def update_entity!(entity_key)
-    if params[:user][entity_key].empty?
-      return false
-    end
+    return false if params[:user][entity_key].empty?
 
     @user = user_by_id
     @user.send("#{entity_key}=", params[:user][entity_key])
@@ -93,9 +91,7 @@ class UsersController < ApplicationController
     password = params[:user][:password]
     password_confirmation = params[:user][:password_confirmation]
 
-    if password.empty? || password_confirmation.empty? || password != password_confirmation
-      return false
-    end
+    return false if password.empty? || password_confirmation.empty? || password != password_confirmation
 
     user.password = password
     user.password_confirmation = password_confirmation
