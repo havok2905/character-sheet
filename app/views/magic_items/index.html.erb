@@ -4,6 +4,40 @@
     <% if modify_magic_item %>
       <a class="button" href=<%= new_magic_item_path %>>Create</a>
     <% end %>
+    <%= form_tag(magic_items_path, method: :get) do %>
+      <fieldset>
+        <%= label_tag :search_by_name, 'Name' %>
+        <%= text_field_tag :search_by_name, params[:search_by_name] %>
+        <%= label_tag :search_by_category, 'Category' %>
+        <%= 
+          select_tag :search_by_category, options_for_select([
+            nil,
+            CoreRules::ItemCategory::ARMOR,
+            CoreRules::ItemCategory::POTION,
+            CoreRules::ItemCategory::RING,
+            CoreRules::ItemCategory::ROD,
+            CoreRules::ItemCategory::SCROLL,
+            CoreRules::ItemCategory::STAFF,
+            CoreRules::ItemCategory::WAND,
+            CoreRules::ItemCategory::WEAPON,
+            CoreRules::ItemCategory::WONDEROUS_ITEM
+          ], params[:search_by_category])  
+        %>
+        <%= label_tag :search_by_rarity, 'Rarity' %>
+        <%= 
+          select_tag :search_by_rarity, options_for_select([
+            nil,
+            CoreRules::ItemRarity::COMMON,
+            CoreRules::ItemRarity::UNCOMMON,
+            CoreRules::ItemRarity::RARE,
+            CoreRules::ItemRarity::VERY_RARE,
+            CoreRules::ItemRarity::LEGENDARY,
+            CoreRules::ItemRarity::ARTIFACT
+          ], params[:search_by_rarity])  
+        %>
+        <%= submit_tag 'Search', class: 'button' %>
+      </fieldset>
+    <% end %>
     <ul>
       <li>
         <% @magic_items.each do |magic_item| %>

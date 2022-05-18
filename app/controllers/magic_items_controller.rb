@@ -15,7 +15,7 @@ class MagicItemsController < ApplicationController
   ]
 
   def index
-    @magic_items = magic_items
+    @magic_items = magic_items_search
   end
 
   def show
@@ -89,6 +89,18 @@ class MagicItemsController < ApplicationController
 
   def magic_items
     MagicItem.order(:name)
+  end
+
+  def magic_items_search
+    category = params[:search_by_category]
+    name = params[:search_by_name]
+    rarity = params[:search_by_rarity]
+
+    found_magic_items = magic_items
+    found_magic_items = found_magic_items.where(rarity:) if rarity.present?
+    found_magic_items = found_magic_items.where(category:) if category.present?
+    found_magic_items = found_magic_items.where('name LIKE ?', "%#{name}%") if name.present?
+    found_magic_items
   end
 
   def new_magic_item
