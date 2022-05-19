@@ -78,7 +78,16 @@ class FactionsController < ApplicationController
   end
 
   def faction_params
-    params.require(:faction).permit!
+    params.require(:faction).permit(
+      :alignment,
+      :allies,
+      :description,
+      :goals,
+      :ideals,
+      :image,
+      :name,
+      :rivals
+    )
   end
 
   def factions

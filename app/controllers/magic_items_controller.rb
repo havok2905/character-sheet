@@ -84,7 +84,15 @@ class MagicItemsController < ApplicationController
   end
 
   def magic_item_params
-    params.require(:magic_item).permit!
+    params.require(:magic_item).permit(
+      :attunement,
+      :category,
+      :description,
+      :image,
+      :rarity,
+      :sub_category,
+      :name
+    )
   end
 
   def magic_items

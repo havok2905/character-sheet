@@ -70,7 +70,22 @@ class SpellsController < ApplicationController
   end
 
   def spell_params
-    params.require(:spell).permit!
+    params.require(:spell).permit(
+      :casting_time,
+      :components,
+      :concentration,
+      :description,
+      :description_higher_levels,
+      :duration,
+      :level,
+      :material_components,
+      :name,
+      :range,
+      :school,
+      :somatic_components,
+      :target,
+      :verbal_components
+    )
   end
 
   def spells
