@@ -14,7 +14,12 @@
 3. `rake db:create`
 4. `rake db:migrate`
 5. `rake db:seed`
-6. `rails s`
+6. `npm i --global yarn`
+6. `./bin/dev`
+
+## Image Uploads
+
+- `/srv/character-sheet/img/` directory with app permissions to write is required for image uploads to run in develop.
 
 ## Routine Operations
 
