@@ -24,6 +24,8 @@ gem 'jbuilder'
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
+gem 'jsbundling-rails', '~> 1.0.2'
+
 gem 'mysql2', '~> 0.5.3'
 
 gem 'pry', '~> 0.13.1'

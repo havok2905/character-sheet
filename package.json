@@ -1,0 +1,29 @@
+{
+  "name": "app",
+  "private": "true",
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds"
+  },
+  "description": "This is a personal tool that is still under development.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/havok25103/character-sheet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/havok25103/character-sheet/issues"
+  },
+  "homepage": "https://github.com/havok25103/character-sheet#readme",
+  "dependencies": {
+    "@hotwired/turbo-rails": "^7.1.1",
+    "esbuild": "^0.14.39",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  }
+}
