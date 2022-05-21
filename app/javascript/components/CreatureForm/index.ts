@@ -1,4 +1,6 @@
-const CreatureActionsForm = {
+import { IEventRegistration } from '../types/IEventRegistration';
+
+class CreatureActionsForm implements IEventRegistration {
   run() {
     const button = document.querySelector('[name="creature-form-add-action-button"]');
 
@@ -42,7 +44,7 @@ const CreatureActionsForm = {
   }
 };
 
-const CreatureFeatureForm = {
+class CreatureFeatureForm implements IEventRegistration {
   run() {
     const button = document.querySelector('[name="creature-form-add-feature-button"]');
 
@@ -68,7 +70,7 @@ const CreatureFeatureForm = {
   }
 };
 
-const CreatureLairActionForm = {
+class CreatureLairActionForm implements IEventRegistration {
   run() {
     const button = document.querySelector('[name="creature-form-add-lair-action-button"]');
 
@@ -90,7 +92,7 @@ const CreatureLairActionForm = {
   }
 };
 
-const CreatureLegendaryActionForm = {
+class CreatureLegendaryActionForm implements IEventRegistration {
   run() {
     const button = document.querySelector('[name="creature-form-add-legendary-action-button"]');
 
@@ -114,7 +116,7 @@ const CreatureLegendaryActionForm = {
   }
 };
 
-const CreatureRegionalEffectsForm = {
+class CreatureRegionalEffectsForm implements IEventRegistration {
   run() {
     const button = document.querySelector('[name="creature-form-add-regional-effect-button"]');
 

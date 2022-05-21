@@ -1,4 +1,6 @@
-const CharacterAttackForm = {
+import { IEventRegistration } from '../types/IEventRegistration';
+
+class CharacterAttackForm implements IEventRegistration {
   run() {
     const button = document.querySelector('[name="character-form-add-attack-button"]');
 
@@ -44,7 +46,7 @@ const CharacterAttackForm = {
   }
 };
 
-const CharacterFeatureForm = {
+class CharacterFeatureForm implements IEventRegistration {
   run() {
     const button = document.querySelector('[name="character-form-add-feature-button"]');
 
@@ -72,7 +74,7 @@ const CharacterFeatureForm = {
   }
 };
 
-const CharacterItemForm = {
+class CharacterItemForm implements IEventRegistration {
   run() {
     const button = document.querySelector('[name="character-form-add-item-button"]');
 
@@ -98,7 +100,7 @@ const CharacterItemForm = {
   }
 };
 
-const CharacterResourceForm = {
+class CharacterResourceForm implements IEventRegistration {
   run() {
     const button = document.querySelector('[name="character-form-add-resource-button"]');
 
