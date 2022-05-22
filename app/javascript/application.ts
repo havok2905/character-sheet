@@ -16,6 +16,9 @@ import {
   CreatureRegionalEffectsForm
 } from './components/CreatureForm';
 import {
+  DiceRollerComponent
+} from './components/DiceRoller';
+import {
   ToggleItem
 } from './components/ToggleItem';
 
@@ -28,6 +31,7 @@ const creatureFeatureForm = new CreatureFeatureForm();
 const creatureLairActionForm = new CreatureLairActionForm();
 const creatureLegendaryActionForm = new CreatureLegendaryActionForm();
 const creatureRegionalEffectsForm = new CreatureRegionalEffectsForm();
+const diceRollerComponent = new DiceRollerComponent();
 const toggleItem = new ToggleItem();
 
 document.addEventListener('turbo:load', ():void => {
@@ -40,5 +44,6 @@ document.addEventListener('turbo:load', ():void => {
   creatureLairActionForm.run();
   creatureLegendaryActionForm.run();
   creatureRegionalEffectsForm.run();
+  diceRollerComponent.run();
   toggleItem.run();
 });
