@@ -27,6 +27,8 @@ Rails.application.routes.draw do
 
   resources :factions
 
+  resources :locations
+
   resources :magic_items
 
   resources :spells

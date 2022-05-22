@@ -17,6 +17,12 @@
 6. `npm i --global yarn`
 6. `./bin/dev`
 
+## Rich Content
+
+Image Attachments for `Action Text` involves installing `libvips`
+
+- sudo apt-get install -y libvips
+
 ## Image Uploads
 
 - `/srv/character-sheet/img/` directory with app permissions to write is required for image uploads to run in develop.
