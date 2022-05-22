@@ -40,7 +40,6 @@ class DiceRollerComponent implements IEventRegistration {
 
       this.rollCache.push(value);
       this.rollCacheIndex = this.rollCache.length;
-      console.log(this.rollCacheIndex);
       roll.innerHTML = String(response);
       input.value = '';
     });
