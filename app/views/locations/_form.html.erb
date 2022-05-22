@@ -1,0 +1,23 @@
+<%= form_for @location do |f| %>
+  <fieldset>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </fieldset>
+  <fieldset>
+    <h2>Sigil</h2>
+    <%= f.file_field :sigil %>
+  </fieldset>
+  <fieldset>
+    <h2>Map</h2>
+    <%= f.file_field :map %>
+  </fieldset>
+  <fieldset>
+    <%= f.label :content %>
+    <%= f.rich_text_area :content %>
+  </fieldset>
+  <fieldset>
+    <%= f.submit :class => 'button button-constructive' %>
+  </fieldset>
+<% end %>

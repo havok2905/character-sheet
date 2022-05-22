@@ -22,6 +22,13 @@ userb.password_confirmation = 'password'
 userb.role = Permissions::Roles::GUEST_ROLE
 userb.save!
 
+location = Location.create(
+  {
+    description: 'Lorem ipsum dolor',
+    name: 'Habarashi'
+  }
+)
+
 magic_item = MagicItem.create(
   {
     attunement: true,

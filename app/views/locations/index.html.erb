@@ -1,0 +1,29 @@
+<div class="layout">
+  <div class="full">
+    <h1>Locations</h1>
+    <% if modify_location %>
+      <a class="button" href="<%= new_location_path %>">Create</a>
+    <% end %>
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @locations.each do |location| %>
+          <tr>
+            <td><%= location.id %></td>
+            <td><%= location.name %></td>
+            <td>
+              <a href="<%= location_path location %>">View</a>
+              <a href="<%= edit_location_path location %>">Edit</a>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </tabe>
+  </div>
+</div>
