@@ -69,6 +69,7 @@ class SpellsController < ApplicationController
     Spell.find params[:id]
   end
 
+  # rubocop:disable Metrics/MethodLength
   def spell_params
     params.require(:spell).permit(
       :casting_time,
@@ -87,6 +88,7 @@ class SpellsController < ApplicationController
       :verbal_components
     )
   end
+  # rubocop:enable Metrics/MethodLength
 
   def spells
     Spell.order 'level ASC, name'
