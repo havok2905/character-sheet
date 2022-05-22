@@ -110,7 +110,7 @@
       <div class="card">
         <h2>Lair Actions</h2>
         <p><%= @creature.lair_actions_text %></p>
-        <ul>
+        <ul class="bulletless-list">
           <% @creature.creature_lair_actions.each do |action| %>
             <li>
               <%= simple_format(action.description).html_safe %>
@@ -123,7 +123,7 @@
       <div class="card">
         <h2>Regional Effects</h2>
         <p><%= @creature.regional_effects_text %></p>
-        <ul>
+        <ul class="bulletless-list">
           <% @creature.creature_regional_effects.each do |effect| %>
             <li>
               <%= simple_format(effect.description).html_safe %>
@@ -138,7 +138,7 @@
       <div class="card">
         <h2>Factions</h2>
         <% @creature.factions.each do |faction| %>
-          <ul>
+          <ul class="bulletless-list">
             <li>
               <%= render partial: 'shared/association_with_token_link', locals: { association_url: faction_path(faction), image_alt_text: image_alt_text(faction), image_url: image_url(faction), link_label: faction.name }  %>
             </li>

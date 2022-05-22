@@ -6,6 +6,7 @@
   height: 200px;
   position: relative;
   text-align: center;
+  transition: box-shadow $hover-transition;
   width: 200px;
 
   &:hover {
