@@ -46,7 +46,9 @@
             <td><%= spell.school %></td>
             <td>
               <a href="<%= spell_path spell %>">View</a>
-              <a href="<%= edit_spell_path spell %>">Edit</a>
+              <% if modify_spell %>
+                <a href="<%= edit_spell_path spell %>">Edit</a>
+              <% end %>
             </td>
           </tr>
         <% end %>
