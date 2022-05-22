@@ -267,7 +267,7 @@
       <div class="card">
         <h2>Factions</h2>
         <% @character.factions.each do |faction| %>
-          <ul>
+          <ul class="bulletless-list">
             <li>
               <%= render partial: 'shared/association_with_token_link', locals: { association_url: faction_path(faction), image_alt_text: image_alt_text(faction), image_url: image_url(faction), link_label: faction.name }  %>
             </li>
@@ -279,7 +279,7 @@
       <div class="card">
         <h2>Pets and NPCs</h2>
         <% @character.creatures.each do |creature| %>
-          <ul>
+          <ul class="bulletless-list">
             <li>
               <%= render partial: 'shared/association_with_token_link', locals: { association_url: creature_path(creature), image_alt_text: image_alt_text(creature), image_url: image_url(creature), link_label: creature.name }  %>
             </li>

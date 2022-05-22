@@ -2,6 +2,8 @@
 
 .pet-and-associate-link {
   display: block;
+  text-decoration: none;
+  transition: background-color $hover-transition;
 
   &:hover {
     background-color: $light-black;
