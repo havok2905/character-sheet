@@ -5,14 +5,24 @@
     <%= f.label :description %>
     <%= f.text_area :description %>
   </fieldset>
-  <fieldset>
+  <div class="full">
     <h2>Sigil</h2>
-    <%= f.file_field :sigil %>
-  </fieldset>
-  <fieldset>
+    <% if @location.sigil.attached? %>
+      <img src="<%= url_for @location.sigil %>"/>
+    <% end %>
+    <fieldset>
+      <%= f.file_field :sigil %>
+    </fieldset>
+  </div>
+  <div class="full">
     <h2>Map</h2>
-    <%= f.file_field :map %>
-  </fieldset>
+    <% if @location.map.attached? %>
+      <img src="<%= url_for @location.map %>"/>
+    <% end %>
+    <fieldset>
+      <%= f.file_field :map %>
+    </fieldset>
+  </div>
   <fieldset>
     <%= f.label :content %>
     <%= f.rich_text_area :content %>

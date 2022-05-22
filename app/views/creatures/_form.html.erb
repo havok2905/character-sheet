@@ -4,7 +4,10 @@
       <%= f.submit :class => 'button button-constructive' %>
     </div>
     <div class="full">
-      <h2>Character Image</h2>
+      <h2>Creature Image</h2>
+      <% if @creature.image.attached? %>
+        <img src="<%= url_for @creature.image %>"/>
+      <% end %>
       <fieldset>
         <%= f.file_field :image %>
       </fieldset>

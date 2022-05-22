@@ -1,7 +1,13 @@
 <%= form_for @faction do |f| %>
-  <fieldset>
-    <%= f.file_field :image %>
-  </fieldset>
+  <div class="full">
+    <h2>Faction Image</h2>
+    <% if @faction.image.attached? %>
+      <img src="<%= url_for @faction.image %>"/>
+    <% end %>
+    <fieldset>
+      <%= f.file_field :image %>
+    </fieldset>
+  </div>
   <fieldset>
     <%= f.label :name %>
     <%= f.text_field :name %>
