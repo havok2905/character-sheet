@@ -14,13 +14,13 @@
  *= require_self
  */
 
-@import "./shared/variables.scss";
-@import "./actiontext.css";
+@import './shared/variables';
+@import './actiontext';
 
 html, body {
   background-color: $light-black;
   color: $faded-white;
-  font-family: 'Roboto', sans-serif;
+  font-family: Roboto, sans-serif;
   font-size: $body-text-size;
   line-height: 1.5;
   margin: 0;

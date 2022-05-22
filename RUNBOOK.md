@@ -38,10 +38,22 @@ Image Attachments for `Action Text` involves installing `libvips`
 
 ### Linting
 
+#### Ruby
+
 - `bundle exec rubocop`
 - `bundle exec rubocop --auto-correct`
 
+#### Frontend
+
 - `yarn lint`
+
+##### Typescript
+
+- `yarn eslint`
+
+##### Sass
+
+- `yarn stylelint`
 
 ### Image Dumps and Backups
 
