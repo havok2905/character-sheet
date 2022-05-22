@@ -44,7 +44,7 @@ class CharacterAttackForm implements IEventRegistration {
       items.append(newFieldset);
     });
   }
-};
+}
 
 class CharacterFeatureForm implements IEventRegistration {
   run() {
@@ -72,7 +72,7 @@ class CharacterFeatureForm implements IEventRegistration {
       items.append(newFieldset);
     });
   }
-};
+}
 
 class CharacterItemForm implements IEventRegistration {
   run() {
@@ -98,7 +98,7 @@ class CharacterItemForm implements IEventRegistration {
       items.append(newFieldset);
     });
   }
-};
+}
 
 class CharacterResourceForm implements IEventRegistration {
   run() {
@@ -122,7 +122,7 @@ class CharacterResourceForm implements IEventRegistration {
       items.append(newFieldset);
     });
   }
-};
+}
 
 export {
   CharacterAttackForm,

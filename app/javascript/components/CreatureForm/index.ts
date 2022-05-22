@@ -42,7 +42,7 @@ class CreatureActionsForm implements IEventRegistration {
       items.append(newFieldset);
     });
   }
-};
+}
 
 class CreatureFeatureForm implements IEventRegistration {
   run() {
@@ -68,7 +68,7 @@ class CreatureFeatureForm implements IEventRegistration {
       items.append(newFieldset);
     });
   }
-};
+}
 
 class CreatureLairActionForm implements IEventRegistration {
   run() {
@@ -90,7 +90,7 @@ class CreatureLairActionForm implements IEventRegistration {
       items.append(newFieldset);
     });
   }
-};
+}
 
 class CreatureLegendaryActionForm implements IEventRegistration {
   run() {
@@ -114,7 +114,7 @@ class CreatureLegendaryActionForm implements IEventRegistration {
       items.append(newFieldset);
     });
   }
-};
+}
 
 class CreatureRegionalEffectsForm implements IEventRegistration {
   run() {
@@ -136,7 +136,7 @@ class CreatureRegionalEffectsForm implements IEventRegistration {
       items.append(newFieldset);
     });
   }
-};
+}
 
 export {
   CreatureActionsForm,

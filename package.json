@@ -2,7 +2,8 @@
   "name": "app",
   "private": "true",
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds"
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
+    "lint": "eslint app/javascript/ --ext .js,.ts"
   },
   "description": "This is a personal tool that is still under development.",
   "version": "1.0.0",
@@ -24,7 +25,13 @@
     "@hotwired/turbo-rails": "^7.1.1",
     "@rails/actiontext": "^6.0.5",
     "esbuild": "^0.14.39",
+    "eslint": "^8.16.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.25.0",
+    "@typescript-eslint/parser": "^5.25.0",
+    "typescript": "^4.6.4"
   }
 }
