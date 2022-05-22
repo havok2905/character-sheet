@@ -41,6 +41,8 @@ Image Attachments for `Action Text` involves installing `libvips`
 - `bundle exec rubocop`
 - `bundle exec rubocop --auto-correct`
 
+- `yarn lint`
+
 ### Image Dumps and Backups
 
 There may be a time to move off of ActiveStorage in favor of a CDN. When that time comes, there will be a need to pull down images for that transfer.
