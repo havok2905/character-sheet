@@ -22,7 +22,7 @@
       <%= simple_format(@faction.description).html_safe %>
     </div>
     <h2>Member NPCs</h2>
-    <ul>
+    <ul class="bulletless-list">
       <% @faction.creatures.each do |creature| %>
         <li>
           <%= render partial: 'shared/item_with_token', locals: { description: creature_row(creature), image_alt_text: image_alt_text(creature), image_url: image_url(creature), item_path: creature_path(creature), sub_description: nil, title: creature.name } %>
@@ -30,7 +30,7 @@
       <% end %>
     </ul>
     <h2>Member Characters</h2>
-    <ul>
+    <ul class="bulletless-list">
       <% @faction.characters.each do |character| %>
         <li>
           <%= render partial: 'shared/item_with_token', locals: { description: character_class_row(character), image_alt_text: image_alt_text(character), image_url: image_url(character), item_path: character_path(character), sub_description: character_multiclass_row(character), title: character.name } %>

@@ -1,6 +1,9 @@
 <%= form_for magic_item do |f| %>
   <div class="full">
     <h2>Item Image</h2>
+    <% if magic_item.image.attached? %>
+      <img src="<%= url_for magic_item.image %>"/>
+    <% end %>
     <fieldset>
       <%= f.file_field :image %>
     </fieldset>

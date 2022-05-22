@@ -4,7 +4,7 @@
     <% if modify_character %>
       <a class="button" href=<%= new_character_path %>>Create</a>
     <% end %>
-    <ul>
+    <ul class="bulletless-list">
       <% @characters.each do |character| %>
         <li>
           <%= render partial: 'shared/item_with_token', locals: { description: character_class_row(character), image_alt_text: image_alt_text(character), image_url: image_url(character), item_path: character_path(character), sub_description: character_multiclass_row(character), title: character.name } %>

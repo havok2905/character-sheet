@@ -15,6 +15,7 @@
  */
 
 @import "./shared/variables.scss";
+@import "./actiontext.css";
 
 html, body {
   background-color: $light-black;
@@ -27,7 +28,6 @@ html, body {
 
 a {
   color: $true-white;
-  text-decoration: none;
 }
 
 h1 {
@@ -56,12 +56,6 @@ input, select, textarea {
   color: $true-white;
   margin-bottom: $small-spacing;
   padding: $small-spacing;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
 }
 
 nav {

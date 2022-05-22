@@ -22,6 +22,7 @@
   "homepage": "https://github.com/havok25103/character-sheet#readme",
   "dependencies": {
     "@hotwired/turbo-rails": "^7.1.1",
+    "@rails/actiontext": "^6.0.5",
     "esbuild": "^0.14.39",
     "react": "^18.1.0",
     "react-dom": "^18.1.0"

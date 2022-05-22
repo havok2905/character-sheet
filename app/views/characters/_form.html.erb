@@ -5,6 +5,9 @@
     </div>
     <div class="full">
       <h2>Character Image</h2>
+      <% if @character.image.attached? %>
+        <img src="<%= url_for @character.image %>"/>
+      <% end %>
       <fieldset>
         <%= f.file_field :image %>
       </fieldset>

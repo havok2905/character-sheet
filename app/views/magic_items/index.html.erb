@@ -38,7 +38,7 @@
         <%= submit_tag 'Search', class: 'button' %>
       </fieldset>
     <% end %>
-    <ul>
+    <ul class="bulletless-list">
       <li>
         <% @magic_items.each do |magic_item| %>
           <%= render partial: 'shared/item_with_token', locals: { description: description(magic_item), image_alt_text: image_alt_text(magic_item), image_url: image_url(magic_item), item_path: magic_item_path(magic_item), sub_description: nil, title: magic_item.name } %>

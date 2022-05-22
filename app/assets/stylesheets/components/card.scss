@@ -8,10 +8,7 @@
   margin: $standard-spacing 0;
   padding: $standard-spacing;
   position: relative;
-
-  &.card-link:hover {
-    box-shadow: $box-shadow-heavy;
-  }
+  transition: box-shadow $hover-transition;
 
   &.card-with-icon {
     display: flex;
@@ -22,5 +19,13 @@
       margin-right: $standard-spacing;
       width: $token-size-small;
     }
+  }
+}
+
+.card-link {
+  text-decoration: none;
+
+  .card:hover {
+    box-shadow: $box-shadow-heavy;
   }
 }

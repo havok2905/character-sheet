@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DataDumps
   class DumpAll
     def initialize(options)
@@ -20,42 +22,43 @@ module DataDumps
 
     def entities
       {
-        characters: characters,
-        creatures: creatures,
-        factions: factions,
-        magic_items: magic_items,
-        spells: spells
+        characters:,
+        creatures:,
+        factions:,
+        magic_items:,
+        spells:
       }
     end
 
     def characters
       Character.all.map do |character|
-        character.as_json :include => [ :character_attacks, :character_items, :character_feature_resources, :character_features, :creatures, :factions, :magic_items, :spells ]
+        character.as_json include: %i[character_attacks character_items character_feature_resources
+                                      character_features creatures factions magic_items spells]
       end
     end
 
     def creatures
+      includes = %i[creature_actions creature_features creature_lair_actions
+                    creature_legendary_actions creature_regional_effects characters factions magic_items spells]
       Creature.all.map do |cretaure|
-        cretaure.as_json :include => [ :creature_actions, :creature_features, :creature_lair_actions, :creature_legendary_actions, :creature_regional_effects, :characters, :factions, :magic_items, :spells ]
+        cretaure.as_json include: includes
       end
     end
 
     def factions
       Faction.all.map do |faction|
-        faction.as_json :include => [ :characters, :creatures ]
+        faction.as_json include: %i[characters creatures]
       end
     end
 
     def magic_items
       MagicItem.all.map do |magic_item|
-        magic_item.as_json :include => [ :characters, :creatures ]
+        magic_item.as_json include: %i[characters creatures]
       end
     end
 
     def spells
-      Spell.all.map do |spell|
-        spell.as_json
-      end
+      Spell.all.map(&:as_json)
     end
   end
 end
