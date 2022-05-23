@@ -20,6 +20,12 @@
 6. `npm i --global yarn`
 6. `./bin/dev`
 
+## Pre-commit Hook
+
+We need a symbolic link between our scripts/pre-commit.sh file and the git hooks directory.
+
+`ln -s -f ./scripts/pre-commit.sh ./.git/hooks/pre-commit`
+
 ## Rich Content
 
 Image Attachments for `Action Text` involves installing `libvips`
