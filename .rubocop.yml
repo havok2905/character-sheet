@@ -3,6 +3,8 @@ AllCops:
     - 'bin/**/*'
     - 'config/**/*'
     - 'db/**/*'
+AllCops:
+  NewCops: enable
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
 Metrics/BlockLength:
