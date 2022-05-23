@@ -22,9 +22,9 @@
 
 ## Pre-commit Hook
 
-We need a symbolic link between our scripts/pre-commit.sh file and the git hooks directory.
+We need to add a pre-commit hook to perform the following
 
-`ln -s -f ./scripts/pre-commit.sh ./.git/hooks/pre-commit`
+`./scripts/pre-commit.sh`
 
 ## Rich Content
 

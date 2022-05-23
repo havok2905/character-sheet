@@ -1,17 +1,21 @@
 AllCops:
   Include:
-    - './**/*.rb'
+    - '**/*.rb'
   Exclude:
     - 'bin/**/*'
     - 'config/**/*'
     - 'db/**/*'
   NewCops: enable
+Metrics/AbcSize:
+  Enabled: false
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
 Metrics/BlockLength:
   Enabled: false
 Metrics/ClassLength:
   Max: 300
+Metrics/MethodLength:
+  Max: 15
 Naming/AccessorMethodName:
   Enabled: false
 Style/Documentation:

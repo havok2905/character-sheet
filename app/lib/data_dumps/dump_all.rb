@@ -32,8 +32,9 @@ module DataDumps
     end
 
     def characters
-      includes = %i[character_attacks character_items character_feature_resources character_features creatures factions magic_items spells]
-      
+      includes = %i[character_attacks character_items character_feature_resources character_features creatures factions
+                    magic_items spells]
+
       Character.all.map do |character|
         json = character.as_json include: includes
 
@@ -41,21 +42,23 @@ module DataDumps
           json[:image_path] = ActiveStorage::Blob.service.path_for character.image.key
           json[:image_file_name] = character.image.blob.filename
         end
-        
+
         json
       end
     end
 
     def creatures
-      includes = %i[creature_actions creature_features creature_lair_actions creature_legendary_actions creature_regional_effects characters factions magic_items spells]
+      includes = %i[creature_actions creature_features creature_lair_actions creature_legendary_actions
+                    creature_regional_effects characters factions magic_items spells]
+
       Creature.all.map do |creature|
         json = creature.as_json include: includes
-        
+
         if creature.image.attached?
           json[:image_path] = ActiveStorage::Blob.service.path_for creature.image.key
           json[:image_file_name] = creature.image.blob.filename
         end
-        
+
         json
       end
     end
@@ -77,7 +80,7 @@ module DataDumps
       Location.all.map do |location|
         json = location.as_json
         json[:content] = location.content
-        
+
         if location.map.attached?
           json[:map_path] = ActiveStorage::Blob.service.path_for location.map.key
           json[:map_file_name] = location.map.blob.filename
