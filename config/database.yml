@@ -51,5 +51,5 @@ test:
 production:
   <<: *default
   database: character_sheet_production
-  username: mysqlapp
+  username: character_sheet_production
   password: <%= ENV["MYSQLAPP_DATABASE_PASSWORD"] %>

@@ -2,9 +2,13 @@ test:
   service: Disk
   root: <%= Rails.root.join("tmp/storage") %>
 
-local:
+local_development:
   service: Disk
-  root: <%= '/srv/character-sheet/img' %>
+  root: <%= '/srv/character-sheet/development/img' %>
+
+local_production:
+  service: Disk
+  root: <%= '/srv/character-sheet/production/img' %>
 
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:

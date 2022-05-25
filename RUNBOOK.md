@@ -34,7 +34,10 @@ Image Attachments for `Action Text` involves installing `libvips`
 
 ## Image Uploads
 
-- `/srv/character-sheet/img/` directory with app permissions to write is required for image uploads to run in develop.
+- `/srv/character-sheet/development/img/`
+- `/srv/character-sheet/production/img/`
+
+These directories with app permissions to write are required for image uploads to run in develop.
 
 ## Routine Operations
 
@@ -61,6 +64,14 @@ Image Attachments for `Action Text` involves installing `libvips`
 
 - `yarn stylelint`
 
+### Secrets
+
+#### Dotenv File
+
+```
+SECRET_KEY_BASE=
+```
+
 ### Image Dumps and Backups
 
 There may be a time to move off of ActiveStorage in favor of a CDN. When that time comes, there will be a need to pull down images for that transfer.
@@ -76,6 +87,11 @@ Your specified user will need extra permissions set up to perform a mysqldump op
 - TRIGGER
 - LOCK TABLES
 
+**Require Directories**
+
+- `/var/character-sheet/development/backups/json/`
+- `/var/character-sheet/production/backups/json/`
+
 `mysqldump -u <USER> -p --all-databases --single-transaction --quick --lock-tables=false | gzip > /var/character-sheet/backups/mysql/full-backup-$(date +"%Y_%m_%d_%I_%M_%p").sql.gz`
 
 ### JSON Backups
@@ -86,6 +102,6 @@ This is an expensive operation and should be seldomly run. This will touch every
 
 This will also include duplicted nested data.
 
-- `/var/character-sheet/backups/json/` directory with app permissions to write is required for this job to run.
+- `/var/character-sheet/development/backups/json/` and `/var/character-sheet/production/backups/json/` directories with app permissions to write is required for this job to run.
 - Rake Task: `rake data_dumps:json`, will leverage the folder structure outlined above.
 - Manual Class Usage: `DataDumps::DumpAll.new root_dir: root_dir` will allow for a custom backup path to be provided
