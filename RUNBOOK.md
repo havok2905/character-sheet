@@ -13,16 +13,17 @@
 
 1. Clone main
 2. `bundle install`
-3. `rake db:create`
-4. `rake db:migrate`
-5. `rake db:seed`
-6. `npm i --global yarn`
+3. `npm i`
+4. `rake db:create`
+5. `rake db:migrate`
+6. `rake db:seed`
 7. `npx webpack --watch`
 8. `rails s`
 
 ## Run in production
 - `NODE_ENV=production npx webpack`
 - `RAILS_ENV=production rails s`
+
 ### Run in local production
 - `NODE_ENV=production npx webpack`
 - `RAILS_LOG_TO_STDOUT=true RAILS_ENV=production rails s`
