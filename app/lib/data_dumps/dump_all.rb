@@ -37,12 +37,8 @@ module DataDumps
 
       Character.all.map do |character|
         json = character.as_json include: includes
-
-        if character.image.attached?
-          json[:image_path] = ActiveStorage::Blob.service.path_for character.image.key
-          json[:image_file_name] = character.image.blob.filename
-        end
-
+        json[:image_path] = get_image_path character, :image
+        json[:image_file_name] = get_image_file_name character, :image
         json
       end
     end
@@ -53,12 +49,8 @@ module DataDumps
 
       Creature.all.map do |creature|
         json = creature.as_json include: includes
-
-        if creature.image.attached?
-          json[:image_path] = ActiveStorage::Blob.service.path_for creature.image.key
-          json[:image_file_name] = creature.image.blob.filename
-        end
-
+        json[:image_path] = get_image_path creature, :image
+        json[:image_file_name] = get_image_file_name creature, :image
         json
       end
     end
@@ -66,12 +58,8 @@ module DataDumps
     def factions
       Faction.all.map do |faction|
         json = faction.as_json include: %i[characters creatures]
-
-        if faction.image.attached?
-          json[:image_path] = ActiveStorage::Blob.service.path_for faction.image.key
-          json[:image_file_name] = faction.image.blob.filename
-        end
-
+        json[:image_path] = get_image_path faction, :image
+        json[:image_file_name] = get_image_file_name faction, :image
         json
       end
     end
@@ -80,17 +68,10 @@ module DataDumps
       Location.all.map do |location|
         json = location.as_json
         json[:content] = location.content
-
-        if location.map.attached?
-          json[:map_path] = ActiveStorage::Blob.service.path_for location.map.key
-          json[:map_file_name] = location.map.blob.filename
-        end
-
-        if location.sigil.attached?
-          json[:sigil_path] = ActiveStorage::Blob.service.path_for location.sigil.key
-          json[:sigil_file_name] = location.sigil.blob.filename
-        end
-
+        json[:map_path] = get_image_path location, :map
+        json[:map_file_name] = get_image_file_name location, :map
+        json[:sigil_path] = get_image_path location, :sigil
+        json[:sigil_file_name] = get_image_file_name location, :sigil
         json
       end
     end
@@ -98,14 +79,24 @@ module DataDumps
     def magic_items
       MagicItem.all.map do |magic_item|
         json = magic_item.as_json include: %i[characters creatures]
-        json[:image_path] = ActiveStorage::Blob.service.path_for magic_item.image.key
-        json[:image_file_name] = magic_item.image.blob.filename
+        json[:image_path] = get_image_path magic_item, :image
+        json[:image_file_name] = get_image_file_name magic_item, :image
         json
       end
     end
 
     def spells
       Spell.all.map(&:as_json)
+    end
+
+    def get_image_path item, to_send
+      return '' unless item.send(to_send).attached?
+      ActiveStorage::Blob.service.path_for item.send(to_send).key
+    end
+
+    def get_image_file_name item, to_send
+      return '' unless item.send(to_send).attached?
+      item.send(to_send).blob.filename
     end
   end
 end
