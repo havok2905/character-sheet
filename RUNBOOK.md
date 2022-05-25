@@ -61,15 +61,15 @@ These directories with app permissions to write are required for image uploads t
 
 #### Frontend
 
-- `yarn lint`
+- `npm run lint`
 
 ##### Typescript
 
-- `yarn eslint`
+- `npm run eslint`
 
 ##### Sass
 
-- `yarn stylelint`
+- `npm run stylelint`
 
 ### Secrets
 
