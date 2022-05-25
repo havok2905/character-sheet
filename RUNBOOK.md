@@ -99,7 +99,7 @@ Your specified user will need extra permissions set up to perform a mysqldump op
 - `/var/character-sheet/development/backups/json/`
 - `/var/character-sheet/production/backups/json/`
 
-`mysqldump -u <USER> -p --all-databases --single-transaction --quick --lock-tables=false | gzip > /var/character-sheet/backups/mysql/full-backup-$(date +"%Y_%m_%d_%I_%M_%p").sql.gz`
+`mysqldump -u <USER> -p --all-databases --single-transaction --quick --lock-tables=false | gzip > /var/character-sheet/development/backups/mysql/full-backup-$(date +"%Y_%m_%d_%I_%M_%p").sql.gz`
 
 ### JSON Backups
 
