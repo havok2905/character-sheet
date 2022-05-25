@@ -17,16 +17,11 @@ gem 'faker', '~> 2.20.0'
 
 gem 'image_processing', '~> 1.2'
 
-# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem 'importmap-rails'
-
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
-
-gem 'jsbundling-rails', '~> 1.0.2'
 
 gem 'mysql2', '~> 0.5.3'
 
@@ -43,17 +38,8 @@ gem 'rails', '~> 7.0.1'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
-# Use Sass to process CSS
-gem 'sassc-rails'
-
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
-
-# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-gem 'stimulus-rails'
-
-# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem 'turbo-rails'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

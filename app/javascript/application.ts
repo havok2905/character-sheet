@@ -1,7 +1,6 @@
-import '@hotwired/turbo-rails';
 import '@rails/actiontext';
 import 'trix';
-
+import '../assets/stylesheets/application.scss';
 import {
   CharacterAttackForm,
   CharacterFeatureForm,
@@ -34,7 +33,7 @@ const creatureRegionalEffectsForm = new CreatureRegionalEffectsForm();
 const diceRollerComponent = new DiceRollerComponent();
 const toggleItem = new ToggleItem();
 
-document.addEventListener('turbo:load', ():void => {
+window.onload = ():void => {
   characterAttackForm.run();
   characterFeatureForm.run();
   characterItemForm.run();
@@ -46,4 +45,4 @@ document.addEventListener('turbo:load', ():void => {
   creatureRegionalEffectsForm.run();
   diceRollerComponent.run();
   toggleItem.run();
-});
+};

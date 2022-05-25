@@ -6,7 +6,6 @@
 - **Rails:** 7.0.2.3
 - **Bundler:** 2.3.6
 - **MySQL:** 8.0.29
-- **Yarn:** 1.22.18
 - **NPM:** 8.8.0
 - **Node:** 18.0.0
 
@@ -18,7 +17,15 @@
 4. `rake db:migrate`
 5. `rake db:seed`
 6. `npm i --global yarn`
-6. `./bin/dev`
+7. `npx webpack --watch`
+8. `rails s`
+
+## Run in production
+- `NODE_ENV=production npx webpack`
+- `RAILS_ENV=production rails s`
+### Run in local production
+- `NODE_ENV=production npx webpack`
+- `RAILS_LOG_TO_STDOUT=true RAILS_ENV=production rails s`
 
 ## Pre-commit Hook
 
