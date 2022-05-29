@@ -153,6 +153,6 @@ class CharactersController < ApplicationController
   end
 
   def spells
-    Spell.order 'level ASC, name'
+    Spell.order :name
   end
 end
