@@ -13,7 +13,7 @@
     <div class="card">
       <p><strong>Level: </strong><%= @spell.level %></p>
       <p><strong>School: </strong><%= @spell.school %></p>
-      <p><strong>Components: </strong>(<%= @spell.material_components ? 'M' : '' %><%= @spell.somatic_components ? 'S' : '' %><%= @spell.verbal_components ? 'V' : '' %><%= @spell.concentration ? 'C' : '' %>) <%= @spell.components %></p>
+      <p><strong>Components: </strong>(<%= @spell.ritual ? 'R' : '' %><%= @spell.material_components ? 'M' : '' %><%= @spell.somatic_components ? 'S' : '' %><%= @spell.verbal_components ? 'V' : '' %><%= @spell.concentration ? 'C' : '' %>) <%= @spell.components %></p>
       <p><strong>Cating Time: </strong><%= @spell.casting_time %></p>
       <p><strong>Duration: </strong><%= @spell.duration %></p>
       <p><strong>Range: </strong><%= @spell.range %></p>

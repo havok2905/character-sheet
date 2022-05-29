@@ -82,6 +82,7 @@ class SpellsController < ApplicationController
       :material_components,
       :name,
       :range,
+      :ritual,
       :school,
       :somatic_components,
       :target,

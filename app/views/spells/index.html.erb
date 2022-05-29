@@ -34,6 +34,8 @@
           <th>Name</th>
           <th>Level</th>
           <th>School</th>
+          <th>Concentration</th>
+          <th>Ritual</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -44,6 +46,8 @@
             <td><%= spell.name %></td>
             <td><%= spell.level %></td>
             <td><%= spell.school %></td>
+            <td><%= spell.concentration ? 'C' : '' %></td>
+            <td><%= spell.ritual ? 'R' : '' %></td>
             <td>
               <a href="<%= spell_path spell %>">View</a>
               <% if modify_spell %>
