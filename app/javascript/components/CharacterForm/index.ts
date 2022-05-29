@@ -90,9 +90,7 @@ class CharacterItemForm implements IEventRegistration {
         <label for="character_character_items_attributes_${index}_name">Name</label>
         <input type="text" value="" name="character[character_items_attributes][${index}][name]" id="character_character_items_attributes_${index}_name">
         <label for="character_character_items_attributes_${index}_total">Total</label>
-        <input type="number" value="" name="character[character_items_attributes][${index}][total]" id="character_character_items_attributes_${index}_total">
-        <label for="character_character_items_attributes_${index}_description">Description</label>
-        <textarea name="character[character_items_attributes][${index}][description]" id="character_character_items_attributes_${index}_description"></textarea>        
+        <input type="number" value="" name="character[character_items_attributes][${index}][total]" id="character_character_items_attributes_${index}_total">       
       `;
 
       items.append(newFieldset);
