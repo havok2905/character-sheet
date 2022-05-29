@@ -398,37 +398,30 @@ You choose whether your equipment falls to the ground in your space, merges into
 
     character_items: [
       CharacterItem.create({
-        description: "",
         name: "Cook's Utensils",
         total: 1
       }),
       CharacterItem.create({
-        description: "",
         name: "Letter of Introduction from the Guild",
         total: 1
       }),
       CharacterItem.create({
-        description: "",
         name: "Traveler's Clothes",
         total: 1
       }),
       CharacterItem.create({
-        description: "",
         name: "Dagger",
         total: 1
       }),
       CharacterItem.create({
-        description: "",
         name: "Leather Armor ( AC 11 )",
         total: 1
       }),
       CharacterItem.create({
-        description: "",
         name: "Druidic Focus",
         total: 1
       }),
       CharacterItem.create({
-        description: "",
         name: "Explorer's Pack",
         total: 1
       })
