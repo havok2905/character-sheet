@@ -59,8 +59,6 @@ class CreatureFeatureForm implements IEventRegistration {
       newFieldset.innerHTML = `
         <label for="creature_creature_features_attributes_${index}_name">Name</label>
         <input type="text" value="" name="creature[creature_features_attributes][${index}][name]" id="creature_creature_features_attributes_${index}_name">
-        <label for="creature_creature_features_attributes_${index}_feature_type">Feature type</label>
-        <input type="text" value="" name="creature[creature_features_attributes][${index}][feature_type]" id="creature_creature_features_attributes_${index}_feature_type">
         <label for="creature_creature_features_attributes_${index}_description">Description</label>
         <textarea name="creature[creature_features_attributes][${index}][description]" id="creature_creature_features_attributes_${index}_description"></textarea>
       `;
