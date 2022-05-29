@@ -150,7 +150,7 @@
       <div class="card">
         <h2>Features</h2>
         <% @creature.creature_features.each do |feature| %>
-          <%= render layout: 'shared/toggle-item', locals: { heading: "#{feature.name}: #{feature.feature_type}" } do %>
+          <%= render layout: 'shared/toggle-item', locals: { heading: "#{feature.name}" } do %>
             <%= simple_format(feature.description).html_safe %>
           <% end %>
         <% end %>

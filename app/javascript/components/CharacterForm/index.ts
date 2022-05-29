@@ -63,8 +63,6 @@ class CharacterFeatureForm implements IEventRegistration {
         <input type="text" value="" name="character[character_features_attributes][${index}][name]" id="character_character_features_attributes_${index}_name">
         <label for="character_character_features_attributes_${index}_source">Source</label>
         <input type="text" value="" name="character[character_features_attributes][${index}][source]" id="character_character_features_attributes_${index}_source">
-        <label for="character_character_features_attributes_${index}_feature_type">Feature type</label>
-        <input type="text" value="" name="character[character_features_attributes][${index}][feature_type]" id="character_character_features_attributes_${index}_feature_type">
         <label for="character_character_features_attributes_${index}_description">Description</label>
         <textarea name="character[character_features_attributes][${index}][description]" id="character_character_features_attributes_${index}_description"></textarea>
       `;
