@@ -22,12 +22,32 @@ userb.password_confirmation = 'password'
 userb.role = Permissions::Roles::GUEST_ROLE
 userb.save!
 
-location = Location.create(
+pins  = Pin.create([
   {
-    description: 'Lorem ipsum dolor',
-    name: 'Habarashi'
+    x: 500,
+    y: 500
+  },
+  {
+    x: 200,
+    y: 300
+  },
+  {
+    x: 300,
+    y: 200
   }
-)
+])
+
+map = Map.create({
+  pins: pins
+})
+
+location = Location.create({
+  description: 'Lorem ipsum dolor',
+  name: 'Celu'
+})
+
+map.location_id = location.id
+map.save!
 
 magic_item = MagicItem.create(
   {

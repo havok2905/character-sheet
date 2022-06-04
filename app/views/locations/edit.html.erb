@@ -2,7 +2,7 @@
   <div class="full">
     <h1>Edit Location</h1>
     <a class="button" href="<%= location_path @location %>">Back</a>
-    <%= render partial: 'form', locals: { location: @location } %>
+    <%= render partial: 'form', locals: { location: @location, form_url: location_path, form_method: :put } %>
     <%= button_to 'Delete', { :controller => :locations, :action => 'destroy', :id => @location.id }, :class => 'button button-destructive', :method => :delete %>
   </div>
 </div>

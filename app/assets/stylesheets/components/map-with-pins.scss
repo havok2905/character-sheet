@@ -1,0 +1,28 @@
+@import '../shared/variables';
+
+.map-with-pins {
+  display: flex;
+  position: relative;
+}
+
+.map-pin {
+  background-color: $red;
+  border-radius: 100% 100% 0 100%;
+  box-shadow: $box-shadow-light;
+  color: $true-white;
+  height: 50px;
+  position: absolute;
+  width: 50px;
+}
+
+.map-pin-inner {
+  background-color: $true-white;
+  border-radius: 50%;
+  box-shadow: $box-shadow-field;
+  cursor: pointer;
+  height: 40px;
+  left: 5px;
+  position: relative;
+  top: 5px;
+  width: 40px;
+}

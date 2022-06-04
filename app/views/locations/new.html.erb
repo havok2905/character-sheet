@@ -2,6 +2,6 @@
   <div class="full">
     <h1>New Location</h1>
     <a class="button" href="<%= locations_path %>">Back</a>
-    <%= render partial: 'form', locals: { location: @location } %>
+    <%= render partial: 'form', locals: { location: @location, form_url: locations_path, form_method: :post } %>
   </div>
 </div>

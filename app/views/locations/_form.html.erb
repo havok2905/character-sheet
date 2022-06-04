@@ -1,32 +1,39 @@
-<%= form_for @location do |f| %>
-  <fieldset>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </fieldset>
-  <div class="full">
-    <h2>Sigil</h2>
-    <% if @location.sigil.attached? %>
-      <img src="<%= url_for @location.sigil %>"/>
-    <% end %>
-    <fieldset>
-      <%= f.file_field :sigil %>
-    </fieldset>
-  </div>
+<%= form_for :location_form, url: form_url, method: form_method do |f| %>
   <div class="full">
     <h2>Map</h2>
-    <% if @location.map.attached? %>
-      <img src="<%= url_for @location.map %>"/>
+    <% if @map.image.attached? %>
+      <img src="<%= url_for @map.image %>"/>
     <% end %>
-    <fieldset>
-      <%= f.file_field :map %>
-    </fieldset>
+    <%= f.fields_for :map do |map| %>
+      <fieldset>
+        <%= map.file_field :image %>
+      </fieldset>
+    <% end %>
   </div>
-  <fieldset>
-    <%= f.label :content %>
-    <%= f.rich_text_area :content %>
-  </fieldset>
+  <div class="full">
+    <h2>Location</h2>
+    <%= f.fields_for :location do |location| %>
+      <fieldset>
+        <%= location.label :name %>
+        <%= location.text_field :name, value: @location.name %>
+        <%= location.label :description %>
+        <%= location.text_area :description, value: @location.description %>
+      </fieldset>
+      <div class="full">
+        <h2>Sigil</h2>
+        <% if @location.sigil.attached? %>
+          <img src="<%= url_for @location.sigil %>"/>
+        <% end %>
+        <fieldset>
+          <%= location.file_field :sigil %>
+        </fieldset>
+      </div>
+      <fieldset>
+        <%= location.label :content %>
+        <%= location.rich_text_area :content, value: @location.content %>
+      </fieldset>
+    <% end %>
+  </div>
   <fieldset>
     <%= f.submit :class => 'button button-constructive' %>
   </fieldset>

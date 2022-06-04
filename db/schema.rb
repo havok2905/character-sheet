@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_29_011902) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_29_013652) do
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
@@ -416,6 +416,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_29_011902) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "maps", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "location_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_maps_on_location_id"
+  end
+
+  create_table "pins", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "map_id"
+    t.integer "x"
+    t.integer "y"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["map_id"], name: "index_pins_on_map_id"
+  end
+
   create_table "spells", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "character_id"
     t.bigint "creature_id"
@@ -468,6 +484,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_29_011902) do
   add_foreign_key "creature_lair_actions", "creatures"
   add_foreign_key "creature_legendary_actions", "creatures"
   add_foreign_key "creature_regional_effects", "creatures"
+  add_foreign_key "maps", "locations"
+  add_foreign_key "pins", "maps"
   add_foreign_key "spells", "characters"
   add_foreign_key "spells", "creatures"
 end
