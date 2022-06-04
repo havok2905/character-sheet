@@ -24,9 +24,9 @@
         <%= f.label :creature_type %>
         <%= f.text_field :creature_type %>
         <%= f.label :alignment %>
-        <%= f.text_field :alignment %>
+        <%= f.select :alignment, CoreRules::AlignmentList::ALIGNMENT_LIST, selected: @creature.alignment %>
         <%= f.label :cr %>
-        <%= f.number_field :cr %>
+        <%= f.select :cr, CoreRules::CrList::CR_LIST, selected: @creature.cr %>
         <%= f.label :ac %>
         <%= f.number_field :ac %>
         <%= f.label :hp %>

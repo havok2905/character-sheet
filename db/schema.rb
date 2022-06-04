@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_21_222414) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_04_141649) do
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
@@ -318,7 +318,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_21_222414) do
     t.integer "constitution_mod"
     t.integer "constitution_save"
     t.integer "constitution_score"
-    t.float "cr"
+    t.string "cr"
     t.string "creature_category"
     t.string "creature_type"
     t.text "damage_immunities"
@@ -353,7 +353,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_21_222414) do
     t.integer "spell_slots_seventh"
     t.integer "spell_slots_eighth"
     t.integer "spell_slots_ninth"
-    t.integer "spellcasting_ability"
+    t.string "spellcasting_ability"
     t.integer "spellcasting_level"
     t.integer "spellcasting_modifier"
     t.integer "spellcasting_save_dc"

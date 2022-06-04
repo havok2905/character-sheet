@@ -18,7 +18,7 @@
         <%= f.label :name %>
         <%= f.text_field :name %>
         <%= f.label :alignment %>
-        <%= f.text_field :alignment %>
+        <%= f.select :alignment, CoreRules::AlignmentList::ALIGNMENT_LIST, selected: @character.alignment %>
         <%= f.label :background %>
         <%= f.text_field :background %>
         <%= f.label :race %>
