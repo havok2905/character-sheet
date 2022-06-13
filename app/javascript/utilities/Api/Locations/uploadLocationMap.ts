@@ -1,15 +1,6 @@
-type IUploadLocationMapResponse = {
-  location: IUploadLocationMapResponseLocation;
-};
+import { ILocation } from './types';
 
-type IUploadLocationMapResponseLocation = {
-  content: string;
-  description: string;
-  id: string;
-  name: string;
-};
-
-const uploadLocationMap = (id: string, data: FormData): Promise<IUploadLocationMapResponse> => {
+const uploadLocationMap = (id: string, data: FormData): Promise<ILocation> => {
   return fetch(`/locations/${id}/upload_map.json`, {
     body: data,
     method: 'POST'
@@ -17,6 +8,4 @@ const uploadLocationMap = (id: string, data: FormData): Promise<IUploadLocationM
   .then(response => response.json())
 };
 
-export {
-  uploadLocationMap
-};
+export { uploadLocationMap };

@@ -6,6 +6,4 @@ const destroyLocation = (id: string): Promise<any> => {
   .then(response => response.json());
 };
 
-export {
-  destroyLocation
-};
+export { destroyLocation };

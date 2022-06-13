@@ -1,3 +1,5 @@
+import { ILocation } from './types';
+
 type ICreateLocationRequest = {
   location: ICreateLocationRequestLocation;
 };
@@ -8,18 +10,7 @@ type ICreateLocationRequestLocation = {
   name: string;
 };
 
-type ICreateLocationResponse = {
-  location: ICreateLocationResponseLocation;
-};
-
-type ICreateLocationResponseLocation = {
-  content: string;
-  description: string;
-  id: string;
-  name: string;
-};
-
-const createLocation = (data: ICreateLocationRequest): Promise<ICreateLocationResponse> => {
+const createLocation = (data: ICreateLocationRequest): Promise<ILocation> => {
   return fetch('/locations.json', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -30,6 +21,5 @@ const createLocation = (data: ICreateLocationRequest): Promise<ICreateLocationRe
 
 export {
   createLocation,
-  ICreateLocationRequest,
-  ICreateLocationResponse
+  ICreateLocationRequest
 };
