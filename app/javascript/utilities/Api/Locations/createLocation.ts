@@ -10,7 +10,11 @@ type ICreateLocationRequestLocation = {
   name: string;
 };
 
-const createLocation = (data: ICreateLocationRequest): Promise<ILocation> => {
+type ICreateLocationResponse = {
+  location: ILocation;
+};
+
+const createLocation = (data: ICreateLocationRequest): Promise<ICreateLocationResponse> => {
   return fetch('/locations.json', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

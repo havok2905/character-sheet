@@ -1,6 +1,10 @@
 import { ILocation } from './types';
 
-const uploadLocationSigil = (id: string, data: FormData): Promise<ILocation> => {
+type IUploadLocationSigilResponse = {
+  location: ILocation;
+};
+
+const uploadLocationSigil = (id: string, data: FormData): Promise<IUploadLocationSigilResponse> => {
   return fetch(`/locations/${id}/upload_sigil.json`, {
     body: data,
     method: 'POST'

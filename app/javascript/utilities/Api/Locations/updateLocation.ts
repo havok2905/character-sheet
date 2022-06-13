@@ -10,7 +10,11 @@ type IUpdateLocationRequestLocation = {
   name: string;
 };
 
-const updateLocation = (id: string, data: IUpdateLocationRequest): Promise<ILocation> => {
+type IUpdateLocationsResponse = {
+  location: ILocation;
+};
+
+const updateLocation = (id: string, data: IUpdateLocationRequest): Promise<IUpdateLocationsResponse> => {
   return fetch(`/locations/${id}.json`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
@@ -19,7 +23,4 @@ const updateLocation = (id: string, data: IUpdateLocationRequest): Promise<ILoca
   .then(response => response.json());
 };
 
-export {
-  updateLocation,
-  IUpdateLocationRequest
-};
+export { updateLocation };

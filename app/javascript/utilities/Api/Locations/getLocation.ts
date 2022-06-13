@@ -1,6 +1,10 @@
 import { ILocation } from './types';
 
-const getLocation = (id: string): Promise<ILocation> => {
+type IGetLocationResponse = {
+  location: ILocation;
+};
+
+const getLocation = (id: string): Promise<IGetLocationResponse> => {
   return fetch(`/locations/${id}.json`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
