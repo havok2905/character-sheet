@@ -139,7 +139,7 @@ const LocationEditPage = (): ReactElement => {
           mapUrl && (
             <>
               <h2>Map</h2>
-              <img src={mapUrl} alt={`${name} map`}/>
+              <img src={mapUrl} alt={`${name} map`} width="1000px"/>
             </>
           )
         }
