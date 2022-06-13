@@ -2,18 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { GearIcon } from '../../components/Icons';
 import { getLocation } from '../../utilities/Api/Locations';
 import { MarkdownPreview } from '../../components/MarkdownPreview';
-
-const Pin = ({
-  x,
-  y
-}) => {
-  return (
-    <div className="map-pin" style={{ left: `${x}px`, top: `${y}px` }}>
-      <div className="map-pin-inner">
-      </div>
-    </div>
-  )
-};
+import { Pin } from '../../components/Pin';
 
 const LocationPage = ({}) => {
   const [location, setLocation] = useState(null);
