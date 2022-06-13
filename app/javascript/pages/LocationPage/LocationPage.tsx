@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  ReactElement,
+  useEffect,
+  useState
+} from 'react';
 import { GearIcon } from '../../components/Icons';
 import { getLocation } from '../../utilities/Api/Locations';
 import { MarkdownPreview } from '../../components/MarkdownPreview';
 import { Pin } from '../../components/Pin';
 
-const LocationPage = ({}) => {
+const LocationPage = (): ReactElement => {
   const [location, setLocation] = useState(null);
 
   useEffect(() => {

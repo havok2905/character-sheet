@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  ReactElement,
+  useEffect,
+  useState
+} from 'react';
 import { getLocations } from '../../utilities/Api/Locations';
 
-const LocationsPage = () => {
+const LocationsPage = (): ReactElement => {
   const [locations, setLocations] = useState([]);
 
   useEffect(() => {

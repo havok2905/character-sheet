@@ -35,8 +35,17 @@ class LocationsController < ApplicationController
   def upload_map
     l = Location.find params[:id]
     m = Map.where(location_id: params[:id]).first
-    m.image = params['location-map-file-upload']
-    m.save!
+
+    if m.present?
+      m.image = params['location-map-file-upload']
+      m.save!
+    else
+      m = Map.create({
+        image: params['location-map-file-upload'],
+        location_id: params[:id]
+      })
+    end
+
     location = location_view_model l, m
     render json: { location: location }
   end

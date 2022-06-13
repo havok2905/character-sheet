@@ -1,4 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  ReactElement,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 import {
   destroyLocation,
   getLocation,
@@ -17,7 +22,7 @@ const getIdFromUrl = ():string => {
   return parts[1];
 };
 
-const LocationEditPage = () => {
+const LocationEditPage = (): ReactElement => {
   const [content, setContent] = useState('');
   const [description, setDescription] = useState('');
   const [id, setId] = useState('');
@@ -211,7 +216,7 @@ const LocationEditPage = () => {
               Content
             </label>
             <MarkdownEditor
-              onChange={(e) => setContent(e.target.value)}
+              onChange={(e) => {setContent(e.target.value)}}
               value={content}
             />
             <MarkdownPreview value={content}/>

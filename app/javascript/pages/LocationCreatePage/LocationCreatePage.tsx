@@ -1,8 +1,17 @@
-import React, { useRef, useState } from 'react';
+import React, {
+  ReactElement,
+  useState
+} from 'react';
 import { createLocation } from '../../utilities/Api/Locations';
+import {
+  MarkdownEditor
+} from '../../components/MarkdownEditor';
+import {
+  MarkdownPreview
+} from '../../components/MarkdownPreview';
 
-const LocationCreatePage = () => {
-  const trixRef = useRef(null);
+const LocationCreatePage = (): ReactElement => {
+  const [content, setContent] = useState('');
   const [description, setDescription] = useState('');
   const [name, setName] = useState('');
 
@@ -11,7 +20,7 @@ const LocationCreatePage = () => {
 
     createLocation({
       location: {
-        content: trixRef.current.value,
+        content,
         description,
         name
       }
@@ -58,9 +67,11 @@ const LocationCreatePage = () => {
             <label htmlFor="location-content">
               Content
             </label>
-            <input id="location-content" name="location-content" ref={trixRef} type="hidden" value=""/>
-            <trix-editor input="location-content">
-            </trix-editor>
+            <MarkdownEditor
+              onChange={(e) => {setContent(e.target.value)}}
+              value={content}
+            />
+            <MarkdownPreview value={content}/>
           </fieldset>
           <fieldset>
             <button className="button button-constructive">

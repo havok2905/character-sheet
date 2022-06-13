@@ -1,9 +1,16 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { 
+  ReactElement,
+  useEffect,
+  useMemo,
+  useState
+} from 'react';
 import Showdown from 'showdown';
 
-const MarkdownPreview = ({
-  value
-}) => {
+type IMarkdownPreviewProps = {
+  value: string;
+};
+
+const MarkdownPreview = ({ value }: IMarkdownPreviewProps): ReactElement => {
   const converter = useMemo(() => { 
     return new Showdown.Converter({
       strikethrough: true,
