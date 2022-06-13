@@ -7,7 +7,9 @@ import React, {
 import {
   destroyLocation,
   getLocation,
-  updateLocation
+  updateLocation,
+  uploadLocationMap,
+  uploadLocationSigil
 } from '../../utilities/Api/Locations';
 import {
   MarkdownEditor
@@ -74,17 +76,13 @@ const LocationEditPage = (): ReactElement => {
 
     data.append('location-map-file-upload', mapFileUploadRef.current.files[0]);
 
-    fetch(`/locations/${id}/upload_map.json`, {
-      body: data,
-      method: 'POST'
-    })
-    .then(response => response.json())
-    .then(data => {
-      window.location.href = `/locations/${data.location.id}`;
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+    uploadLocationMap(id, data)
+      .then(data => {
+        window.location.href = `/locations/${data.location.id}`;
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
 
   const handleSigilSubmit = e => {
@@ -95,17 +93,13 @@ const LocationEditPage = (): ReactElement => {
 
     data.append('location-sigil-file-upload', sigilFileUploadRef.current.files[0]);
 
-    fetch(`/locations/${id}/upload_sigil.json`, {
-      body: data,
-      method: 'POST'
-    })
-    .then(response => response.json())
-    .then(data => {
-      window.location.href = `/locations/${data.location.id}`;
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+    uploadLocationSigil(id, data)
+      .then(data => {
+        window.location.href = `/locations/${data.location.id}`;
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
 
   const handleSubmit = e => {
@@ -120,12 +114,12 @@ const LocationEditPage = (): ReactElement => {
         name
       }
     })
-    .then(data => {
-      window.location.href = `/locations/${data.location.id}`;
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+      .then(data => {
+        window.location.href = `/locations/${data.location.id}`;
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
 
   return (
