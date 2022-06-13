@@ -1,124 +1,110 @@
 # frozen_string_literal: true
 
 class LocationsController < ApplicationController
-  before_action :authenticate_user!, only: %i[
-    create
-    destroy
-    edit
-    new
-    update
-  ]
-
   def index
-    @locations = locations
+    l = Location.order(:name)
+    locations = locations_view_model l
+    respond_to do |format|
+      format.html
+      format.json { render json: { locations: locations } }
+     end
   end
 
   def show
-    @location = location_by_id
-    @map = location_map
+    l = Location.find params[:id]
+    m = Map.where(location_id: l.id).first
+    location = location_view_model l, m
+    respond_to do |format|
+      format.html
+      format.json { render json: { location: location } }
+    end
   end
 
   def new
-    @location = new_location
-    @map = new_map
   end
 
   def create
-    @location = Location.create location_params[:location]
-    @map = Map.create(image: map_params[:map][:image], location_id: @location.id)
-    redirect_to locations_path
+    l = Location.create create_location_params
+    location = location_view_model l, nil
+    render json: { location: location }
   end
 
   def edit
-    @location = location_by_id
-    @map = location_map
+  end
+
+  def upload_map
+    l = Location.find params[:id]
+    m = Map.where(location_id: params[:id]).first
+    m.image = params['location-map-file-upload']
+    m.save!
+    location = location_view_model l, m
+    render json: { location: location }
+  end
+
+  def upload_sigil
+    l = Location.find params[:id]
+    m = Map.where(location_id: params[:id]).first    
+    l.sigil = params['location-sigil-file-upload']
+    l.save!
+    location = location_view_model l, m
+    render json: { location: location }
   end
 
   def update
-    @location = location_by_id
-    @map = location_map
-
-    if map_params[:map]
-      unless @map.update(map_params[:map])
-        render :edit, status: :unprocessable_entity
-      end
-    end
-
-    if location_params[:location]
-      unless @location.update(location_params[:location])
-        render :edit, status: :unprocessable_entity
-      end
-    end
-
-    redirect_to location_path @location
+    l = Location.find params[:id]
+    m = Map.where(location_id: params[:id]).first
+    l.update update_location_params
+    location = location_view_model l, m
+    render json: { location: location }
   end
 
   def destroy
-    @location = location_by_id
-    @map = location_map
-    destroy_error_flash unless @map.destroy && @location.destroy
-    redirect_to locations_path
-  end
-
-  helper_method :modify_location
-  def modify_location
-    user_signed_in?
+    l = Location.find params[:id]
+    m = Map.where(location_id: params[:id]).first
+    m.destroy if m
+    l.destroy
+    render json: {}
   end
 
   private
 
-  def destroy_error_flash
-    flash.alert = 'There was a problem deleting this location.'
+  def location_view_model location, map
+    sigil_url = location.sigil&.attached? ? url_for(location.sigil) : ''
+    image_url = map&.image&.attached? ? url_for(map.image) : ''
+
+    {
+      content: location.content,
+      description: location.description,
+      id: location.id,
+      map: {
+        imageUrl: image_url,
+        pins: map&.pins || []
+      },
+      name: location.name,
+      sigilUrl: sigil_url
+    }
   end
 
-  def update_error_flash
-    flash.alert = 'There was a problem updating this location.'
+  def locations_view_model locations
+    locations.map do |location|
+      map = Map.where(location_id: location.id).first
+      location_view_model location, map
+    end
   end
 
-  def location_by_id
-    Location.find params[:id]
-  end
-
-  def location_params
-    params.require(:location_form).permit(
-      location: [
-        :content,
-        :description,
-        :name,
-        :sigil
-      ]
+  def create_location_params
+    params.require(:location).permit(
+      :content,
+      :description,
+      :name
     )
   end
 
-  def map_params
-    params.require(:location_form).permit(
-      map: [
-        :image
-      ]
+  def update_location_params
+    params.require(:location).permit(
+      :content,
+      :description,
+      :name
     )
-  end
-
-  def locations
-    Location.order(:name)
-  end
-
-  def location_map
-    Map.where(location_id: params[:id]).first
-  end
-
-  def new_location
-    Location.new
-  end
-
-  def new_map
-    Map.new
-  end
-
-  def new_location_with_params
-    Location.new location_params[:location]
-  end
-
-  def new_map_with_params
-    Map.new map_params[:map]
   end
 end

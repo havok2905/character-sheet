@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   resources :factions
 
   resources :locations
+  post '/locations/:id/upload_sigil', to: 'locations#upload_sigil', as: 'location_upload_sigil'
+  post '/locations/:id/upload_map', to: 'locations#upload_map', as: 'location_upload_map'
 
   resources :magic_items
 

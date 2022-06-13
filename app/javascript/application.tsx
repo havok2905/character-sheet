@@ -1,6 +1,6 @@
 import '@rails/actiontext';
 import 'trix';
-import '../assets/stylesheets/application.scss';
+
 import {
   CharacterAttackForm,
   CharacterFeatureForm,
@@ -18,8 +18,22 @@ import {
   DiceRollerComponent
 } from './components/DiceRoller';
 import {
+  locationCreatePageBootstrapper
+} from './pages/LocationCreatePage';
+import {
+  locationEditPageBootstrapper
+} from './pages/LocationEditPage';
+import {
+  locationPageBootstrapper
+} from './pages/LocationPage';
+import {
+  locationsPageBootstrapper
+} from './pages/LocationsPage';
+import {
   ToggleItem
 } from './components/ToggleItem';
+
+import '../assets/stylesheets/application.scss';
 
 const characterAttackForm = new CharacterAttackForm();
 const characterFeatureForm = new CharacterFeatureForm();
@@ -45,4 +59,9 @@ window.onload = ():void => {
   creatureRegionalEffectsForm.run();
   diceRollerComponent.run();
   toggleItem.run();
+
+  locationCreatePageBootstrapper();
+  locationEditPageBootstrapper();
+  locationPageBootstrapper();
+  locationsPageBootstrapper();
 };

@@ -1,0 +1,77 @@
+import React, { useEffect, useState } from 'react';
+import { GearIcon } from '../../components/Icons';
+import { getLocation } from '../../utilities/Api/Locations';
+import { MarkdownPreview } from '../../components/MarkdownPreview';
+
+const Pin = ({
+  x,
+  y
+}) => {
+  return (
+    <div className="map-pin" style={{ left: `${x}px`, top: `${y}px` }}>
+      <div className="map-pin-inner">
+      </div>
+    </div>
+  )
+};
+
+const LocationPage = ({}) => {
+  const [location, setLocation] = useState(null);
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const parts = url.pathname.split('/').filter(Boolean);
+    const id = parts[1];
+
+    getLocation(id)
+      .then(data => {
+        setLocation(data.location);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });    
+  }, []);
+
+  if (!location) return null;
+
+  return (
+    <div className="layout">
+      <div className="full">
+        <div className="sheet-header">
+          <div className="sheet-header-settings">
+            <a href={`/locations/${location.id}/edit`}>
+              <GearIcon/>
+            </a>
+          </div>
+        </div>
+        {
+          location.map.imageUrl && (
+            <>
+              <h2>Map</h2>
+              <div className="map-with-pins">
+                <img src={location.map.imageUrl} alt={`${location.name} map`} width="1000px"/>
+                { location.map.pins.map(p => <Pin x={p.x} y={p.y}/>) }
+              </div> 
+            </>
+          )
+        }
+        <h1>{location.name}</h1>
+        {
+          location.sigilUrl && (
+            <>
+              <h2>Sigil</h2>
+              <img src={location.sigilUrl} alt={`${location.name} sigil`}/>
+            </>
+          )
+        }
+        <div className="card">
+          {location.description}
+        </div>
+        <h2>Article</h2>
+        <MarkdownPreview value={location.content}/>
+      </div>
+    </div>
+  );
+};
+
+export { LocationPage };
