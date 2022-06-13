@@ -8,13 +8,17 @@ import { getLocation } from '../../utilities/Api/Locations';
 import { MarkdownPreview } from '../../components/MarkdownPreview';
 import { Pin } from '../../components/Pin';
 
+const getIdFromUrl = ():string => {
+  const url = new URL(window.location.href);
+  const parts = url.pathname.split('/').filter(Boolean);
+  return parts[1];
+};
+
 const LocationPage = (): ReactElement => {
   const [location, setLocation] = useState(null);
 
   useEffect(() => {
-    const url = new URL(window.location.href);
-    const parts = url.pathname.split('/').filter(Boolean);
-    const id = parts[1];
+    const id = getIdFromUrl();
 
     getLocation(id)
       .then(data => {
