@@ -139,6 +139,7 @@ const LocationEditPage = (): ReactElement => {
           mapUrl && (
             <>
               <h2>Map</h2>
+              <a href={`/locations/${id}/map_settings`}>Edit Pins</a>
               <img src={mapUrl} alt={`${name} map`} width="1000px"/>
             </>
           )

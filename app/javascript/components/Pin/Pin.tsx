@@ -1,15 +1,9 @@
 import React, { ReactElement } from 'react';
-
-type IPin = {
-  id: string;
-  name: string;
-  x: number;
-  y: number;
-}
+import { IPin } from '../types/models';
 
 type IPinProps = {
-  onMouseDown: Function;
-  onMouseUp: Function;
+  onMouseDown?: (id: string) => void;
+  onMouseUp?: (id: string) => void;
   pin: IPin;
   selected?: boolean;
 };
@@ -31,8 +25,8 @@ const Pin = ({
   return (
     <div
       className="map-pin"
-      onMouseDown={() => onMouseDown(id)}
-      onMouseUp={() => onMouseUp(id)}
+      onMouseDown={() => { if (onMouseDown) onMouseDown(id); }}
+      onMouseUp={() => { if (onMouseDown) onMouseUp(id); }}
       style={style}>
       <div className="map-pin-inner">
       </div>
