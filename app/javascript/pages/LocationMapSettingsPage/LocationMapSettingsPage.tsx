@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { getLocation } from '../../utilities/Api/Locations';
 import { MapWithPinsEditor } from '../../components/MapWithPinsEditor';
 
@@ -8,7 +8,7 @@ const getIdFromUrl = ():string => {
   return parts[1];
 };
 
-const LocationMapSettingsPage = () => {
+const LocationMapSettingsPage = (): ReactElement => {
   const [location, setLocation] = useState(null);
 
   useEffect(() => {

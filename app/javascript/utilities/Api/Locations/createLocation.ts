@@ -1,13 +1,11 @@
-import { ILocation } from './types';
+import { ILocation } from '../../../types/models';
 
 type ICreateLocationRequest = {
-  location: ICreateLocationRequestLocation;
-};
-
-type ICreateLocationRequestLocation = {
-  content: string;
-  description: string;
-  name: string;
+  location: {
+    content: string;
+    description: string;
+    name: string;
+  };
 };
 
 type ICreateLocationResponse = {

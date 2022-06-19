@@ -1,14 +1,7 @@
-import React, {
-  ReactElement,
-  useState
-} from 'react';
+import React, { ReactElement, useState } from 'react';
 import { createLocation } from '../../utilities/Api/Locations';
-import {
-  MarkdownEditor
-} from '../../components/MarkdownEditor';
-import {
-  MarkdownPreview
-} from '../../components/MarkdownPreview';
+import { MarkdownEditor } from '../../components/MarkdownEditor';
+import { MarkdownPreview } from '../../components/MarkdownPreview';
 
 const LocationCreatePage = (): ReactElement => {
   const [content, setContent] = useState('');

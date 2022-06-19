@@ -4,7 +4,7 @@ import React, {
   useReducer,
   useRef
 } from 'react';
-import { IPin } from '../types/models';
+import { IPin } from '../../types/models';
 import { Pin } from '../Pin';
 
 enum MapEditorReducerActionType {

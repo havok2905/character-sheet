@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { IPin } from '../types/models';
+import { IPin } from '../../types/models';
 
 type IPinProps = {
   onMouseDown?: (id: string) => void;

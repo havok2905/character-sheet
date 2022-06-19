@@ -11,12 +11,8 @@ import {
   uploadLocationMap,
   uploadLocationSigil
 } from '../../utilities/Api/Locations';
-import {
-  MarkdownEditor
-} from '../../components/MarkdownEditor';
-import {
-  MarkdownPreview
-} from '../../components/MarkdownPreview';
+import { MarkdownEditor } from '../../components/MarkdownEditor';
+import { MarkdownPreview } from '../../components/MarkdownPreview';
 
 const getIdFromUrl = ():string => {
   const url = new URL(window.location.href);

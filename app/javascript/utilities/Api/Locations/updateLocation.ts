@@ -1,4 +1,4 @@
-import { ILocation } from './types';
+import { ILocation } from '../../../types/models';
 
 type IUpdateLocationRequest = {
   location: IUpdateLocationRequestLocation;

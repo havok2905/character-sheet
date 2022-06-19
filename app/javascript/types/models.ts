@@ -1,24 +1,27 @@
-type ILocationMapPin = {
+interface IPin {
+  id: string;
+  map_id: string;
+  name: string;
   x: number;
   y: number;
-};
+}
 
-type ILocationMap = {
+interface IMap {
   imageUrl: string;
-  pins: ILocationMapPin[];
-};
+  pins: IPin[];
+}
 
-type ILocation = {
+interface ILocation {
   content: string;
   description: string;
   id: string;
-  map: ILocationMap;
+  map: IMap;
   name: string;
   sigilUrl: string;
-};
+}
 
 export {
   ILocation,
-  ILocationMap,
-  ILocationMapPin
+  IMap,
+  IPin
 };
