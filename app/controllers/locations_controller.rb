@@ -23,13 +23,16 @@ class LocationsController < ApplicationController
   def new
   end
 
+  def edit
+  end
+
+  def map_settings
+  end
+
   def create
     l = Location.create create_location_params
     location = location_view_model l, nil
     render json: { location: location }
-  end
-
-  def edit
   end
 
   def upload_map

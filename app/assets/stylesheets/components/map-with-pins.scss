@@ -3,13 +3,20 @@
 .map-with-pins {
   display: flex;
   position: relative;
+
+  img {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
 }
 
 .map-pin {
   background-color: $red;
-  border-radius: 100% 100% 0 100%;
+  border-radius: 0 100% 100% 100%;
   box-shadow: $box-shadow-light;
   color: $true-white;
+  cursor: pointer;
   height: 50px;
   position: absolute;
   width: 50px;
@@ -19,7 +26,6 @@
   background-color: $true-white;
   border-radius: 50%;
   box-shadow: $box-shadow-field;
-  cursor: pointer;
   height: 40px;
   left: 5px;
   position: relative;
