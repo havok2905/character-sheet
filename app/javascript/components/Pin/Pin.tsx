@@ -1,32 +1,38 @@
 import React, { ReactElement } from 'react';
 
-type IPinProps = {
-  onClick?: ()=> void;
-  selected?: boolean;
+type IPin = {
+  id: string;
+  name: string;
   x: number;
   y: number;
+}
+
+type IPinProps = {
+  onMouseDown: Function;
+  onMouseUp: Function;
+  pin: IPin;
+  selected?: boolean;
 };
 
 const Pin = ({
-  onClick,
-  selected,
-  x,
-  y
+  onMouseDown,
+  onMouseUp,
+  pin,
+  selected
 }: IPinProps): ReactElement => {
+  const { id, x, y } = pin;
+
   const style = {
     backgroundColor: selected ? 'green' : 'red',
     left: `${String(x)}px`,
     top: `${String(y)}px`
   };
 
-  const handleOnClick = onClick ? () => {
-    onClick();
-  } : undefined;
-
   return (
     <div
       className="map-pin"
-      onClick={handleOnClick}
+      onMouseDown={() => onMouseDown(id)}
+      onMouseUp={() => onMouseUp(id)}
       style={style}>
       <div className="map-pin-inner">
       </div>
