@@ -8,26 +8,31 @@ import { IPin } from '../../types/models';
 import { Pin } from '../Pin';
 
 enum MapEditorReducerActionType {
+  ADD_NEW_PIN = 'add-new-pin',
   CLOSE_MODAL = 'close-modal',
   OPEN_MODAL = 'open-modal',
   RESET = 'reset',
   SET_FOCUSED_PIN = 'set-focused-pin',
   SET_PINS = 'set-pins',
-  SET_SELECTED_PIN = 'set-selected-pin'
+  SET_SELECTED_PIN = 'set-selected-pin',
+  UPDATE_NEW_PIN = 'update-new-pin'
 }
 
 type IMapEditorReducerAction =
+  | { type: MapEditorReducerActionType.ADD_NEW_PIN, payload: { pins: IPin[] } }
   | { type: MapEditorReducerActionType.CLOSE_MODAL }
   | { type: MapEditorReducerActionType.OPEN_MODAL, payload: { pinId: string } }
   | { type: MapEditorReducerActionType.RESET, payload: { pins: IPin[] } }
   | { type: MapEditorReducerActionType.SET_FOCUSED_PIN, payload: { pinId: string } }
   | { type: MapEditorReducerActionType.SET_PINS, payload: { pins: IPin[] } }
-  | { type: MapEditorReducerActionType.SET_SELECTED_PIN, payload: { pinId: string } };
+  | { type: MapEditorReducerActionType.SET_SELECTED_PIN, payload: { pinId: string } }
+  | { type: MapEditorReducerActionType.UPDATE_NEW_PIN, payload: { newPinName: string } };
 
 type IMapEditorReducerState = {
   editedPinId: string;
   focusedPinId: string;
   modalOpen: boolean;
+  newPinName: string;
   selectedPinId: string;
   statefulPins: IPin[];
 };
@@ -40,26 +45,33 @@ type IMapWithPinsEditorProps = {
 
 const reducer = (state: IMapEditorReducerState, action: IMapEditorReducerAction) => {
   switch(action.type) {
+    case MapEditorReducerActionType.ADD_NEW_PIN:
+      return {
+        ...state,
+        newPinName: '',
+        statefulPins: action.payload.pins
+      };
     case MapEditorReducerActionType.CLOSE_MODAL:
       return {
         ...state,
         editedPinId: '',
         modalOpen: false
-      }
+      };
     case MapEditorReducerActionType.OPEN_MODAL:
       return {
         ...state,
         editedPinId: action.payload.pinId,
         modalOpen: true
-      }
+      };
     case MapEditorReducerActionType.RESET:
       return {
         editedPinId: '',
         focusedPinId: '',
         modalOpen: false,
+        newPinName: '',
         selectedPinId: '',
         statefulPins: action.payload.pins
-      }
+      };
     case MapEditorReducerActionType.SET_FOCUSED_PIN:
       return {
         ...state,
@@ -75,6 +87,11 @@ const reducer = (state: IMapEditorReducerState, action: IMapEditorReducerAction)
         ...state,
         selectedPinId: action.payload.pinId
       };
+    case MapEditorReducerActionType.UPDATE_NEW_PIN:
+      return {
+        ...state,
+        newPinName: action.payload.newPinName
+      };
     default:
       return {
         ...state
@@ -86,6 +103,7 @@ const initialState: IMapEditorReducerState = {
   editedPinId: '',
   focusedPinId: '',
   modalOpen: false,
+  newPinName: '',
   selectedPinId: '',
   statefulPins: [],
 };
@@ -103,6 +121,7 @@ const MapWithPinsEditor = ({
     editedPinId,
     focusedPinId,
     modalOpen,
+    newPinName,
     selectedPinId,
     statefulPins
   } = state;
@@ -277,11 +296,38 @@ const MapWithPinsEditor = ({
     );
   };
 
+  const handleAddNewPin = () => {
+    const map_id = statefulPins.find(item => !!item.map_id).map_id;
+
+    dispatch({
+      type: MapEditorReducerActionType.ADD_NEW_PIN,
+      payload: { pins: [
+        ...statefulPins,
+        {
+          id: '-1',
+          map_id,
+          name: newPinName,
+          x: 0,
+          y: 0
+        }
+      ]}
+    });
+  };
+
+  const handleNewPinNameChange = e => {
+    dispatch({
+      type: MapEditorReducerActionType.UPDATE_NEW_PIN,
+      payload: { newPinName: e.target.value }
+    });
+  };
+
   return (
     <>
       <div className='map-with-pins-editor'>
         <div className='map-with-pins-sidebar'>
           <h2>Pins</h2>
+          <input onChange={handleNewPinNameChange} type="text"/>
+          <button onClick={handleAddNewPin}>+</button>
           {getSidebarItems()}
         </div>
         <div className='map-with-pins-content'>
