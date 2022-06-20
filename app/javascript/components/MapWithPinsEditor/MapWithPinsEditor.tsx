@@ -154,11 +154,12 @@ const MapWithPinsEditor = ({
 
   const handleSave = () => {
     const pinsToSave = statefulPins.map(pin => {
-      const { id, map_id, x, y } = pin;
+      const { id, map_id, name, x, y } = pin;
       
       return {
         id,
         map_id,
+        name,
         x: Math.round(x),
         y: Math.round(y)
       }
@@ -207,6 +208,7 @@ const MapWithPinsEditor = ({
         >
           <p><strong>Name:</strong> {name}</p>
           <p><strong>X:</strong> {x} <strong>Y:</strong> {y}</p>
+          <button>View</button>
           <button onClick={() => {
             dispatch({
               type: MapEditorReducerActionType.OPEN_MODAL,
@@ -215,6 +217,7 @@ const MapWithPinsEditor = ({
           }}>
             Edit
           </button>
+          <button>Delete</button>
         </div>
       );
     });
