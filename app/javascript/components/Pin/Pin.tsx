@@ -1,7 +1,9 @@
 import React, { ReactElement } from 'react';
+import classNames from 'classnames';
 import { IPin } from '../../types/models';
 
 type IPinProps = {
+  focused?: boolean;
   onMouseDown?: (id: string) => void;
   onMouseUp?: (id: string) => void;
   pin: IPin;
@@ -9,6 +11,7 @@ type IPinProps = {
 };
 
 const Pin = ({
+  focused,
   onMouseDown,
   onMouseUp,
   pin,
@@ -17,18 +20,23 @@ const Pin = ({
   const { id, x, y } = pin;
 
   const style = {
-    backgroundColor: selected ? 'green' : 'red',
     left: `${String(x)}px`,
     top: `${String(y)}px`
   };
 
+  const classList = {
+    'pin': true,
+    'pin-selected': selected,
+    'pin-focused': focused
+  };
+
   return (
     <div
-      className="map-pin"
+      className={classNames(classList)}
       onMouseDown={() => { if (onMouseDown) onMouseDown(id); }}
       onMouseUp={() => { if (onMouseDown) onMouseUp(id); }}
       style={style}>
-      <div className="map-pin-inner">
+      <div className="pin-inner">
       </div>
     </div>
   )

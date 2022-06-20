@@ -13,24 +13,31 @@
   }
 }
 
-.map-pin {
-  background-color: $red;
-  border-radius: 0 100% 100% 100%;
-  box-shadow: $box-shadow-light;
-  color: $true-white;
-  cursor: pointer;
-  height: 50px;
-  position: absolute;
-  width: 50px;
+.map-with-pins-content {
+  width: 1000px;
 }
 
-.map-pin-inner {
-  background-color: $true-white;
-  border-radius: 50%;
-  box-shadow: $box-shadow-field;
-  height: 40px;
-  left: 5px;
-  position: relative;
-  top: 5px;
-  width: 40px;
+.map-with-pins-editor {
+  display: flex;
+}
+
+.map-with-pins-sidebar {
+  background-color: $dark-black;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow-light;
+  box-sizing: border-box;
+  margin-right: $standard-spacing;
+  width: 200px - $standard-spacing;
+
+  h2 {
+    padding: 0 $small-spacing;
+  }
+}
+
+.map-with-pins-sidebar-item {
+  padding: $small-spacing;
+
+  &:hover {
+    background-color: $light-black;
+  }
 }

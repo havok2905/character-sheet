@@ -8,18 +8,27 @@ import { IPin } from '../../types/models';
 import { Pin } from '../Pin';
 
 enum MapEditorReducerActionType {
+  CLOSE_MODAL = 'close-modal',
+  OPEN_MODAL = 'open-modal',
   RESET = 'reset',
+  SET_FOCUSED_PIN = 'set-focused-pin',
   SET_PINS = 'set-pins',
   SET_SELECTED_PIN = 'set-selected-pin'
 }
 
 type IMapEditorReducerAction =
+  | { type: MapEditorReducerActionType.CLOSE_MODAL }
+  | { type: MapEditorReducerActionType.OPEN_MODAL, payload: { pinId: string } }
   | { type: MapEditorReducerActionType.RESET, payload: { pins: IPin[] } }
+  | { type: MapEditorReducerActionType.SET_FOCUSED_PIN, payload: { pinId: string } }
   | { type: MapEditorReducerActionType.SET_PINS, payload: { pins: IPin[] } }
-  | { type: MapEditorReducerActionType.SET_SELECTED_PIN, payload: { selectedPin: string } };
+  | { type: MapEditorReducerActionType.SET_SELECTED_PIN, payload: { pinId: string } };
 
 type IMapEditorReducerState = {
-  selectedPin: string;
+  editedPinId: string;
+  focusedPinId: string;
+  modalOpen: boolean;
+  selectedPinId: string;
   statefulPins: IPin[];
 };
 
@@ -31,20 +40,40 @@ type IMapWithPinsEditorProps = {
 
 const reducer = (state: IMapEditorReducerState, action: IMapEditorReducerAction) => {
   switch(action.type) {
-    case 'reset':
+    case MapEditorReducerActionType.CLOSE_MODAL:
       return {
-        selectedPin: '',
+        ...state,
+        editedPinId: '',
+        modalOpen: false
+      }
+    case MapEditorReducerActionType.OPEN_MODAL:
+      return {
+        ...state,
+        editedPinId: action.payload.pinId,
+        modalOpen: true
+      }
+    case MapEditorReducerActionType.RESET:
+      return {
+        editedPinId: '',
+        focusedPinId: '',
+        modalOpen: false,
+        selectedPinId: '',
         statefulPins: action.payload.pins
       }
-    case 'set-pins':
+    case MapEditorReducerActionType.SET_FOCUSED_PIN:
+      return {
+        ...state,
+        focusedPinId: action.payload.pinId
+      };
+    case MapEditorReducerActionType.SET_PINS:
       return {
         ...state,
         statefulPins: action.payload.pins
       };
-    case 'set-selected-pin':
+    case MapEditorReducerActionType.SET_SELECTED_PIN:
       return {
         ...state,
-        selectedPin: action.payload.selectedPin
+        selectedPinId: action.payload.pinId
       };
     default:
       return {
@@ -54,7 +83,10 @@ const reducer = (state: IMapEditorReducerState, action: IMapEditorReducerAction)
 };
 
 const initialState: IMapEditorReducerState = {
-  selectedPin: '',
+  editedPinId: '',
+  focusedPinId: '',
+  modalOpen: false,
+  selectedPinId: '',
   statefulPins: [],
 };
 
@@ -67,7 +99,13 @@ const MapWithPinsEditor = ({
 
   const mapWithPinsRef = useRef(null);
 
-  const { selectedPin, statefulPins } = state;
+  const {
+    editedPinId,
+    focusedPinId,
+    modalOpen,
+    selectedPinId,
+    statefulPins
+  } = state;
 
   useEffect(() => {
     dispatch({
@@ -79,14 +117,14 @@ const MapWithPinsEditor = ({
   const onMouseDown = pinId => {
     dispatch({
       type: MapEditorReducerActionType.SET_SELECTED_PIN,
-      payload: { selectedPin: pinId }
+      payload: { pinId }
     });
   };
 
   const onMouseUp = _pinId => {
     dispatch({
       type: MapEditorReducerActionType.SET_SELECTED_PIN,
-      payload: { selectedPin: null }
+      payload: { pinId: '' }
     });
   };
 
@@ -95,10 +133,10 @@ const MapWithPinsEditor = ({
     var x = e.clientX - rect.left;
     var y = e.clientY - rect.top;
 
-    if (selectedPin === null) return;
+    if (selectedPinId === null) return;
 
     const newPins = statefulPins.map(pin => {
-      return pin.id === selectedPin ? { ...pin, x, y} : { ...pin };
+      return pin.id === selectedPinId ? { ...pin, x, y} : { ...pin };
     })
 
     dispatch({
@@ -136,29 +174,132 @@ const MapWithPinsEditor = ({
           onMouseDown={onMouseDown}
           onMouseUp={onMouseUp}
           pin={pin}
-          selected={selectedPin === pin.id}
+          focused={focusedPinId === pin.id}
+          selected={selectedPinId === pin.id}
         />
       );
     });
   };
 
+  const handleSideBarItemMouseEnter = (id: string) => {
+    dispatch({
+      type: MapEditorReducerActionType.SET_FOCUSED_PIN,
+      payload: { pinId: id }
+    });
+  };
+
+  const handleSideBarItemMouseLeave = () => {
+    dispatch({
+      type: MapEditorReducerActionType.SET_FOCUSED_PIN,
+      payload: { pinId: '' }
+    });
+  };
+
+  const getSidebarItems = () => {
+    return statefulPins.map(pin => {
+      const { id, name, x, y } = pin;
+
+      return (
+        <div
+          className='map-with-pins-sidebar-item'
+          onMouseEnter={() => { handleSideBarItemMouseEnter(id) } }
+          onMouseLeave={() => { handleSideBarItemMouseLeave() } }
+        >
+          <p><strong>Name:</strong> {name}</p>
+          <p><strong>X:</strong> {x} <strong>Y:</strong> {y}</p>
+          <button onClick={() => {
+            dispatch({
+              type: MapEditorReducerActionType.OPEN_MODAL,
+              payload: { pinId: id }
+            });
+          }}>
+            Edit
+          </button>
+        </div>
+      );
+    });
+  };
+
+  const getModal = () => {
+    if (!modalOpen) return null;
+
+    const handleClose = () => {
+      dispatch({ type: MapEditorReducerActionType.CLOSE_MODAL });
+    };
+
+    const pin = statefulPins.find(item => item.id === editedPinId);
+
+    const { name } = pin;
+
+    return (
+      <>
+        <div className='modal'>
+          <button onClick={handleClose}>
+            Close
+          </button>
+          <h2>Edit Map - {editedPinId}</h2>
+          <form>
+            <fieldset>
+              <label>Name</label>
+              <input
+                onChange={e => {
+                  dispatch({
+                    type: MapEditorReducerActionType.SET_PINS,
+                    payload: {
+                      pins: statefulPins.map(item => {
+                        if (item.id === editedPinId) {
+                          return { ...item, name: e.target.value }
+                        } else {
+                          return { ...item };
+                        }
+                      })
+                    }
+                  })
+                }}
+                type="text"
+                value={name}
+              />
+            </fieldset>
+          </form>
+          <h3>Factions</h3>
+          <h3>NPCs</h3>
+          <h3>Creatures</h3>
+          <h3>Magic Items</h3>
+        </div>
+        <div
+          className='modal-overlay'
+          onClick={handleClose}
+        />
+      </>
+    );
+  };
+
   return (
     <>
-      <div
-        className='map-with-pins'
-        onMouseMove={onMouseMove}
-        ref={mapWithPinsRef}>
-        <img
-          alt={`${resourceName} map`}
-          draggable="false"
-          onDragStart={() => false}
-          onMouseDown={() => false}
-          src={imageUrl}
-          width="1000px"/>
-        {getPins()}
+      <div className='map-with-pins-editor'>
+        <div className='map-with-pins-sidebar'>
+          <h2>Pins</h2>
+          {getSidebarItems()}
+        </div>
+        <div className='map-with-pins-content'>
+          <div
+            className='map-with-pins'
+            onMouseMove={onMouseMove}
+            ref={mapWithPinsRef}>
+            <img
+              alt={`${resourceName} map`}
+              draggable="false"
+              onDragStart={() => false}
+              onMouseDown={() => false}
+              src={imageUrl}
+              width="1000px"/>
+            {getPins()}
+          </div>
+          <button onClick={handleReset}>Reset</button>
+          <button onClick={handleSave}>Save</button>
+        </div>
       </div>
-      <button onClick={handleReset}>Reset</button>
-      <button onClick={handleSave}>Save</button>
+      {getModal()}
     </>
   );
 };
