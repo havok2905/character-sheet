@@ -11,6 +11,10 @@
     -o-user-select: none;
     user-select: none;
   }
+
+  .pin {
+    z-index: 2;
+  }
 }
 
 .map-with-pins-content {
@@ -19,6 +23,13 @@
 
 .map-with-pins-editor {
   display: flex;
+}
+
+.map-with-pins-image-overlay {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
 }
 
 .map-with-pins-sidebar {
