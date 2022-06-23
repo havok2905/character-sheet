@@ -1,5 +1,5 @@
 interface IPin {
-  id: string;
+  id?: string;
   map_id: string;
   name: string;
   x: number;
@@ -14,7 +14,7 @@ interface IMap {
 interface ILocation {
   content: string;
   description: string;
-  id: string;
+  id?: string;
   map: IMap;
   name: string;
   sigilUrl: string;

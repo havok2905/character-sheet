@@ -36,11 +36,7 @@ const LocationMapSettingsPage = (): ReactElement => {
       <div className='layout'>
         <div className='full'>
           <h1>Map Settings</h1>
-          <MapWithPinsEditor
-            imageUrl={imageUrl}
-            pins={pins}
-            resourceName={name}
-          />
+          <MapWithPinsEditor imageUrl={imageUrl} pins={pins} resourceName={name} />
         </div>
       </div>
     </>

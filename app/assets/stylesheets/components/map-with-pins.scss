@@ -17,14 +17,6 @@
   }
 }
 
-.map-with-pins-content {
-  width: 1000px;
-}
-
-.map-with-pins-editor {
-  display: flex;
-}
-
 .map-with-pins-image-overlay {
   height: 100%;
   position: absolute;
@@ -32,23 +24,6 @@
   z-index: 1;
 }
 
-.map-with-pins-sidebar {
-  background-color: $dark-black;
-  border-radius: $border-radius;
-  box-shadow: $box-shadow-light;
-  box-sizing: border-box;
-  margin-right: $standard-spacing;
-  width: 200px - $standard-spacing;
-
-  h2 {
-    padding: 0 $small-spacing;
-  }
-}
-
-.map-with-pins-sidebar-item {
-  padding: $small-spacing;
-
-  &:hover {
-    background-color: $light-black;
-  }
+.map-with-pins-table tbody tr:hover {
+  background-color: $light-black;
 }

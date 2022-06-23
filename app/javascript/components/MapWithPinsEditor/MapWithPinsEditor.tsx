@@ -4,6 +4,7 @@ import React, {
   useReducer,
   useRef
 } from 'react';
+import { createPin, destroyPin, updatePin } from '../../utilities/Api/Pins';
 import { IPin } from '../../types/models';
 import { Pin } from '../Pin';
 
@@ -13,7 +14,6 @@ enum MapEditorReducerActionType {
   CLOSE_VIEW_MODAL = 'close-view-modal',
   OPEN_EDIT_MODAL = 'open-edit-modal',
   OPEN_VIEW_MODAL = 'open-view-modal',
-  RESET = 'reset',
   SET_FOCUSED_PIN = 'set-focused-pin',
   SET_PINS = 'set-pins',
   SET_SELECTED_PIN = 'set-selected-pin',
@@ -26,7 +26,6 @@ type IMapEditorReducerAction =
   | { type: MapEditorReducerActionType.CLOSE_VIEW_MODAL }
   | { type: MapEditorReducerActionType.OPEN_EDIT_MODAL, payload: { pinId: string } }
   | { type: MapEditorReducerActionType.OPEN_VIEW_MODAL, payload: { pinId: string } }
-  | { type: MapEditorReducerActionType.RESET, payload: { pins: IPin[] } }
   | { type: MapEditorReducerActionType.SET_FOCUSED_PIN, payload: { pinId: string } }
   | { type: MapEditorReducerActionType.SET_PINS, payload: { pins: IPin[] } }
   | { type: MapEditorReducerActionType.SET_SELECTED_PIN, payload: { pinId: string } }
@@ -80,17 +79,6 @@ const reducer = (state: IMapEditorReducerState, action: IMapEditorReducerAction)
         ...state,
         viewModalOpen: true,
         viewedPinId: action.payload.pinId
-      };
-    case MapEditorReducerActionType.RESET:
-      return {
-        editModalOpen: false,
-        editedPinId: '',
-        focusedPinId: '',
-        newPinName: '',
-        selectedPinId: '',
-        statefulPins: action.payload.pins,
-        viewModalOpen: false,
-        viewedPinId: ''
       };
     case MapEditorReducerActionType.SET_FOCUSED_PIN:
       return {
@@ -157,18 +145,22 @@ const MapWithPinsEditor = ({
     });
   }, [pins]);
 
-  const onMouseDown = pinId => {
+  const onMouseDown = (pinId: string) => {
     dispatch({
       type: MapEditorReducerActionType.SET_SELECTED_PIN,
       payload: { pinId }
     });
   };
 
-  const onMouseUp = _pinId => {
+  const onMouseUp = (pinId: string) => {
     dispatch({
       type: MapEditorReducerActionType.SET_SELECTED_PIN,
       payload: { pinId: '' }
     });
+
+    const pin = statefulPins.find(p => p.id === pinId)
+
+    updatePin(pinId, { pin });
   };
 
   const onMouseMove = e => {
@@ -188,29 +180,6 @@ const MapWithPinsEditor = ({
     });
   };
 
-  const handleReset = () => {
-    dispatch({
-      type: MapEditorReducerActionType.RESET,
-      payload: { pins }
-    });
-  };
-
-  const handleSave = () => {
-    const pinsToSave = statefulPins.map(pin => {
-      const { id, map_id, name, x, y } = pin;
-      
-      return {
-        id,
-        map_id,
-        name,
-        x: Math.round(x),
-        y: Math.round(y)
-      }
-    });
-
-    console.log('pinsToSave', pinsToSave);
-  };
-
   const handleSideBarItemMouseEnter = (id: string) => {
     dispatch({
       type: MapEditorReducerActionType.SET_FOCUSED_PIN,
@@ -228,18 +197,18 @@ const MapWithPinsEditor = ({
   const handleAddNewPin = () => {
     const map_id = statefulPins.find(item => !!item.map_id).map_id;
 
-    dispatch({
-      type: MapEditorReducerActionType.ADD_NEW_PIN,
-      payload: { pins: [
-        ...statefulPins,
-        {
-          id: '-1',
-          map_id,
-          name: newPinName,
-          x: 0,
-          y: 0
-        }
-      ]}
+    const pin = {
+      map_id,
+      name: newPinName,
+      x: 0,
+      y: 0
+    };
+
+    createPin({ pin }).then(data => {
+      dispatch({
+        type: MapEditorReducerActionType.ADD_NEW_PIN,
+        payload: { pins: [ ...statefulPins, data.pin ]}
+      });
     });
   };
 
@@ -248,14 +217,24 @@ const MapWithPinsEditor = ({
       type: MapEditorReducerActionType.SET_PINS,
       payload: { pins: statefulPins.filter(item => item.id !== pinId ) }
     });
+
+    destroyPin(pinId);
+  };
+
+  const handleViewModalClose = () => {
+    dispatch({ type: MapEditorReducerActionType.CLOSE_VIEW_MODAL });
   };
 
   const handleEditModalClose = () => {
     dispatch({ type: MapEditorReducerActionType.CLOSE_EDIT_MODAL });
   };
 
-  const handleViewModalClose = () => {
-    dispatch({ type: MapEditorReducerActionType.CLOSE_VIEW_MODAL });
+
+  const handleViewModalOpen = (pinId: string) => {
+    dispatch({
+      type: MapEditorReducerActionType.OPEN_VIEW_MODAL,
+      payload: { pinId }
+    });
   };
 
   const handleEditModalOpen = (pinId: string) => {
@@ -265,10 +244,9 @@ const MapWithPinsEditor = ({
     });
   };
 
-  const handleViewModalOpen = (pinId: string) => {
-    dispatch({
-      type: MapEditorReducerActionType.OPEN_VIEW_MODAL,
-      payload: { pinId }
+  const handleEditModalSave = (pin: IPin) => {
+    updatePin(pin.id, { pin }).then(() => {
+      handleEditModalClose();
     });
   };
 
@@ -279,24 +257,19 @@ const MapWithPinsEditor = ({
     });
   };
 
-  const getSidebarItems = () => {
-    return statefulPins.map(pin => {
-      const { id, name, x, y } = pin;
-
-      return (
-        <div
-          className='map-with-pins-sidebar-item'
-          onMouseEnter={() => { handleSideBarItemMouseEnter(id) } }
-          onMouseLeave={() => { handleSideBarItemMouseLeave() } }
-        >
-          <p><strong>Name:</strong> {name}</p>
-          <p><strong>X:</strong> {x} <strong>Y:</strong> {y}</p>
-          <button onClick={() => { handleViewModalOpen(id); }}>View</button>
-          <button onClick={() => { handleEditModalOpen(id); }}>Edit</button>
-          <button onClick={() => { handleRemovePin(id); }}>Delete</button>
-        </div>
-      );
-    });
+  const handleEditPinName = e => {
+    dispatch({
+      type: MapEditorReducerActionType.SET_PINS,
+      payload: {
+        pins: statefulPins.map(item => {
+          if (item.id === editedPinId) {
+            return { ...item, name: e.target.value }
+          } else {
+            return { ...item };
+          }
+        })
+      }
+    })
   };
 
   const getEditModal = () => {
@@ -314,30 +287,14 @@ const MapWithPinsEditor = ({
           <form>
             <fieldset>
               <label>Name</label>
-              <input
-                onChange={e => {
-                  dispatch({
-                    type: MapEditorReducerActionType.SET_PINS,
-                    payload: {
-                      pins: statefulPins.map(item => {
-                        if (item.id === editedPinId) {
-                          return { ...item, name: e.target.value }
-                        } else {
-                          return { ...item };
-                        }
-                      })
-                    }
-                  })
-                }}
-                type="text"
-                value={name}
-              />
+              <input onChange={handleEditPinName} type="text" value={name} />
             </fieldset>
           </form>
           <h3>Factions</h3>
           <h3>NPCs</h3>
           <h3>Creatures</h3>
           <h3>Magic Items</h3>
+          <button onClick={() => { handleEditModalSave(pin) }}>Save</button>
         </div>
         <div className='modal-overlay' onClick={handleEditModalClose} />
       </>
@@ -383,35 +340,52 @@ const MapWithPinsEditor = ({
 
   return (
     <>
-      <div className='map-with-pins-editor'>
-        <div className='map-with-pins-sidebar'>
-          <h2>Pins</h2>
-          <input
-            onChange={handleNewPinNameChange}
-            type="text"
-            value={newPinName}/>
-          <button onClick={handleAddNewPin}>+</button>
-          {getSidebarItems()}
-        </div>
-        <div className='map-with-pins-content'>
-          <div
-            className='map-with-pins'
-            onMouseMove={onMouseMove}
-            ref={mapWithPinsRef}>
-            <div className='map-with-pins-image-overlay'/>
-            <img
-              alt={`${resourceName} map`}
-              draggable="false"
-              onDragStart={() => false}
-              onMouseDown={() => false}
-              src={imageUrl}
-              width="1000px"/>
-            {getPins()}
-          </div>
-          <button onClick={handleReset}>Reset</button>
-          <button onClick={handleSave}>Save</button>
-        </div>
+      <div
+        className='map-with-pins'
+        onMouseMove={onMouseMove}
+        ref={mapWithPinsRef}>
+        <div className='map-with-pins-image-overlay'/>
+        <img
+          alt={`${resourceName} map`}
+          draggable="false"
+          onDragStart={() => false}
+          onMouseDown={() => false}
+          src={imageUrl}
+          width="1000px"/>
+        {getPins()}
       </div>
+      <table className="map-with-pins-table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>X</th>
+            <th>Y</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            statefulPins.map(pin => {
+              const { id, name, x, y } = pin;
+
+              return (
+                <tr>
+                  <td>{id}</td>
+                  <td>{name}</td>
+                  <td>{x}</td>
+                  <td>{y}</td>
+                  <td>
+                    <button onClick={() => { handleViewModalOpen(id); }}>View</button>
+                    <button onClick={() => { handleEditModalOpen(id); }}>Edit</button>
+                    <button onClick={() => { handleRemovePin(id); }}>Delete</button>
+                  </td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
       {getEditModal()}
       {getViewModal()}
     </>

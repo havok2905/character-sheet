@@ -1,6 +1,3 @@
-import '@rails/actiontext';
-import 'trix';
-
 import {
   CharacterAttackForm,
   CharacterFeatureForm,

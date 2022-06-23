@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   resources :magic_items
 
   resources :pins, only: [:create, :destroy, :update]
-
+  
   resources :spells
 
   resources :users, only: [:create, :destroy, :edit, :index]
