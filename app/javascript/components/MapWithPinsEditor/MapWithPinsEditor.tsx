@@ -180,14 +180,14 @@ const MapWithPinsEditor = ({
     });
   };
 
-  const handleSideBarItemMouseEnter = (id: string) => {
+  const handleTableItemMouseEnter = (id: string) => {
     dispatch({
       type: MapEditorReducerActionType.SET_FOCUSED_PIN,
       payload: { pinId: id }
     });
   };
 
-  const handleSideBarItemMouseLeave = () => {
+  const handleTableItemMouseLeave = () => {
     dispatch({
       type: MapEditorReducerActionType.SET_FOCUSED_PIN,
       payload: { pinId: '' }
@@ -340,6 +340,8 @@ const MapWithPinsEditor = ({
 
   return (
     <>
+      <input onChange={handleNewPinNameChange} value={newPinName} type="text"/>
+      <button onClick={handleAddNewPin}>+</button>
       <div
         className='map-with-pins'
         onMouseMove={onMouseMove}
@@ -370,7 +372,9 @@ const MapWithPinsEditor = ({
               const { id, name, x, y } = pin;
 
               return (
-                <tr>
+                <tr
+                  onMouseEnter={() => handleTableItemMouseEnter(id) }
+                  onMouseLeave={() => handleTableItemMouseLeave() }>
                   <td>{id}</td>
                   <td>{name}</td>
                   <td>{x}</td>
