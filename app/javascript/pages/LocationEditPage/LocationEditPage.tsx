@@ -11,6 +11,7 @@ import {
   uploadLocationMap,
   uploadLocationSigil
 } from '../../utilities/Api/Locations';
+import { MapWithPinsEditor } from '../../components/MapWithPinsEditor';
 import { MarkdownEditor } from '../../components/MarkdownEditor';
 import { MarkdownPreview } from '../../components/MarkdownPreview';
 
@@ -21,12 +22,10 @@ const getIdFromUrl = ():string => {
 };
 
 const LocationEditPage = (): ReactElement => {
-  const [content, setContent] = useState('');
-  const [description, setDescription] = useState('');
-  const [id, setId] = useState('');
-  const [mapUrl, setMapUrl] = useState('');
-  const [name, setName] = useState('');
-  const [sigilUrl, setSigilUrl] = useState('');
+  const [contentField, setContentField] = useState('');
+  const [descriptionField, setDescriptionField] = useState('');
+  const [location, setLocation] = useState(null);
+  const [nameField, setNameField] = useState('');
 
   const mapFileUploadRef = useRef(null);
   const sigilFileUploadRef = useRef(null);
@@ -36,13 +35,10 @@ const LocationEditPage = (): ReactElement => {
 
     getLocation(id)
       .then(data => {
-        console.log(data);
-        setContent(data.location.content);
-        setDescription(data.location.description);
-        setId(data.location.id);
-        setMapUrl(data.location.map.imageUrl);
-        setName(data.location.name);
-        setSigilUrl(data.location.sigilUrl);
+        setContentField(data.location.content);
+        setDescriptionField(data.location.description);
+        setLocation(data.location);
+        setNameField(data.location.name);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -105,9 +101,9 @@ const LocationEditPage = (): ReactElement => {
 
     updateLocation(id, {
       location: {
-        content,
-        description,
-        name
+        content: contentField,
+        description: descriptionField,
+        name: nameField
       }
     })
       .then(data => {
@@ -118,28 +114,20 @@ const LocationEditPage = (): ReactElement => {
       });
   };
 
+  const {
+    map,
+    name = '',
+    sigilUrl = ''
+  } = location ?? {};
+
   return (
     <div className="layout">
       <div className="full">
-        <h1>
-          Edit Location
-        </h1>
-        <a className="button" href={`/locations/${id}`}>
-          Back
-        </a>
+        <h1>Edit Location</h1>
         <button className='button button-destructive' onClick={handleDelete}>
           Delete
         </button>
-        <h2>Map Settings</h2>
-        {
-          mapUrl && (
-            <>
-              <h2>Map</h2>
-              <a href={`/locations/${id}/map_settings`}>Edit Pins</a>
-              <img src={mapUrl} alt={`${name} map`} width="1000px"/>
-            </>
-          )
-        }
+        <h2>Map</h2>
         <form onSubmit={handleMapSubmit}>
           <fieldset>
             <label htmlFor="location-map">
@@ -151,19 +139,13 @@ const LocationEditPage = (): ReactElement => {
               ref={mapFileUploadRef}
               type="file" />
             <button className="button button-constructive">
-              Update Map
+              Update Map Image
             </button>
           </fieldset>
         </form>
-        <h2>Sigil Settings</h2>
-        {
-          sigilUrl && (
-            <>
-              <h2>Sigil</h2>
-              <img src={sigilUrl} alt={`${name} sigil`}/>
-            </>
-          )
-        }
+        <MapWithPinsEditor map={map} resourceName={name} />
+        <h2>Sigil</h2>
+        {sigilUrl && <img src={sigilUrl} alt={`${name} sigil`}/>}
         <form onSubmit={handleSigilSubmit}>
           <fieldset>
             <label htmlFor="location-sigil">
@@ -188,9 +170,9 @@ const LocationEditPage = (): ReactElement => {
             <input
               id="location-name"
               name="location-name"
-              onChange={(e) => setName(e.target.value) }
+              onChange={(e) => setNameField(e.target.value) }
               type="text"
-              value={name}>  
+              value={nameField}>  
             </input>
             <label htmlFor="location-description">
               Description
@@ -198,8 +180,8 @@ const LocationEditPage = (): ReactElement => {
             <textarea
               id="location-description"
               name="location-description"
-              onChange={(e) => setDescription(e.target.value)}
-              value={description}>
+              onChange={(e) => setDescriptionField(e.target.value)}
+              value={descriptionField}>
             </textarea>
           </fieldset>
           <fieldset>
@@ -207,10 +189,10 @@ const LocationEditPage = (): ReactElement => {
               Content
             </label>
             <MarkdownEditor
-              onChange={(e) => {setContent(e.target.value)}}
-              value={content}
+              onChange={(e) => {setContentField(e.target.value)}}
+              value={contentField}
             />
-            <MarkdownPreview value={content}/>
+            <MarkdownPreview value={contentField}/>
           </fieldset>
           <fieldset>
             <button className="button button-constructive">

@@ -21,9 +21,6 @@ import {
   locationEditPageBootstrapper
 } from './pages/LocationEditPage';
 import {
-  locationMapSettingsPageBootstrapper
-} from './pages/LocationMapSettingsPage';
-import {
   locationPageBootstrapper
 } from './pages/LocationPage';
 import {
@@ -63,6 +60,5 @@ window.onload = ():void => {
   locationCreatePageBootstrapper();
   locationEditPageBootstrapper();
   locationPageBootstrapper();
-  locationMapSettingsPageBootstrapper();
   locationsPageBootstrapper();
 };

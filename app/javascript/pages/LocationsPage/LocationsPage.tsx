@@ -40,7 +40,7 @@ const LocationsPage = (): ReactElement => {
                     <td>{l.name}</td>
                     <td>
                       <a href={`/locations/${l.id}`}>View</a>
-                      <a className="button" href={`/locations/${l.id}/edit`}>Edit</a>
+                      <a href={`/locations/${l.id}/edit`}>Edit</a>
                     </td>
                   </tr>
                 )

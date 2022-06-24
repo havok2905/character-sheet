@@ -7,6 +7,7 @@ interface IPin {
 }
 
 interface IMap {
+  id?: string;
   imageUrl: string;
   pins: IPin[];
 }

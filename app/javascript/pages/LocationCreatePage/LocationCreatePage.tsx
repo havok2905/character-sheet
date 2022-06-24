@@ -30,12 +30,7 @@ const LocationCreatePage = (): ReactElement => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>
-          New Location
-        </h1>
-        <a className="button" href="/locations">
-          Back
-        </a>
+        <h1>New Location</h1>
         <form onSubmit={handleSubmit}>
           <fieldset>
             <label htmlFor="location-name">

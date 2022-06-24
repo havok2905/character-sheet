@@ -45,7 +45,7 @@ const LocationPage = (): ReactElement => {
           location.map.imageUrl && (
             <>
               <h2>Map</h2>
-              <div className="map-with-pins">
+              <div className="map-with-pins-editor">
                 <img src={location.map.imageUrl} alt={`${location.name} map`} width="1000px"/>
                 { location.map.pins.map(pin => <Pin pin={pin}/>) }
               </div> 

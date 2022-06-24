@@ -5,7 +5,8 @@ import React, {
   useRef
 } from 'react';
 import { createPin, destroyPin, updatePin } from '../../utilities/Api/Pins';
-import { IPin } from '../../types/models';
+import { Modal } from '../Modal';
+import { IMap, IPin } from '../../types/models';
 import { Pin } from '../Pin';
 
 enum MapEditorReducerActionType {
@@ -43,8 +44,7 @@ type IMapEditorReducerState = {
 };
 
 type IMapWithPinsEditorProps = {
-  imageUrl: string;
-  pins: IPin[];
+  map: IMap;
   resourceName: string;
 }
 
@@ -119,8 +119,15 @@ const initialState: IMapEditorReducerState = {
 };
 
 const MapWithPinsEditor = ({
-  imageUrl,
-  pins,
+  map: {
+    id,
+    imageUrl,
+    pins
+  } = {
+    id: '',
+    imageUrl: '',
+    pins: []
+  },
   resourceName
 }: IMapWithPinsEditorProps): ReactElement => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -195,10 +202,8 @@ const MapWithPinsEditor = ({
   };
 
   const handleAddNewPin = () => {
-    const map_id = statefulPins.find(item => !!item.map_id).map_id;
-
     const pin = {
-      map_id,
+      map_id: id,
       name: newPinName,
       x: 0,
       y: 0
@@ -228,7 +233,6 @@ const MapWithPinsEditor = ({
   const handleEditModalClose = () => {
     dispatch({ type: MapEditorReducerActionType.CLOSE_EDIT_MODAL });
   };
-
 
   const handleViewModalOpen = (pinId: string) => {
     dispatch({
@@ -280,14 +284,17 @@ const MapWithPinsEditor = ({
     const { name } = pin;
 
     return (
-      <>
-        <div className='modal'>
-          <button onClick={handleEditModalClose}>Close</button>
+      <Modal
+        onCloseModal={handleEditModalClose}
+        onCloseModalOverlay={handleEditModalClose}>
           <h2>Edit Map - {editedPinId}</h2>
           <form>
             <fieldset>
               <label>Name</label>
-              <input onChange={handleEditPinName} type="text" value={name} />
+              <input
+                onChange={handleEditPinName}
+                type="text"
+                value={name} />
             </fieldset>
           </form>
           <h3>Factions</h3>
@@ -295,9 +302,7 @@ const MapWithPinsEditor = ({
           <h3>Creatures</h3>
           <h3>Magic Items</h3>
           <button onClick={() => { handleEditModalSave(pin) }}>Save</button>
-        </div>
-        <div className='modal-overlay' onClick={handleEditModalClose} />
-      </>
+      </Modal>
     );
   };
 
@@ -309,33 +314,17 @@ const MapWithPinsEditor = ({
     const { name } = pin;
 
     return (
-      <>
-        <div className='modal'>
-          <button onClick={handleViewModalClose}>Close</button>
+      <Modal
+        onCloseModal={handleViewModalClose}
+        onCloseModalOverlay={handleViewModalClose}>
           <h2>Edit Map - {viewedPinId}</h2>
           <p><strong>Name:</strong> {name}</p>
           <h3>Factions</h3>
           <h3>NPCs</h3>
           <h3>Creatures</h3>
           <h3>Magic Items</h3>
-        </div>
-        <div className='modal-overlay' onClick={handleViewModalClose} />
-      </>
+      </Modal>
     );
-  };
-
-  const getPins = () => {
-    return statefulPins.map(pin => {
-      return (
-        <Pin
-          onMouseDown={onMouseDown}
-          onMouseUp={onMouseUp}
-          pin={pin}
-          focused={focusedPinId === pin.id}
-          selected={selectedPinId === pin.id}
-        />
-      );
-    });
   };
 
   return (
@@ -343,7 +332,7 @@ const MapWithPinsEditor = ({
       <input onChange={handleNewPinNameChange} value={newPinName} type="text"/>
       <button onClick={handleAddNewPin}>+</button>
       <div
-        className='map-with-pins'
+        className='map-with-pins-editor'
         onMouseMove={onMouseMove}
         ref={mapWithPinsRef}>
         <div className='map-with-pins-image-overlay'/>
@@ -354,7 +343,19 @@ const MapWithPinsEditor = ({
           onMouseDown={() => false}
           src={imageUrl}
           width="1000px"/>
-        {getPins()}
+        {
+          statefulPins.map(pin => {
+            return (
+              <Pin
+                onMouseDown={onMouseDown}
+                onMouseUp={onMouseUp}
+                pin={pin}
+                focused={focusedPinId === pin.id}
+                selected={selectedPinId === pin.id}
+              />
+            );
+          })
+        }
       </div>
       <table className="map-with-pins-table">
         <thead>

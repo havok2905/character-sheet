@@ -10,13 +10,11 @@ const MarkdownEditor = ({
   value
 }: IMarkdownEditorProps): ReactElement => {
   return (
-    <div style={{ display: 'flex', justifyItems: 'space-between' }}>
-      <textarea
-        onChange={onChange}
-        style={{ height: '500px', width: '49%' }}
-        value={value}>
-      </textarea>
-    </div>
+    <textarea
+      onChange={onChange}
+      style={{ height: '500px' }}
+      value={value}>
+    </textarea>
   );
 };
 

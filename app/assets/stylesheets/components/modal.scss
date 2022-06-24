@@ -1,6 +1,16 @@
 @import '../shared/variables';
 
 .modal {
+  background-color: rgba(0, 0, 0, 0.7);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.modal-content {
   background-color: $dark-black;
   border-radius: $border-radius;
   box-shadow: $box-shadow-light;
@@ -10,16 +20,4 @@
   top: 100px;
   left: calc(50% - 700px/2);
   width: 700px;
-  z-index: 200;
-}
-
-.modal-overlay {
-  background-color: $true-black;
-  height: 100%;
-  left: 0;
-  position: absolute;
-  opacity: 0.7;
-  top: 0;
-  width: 100%;
-  z-index: 100;
 }

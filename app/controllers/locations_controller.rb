@@ -89,6 +89,7 @@ class LocationsController < ApplicationController
       description: location.description,
       id: location.id,
       map: {
+        id: map&.id,
         imageUrl: image_url,
         pins: map&.pins || []
       },
