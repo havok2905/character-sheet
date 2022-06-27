@@ -10,7 +10,7 @@
             <%= action.label :name %>
             <%= action.text_field :name %>
             <%= action.label :action_type %>
-            <%= action.text_field :action_type %>
+            <%= action.select :action_type, CoreRules::ActionList::ACTION_LIST %>
             <%= action.label :action_combat_type %>
             <%= action.text_field :action_combat_type %>
             <%= action.label :range %>
