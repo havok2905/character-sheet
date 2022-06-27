@@ -1,0 +1,39 @@
+@import '../shared/variables';
+
+.pin {
+  background-color: $red;
+  border-radius: 0 100% 100% 100%;
+  box-shadow: $box-shadow-light;
+  color: $true-white;
+  cursor: pointer;
+  height: 30px;
+  position: absolute;
+  width: 30px;
+
+  .pin-inner {
+    background-color: $true-white;
+    border-radius: 50%;
+    box-shadow: $box-shadow-field;
+    height: 22px;
+    left: 4px;
+    position: relative;
+    top: 4px;
+    width: 22px;
+  }
+
+  &.pin-focused {
+    height: 40px;
+    left: 5px;
+    top: 5px;
+    width: 40px;
+    
+    .pin-inner {
+      height: 30px;
+      width: 30px;
+    }
+  }
+
+  &.pin-selected {
+    background-color: $green;
+  }
+}
