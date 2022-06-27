@@ -11,9 +11,14 @@ import {
   uploadLocationMap,
   uploadLocationSigil
 } from '../../utilities/Api/Locations';
+import { ILocation } from '../../types/models';
 import { MapWithPinsEditor } from '../../components/MapWithPinsEditor';
 import { MarkdownEditor } from '../../components/MarkdownEditor';
 import { MarkdownPreview } from '../../components/MarkdownPreview';
+import {
+  ToastCollection,
+  ToastCollectionContextProvider
+} from '../../components/ToastCollection';
 
 const getIdFromUrl = ():string => {
   const url = new URL(window.location.href);
@@ -24,11 +29,11 @@ const getIdFromUrl = ():string => {
 const LocationEditPage = (): ReactElement => {
   const [contentField, setContentField] = useState('');
   const [descriptionField, setDescriptionField] = useState('');
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState<ILocation | null>(null);
   const [nameField, setNameField] = useState('');
 
-  const mapFileUploadRef = useRef(null);
-  const sigilFileUploadRef = useRef(null);
+  const mapFileUploadRef = useRef<HTMLInputElement | null>(null);
+  const sigilFileUploadRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const id = getIdFromUrl();
@@ -65,8 +70,11 @@ const LocationEditPage = (): ReactElement => {
 
     const id = getIdFromUrl();
     const data = new FormData();
+    const filesToUpload = mapFileUploadRef?.current?.files;
 
-    data.append('location-map-file-upload', mapFileUploadRef.current.files[0]);
+    if (!filesToUpload?.length) return;
+
+    data.append('location-map-file-upload', filesToUpload[0]);
 
     uploadLocationMap(id, data)
       .then(data => {
@@ -82,8 +90,11 @@ const LocationEditPage = (): ReactElement => {
 
     const id = getIdFromUrl();
     const data = new FormData();
+    const filesToUpload = sigilFileUploadRef?.current?.files;
 
-    data.append('location-sigil-file-upload', sigilFileUploadRef.current.files[0]);
+    if (!filesToUpload?.length) return;
+
+    data.append('location-sigil-file-upload', filesToUpload[0]);
 
     uploadLocationSigil(id, data)
       .then(data => {
@@ -121,87 +132,90 @@ const LocationEditPage = (): ReactElement => {
   } = location ?? {};
 
   return (
-    <div className="layout">
-      <div className="full">
-        <h1>Edit Location</h1>
-        <button className='button button-destructive' onClick={handleDelete}>
-          Delete
-        </button>
-        <h2>Map</h2>
-        <form onSubmit={handleMapSubmit}>
-          <fieldset>
-            <label htmlFor="location-map">
-              Map Image
-            </label>
-            <input
-              name="location-map"
-              id="location-map"
-              ref={mapFileUploadRef}
-              type="file" />
-            <button className="button button-constructive">
-              Update Map Image
-            </button>
-          </fieldset>
-        </form>
-        <MapWithPinsEditor map={map} resourceName={name} />
-        <h2>Sigil</h2>
-        {sigilUrl && <img src={sigilUrl} alt={`${name} sigil`}/>}
-        <form onSubmit={handleSigilSubmit}>
-          <fieldset>
-            <label htmlFor="location-sigil">
-              Sigil Image
-            </label>
-            <input
-              name="location-sigil"
-              id="location-sigil"
-              ref={sigilFileUploadRef}
-              type="file" />
-            <button className="button button-constructive">
-              Update Sigil
-            </button>
-          </fieldset>
-        </form>
-        <h2>Location Settings</h2>
-        <form onSubmit={handleSubmit}>
-          <fieldset>
-            <label htmlFor="location-name">
-              Name
-            </label>
-            <input
-              id="location-name"
-              name="location-name"
-              onChange={(e) => setNameField(e.target.value) }
-              type="text"
-              value={nameField}>  
-            </input>
-            <label htmlFor="location-description">
-              Description
-            </label>
-            <textarea
-              id="location-description"
-              name="location-description"
-              onChange={(e) => setDescriptionField(e.target.value)}
-              value={descriptionField}>
-            </textarea>
-          </fieldset>
-          <fieldset>
-            <label htmlFor="location-content">
-              Content
-            </label>
-            <MarkdownEditor
-              onChange={(e) => {setContentField(e.target.value)}}
-              value={contentField}
-            />
-            <MarkdownPreview value={contentField}/>
-          </fieldset>
-          <fieldset>
-            <button className="button button-constructive">
-              Update Location
-            </button>
-          </fieldset>
-        </form>
+    <ToastCollectionContextProvider>
+      <div className="layout">
+        <div className="full">
+          <h1>Edit Location</h1>
+          <button className='button button-destructive' onClick={handleDelete}>
+            Delete
+          </button>
+          <h2>Map</h2>
+          <form onSubmit={handleMapSubmit}>
+            <fieldset>
+              <label htmlFor="location-map">
+                Map Image
+              </label>
+              <input
+                name="location-map"
+                id="location-map"
+                ref={mapFileUploadRef}
+                type="file" />
+              <button className="button button-constructive">
+                Update Map Image
+              </button>
+            </fieldset>
+          </form>
+          {map && <MapWithPinsEditor map={map} resourceName={name} />}
+          <h2>Sigil</h2>
+          {sigilUrl && <img src={sigilUrl} alt={`${name} sigil`}/>}
+          <form onSubmit={handleSigilSubmit}>
+            <fieldset>
+              <label htmlFor="location-sigil">
+                Sigil Image
+              </label>
+              <input
+                name="location-sigil"
+                id="location-sigil"
+                ref={sigilFileUploadRef}
+                type="file" />
+              <button className="button button-constructive">
+                Update Sigil
+              </button>
+            </fieldset>
+          </form>
+          <h2>Location Settings</h2>
+          <form onSubmit={handleSubmit}>
+            <fieldset>
+              <label htmlFor="location-name">
+                Name
+              </label>
+              <input
+                id="location-name"
+                name="location-name"
+                onChange={(e) => setNameField(e.target.value) }
+                type="text"
+                value={nameField}>  
+              </input>
+              <label htmlFor="location-description">
+                Description
+              </label>
+              <textarea
+                id="location-description"
+                name="location-description"
+                onChange={(e) => setDescriptionField(e.target.value)}
+                value={descriptionField}>
+              </textarea>
+            </fieldset>
+            <fieldset>
+              <label htmlFor="location-content">
+                Content
+              </label>
+              <MarkdownEditor
+                onChange={(e) => {setContentField(e.target.value)}}
+                value={contentField}
+              />
+              <MarkdownPreview value={contentField}/>
+            </fieldset>
+            <fieldset>
+              <button className="button button-constructive">
+                Update Location
+              </button>
+            </fieldset>
+          </form>
+        </div>
       </div>
-    </div>
+      <ToastCollection/>
+    </ToastCollectionContextProvider>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, {
   ReactElement,
+  useContext,
   useEffect,
   useReducer,
   useRef
@@ -8,6 +9,10 @@ import { createPin, destroyPin, updatePin } from '../../utilities/Api/Pins';
 import { Modal } from '../Modal';
 import { IMap, IPin } from '../../types/models';
 import { Pin } from '../Pin';
+import {
+  ToastCollectionContext,
+  ToastCollectionErrorTypes
+} from '../ToastCollection';
 
 enum MapEditorReducerActionType {
   ADD_NEW_PIN = 'add-new-pin',
@@ -132,7 +137,9 @@ const MapWithPinsEditor = ({
 }: IMapWithPinsEditorProps): ReactElement => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const mapWithPinsRef = useRef(null);
+  const mapWithPinsRef = useRef<HTMLDivElement>(null);
+
+  const { add } = useContext(ToastCollectionContext);
 
   const {
     editModalOpen,
@@ -165,15 +172,26 @@ const MapWithPinsEditor = ({
       payload: { pinId: '' }
     });
 
-    const pin = statefulPins.find(p => p.id === pinId)
+    const pin = statefulPins.find(p => p.id === pinId);
 
-    updatePin(pinId, { pin });
+    if (!pin) return;
+
+    updatePin(pinId, { pin })
+      .then(() => {
+        add(ToastCollectionErrorTypes.INFO, `Pin ${pinId} was updated`);
+      })
+      .catch(() => {
+        add(ToastCollectionErrorTypes.ERROR, `There was an issue updated pin ${pinId}`);
+      });
   };
 
   const onMouseMove = e => {
-    var rect = mapWithPinsRef.current.getBoundingClientRect();
-    var x = e.clientX - rect.left;
-    var y = e.clientY - rect.top;
+    const rect = mapWithPinsRef?.current?.getBoundingClientRect();
+
+    if (!rect) return;
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
     if (selectedPinId === null) return;
 
@@ -202,6 +220,8 @@ const MapWithPinsEditor = ({
   };
 
   const handleAddNewPin = () => {
+    if (!id) return;
+  
     const pin = {
       map_id: id,
       name: newPinName,
@@ -209,12 +229,18 @@ const MapWithPinsEditor = ({
       y: 0
     };
 
-    createPin({ pin }).then(data => {
-      dispatch({
-        type: MapEditorReducerActionType.ADD_NEW_PIN,
-        payload: { pins: [ ...statefulPins, data.pin ]}
+    createPin({ pin })
+      .then(data => {
+        dispatch({
+          type: MapEditorReducerActionType.ADD_NEW_PIN,
+          payload: { pins: [ ...statefulPins, data.pin ]}
+        });
+
+        add(ToastCollectionErrorTypes.INFO, `Pin was created`);
+      })
+      .catch(() => {
+        add(ToastCollectionErrorTypes.ERROR, `There was an issue creating this pin`);
       });
-    });
   };
 
   const handleRemovePin = (pinId: string) => {
@@ -223,7 +249,13 @@ const MapWithPinsEditor = ({
       payload: { pins: statefulPins.filter(item => item.id !== pinId ) }
     });
 
-    destroyPin(pinId);
+    destroyPin(pinId)
+      .then(() => {
+        add(ToastCollectionErrorTypes.INFO, `Pin ${pinId} was deleted`);
+      })
+      .catch(() => {
+        add(ToastCollectionErrorTypes.ERROR, `There was an issue deleting pin, ${pinId}`);
+      });
   };
 
   const handleViewModalClose = () => {
@@ -235,6 +267,8 @@ const MapWithPinsEditor = ({
   };
 
   const handleViewModalOpen = (pinId: string) => {
+    if (!pinId) return;
+
     dispatch({
       type: MapEditorReducerActionType.OPEN_VIEW_MODAL,
       payload: { pinId }
@@ -242,6 +276,8 @@ const MapWithPinsEditor = ({
   };
 
   const handleEditModalOpen = (pinId: string) => {
+    if (!pinId) return;
+
     dispatch({
       type: MapEditorReducerActionType.OPEN_EDIT_MODAL,
       payload: { pinId }
@@ -249,9 +285,18 @@ const MapWithPinsEditor = ({
   };
 
   const handleEditModalSave = (pin: IPin) => {
-    updatePin(pin.id, { pin }).then(() => {
-      handleEditModalClose();
-    });
+    const pinId = pin.id;
+
+    if (!pinId) return;
+
+    updatePin(pinId, { pin })
+      .then(() => {
+        handleEditModalClose();
+        add(ToastCollectionErrorTypes.INFO, `Pin ${pinId} was updated`);
+      })
+      .catch(() => {
+        add(ToastCollectionErrorTypes.ERROR, `There was an issue updated pin ${pinId}`);
+      });
   };
 
   const handleNewPinNameChange = e => {
@@ -276,10 +321,12 @@ const MapWithPinsEditor = ({
     })
   };
 
-  const getEditModal = () => {
+  const getEditModal = (): ReactElement | null => {
     if (!editModalOpen) return null;
 
     const pin = statefulPins.find(item => item.id === editedPinId);
+
+    if (!pin) return null;
 
     const { name } = pin;
 
@@ -306,10 +353,12 @@ const MapWithPinsEditor = ({
     );
   };
 
-  const getViewModal = () => {
+  const getViewModal = (): ReactElement | null => {
     if (!viewModalOpen) return null;
 
     const pin = statefulPins.find(item => item.id === viewedPinId);
+
+    if (!pin) return null;
 
     const { name } = pin;
 
@@ -374,16 +423,30 @@ const MapWithPinsEditor = ({
 
               return (
                 <tr
-                  onMouseEnter={() => handleTableItemMouseEnter(id) }
-                  onMouseLeave={() => handleTableItemMouseLeave() }>
+                  onMouseEnter={() => {
+                    if (id) handleTableItemMouseEnter(id);
+                  }}
+                  onMouseLeave={() => {
+                    handleTableItemMouseLeave() 
+                  }}>
                   <td>{id}</td>
                   <td>{name}</td>
                   <td>{x}</td>
                   <td>{y}</td>
                   <td>
-                    <button onClick={() => { handleViewModalOpen(id); }}>View</button>
-                    <button onClick={() => { handleEditModalOpen(id); }}>Edit</button>
-                    <button onClick={() => { handleRemovePin(id); }}>Delete</button>
+                    <button onClick={() => {
+                      if (id) handleViewModalOpen(id);
+                    }}>
+                      View
+                    </button>
+                    <button onClick={() => {
+                      if (id) handleEditModalOpen(id);
+                    }}>
+                      Edit
+                    </button>
+                    <button onClick={() => {
+                      if (id) handleRemovePin(id);
+                    }}>Delete</button>
                   </td>
                 </tr>
               );
