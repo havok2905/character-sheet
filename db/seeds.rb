@@ -22,12 +22,32 @@ userb.password_confirmation = 'password'
 userb.role = Permissions::Roles::GUEST_ROLE
 userb.save!
 
-location = Location.create(
+pins  = Pin.create([
   {
-    description: 'Lorem ipsum dolor',
-    name: 'Habarashi'
+    x: 500,
+    y: 500
+  },
+  {
+    x: 200,
+    y: 300
+  },
+  {
+    x: 300,
+    y: 200
   }
-)
+])
+
+map = Map.create({
+  pins: pins
+})
+
+location = Location.create({
+  description: 'Lorem ipsum dolor',
+  name: 'Celu'
+})
+
+map.location_id = location.id
+map.save!
 
 magic_item = MagicItem.create(
   {
@@ -59,6 +79,7 @@ spells = Spell.create([
     material_components: false,
     name: "Frostbite",
     range: "60ft.",
+    ritual: false,
     school: CoreRules::SpellSchools::EVOCATION,
     somatic_components: true,
     target: "One target",
@@ -75,6 +96,7 @@ spells = Spell.create([
     material_components: false,
     name: "Guiding Bolt",
     range: "120ft.",
+    ritual: false,
     school: CoreRules::SpellSchools::EVOCATION,
     somatic_components: true,
     target: "A creature of your choice within range",
@@ -91,6 +113,7 @@ spells = Spell.create([
     material_components: true,
     name: "Hold Person",
     range: "60ft.",
+    ritual: false,
     school: CoreRules::SpellSchools::ENCHANTMENT,
     somatic_components: true,
     target: "A creature of your choice within range",
@@ -107,6 +130,7 @@ spells = Spell.create([
     material_components: false,
     name: "Mage Hand",
     range: "30ft.",
+    ritual: false,
     school: CoreRules::SpellSchools::CONJURATION,
     somatic_components: true,
     target: "",
@@ -270,13 +294,11 @@ character = Character.create(
     character_features: [
       CharacterFeature.create({
         description: "You know Druidic, the secret language of druids. You can speak the language and use it to leave hidden messages. You and others who know this language automatically spot such a message. Others spot the message's presence with a successful DC 15 Wisdom (Perception) check but can't decipher it without magic.",
-        feature_type: "Passive",
         name: "Druidic",
         source: "Druid"
       }),  
       CharacterFeature.create({
         description: "Drawing on the divine essence of nature itself, you can cast spells to shape that essence to your will.",
-        feature_type: "Passive",
         name: "Spellcasting",
         source: "Druid"
       }),
@@ -291,13 +313,11 @@ When you transform, you assume the beast's hit points and Hit Dice. When you rev
 You can't cast spells, and your ability to speak or take any action that requires hands is limited to the capabilities of your beast form. Transforming doesn't break your concentration on a spell you've already cast, however, or prevent you from taking actions that are part of a spell, such as Call Lightning, that you've already cast.
 You retain the benefit of any features from your class, race, or other source and can use them if the new form is physically capable of doing so. However, you can't use any of your special senses, such as darkvision, unless your new form also has that sense.
 You choose whether your equipment falls to the ground in your space, merges into your new form, or is worn by it. Worn equipment functions as normal, but the DM decides whether it is practical for the new form to wear a piece of equipment, based on the creature's shape and size. Your equipment doesn't change size or shape to match the new form, and any equipment that the new form can't wear must either fall to the ground or merge with it. Equipment that merges with the form has no effect until you leave the form.",
-        feature_type: "Action",
         name: "Wildshape",
         source: "Druid"
       }),
       CharacterFeature.create({
         description: "At 2nd level, you choose to identify with a circle of druids. Your choice grants you features at 2nd level and again at 6th, 10th, and 14th level.",
-        feature_type: "Passive",
         name: "Druid Circle",
         source: "Druid"
       }),
@@ -310,7 +330,6 @@ You choose whether your equipment falls to the ground in your space, merges into
         You have the Guiding Bolt spell prepared. It counts as a druid spell for you, and it doesn't count against the number of spells you can have prepared.
         You can cast Guiding Bolt without expending a spell slot. You can do so a number of times equal to your proficiency bonus, and you regain all expended uses when you finish a long rest.
         If you lose the map, you can perform a 1-hour ceremony to magically create a replacement. This ceremony can be performed during a short or long rest, and it destroys the previous map.",
-        feature_type: "Passive",
         name: "Star Map",
         source: "Circle of Stars"
       }),
@@ -326,67 +345,56 @@ You choose whether your equipment falls to the ground in your space, merges into
         Chalice. A constellation of a life-giving goblet appears on you. Whenever you cast a spell using a spell slot that restores hit points to a creature, you or another creature within 30 feet of you can regain hit points equal to 1d8 + your Wisdom modifier.
         
         Dragon. A constellation of a wise dragon appears on you. When you make an Intelligence or a Wisdom check or a Constitution saving throw to maintain concentration on a spell, you can treat a roll of 9 or lower on the d20 as a 10.",
-        feature_type: "Bonus Action",
         name: "Starry Form",
         source: "Circle of Stars"
       }),
       CharacterFeature.create({
         description: "Guilds are generally found in cities large enough to support several artisans practicing the same trade. However, your guild might instead be a loose network of artisans who each work in a different village within a larger realm. Work with your DM to determine the nature of your guild. You can select your guild business from the Guild Business table or roll randomly.",
-        feature_type: "Passive",
         name: "Guild Business",
         source: "Guild Artisan"
       }),  
       CharacterFeature.create({
         description: "As an established and respected member of a guild, you can rely on certain benefits that membership provides. Your fellow guild members will provide you with lodging and food if necessary, and pay for your funeral if needed. In some cities and towns, a guildhall offers a central place to meet other members of your profession, which can be a good place to meet potential patrons, allies, or hirelings. Guilds often wield tremendous political power. If you are accused of a crime, your guild will support you if a good case can be made for your innocence or the crime is justifiable. You can also gain access to powerful political figures through the guild, if you are a member in good standing. Such connections might require the donation of money or magic items to the guild's coffers. You must pay dues of 5 gp per month to the guild. If you miss payments, you must make up back dues to remain in the guild's good graces.",
-        feature_type: "Passive",
         name: "Guild Membership",
         source: "Guild Artisan"
       }),  
       CharacterFeature.create({
         description: "Your Charisma score increases by 2.",
-        feature_type: "Passive",
         name: "Ability Score Increase",
         source: "Aasimar"
       }),  
       CharacterFeature.create({
         description: "Blessed with a radiant soul, your vision can easily cut through darkness. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.",
-        feature_type: "Passive",
         name: "Darkvision",
         source: "Aasimar"
       }),
       CharacterFeature.create({
         description: "You have resistance to necrotic damage and radiant damage.",
-        feature_type: "Passive",
         name: "Celestial Resistance",
         source: "Aasimar"
       }),
       CharacterFeature.create({
         description: "As an action, you can touch a creature and cause it to regain a number of hit points equal to your level. Once you use this trait, you can't use it again until you finish a long rest.",
-        feature_type: "Action",
         name: "Healing Hands",
         source: "Aasimar"
       }),
       CharacterFeature.create({
         description: "You know the Light cantrip. Charisma is your spellcasting ability for it.",
-        feature_type: "Passive",
         name: "Light Bearer",
         source: "Aasimar"
       }),
       CharacterFeature.create({
         description: "You can speak, read, and write Common and Celestial.",
-        feature_type: "Passive",
         name: "Languages",
         source: "Aasimar"
       }),
       CharacterFeature.create({
         description: "Your Wisdom score increases by 1.",
-        feature_type: "Passive",
         name: "Ability Score Increase",
         source: "Protector Aasimar"
       }),  
       CharacterFeature.create({
         description: "Starting at 3rd level, you can use your action to unleash the divine energy within yourself, causing your eyes to glimmer and two luminous, incorporeal wings to sprout from your back. Your transformation lasts for 1 minute or until you end it as a bonus action. During it, you have a flying speed of 30 feet, and once on each of your turns, you can deal extra radiant damage to one target when you deal damage to it with an attack or a spell. The extra radiant damage equals your level. Once you use this trait, you can't use it again until you finish a long rest.",
-        feature_type: "Action",
         name: "Radiant Soul",
         source: "Protector Aasimar"
       })
@@ -394,37 +402,30 @@ You choose whether your equipment falls to the ground in your space, merges into
 
     character_items: [
       CharacterItem.create({
-        description: "",
         name: "Cook's Utensils",
         total: 1
       }),
       CharacterItem.create({
-        description: "",
         name: "Letter of Introduction from the Guild",
         total: 1
       }),
       CharacterItem.create({
-        description: "",
         name: "Traveler's Clothes",
         total: 1
       }),
       CharacterItem.create({
-        description: "",
         name: "Dagger",
         total: 1
       }),
       CharacterItem.create({
-        description: "",
         name: "Leather Armor ( AC 11 )",
         total: 1
       }),
       CharacterItem.create({
-        description: "",
         name: "Druidic Focus",
         total: 1
       }),
       CharacterItem.create({
-        description: "",
         name: "Explorer's Pack",
         total: 1
       })
@@ -589,7 +590,6 @@ monster = Creature.create(
     creature_features: [
       CreatureFeature.create({
         description: "If the dragon fails a saving throw, it can choose to succeed instead.",
-        feature_type: "Passive",
         name: "Legendary Resistance (3/Day)"
       })
     ],

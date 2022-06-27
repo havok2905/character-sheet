@@ -2,7 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: path.join(__dirname, '/app/javascript/application.ts'),
+  entry: path.join(__dirname, '/app/javascript/application.tsx'),
   output: {
     path: path.resolve(__dirname, 'public'),
     publicPath: path.resolve(__dirname, 'public'),
@@ -18,6 +18,7 @@ module.exports = {
           options: {
             presets: [
               '@babel/preset-env',
+              '@babel/preset-react',
               '@babel/preset-typescript'
             ]
           }

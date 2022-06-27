@@ -41,6 +41,7 @@
         <thead>
           <tr>
             <th>Name</th>
+            <th>Level</th>
             <th>View</th>
             <th>Include</th>
           </tr>
@@ -49,6 +50,7 @@
           <% @spells.each do |spell| %>
             <tr>
               <td><%= spell.name %></td>
+              <td><%= spell.level %></td>
               <td><a href="<%= spell_path spell %>">View</a></td>
               <td><%= f.check_box :spell_ids, { multiple: true }, spell.id, nil %></td>
             </tr>

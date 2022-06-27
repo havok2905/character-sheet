@@ -237,9 +237,7 @@
     <div class="card">
       <h2>Inventory</h2>
       <% @character.character_items.each do |item| %>
-        <%= render layout: "shared/toggle-item", locals: { heading: "#{item.name}: #{item.total.to_s}" } do %>
-          <%= simple_format(item.description).html_safe %>
-        <% end %>
+        <%= render partial: "shared/item", locals: { heading: "#{item.name}: #{item.total.to_s}" } %>
       <% end %>
     </div>
     <div class="card">
@@ -336,7 +334,6 @@
       <% @character.character_features.each do |feature| %>
         <%= render layout: "shared/toggle-item", locals: { heading: feature.name } do %>
           <p><strong>Source:</strong> <%= feature.source %></p>
-          <p><strong>Feature Type:</strong> <%= feature.feature_type %></p>
           <p>
             <strong>Description:</strong>
             <%= simple_format(feature.description).html_safe %>
