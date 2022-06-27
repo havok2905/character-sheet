@@ -4,9 +4,10 @@ import React, {
   useState
 } from 'react';
 import { getLocations } from '../../utilities/Api/Locations';
+import { ILocation } from '../../types/models';
 
 const LocationsPage = (): ReactElement => {
-  const [locations, setLocations] = useState([]);
+  const [locations, setLocations] = useState<ILocation[]>([]);
 
   useEffect(() => {
     getLocations()

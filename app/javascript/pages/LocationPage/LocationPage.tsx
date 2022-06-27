@@ -5,6 +5,7 @@ import React, {
 } from 'react';
 import { GearIcon } from '../../components/Icons';
 import { getLocation } from '../../utilities/Api/Locations';
+import { ILocation } from '../../types/models';
 import { MarkdownPreview } from '../../components/MarkdownPreview';
 import { Pin } from '../../components/Pin';
 
@@ -14,8 +15,8 @@ const getIdFromUrl = ():string => {
   return parts[1];
 };
 
-const LocationPage = (): ReactElement => {
-  const [location, setLocation] = useState(null);
+const LocationPage = (): ReactElement | null => {
+  const [location, setLocation] = useState<ILocation | null>(null);
 
   useEffect(() => {
     const id = getIdFromUrl();
