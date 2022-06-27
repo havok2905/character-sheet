@@ -9,10 +9,8 @@ import { createPin, destroyPin, updatePin } from '../../utilities/Api/Pins';
 import { Modal } from '../Modal';
 import { IMap, IPin } from '../../types/models';
 import { Pin } from '../Pin';
-import {
-  ToastCollectionContext,
-  ToastCollectionErrorTypes
-} from '../ToastCollection';
+import { ToastCollectionContext } from '../ToastCollection';
+import { ToastCollectionErrorTypes } from '../../types/toasts';
 
 enum MapEditorReducerActionType {
   ADD_NEW_PIN = 'add-new-pin',
