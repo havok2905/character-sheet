@@ -25,9 +25,7 @@
         <li><a href=<%= factions_path %>>Factions</a></li>
         <li><a href=<%= magic_items_path %>>Magic Items</li>
         <li><a href=<%= locations_path %>>Locations</li>
-        <% if user_signed_in? %>
-          <li><a href=<%= spells_path %>>Spells</a></li>
-        <% end %>
+        <li><a href=<%= spells_path %>>Spells</a></li>
       </ul>
       <div id="user_nav">
         <% if user_signed_in? %>
