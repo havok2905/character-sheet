@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   post '/locations/:id/upload_map', to: 'locations#upload_map', as: 'location_upload_map'
 
   resources :magic_items
+  post '/magic_items/:id/upload_image', to: 'magic_items#upload_image', as: 'magic_item_upload_image'
 
   resources :pins, only: [:create, :destroy, :update]
   

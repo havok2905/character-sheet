@@ -23,6 +23,10 @@ import { locationCreatePageBootstrapper } from './pages/LocationCreatePage';
 import { locationEditPageBootstrapper } from './pages/LocationEditPage';
 import { locationPageBootstrapper } from './pages/LocationPage';
 import { locationsPageBootstrapper } from './pages/LocationsPage';
+import { magicItemCreatePageBootstrapper } from './pages/MagicItemCreatePage';
+import { magicItemEditPageBootstrapper } from './pages/MagicItemEditPage';
+import { magicItemPageBootstrapper } from './pages/MagicItemPage';
+import { magicItemsPageBootstrapper } from './pages/MagicItemsPage';
 import { spellPageBootstrapper } from './pages/SpellPage';
 import { spellCreatePageBootstrapper } from './pages/SpellCreatePage';
 import { spellEditPageBootstrapper } from './pages/SpellEditPage';
@@ -56,10 +60,17 @@ window.onload = ():void => {
   toggleItem.run();
 
   homePageBootstrapper();
+
   locationCreatePageBootstrapper();
   locationEditPageBootstrapper();
   locationPageBootstrapper();
   locationsPageBootstrapper();
+  
+  magicItemCreatePageBootstrapper();
+  magicItemEditPageBootstrapper();
+  magicItemPageBootstrapper();
+  magicItemsPageBootstrapper();
+
   spellPageBootstrapper();
   spellCreatePageBootstrapper();
   spellEditPageBootstrapper();

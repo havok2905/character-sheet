@@ -1,121 +1,107 @@
 # frozen_string_literal: true
 
 class MagicItemsController < ApplicationController
-  include UiImagable
-
-  helper_method :image_alt_text
-  helper_method :image_url
-
-  before_action :authenticate_user!, only: %i[
-    create
-    destroy
-    edit
-    new
-    update
-  ]
-
   def index
-    @magic_items = magic_items_search
+    m = MagicItem.all
+    magic_items = magic_items_response_model m
+    respond_to do |format|
+      format.html
+      format.json { render json: { magicItems: magic_items } }
+    end
   end
 
   def show
-    @magic_item = magic_item_by_id
+    m = MagicItem.find params[:id]
+    magic_item = magic_item_response_model m
+    respond_to do |format|
+      format.html
+      format.json { render json: { magicItem: magic_item } }
+    end
   end
 
   def new
-    @magic_item = new_magic_item
   end
 
   def create
-    @magic_item = new_magic_item_with_params
-
-    if @magic_item.save
-      redirect_to magic_items_path
-    else
-      render :new, status: :unprocessable_entity
-    end
+    m = MagicItem.create create_magic_item_params
+    magic_item = magic_item_response_model m
+    render json: { magicItem: magic_item }
   end
 
   def edit
-    @magic_item = magic_item_by_id
   end
 
   def update
-    @magic_item = magic_item_by_id
+    m = MagicItem.find params[:id]
+    m.update update_magic_item_params
+    magic_item = magic_item_response_model m
+    render json: { magicItem: magic_item }
+  end
 
-    if @magic_item.update magic_item_params
-      redirect_to magic_item_path @magic_item
-    else
-      render :edit, status: :unprocessable_entity
-    end
+  def upload_image
+    m = MagicItem.find params[:id]
+    m.image = params['magic-item-image-file-upload']
+    m.save!
+    magic_item = magic_item_response_model m
+    render json: { magicItem: magic_item }
   end
 
   def destroy
-    @magic_item = magic_item_by_id
-    destroy_error_flash unless @magic_item.destroy
-    redirect_to magic_items_path
-  end
-
-  helper_method :description
-  def description(magic_item)
-    return unless magic_item.present?
-    attunement = magic_item.attunement ? ' (requires attunement)' : nil
-    sub_category = magic_item.sub_category ? " (#{magic_item.sub_category})" : nil
-    "#{magic_item.category}#{sub_category}, #{magic_item.rarity}#{attunement}"
-  end
-
-  helper_method :modify_magic_item
-  def modify_magic_item
-    user_signed_in?
+    m = MagicItem.find params[:id]
+    m.destroy
+    render json: {}
   end
 
   private
 
-  def destroy_error_flash
-    flash.alert = 'There was a problem deleting this magic item.'
+  def magic_item_response_model magic_item
+    image_url = magic_item&.image&.attached? ? url_for(magic_item.image) : ''
+
+    {
+      attunement: magic_item.attunement,
+      category: magic_item.category,
+      description: magic_item.description,
+      id: magic_item.id,
+      imageUrl: image_url,
+      rarity: magic_item.rarity,
+      subCategory: magic_item.sub_category,
+      name: magic_item.name
+    }
   end
 
-  def update_error_flash
-    flash.alert = 'There was a problem updating this magic item.'
+  def magic_items_response_model magic_items
+    magic_items.map do |magic_item|
+      magic_item_response_model magic_item
+    end
   end
 
-  def magic_item_by_id
-    MagicItem.find params[:id]
+  def create_magic_item_params
+    create_magic_item_request.deep_transform_keys!(&:underscore)
   end
 
-  def magic_item_params
-    params.require(:magic_item).permit(
+  def create_magic_item_request
+    params.require(:magicItem).permit(
       :attunement,
       :category,
       :description,
-      :image,
       :rarity,
-      :sub_category,
+      :subCategory,
       :name
     )
   end
 
-  def magic_items
-    MagicItem.order(:name)
+  def update_magic_item_params
+    update_magic_item_request.deep_transform_keys!(&:underscore)
   end
 
-  def magic_items_search
-    category = params[:search_by_category]
-    name = params[:search_by_name]
-    rarity = params[:search_by_rarity]
-
-    found_magic_items = magic_items
-    found_magic_items = found_magic_items.where(rarity:) if rarity.present?
-    found_magic_items = found_magic_items.where(category:) if category.present?
-    found_magic_items = found_magic_items.where('name LIKE ?', "%#{name}%") if name.present?
-    found_magic_items
-  end
-
-  def new_magic_item
-    MagicItem.new
-  end
-
-  def new_magic_item_with_params
-    MagicItem.new magic_item_params
+  def update_magic_item_request
+    params.require(:magicItem).permit(
+      :attunement,
+      :category,
+      :description,
+      :rarity,
+      :subCategory,
+      :name
+    )
   end
 end

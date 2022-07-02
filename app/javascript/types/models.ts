@@ -1,4 +1,8 @@
-import { SpellSchoolsTypes } from './rules';
+import {
+  ItemCategoryTypes,
+  ItemRarityTypes,
+  SpellSchoolsTypes
+} from './rules';
 
 interface IPin {
   id?: string;
@@ -23,6 +27,17 @@ interface ILocation {
   sigilUrl: string;
 }
 
+interface IMagicItem {
+  attunement: boolean;
+  category: ItemCategoryTypes;
+  description: string;
+  id?: string;
+  imageUrl?: string;
+  name: string;
+  rarity: ItemRarityTypes;
+  subCategory: string;
+}
+
 interface ISpell {
   castingTime: string;
   components: string;
@@ -44,6 +59,7 @@ interface ISpell {
 
 export {
   ILocation,
+  IMagicItem,
   IMap,
   IPin,
   ISpell

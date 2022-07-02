@@ -1,3 +1,24 @@
+enum ItemCategoryTypes {
+  ARMOR = 'Armor',
+  POTION = 'Potion',
+  RING = 'Ring',
+  ROD = 'Rod',
+  SCROLL = 'Scroll',
+  STAFF = 'Staff',
+  WAND = 'Wand',
+  WEAPON = 'Weapon',
+  WONDEROUS_ITEM = 'Wonderous Item'
+}
+
+enum ItemRarityTypes {
+  COMMON = 'Common',
+  UNCOMMON = 'Uncommon',
+  RARE = 'Rare',
+  VERY_RARE = 'Very Rare',
+  LEGENDARY = 'Legendary',
+  ARTIFACT = 'Artifact'
+}
+
 enum SpellSchoolsTypes {
   ABJURATION = 'Abjuration',
   CONJURATION = 'Conjuration',
@@ -9,4 +30,8 @@ enum SpellSchoolsTypes {
   TRANSMUTATION = 'Transmutation'
 }
 
-export { SpellSchoolsTypes };
+export {
+  ItemCategoryTypes,
+  ItemRarityTypes,
+  SpellSchoolsTypes
+};
