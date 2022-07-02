@@ -55,18 +55,8 @@ class MagicItemsController < ApplicationController
   private
 
   def magic_item_response_model magic_item
-    image_url = magic_item&.image&.attached? ? url_for(magic_item.image) : ''
-
-    {
-      attunement: magic_item.attunement,
-      category: magic_item.category,
-      description: magic_item.description,
-      id: magic_item.id,
-      imageUrl: image_url,
-      rarity: magic_item.rarity,
-      subCategory: magic_item.sub_category,
-      name: magic_item.name
-    }
+    mapper = DataMappers::MagicItemResponseModel.new
+    mapper.model_to_camel_case_response magic_item
   end
 
   def magic_items_response_model magic_items
