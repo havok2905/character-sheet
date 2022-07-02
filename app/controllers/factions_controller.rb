@@ -92,16 +92,6 @@ class FactionsController < ApplicationController
     )
   end
 
-  def character_response_model character
-    mapper = DataMappers::CharacterResponseModel.new
-    mapper.model_to_camel_case_response character
-  end
-  
-  def creature_response_model creature
-    mapper = DataMappers::CreatureResponseModel.new
-    mapper.model_to_camel_case_response creature
-  end
-
   def faction_response_model faction, creatures, characters
     mapper = DataMappers::FactionResponseModel.new
     mapper.model_to_camel_case_response faction, creatures, characters
