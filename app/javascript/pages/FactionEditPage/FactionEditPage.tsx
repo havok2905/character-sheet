@@ -1,13 +1,13 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import {
-  destroyMagicItem,
-  getMagicItem,
-  updateMagicItem,
-  uploadMagicItemImage
-} from '../../utilities/Api/MagicItems';
-import { IMagicItem } from '../../types/models';
+  destroyFaction,
+  getFaction,
+  updateFaction,
+  uploadFactionImage
+} from '../../utilities/Api/Factions';
+import { FactionForm } from '../../components/FactionForm';
+import { IFaction } from "../../types/models";
 import { ImageForm } from '../../components/ImageForm';
-import { MagicItemForm } from '../../components/MagicItemForm';
 
 const getIdFromUrl = ():string => {
   const url = new URL(window.location.href);
@@ -15,52 +15,52 @@ const getIdFromUrl = ():string => {
   return parts[1];
 };
 
-const MagicItemEditPage = (): ReactElement | null => {
-  const [magicItem, setMagicItem] = useState<IMagicItem | null>(null);
+const FactionEditPage = (): ReactElement | null => {
+  const [faction, setFaction] = useState<IFaction | null>(null);
 
   useEffect(() => {
     const id = getIdFromUrl();
-    getMagicItem(id).then(data => setMagicItem(data.magicItem));
+    getFaction(id).then(data => setFaction(data.faction));
   }, []);
 
-  if (!magicItem) return null;
+  if (!faction) return null;
 
-  const { id, imageUrl } = magicItem;
+  const { id, imageUrl } = faction;
 
   const handleDelete = e => {
     e.preventDefault();
 
     if (!id) return;
 
-    destroyMagicItem(id)
+    destroyFaction(id)
       .then(() => {
-        window.location.href = `/magic_items/`;
+        window.location.href = `/factions/`;
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = `/magic_items/${id}/edit/`;
+        window.location.href = `/factions/${id}/edit/`;
       });
   };
-  
-  const handleSubmit = (magicItem: IMagicItem) => {
+
+  const handleSubmit = (faction: IFaction) => {
     if (!id) return;
 
-    updateMagicItem(id, { magicItem })
+    updateFaction(id, { faction })
       .then(() => {
-        window.location.href = `/magic_items/${id}`;
+        window.location.href = `/factions/${id}`;
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = `/magic_items/${id}`;
+        window.location.href = `/factions/${id}`;
       });
   };
 
   const handleImageUpload = (data: FormData | undefined) => {
     if (!data || !id) return;
               
-    uploadMagicItemImage(id, data)
+    uploadFactionImage(id, data)
       .then(data => {
-        window.location.href = `/magic_items/${data.magicItem.id}`;
+        window.location.href = `/factions/${data.faction.id}`;
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -70,19 +70,21 @@ const MagicItemEditPage = (): ReactElement | null => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>Edit Magic Item</h1>
-        <a className="button" href={`/magic_items/${id}`}>Back</a>
+        <h1>Edit Faction</h1>
+        <a className="button" href="/factions">
+          Back
+        </a>
         <ImageForm
           buttonLabel="Upload Image"
           imageUrl={imageUrl}
-          inputName="magic-item-image-file-upload"
+          inputName="faction-image-file-upload"
           handleSubmit={handleImageUpload}
           labelText="Token Image"
         />
-        <MagicItemForm
+        <FactionForm
+          faction={faction}
           handleSubmit={handleSubmit}
-          handleSubmitButtonLabel="Update Magic Item"
-          magicItem={magicItem}/>
+          handleSubmitButtonLabel="Update Faction"/>
         <button
           className="button button-destructive"
           onClick={handleDelete}>
@@ -93,4 +95,4 @@ const MagicItemEditPage = (): ReactElement | null => {
   );
 };
 
-export { MagicItemEditPage };
+export { FactionEditPage };

@@ -18,6 +18,10 @@ import {
   ToggleItem
 } from './components/ToggleItem';
 
+import { factionPageBootstrapper } from './pages/FactionPage';
+import { factionCreatePageBootstrapper } from './pages/FactionCreatePage';
+import { factionEditPageBootstrapper } from './pages/FactionEditPage';
+import { factionsPageBootstrapper } from './pages/FactionsPage';
 import { homePageBootstrapper } from './pages/HomePage';
 import { locationCreatePageBootstrapper } from './pages/LocationCreatePage';
 import { locationEditPageBootstrapper } from './pages/LocationEditPage';
@@ -58,6 +62,11 @@ window.onload = ():void => {
   creatureRegionalEffectsForm.run();
   diceRollerComponent.run();
   toggleItem.run();
+
+  factionPageBootstrapper();
+  factionCreatePageBootstrapper();
+  factionEditPageBootstrapper();
+  factionsPageBootstrapper();
 
   homePageBootstrapper();
 

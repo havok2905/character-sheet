@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+
+  if Rails.env.production?
+    default_url_options :host => 'localhost:3000'
+  else
+    default_url_options :host => 'localhost:3000'
+  end
+
   devise_for :users, :skip => [:registrations]
 
   get '/', to: 'home#index'
@@ -26,6 +33,7 @@ Rails.application.routes.draw do
   resources :creatures
 
   resources :factions
+  post '/factions/:id/upload_image', to: 'factions#upload_image', as: 'faction_upload_image'
 
   resources :locations
   post '/locations/:id/upload_sigil', to: 'locations#upload_sigil', as: 'location_upload_sigil'

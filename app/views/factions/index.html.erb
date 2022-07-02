@@ -1,15 +1,1 @@
-<div class="layout">
-  <div class="full">
-    <h1>Factions</h1>
-    <% if modify_faction %>
-      <a class="button" href="<%= new_faction_path %>">Create</a>
-    <% end %>
-    <ul class="bulletless-list">
-      <% @factions.each do |faction| %>
-        <li>
-          <%= render partial: 'shared/item_with_token', locals: { description: faction.alignment, image_alt_text: image_alt_text(faction), image_url: image_url(faction), item_path: faction_path(faction), sub_description: nil, title: faction.name } %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-</div>
+<div id="factions-page-container"></div>

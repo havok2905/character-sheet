@@ -1,104 +1,117 @@
 # frozen_string_literal: true
 
 class FactionsController < ApplicationController
-  include UiCharacterable
-  include UiCreatureable
-  include UiImagable
-
-  helper_method :character_class_row
-  helper_method :character_multiclass_row
-  helper_method :creature_row
-  helper_method :image_alt_text
-  helper_method :image_url
-
-  before_action :authenticate_user!, only: %i[
-    create
-    destroy
-    edit
-    new
-    update
-  ]
-
   def index
-    @factions = factions
+    f = Faction.all
+    factions = factions_response_model f
+    respond_to do |format|
+      format.html
+      format.json { render json: { factions: factions } }
+    end
   end
 
   def show
-    @faction = faction_by_id
+    f = Faction.find params[:id]
+    cr = f.creatures
+    ch = f.characters
+    faction = faction_response_model f, cr, ch
+    respond_to do |format|
+      format.html
+      format.json { render json: { faction: faction } }
+    end
   end
 
   def new
-    @faction = new_faction
   end
 
   def create
-    @faction = new_faction_with_params
-
-    if @faction.save
-      redirect_to factions_path
-    else
-      render :new, status: :unprocessable_entity
-    end
+    f = Faction.create create_faction_params
+    faction = faction_response_model f, [], []
+    render json: { faction: faction }
   end
 
   def edit
-    @faction = faction_by_id
   end
 
   def update
-    @faction = faction_by_id
+    f = Faction.find params[:id]
+    f.update update_faction_params
+    cr = f.creatures
+    ch = f.characters
+    faction = faction_response_model f, cr, ch
+    render json: { faction: faction }
+  end
 
-    if @faction.update faction_params
-      redirect_to faction_path @faction
-    else
-      render :edit, status: :unprocessable_entity
-    end
+  def upload_image
+    f = Faction.find params[:id]
+    f.image = params['faction-image-file-upload']
+    f.save!
+    cr = f.creatures
+    ch = f.characters
+    faction = faction_response_model f, cr, ch
+    render json: { faction: faction }
   end
 
   def destroy
-    @faction = faction_by_id
-    @faction.destroy
-    redirect_to factions_path
-  end
-
-  helper_method :get_factions_by_level
-  def get_factions_by_level(level)
-    @faction.factions.select { |faction| faction.level == level }
-  end
-
-  helper_method :modify_faction
-  def modify_faction
-    user_signed_in?
+    f = Faction.find params[:id]
+    f.destroy
+    render json: {}
   end
 
   private
 
-  def faction_by_id
-    Faction.find params[:id]
+  def create_faction_params
+    create_faction_request.deep_transform_keys!(&:underscore)
   end
 
-  def faction_params
+  def create_faction_request
     params.require(:faction).permit(
       :alignment,
       :allies,
       :description,
       :goals,
       :ideals,
-      :image,
       :name,
       :rivals
     )
   end
 
-  def factions
-    Faction.order :name
+  def update_faction_params
+    update_faction_request.deep_transform_keys!(&:underscore)
   end
 
-  def new_faction
-    Faction.new
+  def update_faction_request
+    params.require(:faction).permit(
+      :alignment,
+      :allies,
+      :description,
+      :goals,
+      :ideals,
+      :name,
+      :rivals
+    )
   end
 
-  def new_faction_with_params
-    Faction.new faction_params
+  def character_response_model character
+    mapper = DataMappers::CharacterResponseModel.new
+    mapper.model_to_camel_case_response character
+  end
+  
+  def creature_response_model creature
+    mapper = DataMappers::CreatureResponseModel.new
+    mapper.model_to_camel_case_response creature
+  end
+
+  def faction_response_model faction, creatures, characters
+    mapper = DataMappers::FactionResponseModel.new
+    mapper.model_to_camel_case_response faction, creatures, characters
+  end
+
+  def factions_response_model factions
+    factions.map do |faction|
+      creatures = faction.creatures
+      characters = faction.characters
+      faction_response_model faction, creatures, characters
+    end
   end
 end
