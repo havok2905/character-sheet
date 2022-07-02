@@ -1,117 +1,123 @@
 # frozen_string_literal: true
 
 class SpellsController < ApplicationController
-  before_action :authenticate_user!, only: %i[
-    create
-    destroy
-    edit
-    index
-    new
-    show
-    update
-  ]
-
   def index
-    @spells = spells_search
+    s = Spell.all
+    spells = spells_response_model s
+    respond_to do |format|
+      format.html
+      format.json { render json: { spells: spells } }
+    end
   end
 
   def show
-    @spell = spell_by_id
+    s = Spell.find params[:id]
+    spell = spell_response_model s
+    respond_to do |format|
+      format.html
+      format.json { render json: { spell: spell } }
+    end
   end
 
   def new
-    @spell = new_spell
   end
 
   def create
-    @spell = new_spell_with_params
-
-    if @spell.save
-      redirect_to spells_path
-    else
-      render :new, status: :unprocessable_entity
-    end
+    s = Spell.create create_spell_params
+    spell = spell_response_model s
+    render json: { spell: spell }
   end
 
   def edit
-    @spell = spell_by_id
   end
 
   def update
-    @spell = spell_by_id
-
-    if @spell.update spell_params
-      redirect_to spell_path @spell
-    else
-      render :edit, status: :unprocessable_entity
-    end
+    s = Spell.find params[:id]
+    s.update update_spell_params
+    spell = spell_response_model s
+    render json: { spell: spell }
   end
 
   def destroy
-    @spell = spell_by_id
-    @spell.destroy
-    redirect_to spells_path
-  end
-
-  helper_method :get_spells_by_level
-  def get_spells_by_level(level)
-    @spell.spells.select { |spell| spell.level == level }
-  end
-
-  helper_method :modify_spell
-  def modify_spell
-    user_signed_in?
+    s = Spell.find params[:id]
+    s.destroy
+    render json: {}
   end
 
   private
 
-  def spell_by_id
-    Spell.find params[:id]
+  def spell_response_model spell
+    {
+      castingTime: spell.casting_time,
+      components: spell.components,
+      concentration: spell.concentration,
+      description: spell.description,
+      descriptionHigherLevels: spell.description_higher_levels,
+      duration: spell.duration,
+      id: spell.id,
+      level: spell.level,
+      materialComponents: spell.material_components,
+      name: spell.name,
+      range: spell.range,
+      ritual: spell.ritual,
+      school: spell.school,
+      somaticComponents: spell.somatic_components,
+      target: spell.target,
+      verbalComponents: spell.verbal_components
+    }
   end
 
-  # rubocop:disable Metrics/MethodLength
-  def spell_params
+  def spells_response_model spells
+    spells.map do |spell|
+      spell_response_model spell
+    end
+  end
+
+  def create_spell_params
+    create_spell_request.deep_transform_keys!(&:underscore)
+  end
+
+  def create_spell_request
     params.require(:spell).permit(
-      :casting_time,
+      :castingTime,
       :components,
       :concentration,
       :description,
-      :description_higher_levels,
+      :descriptionHigherLevels,
       :duration,
       :level,
-      :material_components,
+      :materialComponents,
       :name,
       :range,
       :ritual,
       :school,
-      :somatic_components,
+      :somaticComponents,
       :target,
-      :verbal_components
+      :verbalComponents
     )
   end
-  # rubocop:enable Metrics/MethodLength
 
-  def spells
-    Spell.order 'level ASC, name'
+  def update_spell_params
+    update_spell_request.deep_transform_keys!(&:underscore)
   end
 
-  def spells_search
-    level = params[:search_by_level]
-    name = params[:search_by_name]
-    school = params[:search_by_school]
-
-    found_spells = spells
-    found_spells = found_spells.where(level:) if level.present?
-    found_spells = found_spells.where(school:) if school.present?
-    found_spells = found_spells.where('name LIKE ?', "%#{name}%") if name.present?
-    found_spells
-  end
-
-  def new_spell
-    Spell.new
-  end
-
-  def new_spell_with_params
-    Spell.new spell_params
+  def update_spell_request
+    params.require(:spell).permit(
+      :castingTime,
+      :components,
+      :concentration,
+      :description,
+      :descriptionHigherLevels,
+      :duration,
+      :level,
+      :materialComponents,
+      :name,
+      :range,
+      :ritual,
+      :school,
+      :somaticComponents,
+      :target,
+      :verbalComponents
+    )
   end
 end

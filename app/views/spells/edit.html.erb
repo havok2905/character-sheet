@@ -1,8 +1,1 @@
-<div class="layout">
-  <div class="full">
-    <h1>Edit Spell</h1>
-    <a class="button" href="<%= spell_path @spell %>">Back</a>
-    <%= render "form" %>
-    <%= button_to "Delete", { :controller => :spells, :action => 'destroy', :id => @spell.id }, :class => 'button button-destructive', :method => :delete %>
-  </div>
-</div>
+<div id="spell-edit-page-container"></div>

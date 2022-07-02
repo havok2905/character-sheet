@@ -1,3 +1,5 @@
+import { SpellSchoolsTypes } from './rules';
+
 interface IPin {
   id?: string;
   map_id: string;
@@ -21,8 +23,28 @@ interface ILocation {
   sigilUrl: string;
 }
 
+interface ISpell {
+  castingTime: string;
+  components: string;
+  concentration: boolean;
+  description: string;
+  descriptionHigherLevels: string;
+  duration: string;
+  id?: string;
+  level: number;
+  materialComponents: boolean;
+  name: string;
+  range: string;
+  ritual: boolean;
+  school: SpellSchoolsTypes;
+  somaticComponents: boolean;
+  target: string;
+  verbalComponents: boolean;
+}
+
 export {
   ILocation,
   IMap,
-  IPin
+  IPin,
+  ISpell
 };

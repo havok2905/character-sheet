@@ -23,6 +23,10 @@ import { locationCreatePageBootstrapper } from './pages/LocationCreatePage';
 import { locationEditPageBootstrapper } from './pages/LocationEditPage';
 import { locationPageBootstrapper } from './pages/LocationPage';
 import { locationsPageBootstrapper } from './pages/LocationsPage';
+import { spellPageBootstrapper } from './pages/SpellPage';
+import { spellCreatePageBootstrapper } from './pages/SpellCreatePage';
+import { spellEditPageBootstrapper } from './pages/SpellEditPage';
+import { spellsPageBootstrapper } from './pages/SpellsPage';
 
 import '../assets/stylesheets/application.scss';
 
@@ -56,4 +60,8 @@ window.onload = ():void => {
   locationEditPageBootstrapper();
   locationPageBootstrapper();
   locationsPageBootstrapper();
+  spellPageBootstrapper();
+  spellCreatePageBootstrapper();
+  spellEditPageBootstrapper();
+  spellsPageBootstrapper();
 };
