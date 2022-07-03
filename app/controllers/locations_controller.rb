@@ -3,7 +3,7 @@
 class LocationsController < ApplicationController
   def index
     l = Location.order(:name)
-    locations = locations_view_model l
+    locations = locations_response_model l
     respond_to do |format|
       format.html
       format.json { render json: { locations: locations } }
@@ -13,7 +13,7 @@ class LocationsController < ApplicationController
   def show
     l = Location.find params[:id]
     m = Map.where(location_id: l.id).first
-    location = location_view_model l, m
+    location = location_response_model l, m
     respond_to do |format|
       format.html
       format.json { render json: { location: location } }
@@ -31,7 +31,7 @@ class LocationsController < ApplicationController
 
   def create
     l = Location.create create_location_params
-    location = location_view_model l, nil
+    location = location_response_model l, nil
     render json: { location: location }
   end
 
@@ -49,7 +49,7 @@ class LocationsController < ApplicationController
       })
     end
 
-    location = location_view_model l, m
+    location = location_response_model l, m
     render json: { location: location }
   end
 
@@ -58,7 +58,7 @@ class LocationsController < ApplicationController
     m = Map.where(location_id: params[:id]).first    
     l.sigil = params['location-sigil-file-upload']
     l.save!
-    location = location_view_model l, m
+    location = location_response_model l, m
     render json: { location: location }
   end
 
@@ -66,7 +66,7 @@ class LocationsController < ApplicationController
     l = Location.find params[:id]
     m = Map.where(location_id: params[:id]).first
     l.update update_location_params
-    location = location_view_model l, m
+    location = location_response_model l, m
     render json: { location: location }
   end
 
@@ -80,28 +80,15 @@ class LocationsController < ApplicationController
 
   private
 
-  def location_view_model location, map
-    sigil_url = location.sigil&.attached? ? url_for(location.sigil) : ''
-    image_url = map&.image&.attached? ? url_for(map.image) : ''
-
-    {
-      content: location.content,
-      description: location.description,
-      id: location.id,
-      map: {
-        id: map&.id,
-        imageUrl: image_url,
-        pins: map&.pins || []
-      },
-      name: location.name,
-      sigilUrl: sigil_url
-    }
+  def location_response_model location, map
+    mapper = DataMappers::LocationResponseModel.new
+    mapper.model_to_camel_case_response location, map
   end
 
-  def locations_view_model locations
+  def locations_response_model locations
     locations.map do |location|
       map = Map.where(location_id: location.id).first
-      location_view_model location, map
+      location_response_model location, map
     end
   end
 

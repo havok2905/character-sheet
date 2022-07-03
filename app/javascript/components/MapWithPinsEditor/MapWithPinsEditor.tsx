@@ -221,7 +221,7 @@ const MapWithPinsEditor = ({
     if (!id) return;
   
     const pin = {
-      map_id: id,
+      mapId: id,
       name: newPinName,
       x: 0,
       y: 0

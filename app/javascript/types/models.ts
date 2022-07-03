@@ -6,7 +6,7 @@ import {
 
 interface IPin {
   id?: string;
-  map_id: string;
+  mapId: string;
   name: string;
   x: number;
   y: number;

@@ -2,30 +2,44 @@
 
 class PinsController < ApplicationController
   def create
-    pin_params = create_params
-    pin = Pin.create pin_params
+    p = Pin.create create_pin_params
+    pin = pin_response_model p
     render json: { pin: pin }
   end
 
   def destroy
-    pin = Pin.find params[:id]
-    pin.destroy if pin
+    p = Pin.find params[:id]
+    p.destroy if p
     render json: {}
   end
 
   def update
-    pin_params = update_params
-    pin = Pin.find(pin_params[:id]).update pin_params
+    p = Pin.find params[:id]
+    p.update update_pin_params
+    pin = pin_response_model p
     render json: { pin: pin }
   end
 
   private
 
-  def create_params
-    params.require(:pin).permit(:id, :map_id, :name, :x, :y)
+  def pin_response_model pin
+    mapper = DataMappers::PinResponseModel.new
+    mapper.model_to_camel_case_response pin
   end
 
-  def update_params
-    params.require(:pin).permit(:id, :map_id, :name, :x, :y)
+  def create_pin_params
+    create_pin_request.deep_transform_keys!(&:underscore)
+  end
+
+  def create_pin_request
+    params.require(:pin).permit(:id, :mapId, :name, :x, :y)
+  end
+
+  def update_pin_params
+    update_pin_request.deep_transform_keys!(&:underscore)
+  end
+
+  def update_pin_request
+    params.require(:pin).permit(:id, :mapId, :name, :x, :y)
   end
 end
