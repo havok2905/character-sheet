@@ -12,9 +12,7 @@ class FactionsController < ApplicationController
 
   def show
     f = Faction.find params[:id]
-    cr = f.creatures
-    ch = f.characters
-    faction = faction_response_model f, cr, ch
+    faction = faction_response_model f
     respond_to do |format|
       format.html
       format.json { render json: { faction: faction } }
@@ -26,7 +24,7 @@ class FactionsController < ApplicationController
 
   def create
     f = Faction.create create_faction_params
-    faction = faction_response_model f, [], []
+    faction = faction_response_model f
     render json: { faction: faction }
   end
 
@@ -36,9 +34,7 @@ class FactionsController < ApplicationController
   def update
     f = Faction.find params[:id]
     f.update update_faction_params
-    cr = f.creatures
-    ch = f.characters
-    faction = faction_response_model f, cr, ch
+    faction = faction_response_model f
     render json: { faction: faction }
   end
 
@@ -46,9 +42,7 @@ class FactionsController < ApplicationController
     f = Faction.find params[:id]
     f.image = params['faction-image-file-upload']
     f.save!
-    cr = f.creatures
-    ch = f.characters
-    faction = faction_response_model f, cr, ch
+    faction = faction_response_model f
     render json: { faction: faction }
   end
 
@@ -92,16 +86,14 @@ class FactionsController < ApplicationController
     )
   end
 
-  def faction_response_model faction, creatures, characters
-    mapper = DataMappers::FactionResponseModel.new
-    mapper.model_to_camel_case_response faction, creatures, characters
+  def faction_response_model faction
+    mapper = DataMappers::FactionDataMapper.new
+    mapper.run faction
   end
 
   def factions_response_model factions
     factions.map do |faction|
-      creatures = faction.creatures
-      characters = faction.characters
-      faction_response_model faction, creatures, characters
+      faction_response_model faction
     end
   end
 end

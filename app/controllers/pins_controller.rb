@@ -23,8 +23,8 @@ class PinsController < ApplicationController
   private
 
   def pin_response_model pin
-    mapper = DataMappers::PinResponseModel.new
-    mapper.model_to_camel_case_response pin
+    mapper = DataMappers::PinDataMapper.new
+    mapper.run pin
   end
 
   def create_pin_params

@@ -20,17 +20,12 @@ Rails.application.routes.draw do
   get '/characters/:id/edit_spells', to: 'characters#edit_spells', as: 'character_edit_spells'
   resources :characters
 
-  get '/creatures/monsters', to: 'creatures#monsters', as: 'creatures_monsters'
-  get '/creatures/npcs', to: 'creatures#npcs', as: 'creatures_npcs'
   get '/creatures/:id/edit_actions', to: 'creatures#edit_actions', as: 'creature_edit_actions'
-  get '/creatures/:id/edit_factions', to: 'creatures#edit_factions', as: 'creature_edit_factions'
   get '/creatures/:id/edit_features', to: 'creatures#edit_features', as: 'creature_edit_features'
   get '/creatures/:id/edit_lair_actions', to: 'creatures#edit_lair_actions', as: 'creature_edit_lair_actions'
-  get '/creatures/:id/edit_legendary_actions', to: 'creatures#edit_legendary_actions', as: 'creature_edit_legendary_actions' 
-  get '/creatures/:id/edit_magic_items', to: 'creatures#edit_magic_items', as: 'creature_edit_magic_items'
-  get '/creatures/:id/edit_regional_effects', to: 'creatures#edit_regional_effects', as: 'creature_edit_regional_effects'
-  get '/creatures/:id/edit_spells', to: 'creatures#edit_spells', as: 'creature_edit_spells'
+  get '/creatures/:id/edit_legendary_actions', to: 'creatures#edit_legendary_actions', as: 'creature_edit_legendary_actions'
   resources :creatures
+  post '/creatures/:id/upload_image', to: 'creatures#upload_image', as: 'creature_upload_image'
 
   resources :factions
   post '/factions/:id/upload_image', to: 'factions#upload_image', as: 'faction_upload_image'

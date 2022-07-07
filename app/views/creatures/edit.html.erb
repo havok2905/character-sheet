@@ -1,17 +1,1 @@
-<div class="layout">
-  <div class="full">
-    <h1>Creature Settings</h1>
-    <a class="button" href="<%= creature_edit_factions_path @creature %>">Factions</a>
-    <a class="button" href="<%= creature_edit_features_path @creature %>">Features</a>
-    <a class="button" href="<%= creature_edit_actions_path @creature %>">Actions</a>
-    <a class="button" href="<%= creature_edit_legendary_actions_path @creature %>">Legendary Actions</a>
-    <a class="button" href="<%= creature_edit_lair_actions_path @creature %>">Lair Actions</a>
-    <a class="button" href="<%= creature_edit_magic_items_path @creature %>">Magic Items</a>
-    <a class="button" href="<%= creature_edit_regional_effects_path @creature %>">Regional Effects</a>
-    <a class="button" href="<%= creature_edit_spells_path @creature %>">Spells</a>
-    <h2><%= @creature.name %></h2>
-    <a class="button" href="<%= creature_path @creature %>">Back</a>
-    <%= render partial: 'form', locals: { form_url: creature_path(@creature) } %>
-    <%= button_to "Delete", { :controller => :creatures, :action => 'destroy', :id => @creature.id }, :class => 'button button-destructive', :method => :delete %>
-  </div>
-</div>
+<div id="creature-edit-page-container"></div>

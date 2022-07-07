@@ -1,7 +1,8 @@
 import React, { ReactElement, useEffect, useState } from 'react';
+import { creatureRow } from '../../utilities/UiHelpers/creatureRow';
 import { GearIcon } from '../../components/Icons';
 import { getFaction } from '../../utilities/Api/Factions';
-import { ICharacter, ICreature, IFaction } from '../../types/models';
+import { ICharacter, IFaction } from '../../types/models';
 import { ItemWithToken } from '../../components/ItemWithToken';
 
 const getIdFromUrl = ():string => {
@@ -58,16 +59,6 @@ const FactionPage = (): ReactElement | null => {
     const subclassText = multiclassSubClass ? `, ${multiclassSubClass}` : '';
 
     return `${multiclassClass}${subclassText} (${multiclassClassLevel})`;
-  };
-
-  const creatureRow = (creature: ICreature): string => {
-    const {
-      cr,
-      creatureType,
-      size
-    } = creature;
-
-    return `${size}, ${creatureType} (CR: ${cr})`;
   };
 
   return (

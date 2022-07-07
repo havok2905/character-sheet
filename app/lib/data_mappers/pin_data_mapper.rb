@@ -1,6 +1,6 @@
 module DataMappers
-  class PinResponseModel < DataMappers::BaseResponseModel
-    def model_to_camel_case_response pin
+  class PinDataMapper < DataMappers::BaseDataMapper
+    def run pin
       {
         id: pin.id,
         mapId: pin.map_id,

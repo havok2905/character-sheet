@@ -1,0 +1,20 @@
+@import '../shared/variables';
+
+.tabs {
+  background-color: $dark-black;
+  box-shadow: $box-shadow-heavy;
+
+  .tab {
+    cursor: pointer;
+    display: inline-block;
+    padding: $small-spacing;
+
+    &:hover {
+      background-color: $green;
+    }
+
+    &.tab-selected {
+      background-color: $green;
+    }
+  }
+}

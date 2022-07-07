@@ -1,6 +1,6 @@
 module DataMappers
-  class MagicItemResponseModel < DataMappers::BaseResponseModel
-    def model_to_camel_case_response magic_item
+  class MagicItemDataMapper < DataMappers::BaseDataMapper
+    def run magic_item
       image_url = get_image_url magic_item, :image
 
       {

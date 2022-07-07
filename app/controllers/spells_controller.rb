@@ -47,8 +47,8 @@ class SpellsController < ApplicationController
   private
 
   def spell_response_model spell
-    mapper = DataMappers::SpellResponseModel.new
-    mapper.model_to_camel_case_response spell
+    mapper = DataMappers::SpellDataMapper.new
+    mapper.run spell
   end
 
   def spells_response_model spells

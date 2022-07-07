@@ -81,8 +81,8 @@ class LocationsController < ApplicationController
   private
 
   def location_response_model location, map
-    mapper = DataMappers::LocationResponseModel.new
-    mapper.model_to_camel_case_response location, map
+    mapper = DataMappers::LocationDataMapper.new
+    mapper.run location, map
   end
 
   def locations_response_model locations

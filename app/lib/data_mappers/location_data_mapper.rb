@@ -1,13 +1,8 @@
 module DataMappers
-  class LocationResponseModel < DataMappers::BaseResponseModel
-    def model_to_camel_case_response location, map
+  class LocationDataMapper < DataMappers::BaseDataMapper
+    def run location, map
       image_url = get_image_url map, :image
       sigil_url = get_image_url location, :sigil
-
-      pins_response = map&.pins&.map do |pin|
-        mapper = DataMappers::PinResponseModel.new
-        mapper.model_to_camel_case_response pin
-      end
 
       {
         content: location.content,
@@ -16,11 +11,27 @@ module DataMappers
         map: {
           id: map&.id,
           imageUrl: image_url,
-          pins: pins_response.any? ? pins_response : []
+          pins: pins_response(map)
         },
         name: location.name,
         sigilUrl: sigil_url
       }
+    end
+
+    private
+
+    def pins_response map
+      pins = map.pins || []
+
+      pins.map do |pin|
+        {
+          id: pin.id,
+          mapId: pin.map_id,
+          name: pin.name,
+          x: pin.x,
+          y: pin.y
+        }
+      end
     end
   end
 end

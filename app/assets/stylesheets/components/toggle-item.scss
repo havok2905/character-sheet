@@ -1,24 +1,14 @@
 @import '../shared/variables';
 
-.toggle-content {
-  height: 0;
-  visibility: hidden;
-}
-
-.toggle-content.toggle-content-open {
-  height: auto;
-  visibility: visible;
+.toggle-item:not(:last-of-type) {
+  border-bottom: $border-standard;
 }
 
 .toggle-header {
   cursor: pointer;
-}
 
-.toggle-header svg {
-  margin-right: $small-spacing;
-  vertical-align: middle;
-}
-
-.toggle-item:not(:last-of-type) {
-  border-bottom: $border-standard;
+  svg {
+    margin-right: $small-spacing;
+    vertical-align: middle;
+  }
 }

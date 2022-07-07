@@ -14,6 +14,7 @@
 @import './components/pet-and-associate-link';
 @import './components/pin';
 @import './components/sheet';
+@import './components/tabs';
 @import './components/toast-collection';
 @import './components/toggle-item';
 @import './components/token';
@@ -51,7 +52,7 @@ fieldset {
   margin-bottom: $standard-spacing;
 }
 
-input, select, textarea {
+input[type="number"], input[type="text"], select, textarea {
   background-color: $dark-black;
   border: solid $dark-black 1px;
   box-shadow: $box-shadow-field;

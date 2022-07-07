@@ -55,8 +55,8 @@ class MagicItemsController < ApplicationController
   private
 
   def magic_item_response_model magic_item
-    mapper = DataMappers::MagicItemResponseModel.new
-    mapper.model_to_camel_case_response magic_item
+    mapper = DataMappers::MagicItemDataMapper.new
+    mapper.run magic_item
   end
 
   def magic_items_response_model magic_items

@@ -1,5 +1,5 @@
 module DataMappers
-  class BaseResponseModel
+  class BaseDataMapper
     include ActionView::Helpers
     include ActionDispatch::Routing
     include Rails.application.routes.url_helpers

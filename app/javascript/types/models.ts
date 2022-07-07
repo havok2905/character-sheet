@@ -1,4 +1,6 @@
 import {
+  AlignmentTypes,
+  CreatureCategoryTypes,
   ItemCategoryTypes,
   ItemRarityTypes,
   SpellSchoolsTypes
@@ -180,9 +182,44 @@ interface ICharacter {
   wisdomScore: number;
 }
 
+interface ICreatureAction {
+  description: string;
+  actionType: string;
+  actionCombatType: string;
+  attackBonus: number;
+  damageDiceRoll: string;
+  damageTwoDiceRoll: string;
+  damageTwoType: string;
+  damageType: string;
+  name: string;
+  range: string;
+  savingThrowDc: number;
+  savingThrowType: string;
+}
+
+interface ICreatureFeature {
+  description: string;
+  name: string;
+}
+
+interface ICreatureLairAction {
+  description: string;
+}
+
+interface ICreatureLegendaryAction {
+  description: string;
+  name: string;
+}
+
+interface ICreatureRegionalEffect {
+  _destroy?: boolean;
+  description: string;
+  id?: string;
+}
+
 interface ICreature {
   ac: number;
-  alignment: string;
+  alignment: AlignmentTypes;
   armor: string;
   backstory: string;
   bonds: string;
@@ -192,11 +229,16 @@ interface ICreature {
   conditionImmunities: string;
   conditionResistances: string;
   conditionVulnerabilities: string;
-  constitution_mod: number;
-  constitution_save: number;
-  constitution_score: number;
+  constitutionMod: number;
+  constitutionSave: number;
+  constitutionScore: number;
   cr: string;
-  creatureCategory: string;
+  creatureActions?: ICreatureAction[];
+  creatureCategory: CreatureCategoryTypes;
+  creatureFeatures?: ICreatureFeature[];
+  creatureLairActions?: ICreatureLairAction[];
+  creatureLegendaryActions?: ICreatureLegendaryAction[];
+  creatureRegionalEffects?: ICreatureRegionalEffect[];
   creatureType: string;
   damageImmunities: string;
   damageResistances: string;
@@ -205,6 +247,7 @@ interface ICreature {
   dexterityMod: number;
   dexteritySave: number;
   dexterityScore: number;
+  factions?: IFaction[];
   flaws: string;
   hp: number;
   id?: string;
@@ -214,15 +257,18 @@ interface ICreature {
   intelligenceSave: number;
   intelligenceScore: number;
   languages: string;
-  lairActionsText: string;
-  legendaryActionsText: string;
+  lairActionsText?: string;
+  legendaryActionsText?: string;
+  magicItems?: IMagicItem[];
   name: string;
   personalityTraits: string;
-  regionalEffectsText: string;
+  regionalEffectsText?: string;
   senses: string;
   size: string;
   skills: string;
   speed: string;
+  spells?: ISpell[];
+  spellIds?: string[];
   spellSlotsFirst: number;
   spellSlotsSecond: number;
   spellSlotsThird: number;
@@ -261,6 +307,11 @@ interface IFaction {
 export {
   ICharacter,
   ICreature,
+  ICreatureAction,
+  ICreatureFeature,
+  ICreatureLairAction,
+  ICreatureLegendaryAction,
+  ICreatureRegionalEffect,
   IFaction,
   ILocation,
   IMagicItem,
