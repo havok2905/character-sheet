@@ -8,8 +8,7 @@ const uploadLocationSigil = (id: string, data: FormData): Promise<IUploadLocatio
   return fetch(`/locations/${id}/upload_sigil.json`, {
     body: data,
     method: 'POST'
-  })
-  .then(response => response.json())
+  }).then(response => response.json())
 };
 
 export { uploadLocationSigil };

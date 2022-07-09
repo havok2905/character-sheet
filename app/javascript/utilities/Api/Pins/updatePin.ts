@@ -13,8 +13,7 @@ const updatePin = (id: string, data: IUpdatePinRequest): Promise<IUpdatePinRespo
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-  })
-  .then(response => response.json());
+  }).then(response => response.json());
 };
 
 export { updatePin };

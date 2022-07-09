@@ -8,8 +8,7 @@ const uploadMagicItemImage = (id: string, data: FormData): Promise<IUploadMagicI
   return fetch(`/magic_items/${id}/upload_image.json`, {
     body: data,
     method: 'POST'
-  })
-  .then(response => response.json())
+  }).then(response => response.json())
 };
 
 export { uploadMagicItemImage };

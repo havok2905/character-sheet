@@ -65,8 +65,6 @@ const AssociatedMagicItemsForm = ({
           {
             getMagicItems().map(magicItem => {
               const { id, name } = magicItem;
-
-              if (!id) return;
               
               const checked = updatedMagicItemIds.includes(String(id));
 

@@ -8,8 +8,7 @@ const getSpells = (): Promise<IGetSpellsResponse> => {
   return fetch('/spells.json', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
-  })
-  .then(response => response.json());
+  }).then(response => response.json());
 };
 
 export { getSpells };

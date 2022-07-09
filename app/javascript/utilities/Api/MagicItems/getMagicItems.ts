@@ -8,8 +8,7 @@ const getMagicItems = (): Promise<IGetMagicItemsResponse> => {
   return fetch('/magic_items.json', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
-  })
-  .then(response => response.json());
+  }).then(response => response.json());
 };
 
 export { getMagicItems };

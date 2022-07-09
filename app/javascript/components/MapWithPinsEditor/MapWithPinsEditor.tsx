@@ -53,60 +53,60 @@ type IMapWithPinsEditorProps = {
 
 const reducer = (state: IMapEditorReducerState, action: IMapEditorReducerAction) => {
   switch(action.type) {
-    case MapEditorReducerActionType.ADD_NEW_PIN:
-      return {
-        ...state,
-        newPinName: '',
-        statefulPins: action.payload.pins
-      };
-    case MapEditorReducerActionType.CLOSE_EDIT_MODAL:
-      return {
-        ...state,
-        editModalOpen: false,
-        editedPinId: ''
-      };
-    case MapEditorReducerActionType.CLOSE_VIEW_MODAL:
-      return {
-        ...state,
-        viewModalOpen: false,
-        viewedPinId: ''
-      };
-    case MapEditorReducerActionType.OPEN_EDIT_MODAL:
-      return {
-        ...state,
-        editModalOpen: true,
-        editedPinId: action.payload.pinId
-      };
-    case MapEditorReducerActionType.OPEN_VIEW_MODAL:
-      return {
-        ...state,
-        viewModalOpen: true,
-        viewedPinId: action.payload.pinId
-      };
-    case MapEditorReducerActionType.SET_FOCUSED_PIN:
-      return {
-        ...state,
-        focusedPinId: action.payload.pinId
-      };
-    case MapEditorReducerActionType.SET_PINS:
-      return {
-        ...state,
-        statefulPins: action.payload.pins
-      };
-    case MapEditorReducerActionType.SET_SELECTED_PIN:
-      return {
-        ...state,
-        selectedPinId: action.payload.pinId
-      };
-    case MapEditorReducerActionType.UPDATE_NEW_PIN:
-      return {
-        ...state,
-        newPinName: action.payload.newPinName
-      };
-    default:
-      return {
-        ...state
-      };
+  case MapEditorReducerActionType.ADD_NEW_PIN:
+    return {
+      ...state,
+      newPinName: '',
+      statefulPins: action.payload.pins
+    };
+  case MapEditorReducerActionType.CLOSE_EDIT_MODAL:
+    return {
+      ...state,
+      editModalOpen: false,
+      editedPinId: ''
+    };
+  case MapEditorReducerActionType.CLOSE_VIEW_MODAL:
+    return {
+      ...state,
+      viewModalOpen: false,
+      viewedPinId: ''
+    };
+  case MapEditorReducerActionType.OPEN_EDIT_MODAL:
+    return {
+      ...state,
+      editModalOpen: true,
+      editedPinId: action.payload.pinId
+    };
+  case MapEditorReducerActionType.OPEN_VIEW_MODAL:
+    return {
+      ...state,
+      viewModalOpen: true,
+      viewedPinId: action.payload.pinId
+    };
+  case MapEditorReducerActionType.SET_FOCUSED_PIN:
+    return {
+      ...state,
+      focusedPinId: action.payload.pinId
+    };
+  case MapEditorReducerActionType.SET_PINS:
+    return {
+      ...state,
+      statefulPins: action.payload.pins
+    };
+  case MapEditorReducerActionType.SET_SELECTED_PIN:
+    return {
+      ...state,
+      selectedPinId: action.payload.pinId
+    };
+  case MapEditorReducerActionType.UPDATE_NEW_PIN:
+    return {
+      ...state,
+      newPinName: action.payload.newPinName
+    };
+  default:
+    return {
+      ...state
+    };
   }
 };
 
@@ -332,21 +332,21 @@ const MapWithPinsEditor = ({
       <Modal
         onCloseModal={handleEditModalClose}
         onCloseModalOverlay={handleEditModalClose}>
-          <h2>Edit Map - {editedPinId}</h2>
-          <form>
-            <fieldset>
-              <label>Name</label>
-              <input
-                onChange={handleEditPinName}
-                type="text"
-                value={name} />
-            </fieldset>
-          </form>
-          <h3>Factions</h3>
-          <h3>NPCs</h3>
-          <h3>Creatures</h3>
-          <h3>Magic Items</h3>
-          <button onClick={() => { handleEditModalSave(pin) }}>Save</button>
+        <h2>Edit Map - {editedPinId}</h2>
+        <form>
+          <fieldset>
+            <label>Name</label>
+            <input
+              onChange={handleEditPinName}
+              type="text"
+              value={name} />
+          </fieldset>
+        </form>
+        <h3>Factions</h3>
+        <h3>NPCs</h3>
+        <h3>Creatures</h3>
+        <h3>Magic Items</h3>
+        <button onClick={() => { handleEditModalSave(pin) }}>Save</button>
       </Modal>
     );
   };
@@ -364,12 +364,12 @@ const MapWithPinsEditor = ({
       <Modal
         onCloseModal={handleViewModalClose}
         onCloseModalOverlay={handleViewModalClose}>
-          <h2>Edit Map - {viewedPinId}</h2>
-          <p><strong>Name:</strong> {name}</p>
-          <h3>Factions</h3>
-          <h3>NPCs</h3>
-          <h3>Creatures</h3>
-          <h3>Magic Items</h3>
+        <h2>Edit Map - {viewedPinId}</h2>
+        <p><strong>Name:</strong> {name}</p>
+        <h3>Factions</h3>
+        <h3>NPCs</h3>
+        <h3>Creatures</h3>
+        <h3>Magic Items</h3>
       </Modal>
     );
   };

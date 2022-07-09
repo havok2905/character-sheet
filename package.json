@@ -3,7 +3,7 @@
   "private": "true",
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
-    "eslint": "eslint app/javascript/ --ext .js,.ts",
+    "eslint": "eslint app/javascript/ --ext .js,.ts,.tsx",
     "lint": "yarn eslint && yarn stylelint",
     "stylelint": "stylelint **/*.scss",
     "test": "jest"

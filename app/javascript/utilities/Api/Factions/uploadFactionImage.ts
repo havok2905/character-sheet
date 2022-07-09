@@ -8,8 +8,7 @@ const uploadFactionImage = (id: string, data: FormData): Promise<IUploadFactionI
   return fetch(`/factions/${id}/upload_image.json`, {
     body: data,
     method: 'POST'
-  })
-  .then(response => response.json())
+  }).then(response => response.json())
 };
 
 export { uploadFactionImage };

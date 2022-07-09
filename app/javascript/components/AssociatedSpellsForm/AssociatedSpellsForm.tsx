@@ -98,8 +98,6 @@ const AssociatedSpellsForm = ({
           {
             getSpells().map(spell => {
               const { id, name, level, school } = spell;
-
-              if (!id) return;
               
               const checked = updatedSpellIds.includes(String(id));
 

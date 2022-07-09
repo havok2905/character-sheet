@@ -33,16 +33,16 @@ const ImageForm = ({
   return (
     <form onSubmit={onSubmit}>
       {imageUrl && <img className={imageClassName} src={imageUrl} />}
-        <div>
-          <input
-            name={inputName}
-            id={inputName}
-            ref={imageFormRef}
-            type="file" />
-        </div>
-        <button>
-          {buttonLabel}
-        </button>
+      <div>
+        <input
+          name={inputName}
+          id={inputName}
+          ref={imageFormRef}
+          type="file" />
+      </div>
+      <button>
+        {buttonLabel}
+      </button>
     </form>
   );
 };

@@ -13,8 +13,7 @@ const createFaction = (data: ICreateFactionRequest): Promise<ICreateFactionRespo
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-  })
-  .then(response => response.json());
+  }).then(response => response.json());
 };
 
 export { createFaction };

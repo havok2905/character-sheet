@@ -1,24 +1,19 @@
 import { createRoot, Root } from 'react-dom/client';
 
-type IBootstrapperData = {
-  container: HTMLElement | null,
-  root: Root | null
-};
+interface IBootstrapperData {
+  container?: HTMLElement;
+  root?: Root;
+}
 
 const getReactRoot = (id: string): IBootstrapperData => {
-  const response = {
-    container: null,
-    root: null
-  };
-
   const container = document.getElementById(id);
-  
-  if (container) {
-    response.container = container;
-    response.root = createRoot(container!)
-  }
 
-  return response;
+  if (!container) return {};
+
+  return {
+    container,
+    root: createRoot(container)
+  };
 };
 
 export { getReactRoot };

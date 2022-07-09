@@ -66,8 +66,6 @@ const AssociatedFactionsForm = ({
             getFactions().map(faction => {
               const { id, name } = faction;
 
-              if (!id) return;
-
               const checked = updatedFactionIds.includes(String(id));
 
               return (

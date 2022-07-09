@@ -8,8 +8,7 @@ const getFactions = (): Promise<IGetFactionsResponse> => {
   return fetch('/factions.json', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
-  })
-  .then(response => response.json());
+  }).then(response => response.json());
 };
 
 export { getFactions };

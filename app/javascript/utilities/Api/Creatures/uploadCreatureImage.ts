@@ -8,8 +8,7 @@ const uploadCreatureImage = (id: string, data: FormData): Promise<IUploadCreatur
   return fetch(`/creatures/${id}/upload_image.json`, {
     body: data,
     method: 'POST'
-  })
-  .then(response => response.json())
+  }).then(response => response.json())
 };
 
 export { uploadCreatureImage };

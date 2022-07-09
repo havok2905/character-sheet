@@ -8,8 +8,7 @@ const uploadLocationMap = (id: string, data: FormData): Promise<IUploadLocationM
   return fetch(`/locations/${id}/upload_map.json`, {
     body: data,
     method: 'POST'
-  })
-  .then(response => response.json())
+  }).then(response => response.json())
 };
 
 export { uploadLocationMap };

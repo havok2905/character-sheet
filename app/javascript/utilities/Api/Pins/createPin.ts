@@ -13,8 +13,7 @@ const createPin = (data: ICreatePinRequest): Promise<ICreatePinResponse> => {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-  })
-  .then(response => response.json());
+  }).then(response => response.json());
 };
 
 export { createPin };

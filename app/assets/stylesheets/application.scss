@@ -51,6 +51,7 @@ fieldset {
   margin-bottom: $standard-spacing;
 }
 
+/* stylelint-disable-next-line string-quotes */
 input[type="number"], input[type="text"], select, textarea {
   background-color: $dark-black;
   border: solid $dark-black 1px;

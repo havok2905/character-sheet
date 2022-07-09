@@ -5,6 +5,7 @@
     "color-function-notation": "legacy",
     "color-hex-length": "long",
     "declaration-block-no-redundant-longhand-properties": null,
+    "property-no-vendor-prefix": null,
     "selector-list-comma-newline-after": null,
     "string-quotes": "single"
   }

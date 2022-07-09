@@ -17,8 +17,7 @@ const createLocation = (data: ICreateLocationRequest): Promise<ICreateLocationRe
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-  })
-  .then(response => response.json());
+  }).then(response => response.json());
 };
 
 export {
