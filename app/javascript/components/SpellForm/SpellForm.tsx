@@ -240,7 +240,7 @@ const SpellForm = ({
         </textarea>
       </fieldset>
       <fieldset>
-        <button className="button button-constructive">
+        <button>
           {handleSubmitButtonLabel}
         </button>
       </fieldset>

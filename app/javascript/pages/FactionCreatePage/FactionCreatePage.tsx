@@ -19,7 +19,7 @@ const FactionCreatePage = (): ReactElement => {
     <div className="layout">
       <div className="full">
         <h1>New Faction</h1>
-        <a className="button" href="/factions">
+        <a href="/factions">
           Back
         </a>
         <FactionForm

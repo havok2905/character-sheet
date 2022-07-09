@@ -71,7 +71,7 @@ const FactionEditPage = (): ReactElement | null => {
     <div className="layout">
       <div className="full">
         <h1>Edit Faction</h1>
-        <a className="button" href="/factions">
+        <a href="/factions">
           Back
         </a>
         <ImageForm
@@ -85,7 +85,7 @@ const FactionEditPage = (): ReactElement | null => {
           handleSubmit={handleSubmit}
           handleSubmitButtonLabel="Update Faction"/>
         <button
-          className="button button-destructive"
+         
           onClick={handleDelete}>
           Delete
         </button>

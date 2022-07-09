@@ -23,7 +23,7 @@ const LocationsPage = (): ReactElement => {
     <div className="layout">
       <div className="full">
         <h1>Locations</h1>
-        <a className="button" href="/locations/new">Create</a>
+        <a href="/locations/new">Create</a>
         <table>
           <thead>
             <tr>

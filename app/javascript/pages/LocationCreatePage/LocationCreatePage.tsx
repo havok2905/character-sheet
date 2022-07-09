@@ -62,7 +62,7 @@ const LocationCreatePage = (): ReactElement => {
             <MarkdownPreview value={content}/>
           </fieldset>
           <fieldset>
-            <button className="button button-constructive">
+            <button>
               Create Location
             </button>
           </fieldset>

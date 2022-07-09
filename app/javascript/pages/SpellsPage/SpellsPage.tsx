@@ -14,7 +14,7 @@ const SpellsPage = (): ReactElement => {
     <div className="layout">
       <div className="full">
         <h1>Spells</h1>
-        <a className="button" href="/spells/new">
+        <a href="/spells/new">
           Create
         </a>
         <SpellsTable spells={spells}/>

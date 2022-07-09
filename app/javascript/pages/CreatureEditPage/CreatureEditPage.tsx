@@ -261,11 +261,11 @@ const CreatureEditPageContent = (): ReactElement | null => {
     <>
       <div className="layout">
         <div className="full">
-          <a className="button" href={`/creatures/${id}`}>
+          <a href={`/creatures/${id}`}>
             Back
           </a>
           <button
-            className="button button-destructive"
+           
             onClick={handleDelete}>
             Delete
           </button>

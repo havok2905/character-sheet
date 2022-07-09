@@ -14,7 +14,7 @@ const CreaturesPage = (): ReactElement => {
     <div className="layout">
       <div className="full">
         <h1>Creatures</h1>
-        <a className="button" href="/creatures/new">
+        <a href="/creatures/new">
           Create
         </a>
         <CreaturesTable creatures={creatures}/>

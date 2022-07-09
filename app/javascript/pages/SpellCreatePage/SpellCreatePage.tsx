@@ -19,7 +19,7 @@ const SpellCreatePage = (): ReactElement => {
     <div className="layout">
       <div className="full">
         <h1>New Spell</h1>
-        <a className="button" href="/spells">Back</a>
+        <a href="/spells">Back</a>
         <SpellForm
           handleSubmit={handleSubmit}
           handleSubmitButtonLabel="Create Spell"/>

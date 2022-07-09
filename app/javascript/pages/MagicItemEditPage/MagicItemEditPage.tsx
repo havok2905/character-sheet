@@ -71,7 +71,7 @@ const MagicItemEditPage = (): ReactElement | null => {
     <div className="layout">
       <div className="full">
         <h1>Edit Magic Item</h1>
-        <a className="button" href={`/magic_items/${id}`}>Back</a>
+        <a href={`/magic_items/${id}`}>Back</a>
         <ImageForm
           buttonLabel="Upload Image"
           imageUrl={imageUrl}
@@ -83,7 +83,7 @@ const MagicItemEditPage = (): ReactElement | null => {
           handleSubmitButtonLabel="Update Magic Item"
           magicItem={magicItem}/>
         <button
-          className="button button-destructive"
+         
           onClick={handleDelete}>
           Delete
         </button>

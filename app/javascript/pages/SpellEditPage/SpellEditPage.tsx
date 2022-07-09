@@ -53,13 +53,13 @@ const SpellEditPage = (): ReactElement | null => {
     <div className="layout">
       <div className="full">
         <h1>Edit Spell</h1>
-        <a className="button" href={`/spells/${id}`}>Back</a>
+        <a href={`/spells/${id}`}>Back</a>
         <SpellForm
           handleSubmit={handleSubmit}
           handleSubmitButtonLabel="Update Spell"
           spell={spell} />
         <button
-          className="button button-destructive"
+         
           onClick={handleDelete}>
           Delete
         </button>

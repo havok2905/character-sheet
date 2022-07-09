@@ -14,7 +14,7 @@ const FactionsPage = (): ReactElement => {
     <div className="layout">
       <div className="full">
         <h1>Factions</h1>
-        <a className="button" href="/factions/new">
+        <a href="/factions/new">
           Create
         </a>
         <ul className="bulletless-list">

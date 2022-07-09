@@ -15,7 +15,7 @@ const MagicItemsPage = (): ReactElement => {
       <div className="full">
         <h1>Magic Items</h1>
         <a
-          className="button"
+         
           href="/magic_items/new">
           Create
         </a>

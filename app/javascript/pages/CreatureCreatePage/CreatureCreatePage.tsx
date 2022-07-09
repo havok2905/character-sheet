@@ -19,7 +19,7 @@ const CreatureCreatePage = (): ReactElement => {
     <div className="layout">
       <div className="full">
         <h1>New Creature</h1>
-        <a className="button" href="/creatures">
+        <a href="/creatures">
           Back
         </a>
         <CreatureForm

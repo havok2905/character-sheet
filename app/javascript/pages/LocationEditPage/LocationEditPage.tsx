@@ -150,7 +150,7 @@ const LocationEditPage = (): ReactElement => {
                 id="location-map"
                 ref={mapFileUploadRef}
                 type="file" />
-              <button className="button button-constructive">
+              <button>
                 Update Map Image
               </button>
             </fieldset>
@@ -168,7 +168,7 @@ const LocationEditPage = (): ReactElement => {
                 id="location-sigil"
                 ref={sigilFileUploadRef}
                 type="file" />
-              <button className="button button-constructive">
+              <button>
                 Update Sigil
               </button>
             </fieldset>
@@ -207,7 +207,7 @@ const LocationEditPage = (): ReactElement => {
               <MarkdownPreview value={contentField}/>
             </fieldset>
             <fieldset>
-              <button className="button button-constructive">
+              <button>
                 Update Location
               </button>
             </fieldset>

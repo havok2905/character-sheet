@@ -19,7 +19,7 @@ const MagicItemCreatePage = (): ReactElement => {
     <div className="layout">
       <div className="full">
         <h1>New Magic Item</h1>
-        <a className="button" href="/magic_items">Back</a>
+        <a href="/magic_items">Back</a>
         <MagicItemForm
           handleSubmit={handleSubmit}
           handleSubmitButtonLabel="Create Magic Item"/>
