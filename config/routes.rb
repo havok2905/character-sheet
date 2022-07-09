@@ -20,10 +20,6 @@ Rails.application.routes.draw do
   get '/characters/:id/edit_spells', to: 'characters#edit_spells', as: 'character_edit_spells'
   resources :characters
 
-  get '/creatures/:id/edit_actions', to: 'creatures#edit_actions', as: 'creature_edit_actions'
-  get '/creatures/:id/edit_features', to: 'creatures#edit_features', as: 'creature_edit_features'
-  get '/creatures/:id/edit_lair_actions', to: 'creatures#edit_lair_actions', as: 'creature_edit_lair_actions'
-  get '/creatures/:id/edit_legendary_actions', to: 'creatures#edit_legendary_actions', as: 'creature_edit_legendary_actions'
   resources :creatures
   post '/creatures/:id/upload_image', to: 'creatures#upload_image', as: 'creature_upload_image'
 

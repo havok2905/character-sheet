@@ -1,13 +1,6 @@
 # frozen_string_literal: true
 
 class CreaturesController < ApplicationController
-  before_action :authenticate_user!, only: %i[
-    edit_actions
-    edit_features
-    edit_lair_actions
-    edit_legendary_actions
-  ]
-
   def index
     c = Creature.all
     creatures = creatures_response_model c
@@ -36,22 +29,6 @@ class CreaturesController < ApplicationController
   end
 
   def edit
-  end
-
-  def edit_actions
-    @creature = Creature.find params[:id]
-  end
-
-  def edit_features
-    @creature = Creature.find params[:id]
-  end
-
-  def edit_lair_actions
-    @creature = Creature.find params[:id]
-  end
-
-  def edit_legendary_actions
-    @creature = Creature.find params[:id]
   end
 
   def update
@@ -143,7 +120,25 @@ class CreaturesController < ApplicationController
   end
 
   def update_creature_params
-    update_creature_request.deep_transform_keys!(&:underscore)
+    creature_params = update_creature_request.deep_transform_keys!(&:underscore)
+
+    creature_params[:creature_actions].each do |action|
+      action.deep_transform_keys!(&:underscore)
+    end
+
+    creature_params[:creature_actions_attributes] = creature_params[:creature_actions]
+    creature_params[:creature_features_attributes] = creature_params[:creature_features]
+    creature_params[:creature_lair_actions_attributes] = creature_params[:creature_lair_actions]
+    creature_params[:creature_legendary_actions_attributes] = creature_params[:creature_legendary_actions]
+    creature_params[:creature_regional_effects_attributes] = creature_params[:creature_regional_effects]
+
+    creature_params.delete :creature_actions
+    creature_params.delete :creature_features
+    creature_params.delete :creature_lair_actions
+    creature_params.delete :creature_legendary_actions
+    creature_params.delete :creature_regional_effects
+    
+    creature_params
   end
 
   def update_creature_request
@@ -178,9 +173,12 @@ class CreaturesController < ApplicationController
       :intelligenceMod,
       :intelligenceSave,
       :intelligenceScore,
+      :lairActionsText,
+      :legendaryActionsText,
       :languages,
       :name,
       :personalityTraits,
+      :regionalEffectsText,
       :senses,
       :size,
       :skills,
@@ -205,6 +203,11 @@ class CreaturesController < ApplicationController
       :wisdomSave,
       :wisdomScore,
       :_destroy,
+      :creatureActions => [:_destroy, :actionType, :actionCombatType, :attackBonus, :damageDiceRoll, :damageType, :damageTwoDiceRoll, :damageTwoType, :description, :id, :name, :range, :savingThrowDc, :savingThrowType],
+      :creatureFeatures => [:_destroy, :description, :id, :name],
+      :creatureLairActions => [:_destroy, :description, :id],
+      :creatureLegendaryActions => [:_destroy, :description, :id, :name],
+      :creatureRegionalEffects => [:_destroy, :description, :id],
       :factionIds => [],
       :magicItemIds => [],
       :spellIds => []

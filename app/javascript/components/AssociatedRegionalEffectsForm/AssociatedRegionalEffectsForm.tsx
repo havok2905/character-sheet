@@ -2,142 +2,106 @@ import React, { ReactElement, useState } from 'react';
 import { ICreature, ICreatureRegionalEffect } from '../../types/models';
 
 interface IAssociatedRegionalEffectsFormProps {
-  creature: ICreature
+  buttonLabel: string,
+  creature: ICreature;
+  handleSubmit: (regionalEffectsText: string, creatureRegionalEffects: ICreatureRegionalEffect[]) => void;
 }
 
 const AssociatedRegionalEffectsForm = ({
-  creature
+  buttonLabel,
+  creature,
+  handleSubmit
 }: IAssociatedRegionalEffectsFormProps): ReactElement => {
   const [newRegionalEffects, setNewRegionalEffects] = useState<ICreatureRegionalEffect[]>([]);
-  const [regionalEffects, setRegionalEffects] = useState<ICreatureRegionalEffect[]>(
-    (creature.creatureRegionalEffects ?? []).map(effect => ({ ...effect }))
+  const [regionalEffectsText, setRegionalEffectsText] = useState(creature.regionalEffectsText || '');
+  const [updatedRegionalEffects, setUpdatedRegionalEffects] = useState<ICreatureRegionalEffect[]>(
+    (creature.creatureRegionalEffects || []).map(effect => ({ ...effect }))
   );
 
-  const addNewRegionalEffect = e => {
-    e.preventDefault();
-    setNewRegionalEffects([...newRegionalEffects, { description: '' }]);
+  const handleFormChange = (index: number, key: string, value: any) => {
+    const updatedForm = updatedRegionalEffects.map(effect => ({ ...effect }));
+    updatedForm[index][key] = value;
+    setUpdatedRegionalEffects(updatedForm);
   };
 
-  const onSubmit = e => {
-    e.preventDefault();
-
-    console.log([
-      ...regionalEffects,
-      ...newRegionalEffects
-    ]);
+  const handleNewFieldsChange = (index: number, key: string, value: any) => {
+    const updatedForm = newRegionalEffects.map(effect => ({ ...effect }));
+    updatedForm[index][key] = value;
+    setNewRegionalEffects(updatedForm);
   };
 
-  const updateDescriptionField = (
-    index: number,
-    value: string,
-    effects: ICreatureRegionalEffect[]
-  ) => {
-    const updatedRegionalEffects = effects.map((effect, i) => {
-      return index === i ? { ...effect, description: value } : effect;
-    });
-
-    setRegionalEffects(updatedRegionalEffects);
-  };
-
-  const getDescriptionField = (
-    effect: ICreatureRegionalEffect,
-    effects: ICreatureRegionalEffect[],
-    index: number
-  ) => {
-    const { description } = effect;
+  const getRegionalEffect = (effect: ICreatureRegionalEffect, index: number): ReactElement => {
+    const { _destroy, description } = effect;
 
     return (
-      <>
+      <fieldset>
         <label>Description</label>
         <textarea
-          name="description"
-          onChange={e => updateDescriptionField(index, e.target.value, effects)}
+          onChange={e => handleFormChange(index, 'description', e.target.value)}
           value={description}>  
         </textarea>
-      </>
-    )
-  };
-
-  const updateDestroyField = (
-    index: number, 
-    value: boolean, 
-    effects: ICreatureRegionalEffect[]
-  ) => {
-    const updatedRegionalEffects = effects.map((effect, i) => {
-      return index === i ? { ...effect, _destroy: value } : effect;
-    });
-
-    setRegionalEffects(updatedRegionalEffects);
-  };
-
-
-  const getDestroyField = (
-    effect: ICreatureRegionalEffect,
-    effects: ICreatureRegionalEffect[],
-    index: number
-  ) => {
-    const { _destroy } = effect;
-
-    return (
-      <>
         <label>
           Mark for deletion
           <input
-          checked={_destroy}
-          name="_destroy"
-          onChange={e => updateDestroyField(index, e.target.checked, effects)}
-          type="checkbox"/>
+            checked={_destroy}
+            name="_destroy"
+            onChange={e => handleFormChange(index, '_destroy', e.target.checked)}
+            type="checkbox"/>
         </label>
-      </>
+      </fieldset>
     );
   };
 
-  const getRegionalEffects = () => {
+  const getNewRegionalEffect = (effect: ICreatureRegionalEffect, index: number): ReactElement => {
+    const { description } = effect;
+
     return (
-      <>
-        {
-          regionalEffects.map((effect, index) => {
-            return (
-              <fieldset>
-                {getDescriptionField(effect, regionalEffects, index)}
-                {getDestroyField(effect, regionalEffects, index)}
-              </fieldset>
-            );
-          })
-        }
-        {
-          !!newRegionalEffects.length && <hr/>
-        }
-        {
-          newRegionalEffects.map((effect, index) => {
-            return (
-              <fieldset>
-                {getDescriptionField(effect, newRegionalEffects, index)}
-                <button
-                  onClick={() => {
-                    setNewRegionalEffects(newRegionalEffects.filter((_effect, i) => i !== index))
-                  }}>
-                  Remove
-                </button>
-              </fieldset>
-            );
-          })
-        }
-      </>
+      <fieldset>
+        <label>Description</label>
+        <textarea
+          onChange={e => handleNewFieldsChange(index, 'description', e.target.value)}
+          value={description}>  
+        </textarea>
+        <button onClick={e => {
+          e.preventDefault();
+          setNewRegionalEffects(newRegionalEffects.filter((_effect, i) => i !== index ))
+        }}>
+          Remove
+        </button>
+      </fieldset>
     );
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      {getRegionalEffects()}
-      <button onClick={addNewRegionalEffect}>
-        Add Regional Effect
-      </button>
-      <button type="submit">
-        Save Regional Effects
-      </button>
-    </form>
-  )
+    <>
+      <form onSubmit={e => {
+        e.preventDefault();
+        handleSubmit(regionalEffectsText, [...updatedRegionalEffects, ...newRegionalEffects])
+      }}>
+        <button type="submit">
+          {buttonLabel}
+        </button>
+        <h2>Regional Effects Text</h2>
+        <fieldset>
+          <label>Regional Effects Text</label>
+          <textarea
+            onChange={e => setRegionalEffectsText(e.target.value)}
+            value={regionalEffectsText}>
+          </textarea>
+        </fieldset>
+        <h2>Regional Effects</h2>
+        {updatedRegionalEffects.map(getRegionalEffect)}
+        <hr/>
+        <button onClick={e => {
+          e.preventDefault()
+          setNewRegionalEffects([...newRegionalEffects, { description: '' }])
+        }}>
+          Add
+        </button>
+        {newRegionalEffects.map(getNewRegionalEffect)}
+      </form>
+    </>
+  );
 };
 
 export { AssociatedRegionalEffectsForm };

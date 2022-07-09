@@ -83,6 +83,7 @@ module DataMappers
 
       creature_actions.map do |creature_action|
         {
+          id: creature_action.id,
           description: creature_action.description,
           actionType: creature_action.action_type,
           actionCombatType: creature_action.action_combat_type,
@@ -104,6 +105,7 @@ module DataMappers
 
       creature_features.map do |creature_feature|
         {
+          id: creature_feature.id,
           description: creature_feature.description,
           name: creature_feature.name
         }
@@ -115,6 +117,7 @@ module DataMappers
 
       creature_lair_actions.map do |creature_lair_action|
         {
+          id: creature_lair_action.id,
           description: creature_lair_action.description
         }
       end
@@ -125,6 +128,7 @@ module DataMappers
 
       creature_legendary_actions.map do |creature_legendary_action|
         {
+          id: creature_legendary_action.id,
           description: creature_legendary_action.description,
           name: creature_legendary_action.name
         }

@@ -1,11 +1,35 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { AlignmentTypes, CreatureCategoryTypes, CR_LIST } from '../../types/rules';
-import { ICreature } from '../../types/models';
+import { ICreature, IFaction, IMagicItem, ISpell } from '../../types/models';
+
+const getFormCopy = (formModel: ICreature) => {
+  return {
+    ...formModel,
+    factions: [
+      ...(formModel.factions || []).map(faction => {
+        return { ...faction }
+      })
+    ],
+    magicItems: [
+      ...(formModel.magicItems || []).map(magicItem => {
+        return { ...magicItem }
+      })
+    ],
+    spells: [
+      ...(formModel.spells || []).map(spell => {
+        return { ...spell }
+      })
+    ]
+  };
+};
 
 interface ICreatureFormProps {
   creature?: ICreature;
+  factions: IFaction[];
   handleSubmit: (creature: ICreature) => void;
   handleSubmitButtonLabel: string;
+  magicItems: IMagicItem[];
+  spells: ISpell[];
 }
 
 const CreatureForm = ({
@@ -13,298 +37,162 @@ const CreatureForm = ({
   handleSubmit,
   handleSubmitButtonLabel
 }: ICreatureFormProps): ReactElement => {
-  const [acField, setAcField] = useState(0);
-  const [alignmentField, setAlignmentField] = useState<AlignmentTypes>(AlignmentTypes.CHAOTIC_GOOD);
-  const [armorField, setArmorField] = useState('');
-  const [backstoryField, setBackstoryField] = useState('');
-  const [bondsField, setBondsField] = useState('');
-  const [charismaModField, setCharismaModField] = useState(0);
-  const [charismaSaveField, setCharismaSaveField] = useState(0);
-  const [charismaScoreField, setCharismaScoreField] = useState(0);
-  const [conditionImmunitiesField, setConditionImmunitiesField] = useState('');
-  const [conditionResistancesField, setConditionResistancesField] = useState('');
-  const [conditionVulnerabilitiesField, setConditionVulnerabilitiesField] = useState('');
-  const [constitutionModField, setConstitutionModField] = useState(0);
-  const [constitutionSaveField, setConstitutionSaveField] = useState(0);
-  const [constitutionScoreField, setConstitutionScoreField] = useState(0);
-  const [crField, setCrField] = useState('');
-  const [creatureCategoryField, setCreatureCategoryField] = useState<CreatureCategoryTypes>(CreatureCategoryTypes.UNKNOWN);
-  const [creatureTypeField, setCreatureTypeField] = useState('');
-  const [damageImmunitiesField, setDamageImmunitiesField] = useState('');
-  const [damageResistancesField, setDamageResistancesField] = useState('');
-  const [damageVulnerabilitiesField, setDamageVulnerabilitiesField] = useState('');
-  const [descriptionField, setDescriptionField] = useState('');
-  const [dexterityModField, setDexterityModField] = useState(0);
-  const [dexteritySaveField, setDexteritySaveField] = useState(0);
-  const [dexterityScoreField, setDexterityScoreField] = useState(0);
-  const [flawsField, setFlawsField] = useState('');
-  const [hpField, setHpField] = useState(0);
-  const [idealsField, setIdeaslsField] = useState('');
-  const [intelligenceModField, setIntelligenceModField] = useState(0);
-  const [intelligenceSaveField, setIntelligenceSaveField] = useState(0);
-  const [intelligenceScoreField, setIntelligenceScoreField] = useState(0);
-  const [languagesField, setLanguagesField] = useState('');
-  const [nameField, setNameField] = useState('');
-  const [personalityTraitsField, setPersonalityTraitsField] = useState('');
-  const [sensesField, setSensesField] = useState('');
-  const [sizeField, setSizeField] = useState('');
-  const [skillsField, setSkillsField] = useState('');
-  const [speedField, setSpeedField] = useState('');
-  const [spellSlotsFirstField, setSpellSlotsFirstField] = useState(0);
-  const [spellSlotsSecondField, setSpellSlotsSecondField] = useState(0);
-  const [spellSlotsThirdField, setSpellSlotsThirdField] = useState(0);
-  const [spellSlotsFourthField, setSpellSlotsFourthField] = useState(0);
-  const [spellSlotsFifthField, setSpellSlotsFifthField] = useState(0);
-  const [spellSlotsSixthField, setSpellSlotsSixthField] = useState(0);
-  const [spellSlotsSeventhField, setSpellSlotsSeventhField] = useState(0);
-  const [spellSlotsEighthField, setSpellSlotsEighthField] = useState(0);
-  const [spellSlotsNinthField, setSpellSlotsNinthField] = useState(0);
-  const [spellcastingAbilityField, setSpellcastingAbilityField] = useState('');
-  const [spellcastingLevelField, setSpellcastingLevelField] = useState(0);
-  const [spellcastingModifierField, setSpellcastingModifierField] = useState(0);
-  const [spellcastingSaveDcField, setSpellcastingSaveDcField] = useState(0);
-  const [strengthModField, setStrengthModField] = useState(0);
-  const [strengthSaveField, setStrengthSaveField] = useState(0);
-  const [strengthScoreField, setStrengthScoreField] = useState(0);
-  const [wisdomModField, setWisdomModField] = useState(0);
-  const [wisdomSaveField, setWisdomSaveField] = useState(0);
-  const [wisdomScoreField, setWisdomScoreField] = useState(0);
+  const [form, setForm] = useState<ICreature>({
+    ac: 0,
+    alignment: AlignmentTypes.CHAOTIC_GOOD,
+    armor: '',
+    backstory: '',
+    bonds: '',
+    charismaMod: 0,
+    charismaSave: 0,
+    charismaScore: 0,
+    conditionImmunities: '',
+    conditionResistances: '',
+    conditionVulnerabilities: '',
+    constitutionMod: 0,
+    constitutionSave: 0,
+    constitutionScore: 0,
+    cr: '',
+    creatureCategory: CreatureCategoryTypes.UNKNOWN,
+    creatureType: '',
+    damageImmunities: '',
+    damageResistances: '',
+    damageVulnerabilities: '',
+    description: '',
+    dexterityMod: 0,
+    dexteritySave: 0,
+    dexterityScore: 0,
+    factions: [],
+    flaws: '',
+    hp: 0,
+    ideals: '',
+    intelligenceMod: 0,
+    intelligenceSave: 0,
+    intelligenceScore: 0,
+    languages: '',
+    magicItems: [],
+    name: '',
+    personalityTraits: '',
+    senses: '',
+    size: '',
+    skills: '',
+    speed: '',
+    spells: [],
+    spellSlotsFirst: 0,
+    spellSlotsSecond: 0,
+    spellSlotsThird: 0,
+    spellSlotsFourth: 0,
+    spellSlotsFifth: 0,
+    spellSlotsSixth: 0,
+    spellSlotsSeventh: 0,
+    spellSlotsEighth: 0,
+    spellSlotsNinth: 0,
+    spellcastingAbility: '',
+    spellcastingLevel: 0,
+    spellcastingModifier: 0,
+    spellcastingSaveDc: 0,
+    strengthMod: 0,
+    strengthSave: 0,
+    strengthScore: 0,
+    wisdomMod: 0,
+    wisdomSave: 0,
+    wisdomScore: 0
+  });
 
   useEffect(() => {
-    if (creature) {
-      const {
-        ac,
-        alignment,
-        armor,
-        backstory,
-        bonds,
-        charismaMod,
-        charismaSave,
-        charismaScore,
-        conditionImmunities,
-        conditionResistances,
-        conditionVulnerabilities,
-        constitutionMod,
-        constitutionSave,
-        constitutionScore,
-        cr,
-        creatureCategory,
-        creatureType,
-        damageImmunities,
-        damageResistances,
-        damageVulnerabilities,
-        description,
-        dexterityMod,
-        dexteritySave,
-        dexterityScore,
-        flaws,
-        hp,
-        ideals,
-        intelligenceMod,
-        intelligenceSave,
-        intelligenceScore,
-        languages,
-        name,
-        personalityTraits,
-        senses,
-        size,
-        skills,
-        speed,
-        spellSlotsFirst,
-        spellSlotsSecond,
-        spellSlotsThird,
-        spellSlotsFourth,
-        spellSlotsFifth,
-        spellSlotsSixth,
-        spellSlotsSeventh,
-        spellSlotsEighth,
-        spellSlotsNinth,
-        spellcastingAbility,
-        spellcastingLevel,
-        spellcastingModifier,
-        spellcastingSaveDc,
-        strengthMod,
-        strengthSave,
-        strengthScore,
-        wisdomMod,
-        wisdomSave,
-        wisdomScore
-      } = creature;
-
-      setAcField(ac);
-      setAlignmentField(alignment);
-      setArmorField(armor);
-      setBackstoryField(backstory);
-      setBondsField(bonds);
-      setCharismaModField(charismaMod);
-      setCharismaSaveField(charismaSave);
-      setCharismaScoreField(charismaScore);
-      setConditionImmunitiesField(conditionImmunities);
-      setConditionResistancesField(conditionResistances);
-      setConditionVulnerabilitiesField(conditionVulnerabilities);
-      setConstitutionModField(constitutionMod);
-      setConstitutionSaveField(constitutionSave);
-      setConstitutionScoreField(constitutionScore);
-      setCrField(cr);
-      setCreatureCategoryField(creatureCategory);
-      setCreatureTypeField(creatureType);
-      setDamageImmunitiesField(damageImmunities);
-      setDamageResistancesField(damageResistances);
-      setDamageVulnerabilitiesField(damageVulnerabilities);
-      setDescriptionField(description);
-      setDexterityModField(dexterityMod);
-      setDexteritySaveField(dexteritySave);
-      setDexterityScoreField(dexterityScore);
-      setFlawsField(flaws);
-      setHpField(hp);
-      setIdeaslsField(ideals);
-      setIntelligenceModField(intelligenceMod);
-      setIntelligenceSaveField(intelligenceSave);
-      setIntelligenceScoreField(intelligenceScore);
-      setLanguagesField(languages);
-      setNameField(name);
-      setPersonalityTraitsField(personalityTraits);
-      setSensesField(senses);
-      setSizeField(size);
-      setSkillsField(skills);
-      setSpeedField(speed);
-      setSpellSlotsFirstField(spellSlotsFirst);
-      setSpellSlotsSecondField(spellSlotsSecond);
-      setSpellSlotsThirdField(spellSlotsThird);
-      setSpellSlotsFourthField(spellSlotsFourth);
-      setSpellSlotsFifthField(spellSlotsFifth);
-      setSpellSlotsSixthField(spellSlotsSixth);
-      setSpellSlotsSeventhField(spellSlotsSeventh);
-      setSpellSlotsEighthField(spellSlotsEighth);
-      setSpellSlotsNinthField(spellSlotsNinth);
-      setSpellcastingAbilityField(spellcastingAbility);
-      setSpellcastingLevelField(spellcastingLevel);
-      setSpellcastingModifierField(spellcastingModifier);
-      setSpellcastingSaveDcField(spellcastingSaveDc);
-      setStrengthModField(strengthMod);
-      setStrengthSaveField(strengthSave);
-      setStrengthScoreField(strengthScore);
-      setWisdomModField(wisdomMod);
-      setWisdomSaveField(wisdomSave);
-      setWisdomScoreField(wisdomScore);
-    }
+    if (creature) setForm(getFormCopy(creature));
   }, []);
+
+  const {
+    ac,
+    alignment,
+    armor,
+    backstory,
+    bonds,
+    charismaMod,
+    charismaSave,
+    charismaScore,
+    conditionImmunities,
+    conditionResistances,
+    conditionVulnerabilities,
+    constitutionMod,
+    constitutionSave,
+    constitutionScore,
+    cr,
+    creatureCategory,
+    creatureType,
+    damageImmunities,
+    damageResistances,
+    damageVulnerabilities,
+    description,
+    dexterityMod,
+    dexteritySave,
+    dexterityScore,
+    flaws,
+    hp,
+    ideals,
+    intelligenceMod,
+    intelligenceSave,
+    intelligenceScore,
+    languages,
+    name,
+    personalityTraits,
+    senses,
+    size,
+    skills,
+    speed,
+    spellSlotsFirst,
+    spellSlotsSecond,
+    spellSlotsThird,
+    spellSlotsFourth,
+    spellSlotsFifth,
+    spellSlotsSixth,
+    spellSlotsSeventh,
+    spellSlotsEighth,
+    spellSlotsNinth,
+    spellcastingAbility,
+    spellcastingLevel,
+    spellcastingModifier,
+    spellcastingSaveDc,
+    strengthMod,
+    strengthSave,
+    strengthScore,
+    wisdomMod,
+    wisdomSave,
+    wisdomScore
+  } = form;
+
+  const handleFormChange = (key: string, value: any) => {
+    const updatedForm = getFormCopy(form);
+    updatedForm[key] = value;
+    setForm(updatedForm);
+  };
 
   const onSubmit = e => {
     e.preventDefault();
-
-    const creature: ICreature = {
-      ac: acField,
-      alignment: alignmentField,
-      armor: armorField,
-      backstory: backstoryField,
-      bonds: bondsField,
-      charismaMod: charismaModField,
-      charismaSave: charismaSaveField,
-      charismaScore: charismaScoreField,
-      conditionImmunities: conditionImmunitiesField,
-      conditionResistances: conditionResistancesField,
-      conditionVulnerabilities: conditionVulnerabilitiesField,
-      constitutionMod: constitutionModField,
-      constitutionSave: constitutionSaveField,
-      constitutionScore: constitutionScoreField,
-      cr: crField,
-      creatureCategory: creatureCategoryField,
-      creatureType: creatureTypeField,
-      damageImmunities: damageImmunitiesField,
-      damageResistances: damageResistancesField,
-      damageVulnerabilities: damageVulnerabilitiesField,
-      description: descriptionField,
-      dexterityMod: dexterityModField,
-      dexteritySave: dexteritySaveField,
-      dexterityScore: dexterityScoreField,
-      flaws: flawsField,
-      hp: hpField,
-      ideals: idealsField,
-      intelligenceMod: intelligenceModField,
-      intelligenceSave: intelligenceSaveField,
-      intelligenceScore: intelligenceScoreField,
-      languages: languagesField,
-      name: nameField,
-      personalityTraits: personalityTraitsField,
-      senses: sensesField,
-      size: sizeField,
-      skills: skillsField,
-      speed: speedField,
-      spellSlotsFirst: spellSlotsFirstField,
-      spellSlotsSecond: spellSlotsSecondField,
-      spellSlotsThird: spellSlotsThirdField,
-      spellSlotsFourth: spellSlotsFourthField,
-      spellSlotsFifth: spellSlotsFifthField,
-      spellSlotsSixth: spellSlotsSixthField,
-      spellSlotsSeventh: spellSlotsSeventhField,
-      spellSlotsEighth: spellSlotsEighthField,
-      spellSlotsNinth: spellSlotsNinthField,
-      spellcastingAbility: spellcastingAbilityField,
-      spellcastingLevel: spellcastingLevelField,
-      spellcastingModifier: spellcastingModifierField,
-      spellcastingSaveDc: spellcastingSaveDcField,
-      strengthMod: strengthModField,
-      strengthSave: strengthSaveField,
-      strengthScore: strengthScoreField,
-      wisdomMod: wisdomModField,
-      wisdomSave: wisdomSaveField,
-      wisdomScore: wisdomScoreField
-    };
-
-    handleSubmit(creature);
+    handleSubmit(form);
   };
 
   return (
     <form onSubmit={onSubmit}>
       <fieldset>
-        <label htmlFor="creature-creature-category">
-          Category
-        </label>
+        <h2>Character Details</h2>
+        <label>Category</label>
         <select
-          id="creature-creature-category"
-          name="creature-creature-category"
-          onChange={e => setCreatureCategoryField(e.target.value as CreatureCategoryTypes)}
-          value={creatureCategoryField}>
+          onChange={e => handleFormChange('creatureCategory', e.target.value as CreatureCategoryTypes)}
+          value={creatureCategory}>
           <option value=""></option>
           <option value={CreatureCategoryTypes.MONSTER}>{CreatureCategoryTypes.MONSTER}</option>
           <option value={CreatureCategoryTypes.NPC}>{CreatureCategoryTypes.NPC}</option>
         </select>
-        <label htmlFor="creature-name">
-          Name
-        </label>
-        <input
-          id="creature-name"
-          name="creature-name"
-          onChange={e => setNameField(e.target.value)}
-          type="text"
-          value={nameField}/>
-        <label htmlFor="creature-size">
-          Size
-        </label>
-        <input
-          id="creature-size"
-          name="creature-size"
-          onChange={e => setSizeField(e.target.value)}
-          type="text"
-          value={sizeField}/>
-        <label htmlFor="creature-creature-type">
-          Creature Type
-        </label>
-        <input
-          id="creature-creature-type"
-          name="creature-creature-type"
-          onChange={e => setCreatureTypeField(e.target.value)}
-          type="text"
-          value={creatureTypeField}/>
-        <label htmlFor="creature-alignment">
-          Alignment
-        </label>
-        <select
-          id="creature-alignment"
-          name="creature-alignment"
-          onChange={e => setAlignmentField(e.target.value as AlignmentTypes)}
-          value={alignmentField}>
+        <label>Name</label>
+        <input onChange={e => handleFormChange('name', e.target.value)} type="text" value={name}/>
+        <label>Size</label>
+        <input onChange={e => handleFormChange('size', e.target.value)} type="text" value={size}/>
+        <label>Creature Type</label>
+        <input onChange={e => handleFormChange('creatureType', e.target.value)} type="text" value={creatureType}/>
+        <label>Alignment</label>
+        <select onChange={e => handleFormChange('alignment', e.target.value as AlignmentTypes)} value={alignment}>
           <option value={AlignmentTypes.CHAOTIC_GOOD}>{AlignmentTypes.CHAOTIC_GOOD}</option>
           <option value={AlignmentTypes.NEUTRAL_GOOD}>{AlignmentTypes.NEUTRAL_GOOD}</option>
           <option value={AlignmentTypes.LAWFUL_GOOD}>{AlignmentTypes.LAWFUL_GOOD}</option>
@@ -315,14 +203,8 @@ const CreatureForm = ({
           <option value={AlignmentTypes.NEUTRAL_EVIL}>{AlignmentTypes.NEUTRAL_EVIL}</option>
           <option value={AlignmentTypes.LAWFUL_EVIL}>{AlignmentTypes.LAWFUL_EVIL}</option>
         </select>
-        <label htmlFor="creature-cr">
-          CR
-        </label>
-        <select
-          id="creature-cr"
-          name="creature-cr"
-          onChange={e => setCrField(e.target.value)}
-          value={crField}>
+        <label>CR</label>
+        <select onChange={e => handleFormChange('cr', e.target.value)} value={cr}>
           <option value=""></option>
           {
             CR_LIST.map(crListItem => {
@@ -330,42 +212,14 @@ const CreatureForm = ({
             })
           }
         </select>
-        <label htmlFor="creature-ac">
-          AC
-        </label>
-        <input
-          id="creature-ac"
-          name="creature-ac"
-          onChange={e => setAcField(parseInt(e.target.value))}
-          type="number"
-          value={acField}/>
-        <label htmlFor="creature-armor">
-          Armor
-        </label>
-        <input
-          id="creature-armor"
-          name="creature-armor"
-          onChange={e => setArmorField(e.target.value)}
-          type="text"
-          value={armorField}/>
-        <label htmlFor="creature-creature-type">
-          HP
-        </label>
-        <input
-          id="creature-hp"
-          name="creature-hp"
-          onChange={e => setHpField(parseInt(e.target.value))}
-          type="number"
-          value={hpField}/>
-        <label htmlFor="creature-speed">
-          Speed
-        </label>
-        <input
-          id="creature-speed"
-          name="creature-speed"
-          onChange={e => setSpeedField(e.target.value)}
-          type="text"
-          value={speedField}/>
+        <label>AC</label>
+        <input onChange={e => handleFormChange('ac', parseInt(e.target.value))} type="number" value={ac}/>
+        <label>Armor</label>
+        <input onChange={e => handleFormChange('armor', e.target.value)} type="text" value={armor}/>
+        <label>HP</label>
+        <input onChange={e => handleFormChange('hp', parseInt(e.target.value))} type="number" value={hp}/>
+        <label>Speed</label>
+        <input onChange={e => handleFormChange('speed', e.target.value)} type="text" value={speed}/>
       </fieldset>
       <h2>Character Stats</h2>
       <fieldset>
@@ -382,433 +236,152 @@ const CreatureForm = ({
             <tr>
               <td>Strength</td>
               <td>
-                <input
-                  id="character-strength-score"
-                  name="character-strength-score"
-                  onChange={e => setStrengthScoreField(parseInt(e.target.value))}
-                  type="number"
-                  value={strengthScoreField}/>
+                <input onChange={e => handleFormChange('strengthScore', parseInt(e.target.value))} type="number" value={strengthScore}/>
               </td>
               <td>
-                <input
-                  id="character-strength-mod"
-                  name="character-strength-mod"
-                  onChange={e => setStrengthModField(parseInt(e.target.value))}
-                  type="number"
-                  value={strengthModField}/>
+                <input onChange={e => handleFormChange('strengthMod', parseInt(e.target.value))} type="number" value={strengthMod}/>
               </td>
               <td>
-                <input
-                  id="character-strength-save"
-                  name="character-strength-save"
-                  onChange={e => setStrengthSaveField(parseInt(e.target.value))}
-                  type="number"
-                  value={strengthSaveField}/>
+                <input onChange={e => handleFormChange('strengthSave', parseInt(e.target.value))} type="number" value={strengthSave}/>
               </td>
             </tr>
             <tr>
               <td>Dexterity</td>
               <td>
-                <input
-                  id="character-dexterity-score"
-                  name="character-dexterity-score"
-                  onChange={e => setDexterityScoreField(parseInt(e.target.value))}
-                  type="number"
-                  value={dexterityScoreField}/>
+                <input onChange={e => handleFormChange('dexterityScore', parseInt(e.target.value))} type="number" value={dexterityScore}/>
               </td>
               <td>
-                <input
-                  id="character-dexterity-mod"
-                  name="character-dexterity-mod"
-                  onChange={e => setDexterityModField(parseInt(e.target.value))}
-                  type="number"
-                  value={dexterityModField}/>
+                <input onChange={e => handleFormChange('dexterityMod', parseInt(e.target.value))} type="number" value={dexterityMod}/>
               </td>
               <td>
-                <input
-                  id="character-dexterity-save"
-                  name="character-dexterity-save"
-                  onChange={e => setDexteritySaveField(parseInt(e.target.value))}
-                  type="number"
-                  value={dexteritySaveField}/>
+                <input onChange={e => handleFormChange('dexteritySave', parseInt(e.target.value))} type="number" value={dexteritySave}/>
               </td>
             </tr>
             <tr>
               <td>Constitution</td>
               <td>
-                <input
-                  id="character-constitution-score"
-                  name="character-constitution-score"
-                  onChange={e => setConstitutionScoreField(parseInt(e.target.value))}
-                  type="number"
-                  value={constitutionScoreField}/>
+                <input onChange={e => handleFormChange('constitutionScore', parseInt(e.target.value))} type="number" value={constitutionScore}/>
               </td>
               <td>
-                <input
-                  id="character-constitution-mod"
-                  name="character-constitution-mod"
-                  onChange={e => setConstitutionModField(parseInt(e.target.value))}
-                  type="number"
-                  value={constitutionModField}/>
+                <input onChange={e => handleFormChange('constitutionMod', parseInt(e.target.value))} type="number" value={constitutionMod}/>
               </td>
               <td>
-                <input
-                  id="character-constitution-save"
-                  name="character-constitution-save"
-                  onChange={e => setConstitutionSaveField(parseInt(e.target.value))}
-                  type="number"
-                  value={constitutionSaveField}/>
+                <input onChange={e => handleFormChange('constitutionSave', parseInt(e.target.value))} type="number" value={constitutionSave}/>
               </td>
             </tr>
             <tr>
               <td>Intelligence</td>
               <td>
-                <input
-                  id="character-intelligence-score"
-                  name="character-intelligence-score"
-                  onChange={e => setIntelligenceScoreField(parseInt(e.target.value))}
-                  type="number"
-                  value={intelligenceScoreField}/>
+                <input onChange={e => handleFormChange('intelligenceScore', parseInt(e.target.value))} type="number" value={intelligenceScore}/>
               </td>
               <td>
-                <input
-                  id="character-intelligence-mod"
-                  name="character-intelligence-mod"
-                  onChange={e => setIntelligenceModField(parseInt(e.target.value))}
-                  type="number"
-                  value={intelligenceModField}/>
+                <input onChange={e => handleFormChange('intelligenceMod', parseInt(e.target.value))} type="number" value={intelligenceMod}/>
               </td>
               <td>
-                <input
-                  id="character-intelligence-save"
-                  name="character-intelligence-save"
-                  onChange={e => setIntelligenceSaveField(parseInt(e.target.value))}
-                  type="number"
-                  value={intelligenceSaveField}/>
+                <input onChange={e => handleFormChange('intelligenceSave', parseInt(e.target.value))} type="number" value={intelligenceSave}/>
               </td>
             </tr>
             <tr>
               <td>Wisdom</td>
               <td>
-                <input
-                  id="character-wisdom-score"
-                  name="character-wisdom-score"
-                  onChange={e => setWisdomScoreField(parseInt(e.target.value))}
-                  type="number"
-                  value={wisdomScoreField}/>
+                <input onChange={e => handleFormChange('wisdomScore', parseInt(e.target.value))} type="number" value={wisdomScore}/>
               </td>
               <td>
-                <input
-                  id="character-wisdom-mod"
-                  name="character-wisdom-mod"
-                  onChange={e => setWisdomModField(parseInt(e.target.value))}
-                  type="number"
-                  value={wisdomModField}/>
+                <input onChange={e => handleFormChange('wisdomMod', parseInt(e.target.value))} type="number" value={wisdomMod}/>
               </td>
               <td>
-                <input
-                  id="character-wisdom-save"
-                  name="character-wisdom-save"
-                  onChange={e => setWisdomSaveField(parseInt(e.target.value))}
-                  type="number"
-                  value={wisdomSaveField}/>
+                <input onChange={e => handleFormChange('wisdomSave', parseInt(e.target.value))} type="number" value={wisdomSave}/>
               </td>
             </tr>
             <tr>
               <td>Charisma</td>
               <td>
-                <input
-                  id="character-charisma-score"
-                  name="character-charisma-score"
-                  onChange={e => setCharismaScoreField(parseInt(e.target.value))}
-                  type="number"
-                  value={charismaScoreField}/>
+                <input onChange={e => handleFormChange('charismaScore', parseInt(e.target.value))} type="number" value={charismaScore}/>
               </td>
               <td>
-                <input
-                  id="character-charisma-mod"
-                  name="character-charisma-mod"
-                  onChange={e => setCharismaModField(parseInt(e.target.value))}
-                  type="number"
-                  value={charismaModField}/>
+                <input onChange={e => handleFormChange('charismaMod', parseInt(e.target.value))} type="number" value={charismaMod}/>
               </td>
               <td>
-                <input
-                  id="character-charisma-save"
-                  name="character-charisma-save"
-                  onChange={e => setCharismaSaveField(parseInt(e.target.value))}
-                  type="number"
-                  value={charismaSaveField}/>
+                <input onChange={e => handleFormChange('charismaSave', parseInt(e.target.value))} type="number" value={charismaSave}/>
               </td>
             </tr>
           </tbody>
         </table>
       </fieldset>
       <fieldset>
-        <label htmlFor="creature-skills">
-          Skills
-        </label>
-        <input
-          id="creature-skills"
-          name="creature-skills"
-          onChange={e => setSkillsField(e.target.value)}
-          type="text"
-          value={skillsField}/>
+        <label>Skills</label>
+        <input onChange={e => handleFormChange('skills', e.target.value)} type="text" value={skills}/>
       </fieldset>
       <h2>Creature Proficiencies</h2>
       <fieldset>
-        <label htmlFor="creature-condition-immunities">
-          Condition Immunities
-        </label>
-        <input
-          id="creature-condition-immunities"
-          name="creature-condition-immunities"
-          onChange={e => setConditionImmunitiesField(e.target.value)}
-          type="text"
-          value={conditionImmunitiesField}/>
-        <label htmlFor="creature-condition-resistances">
-          Condition Resistances
-        </label>
-        <input
-          id="creature-condition-resistances"
-          name="creature-condition-resistances"
-          onChange={e => setConditionResistancesField(e.target.value)}
-          type="text"
-          value={conditionResistancesField}/>
-        <label htmlFor="creature-condition-vulnerabilities">
-          Condition Vulnerabilities
-        </label>
-        <input
-          id="creature-condition-vulnerabilities"
-          name="creature-condition-vulnerabilities"
-          onChange={e => setConditionVulnerabilitiesField(e.target.value)}
-          type="text"
-          value={conditionVulnerabilitiesField}/>
-
-        <label htmlFor="creature-damage-immunities">
-          Damage Immunities
-        </label>
-        <input
-          id="creature-damage-immunities"
-          name="creature-damage-immunities"
-          onChange={e => setDamageImmunitiesField(e.target.value)}
-          type="text"
-          value={damageImmunitiesField}/>
-        <label htmlFor="creature-damage-resistances">
-          Damage Resistances
-        </label>
-        <input
-          id="creature-damage-resistances"
-          name="creature-damage-resistances"
-          onChange={e => setDamageResistancesField(e.target.value)}
-          type="text"
-          value={damageResistancesField}/>
-        <label htmlFor="creature-damage-vulnerabilities">
-          Damage Vulnerabilities
-        </label>
-        <input
-          id="creature-damage-vulnerabilities"
-          name="creature-damage-vulnerabilities"
-          onChange={e => setDamageVulnerabilitiesField(e.target.value)}
-          type="text"
-          value={damageVulnerabilitiesField}/>
-        <label htmlFor="creature-senses">
-          Senses
-        </label>
-        <input
-          id="creature-senses"
-          name="creature-senses"
-          onChange={e => setSensesField(e.target.value)}
-          type="text"
-          value={sensesField}/>
-        <label htmlFor="creature-languages">
-          Languages
-        </label>
-        <input
-          id="creature-languages"
-          name="creature-languages"
-          onChange={e => setLanguagesField(e.target.value)}
-          type="text"
-          value={languagesField}/>
-      </fieldset>
-      <h2>About</h2>
-      <fieldset>
-        <label htmlFor="creature-personality-traits">
-          Personality Traits
-        </label>
-        <textarea
-          id="creature-personality-traits"
-          name="creature-personality-traits"
-          onChange={e => setPersonalityTraitsField(e.target.value)}
-          value={personalityTraitsField}>
-        </textarea>
-        <label htmlFor="creature-ideals">
-          Ideals
-        </label>
-        <textarea
-          id="creature-ideals"
-          name="creature-ideals"
-          onChange={e => setIdeaslsField(e.target.value)}
-          value={idealsField}>
-        </textarea>
-        <label htmlFor="creature-bonds">
-          Bonds
-        </label>
-        <textarea
-          id="creature-bonds"
-          name="creature-bonds"
-          onChange={e => setBondsField(e.target.value)}
-          value={bondsField}>
-        </textarea>
-        <label htmlFor="creature-flaws">
-          Flaws
-        </label>
-        <textarea
-          id="creature-flaws"
-          name="creature-flaws"
-          onChange={e => setFlawsField(e.target.value)}
-          value={flawsField}>
-        </textarea>
-        <label htmlFor="creature-description">
-          Description
-        </label>
-        <textarea
-          id="creature-description"
-          name="creature-description"
-          onChange={e => setDescriptionField(e.target.value)}
-          value={descriptionField}>
-        </textarea>
-        <label htmlFor="creature-backstory">
-          Backstory
-        </label>
-        <textarea
-          id="creature-backstory"
-          name="creature-backstory"
-          onChange={e => setBackstoryField(e.target.value)}
-          value={backstoryField}>
-        </textarea>
+        <label>Condition Immunities</label>
+        <input onChange={e => handleFormChange('conditionImmunities', e.target.value)} type="text" value={conditionImmunities}/>
+        <label>Condition Resistances</label>
+        <input onChange={e => handleFormChange('conditionResistances', e.target.value)} type="text" value={conditionResistances}/>
+        <label>Condition Vulnerabilities</label>
+        <input onChange={e => handleFormChange('conditionVulnerabilities', e.target.value)} type="text" value={conditionVulnerabilities}/>
+        <label>Damage Immunities</label>
+        <input onChange={e => handleFormChange('damageImmunities', e.target.value)} type="text" value={damageImmunities}/>
+        <label>Damage Resistances</label>
+        <input onChange={e => handleFormChange('damageResistances', e.target.value)} type="text" value={damageResistances}/>
+        <label>Damage Vulnerabilities</label>
+        <input onChange={e => handleFormChange('damageVulnerabilities', e.target.value)} type="text" value={damageVulnerabilities}/>
+        <label>Senses</label>
+        <input onChange={e => handleFormChange('senses', e.target.value)} type="text" value={senses}/>
+        <label>Languages</label>
+        <input onChange={e => handleFormChange('languages', e.target.value)} type="text" value={languages}/>
       </fieldset>
       <h2>Spellcasting</h2>
       <fieldset>
-        <label htmlFor="character-spellcasting-level">
-          Spellcasting Level
-        </label>
-        <input
-          id="character-spellcasting-level"
-          name="character-spellcasting-level"
-          onChange={e => setSpellcastingLevelField(parseInt(e.target.value))}
-          type="number"
-          value={spellcastingLevelField}/>
-        <label htmlFor="character-spellcasting-ability">
-          Spellcasting Ability
-        </label>
-        <input
-          id="character-spellcasting-ability"
-          name="character-spellcasting-ability"
-          onChange={e => setSpellcastingAbilityField(e.target.value)}
-          type="text"
-          value={spellcastingAbilityField}/>
-        <label htmlFor="character-spellcasting-modifier">
-          Spellcasting Modifier
-        </label>
-        <input
-          id="character-spellcasting-modifier"
-          name="character-spellcasting-modifier"
-          onChange={e => setSpellcastingModifierField(parseInt(e.target.value))}
-          type="number"
-          value={spellcastingModifierField}/>
-        <label htmlFor="character-spellcasting-modifier">
-          Spellcasting Save DC
-        </label>
-        <input
-          id="character-spellcasting-save-dc"
-          name="character-spellcasting-save-dc"
-          onChange={e => setSpellcastingSaveDcField(parseInt(e.target.value))}
-          type="number"
-          value={spellcastingSaveDcField}/>
+        <label>Spellcasting Level</label>
+        <input onChange={e => handleFormChange('spellcastingLevel', parseInt(e.target.value))} type="number" value={spellcastingLevel}/>
+        <label>Spellcasting Ability</label>
+        <input onChange={e => handleFormChange('spellcastingAbility', e.target.value)} type="text" value={spellcastingAbility}/>
+        <label>Spellcasting Modifier</label>
+        <input onChange={e => handleFormChange('spellcastingModifier', parseInt(e.target.value))} type="number" value={spellcastingModifier}/>
+        <label>Spellcasting Save DC</label>
+        <input onChange={e => handleFormChange('spellcastingSaveDc', parseInt(e.target.value))} type="number" value={spellcastingSaveDc}/>
       </fieldset>
       <fieldset>
-        <label htmlFor="character-spell-slots-first">
-          1st Level Spell Slots
-        </label>
-        <input
-          id="character-spell-slots-first"
-          name="character-spell-slots-first"
-          onChange={e => setSpellSlotsFirstField(parseInt(e.target.value))}
-          type="number"
-          value={spellSlotsFirstField}/>
-        <label htmlFor="character-spell-slots-second">
-          2nd Level Spell Slots
-        </label>
-        <input
-          id="character-spell-slots-second"
-          name="character-spell-slots-second"
-          onChange={e => setSpellSlotsSecondField(parseInt(e.target.value))}
-          type="number"
-          value={spellSlotsSecondField}/>
-        <label htmlFor="character-spell-slots-third">
-          3rd Level Spell Slots
-        </label>
-        <input
-          id="character-spell-slots-third"
-          name="character-spell-slots-third"
-          onChange={e => setSpellSlotsThirdField(parseInt(e.target.value))}
-          type="number"
-          value={spellSlotsThirdField}/>
-        <label htmlFor="character-spell-slots-fourth">
-          4th Level Spell Slots
-        </label>
-        <input
-          id="character-spell-slots-fourth"
-          name="character-spell-slots-fourth"
-          onChange={e => setSpellSlotsFourthField(parseInt(e.target.value))}
-          type="number"
-          value={spellSlotsFourthField}/>
-        <label htmlFor="character-spell-slots-fifth">
-          5th Level Spell Slots
-        </label>
-        <input
-          id="character-spell-slots-fifth"
-          name="character-spell-slots-fifth"
-          onChange={e => setSpellSlotsFifthField(parseInt(e.target.value))}
-          type="number"
-          value={spellSlotsFifthField}/>
-        <label htmlFor="character-spell-slots-sixth">
-          6th Level Spell Slots
-        </label>
-        <input
-          id="character-spell-slots-sixth"
-          name="character-spell-slots-sixth"
-          onChange={e => setSpellSlotsSixthField(parseInt(e.target.value))}
-          type="number"
-          value={spellSlotsSixthField}/>
-        <label htmlFor="character-spell-slots-seventh">
-          7th Level Spell Slots
-        </label>
-        <input
-          id="character-spell-slots-seventh"
-          name="character-spell-slots-seventh"
-          onChange={e => setSpellSlotsSeventhField(parseInt(e.target.value))}
-          type="number"
-          value={spellSlotsSeventhField}/>
-        <label htmlFor="character-spell-slots-eighth">
-          8th Level Spell Slots
-        </label>
-        <input
-          id="character-spell-slots-eighth"
-          name="character-spell-slots-eighth"
-          onChange={e => setSpellSlotsEighthField(parseInt(e.target.value))}
-          type="number"
-          value={spellSlotsEighthField}/>
-        <label htmlFor="character-spell-slots-ninth">
-          9th Level Spell Slots
-        </label>
-        <input
-          id="character-spell-slots-ninth"
-          name="character-spell-slots-ninth"
-          onChange={e => setSpellSlotsNinthField(parseInt(e.target.value))}
-          type="number"
-          value={spellSlotsNinthField}/>
+        <label>1st Level Spell Slots</label>
+        <input onChange={e => handleFormChange('spellSlotsFirst', parseInt(e.target.value))} type="number" value={spellSlotsFirst}/>
+        <label>2nd Level Spell Slots</label>
+        <input onChange={e => handleFormChange('spellSlotsSecond', parseInt(e.target.value))} type="number" value={spellSlotsSecond}/>
+        <label>3rd Level Spell Slots</label>
+        <input onChange={e => handleFormChange('spellSlotsThird', parseInt(e.target.value))} type="number" value={spellSlotsThird}/>
+        <label>4th Level Spell Slots</label>
+        <input onChange={e => handleFormChange('spellSlotsFourth', parseInt(e.target.value))} type="number" value={spellSlotsFourth}/>
+        <label>5th Level Spell Slots</label>
+        <input onChange={e => handleFormChange('spellSlotsFifth', parseInt(e.target.value))} type="number" value={spellSlotsFifth}/>
+        <label>6th Level Spell Slots</label>
+        <input onChange={e => handleFormChange('spellSlotsSixth', parseInt(e.target.value))} type="number" value={spellSlotsSixth}/>
+        <label>7th Level Spell Slots</label>
+        <input onChange={e => handleFormChange('spellSlotsSeventh', parseInt(e.target.value))} type="number" value={spellSlotsSeventh}/>
+        <label>8th Level Spell Slots</label>
+        <input onChange={e => handleFormChange('spellSlotsEighth', parseInt(e.target.value))} type="number" value={spellSlotsEighth}/>
+        <label>9th Level Spell Slots</label>
+        <input onChange={e => handleFormChange('spellSlotsNinth', parseInt(e.target.value))} type="number" value={spellSlotsNinth}/>
+      </fieldset>
+      <h2>About</h2>
+      <fieldset>
+        <label>Personality Traits</label>
+        <textarea onChange={e => handleFormChange('personalityTraits', e.target.value)} value={personalityTraits}>
+        </textarea>
+        <label>Ideals</label>
+        <textarea onChange={e => handleFormChange('ideals', e.target.value)} value={ideals}>
+        </textarea>
+        <label>Bonds</label>
+        <textarea onChange={e => handleFormChange('bonds', e.target.value)} value={bonds}>
+        </textarea>
+        <label>Flaws</label>
+        <textarea onChange={e => handleFormChange('flaws', e.target.value)} value={flaws}>
+        </textarea>
+        <label>Description</label>
+        <textarea onChange={e => handleFormChange('description', e.target.value)} value={description}>
+        </textarea>
+        <label>Backstory</label>
+        <textarea onChange={e => handleFormChange('backstory', e.target.value)} value={backstory}>
+        </textarea>
       </fieldset>
       <fieldset>
         <button className="button button-constructive">

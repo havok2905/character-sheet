@@ -79,7 +79,6 @@ const FactionEditPage = (): ReactElement | null => {
           imageUrl={imageUrl}
           inputName="faction-image-file-upload"
           handleSubmit={handleImageUpload}
-          labelText="Token Image"
         />
         <FactionForm
           faction={faction}

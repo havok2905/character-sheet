@@ -1,18 +1,30 @@
-import React, { ReactElement, useContext, useEffect, useReducer } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { AssociatedActionsForm } from '../../components/AssociatedActionsForm';
 import { AssociatedFactionsForm } from '../../components/AssociatedFactionsForm';
+import { AssociatedFeaturesForm } from '../../components/AssociatedFeaturesForm';
+import { AssociatedLairActionsForm } from '../../components/AssociatedLairActionsForm';
+import { AssociatedLegendaryActionsForm } from '../../components/AssociatedLegendaryActionsForm';
 import { AssociatedMagicItemsForm } from '../../components/AssociatedMagicItemsForm';
 import { AssociatedRegionalEffectsForm } from '../../components/AssociatedRegionalEffectsForm';
-import classNames from 'classnames';
+import { AssociatedSpellsForm } from '../../components/AssociatedSpellsForm';
 import { CreatureForm } from "../../components/CreatureForm/CreatureForm";
 import { destroyCreature, getCreature, updateCreature, uploadCreatureImage } from "../../utilities/Api/Creatures";
 import { getFactions } from '../../utilities/Api/Factions';
 import { getMagicItems } from '../../utilities/Api/MagicItems';
 import { getSpells } from '../../utilities/Api/Spells';
-import { ICreature, IFaction, IMagicItem, ISpell } from "../../types/models";
+import {
+  ICreature,
+  ICreatureAction,
+  ICreatureFeature,
+  ICreatureLairAction,
+  ICreatureLegendaryAction,
+  ICreatureRegionalEffect,
+  IFaction,
+  IMagicItem,
+  ISpell
+} from "../../types/models";
 import { ImageForm } from '../../components/ImageForm';
-import { KnownSpellsForm } from '../../components/KnownSpellsForm/KnownSpellsForm';
-import { ToastCollection, ToastCollectionContext, ToastCollectionContextProvider } from '../../components/ToastCollection';
-import { ToastCollectionErrorTypes } from '../../types/toasts';
+import { Modal } from '../../components/Modal';
 
 const getIdFromUrl = ():string => {
   const url = new URL(window.location.href);
@@ -20,93 +32,28 @@ const getIdFromUrl = ():string => {
   return parts[1];
 };
 
-enum CreatureEditPageContentTab {
-  DEATILS = 'details',
-  FACTIONS = 'factions',
-  MAGIC_ITEMS = 'magic-items',
-  REGIONAL_EFFECTS = 'regional-effects',
-  SPELLS = 'spells'
+interface ICreatureEditPageContentState {
+  creature: ICreature | null,
+  factions: IFaction[],
+  magicItems: IMagicItem[],
+  spells: ISpell[]
 }
-
-enum CreatureEditPageContentActionType {
-  INIT = 'init',
-  SET_CREATURE = 'set-creature',
-  SET_FACTIONS = 'set-factions',
-  SET_MAGIC_ITEMS = 'set-magic-items',
-  SET_SPELLS = 'set-spells',
-  SET_TAB = 'set-tab'
-}
-
-type ICreatureEditPageContentAction = 
-  | { type: CreatureEditPageContentActionType.INIT, payload: { creature: ICreature, factions: IFaction[], magicItems: IMagicItem[], spells: ISpell[] } }
-  | { type: CreatureEditPageContentActionType.SET_CREATURE, payload: { creature: ICreature } }
-  | { type: CreatureEditPageContentActionType.SET_FACTIONS, payload: { factions: IFaction[] } }
-  | { type: CreatureEditPageContentActionType.SET_MAGIC_ITEMS, payload: { magicItems: IMagicItem[] } }
-  | { type: CreatureEditPageContentActionType.SET_SPELLS, payload: { spells: ISpell[] } }
-  | { type: CreatureEditPageContentActionType.SET_TAB, payload: { tab: CreatureEditPageContentTab } }
-
-type ICreatureEditPageContentReducerState = {
-  creature: ICreature | null;
-  factions: IFaction[];
-  magicItems: IMagicItem[];
-  spells: ISpell[];
-  tab: CreatureEditPageContentTab;
-}
-
-const reducer = (state: ICreatureEditPageContentReducerState, action: ICreatureEditPageContentAction) => {
-  switch(action.type) {
-    case CreatureEditPageContentActionType.INIT:
-      return {
-        ...state,
-        creature: action.payload.creature,
-        factions: action.payload.factions,
-        magicItems: action.payload.magicItems,
-        spells: action.payload.spells
-      };
-    case CreatureEditPageContentActionType.SET_CREATURE:
-      return {
-        ...state,
-        creature: action.payload.creature
-      };
-    case CreatureEditPageContentActionType.SET_FACTIONS:
-      return {
-        ...state,
-        factions: action.payload.factions
-      };
-    case CreatureEditPageContentActionType.SET_MAGIC_ITEMS:
-      return {
-        ...state,
-        magicItems: action.payload.magicItems
-      };
-    case CreatureEditPageContentActionType.SET_SPELLS:
-      return {
-        ...state,
-        spells: action.payload.spells
-      };
-    case CreatureEditPageContentActionType.SET_TAB:
-      return {
-        ...state,
-        tab: action.payload.tab
-      };
-    default:
-      return {
-        ...state
-      };
-  }
-};
-
-const initialState: ICreatureEditPageContentReducerState = {
-  creature: null,
-  factions: [],
-  magicItems: [],
-  spells: [],
-  tab: CreatureEditPageContentTab.DEATILS
-};
 
 const CreatureEditPageContent = (): ReactElement | null => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  const { add } = useContext(ToastCollectionContext);
+  const [actionsModalOpen, setActionsModalOpen] = useState(false);
+  const [factionsModalOpen, setFactionsModalOpen] = useState(false);
+  const [featuresModalOpen, setFeaturesModalOpen] = useState(false);
+  const [lairActionsModalOpen, setLairActionsModalOpen] = useState(false);
+  const [legendaryActionsModalOpen, setLegendaryActionsModalOpen] = useState(false);
+  const [magicItemsModalOpen, setMagicItemsModalOpen] = useState(false);
+  const [regionalEffectsModalOpen, setRegionalEffectsModalOpen] = useState(false);
+  const [spellsModalOpen, setSpellsModalOpen] = useState(false);
+  const [state, setState] = useState<ICreatureEditPageContentState>({
+    creature: null,
+    factions: [] as IFaction[],
+    magicItems: [] as IMagicItem[],
+    spells: [] as ISpell[]
+  });
 
   useEffect(() => {
     const id = getIdFromUrl();
@@ -122,25 +69,16 @@ const CreatureEditPageContent = (): ReactElement | null => {
       magicItemsData,
       spellsData
     ]) => {
-      dispatch({
-        type: CreatureEditPageContentActionType.INIT,
-        payload: {
-          creature: creatureData.creature,
-          factions: factionData.factions,
-          magicItems: magicItemsData.magicItems,
-          spells: spellsData.spells
-        }
+      setState({
+        creature: creatureData.creature,
+        factions: factionData.factions,
+        magicItems: magicItemsData.magicItems,
+        spells: spellsData.spells
       });
     });
   }, []);
 
-  const {
-    creature,
-    factions,
-    magicItems,
-    spells,
-    tab
-  } = state;
+  const { creature, factions, magicItems, spells } = state;
 
   const handleDelete = e => {
     e.preventDefault();
@@ -175,155 +113,149 @@ const CreatureEditPageContent = (): ReactElement | null => {
               
     uploadCreatureImage(id, data)
       .then(data => {
-        window.location.href = `/creatures/${data.creature.id}`;
+        window.location.href = `/creatures/${data.creature.id}/edit`;
       })
       .catch((error) => {
         console.error('Error:', error);
       });
   };
 
-  const handleSpellsSubmit = (spellIds: string[]) => {
-    if (!id || !creature) return;
+  const getActionsModal = (): ReactElement | null => {
+    if (!actionsModalOpen || !creature) return null;
 
-    const updatedCreature = { ...creature, spellIds };
-
-    updateCreature(id, { creature: updatedCreature })
-      .then(data => {
-        dispatch({
-          type: CreatureEditPageContentActionType.SET_CREATURE,
-          payload: { creature: data.creature }
-        });
-        add(ToastCollectionErrorTypes.INFO, "Successfully saved spells");
-      })
-      .catch(() => {
-        add(ToastCollectionErrorTypes.ERROR, "There was in issue saving spells");
-      });
+    return (
+      <Modal
+        onCloseModal={() => setActionsModalOpen(false)}
+        onCloseModalOverlay={() => setActionsModalOpen(false)}>
+        <AssociatedActionsForm
+          buttonLabel="Update Actions"
+          creature={creature}
+          handleSubmit={(creatureActions: ICreatureAction[]) => {
+            handleSubmit({ ...creature, creatureActions });
+          }}/>
+      </Modal>
+    );
   };
 
-  const handleFactionsSubmit = (factionIds: string[]) => {
-    if (!id || !creature) return;
+  const getFactionsModal = (): ReactElement | null => {
+    if (!factionsModalOpen || !creature) return null;
 
-    const updatedCreature = { ...creature, factionIds };
-
-    updateCreature(id, { creature: updatedCreature })
-      .then(data => {
-        dispatch({
-          type: CreatureEditPageContentActionType.SET_CREATURE,
-          payload: { creature: data.creature }
-        });
-        add(ToastCollectionErrorTypes.INFO, "Successfully saved factions");
-      })
-      .catch(() => {
-        add(ToastCollectionErrorTypes.ERROR, "There was in issue saving factions");
-      });
+    return (
+      <Modal
+        onCloseModal={() => setFactionsModalOpen(false)}
+        onCloseModalOverlay={() => setFactionsModalOpen(false)}>
+        <AssociatedFactionsForm
+          buttonLabel="Update Factions"
+          factionIds={(creature.factions || []).map(faction => String(faction.id))}
+          factions={factions}
+          handleSubmit={(factionIds: string[]) => handleSubmit({ ...creature, factionIds })}/>
+      </Modal>
+    );
   };
 
-  const handleMagicItemsSubmit = (magicItemIds: string[]) => {
-    if (!id || !creature) return;
+  const getFeaturesModal = (): ReactElement | null => {
+    if (!featuresModalOpen || !creature) return null;
 
-    const updatedCreature = { ...creature, magicItemIds };
+    return (
+      <Modal
+        onCloseModal={() => setFeaturesModalOpen(false)}
+        onCloseModalOverlay={() => setFeaturesModalOpen(false)}>
+        <AssociatedFeaturesForm
+          buttonLabel="Update Features"
+          creature={creature}
+          handleSubmit={(creatureFeatures: ICreatureFeature[]) => {
+            handleSubmit({ ...creature, creatureFeatures });
+          }}/>
+      </Modal>
+    );
+  };
 
-    updateCreature(id, { creature: updatedCreature })
-      .then(data => {
-        dispatch({
-          type: CreatureEditPageContentActionType.SET_CREATURE,
-          payload: { creature: data.creature }
-        });
-        add(ToastCollectionErrorTypes.INFO, "Successfully saved magic items");
-      })
-      .catch(() => {
-        add(ToastCollectionErrorTypes.ERROR, "There was in issue saving magic items");
-      });
+  const getLairActionsModal = (): ReactElement | null => {
+    if (!lairActionsModalOpen || !creature) return null;
+
+    return (
+      <Modal
+        onCloseModal={() => setLairActionsModalOpen(false)}
+        onCloseModalOverlay={() => setLairActionsModalOpen(false)}>
+        <AssociatedLairActionsForm
+          buttonLabel="Update Lair Actions"
+          creature={creature}
+          handleSubmit={(lairActionsText: string, creatureLairActions: ICreatureLairAction[]) => {
+            handleSubmit({ ...creature, creatureLairActions, lairActionsText });
+          }}/>
+      </Modal>
+    );
+  };
+
+  const getLegendaryActionsModal = (): ReactElement | null => {
+    if (!legendaryActionsModalOpen || !creature) return null;
+
+    return (
+      <Modal
+        onCloseModal={() => setLegendaryActionsModalOpen(false)}
+        onCloseModalOverlay={() => setLegendaryActionsModalOpen(false)}>
+        <AssociatedLegendaryActionsForm
+          buttonLabel="Update Legendary Actions"
+          creature={creature}
+          handleSubmit={(legendaryActionsText: string, creatureLegendaryActions: ICreatureLegendaryAction[]) => {
+            handleSubmit({ ...creature, creatureLegendaryActions, legendaryActionsText });
+          }}/>
+      </Modal>
+    );
+  };
+
+  const getMagicItemsModal = (): ReactElement | null => {
+    if (!magicItemsModalOpen || !creature) return null;
+
+    return (
+      <Modal
+        onCloseModal={() => setMagicItemsModalOpen(false)}
+        onCloseModalOverlay={() => setMagicItemsModalOpen(false)}>
+        <AssociatedMagicItemsForm
+          buttonLabel="Update Factions"
+          handleSubmit={(magicItemIds: string[]) => handleSubmit({ ...creature, magicItemIds })}
+          magicItemIds={(creature.magicItems || []).map(magicItem => String(magicItem.id))}
+          magicItems={magicItems}/>
+      </Modal>
+    );
+  };
+
+  const getRegionalEffectsModal = (): ReactElement | null => {
+    if (!regionalEffectsModalOpen || !creature) return null;
+
+    return (
+      <Modal
+        onCloseModal={() => setRegionalEffectsModalOpen(false)}
+        onCloseModalOverlay={() => setRegionalEffectsModalOpen(false)}>
+        <AssociatedRegionalEffectsForm
+          buttonLabel="Update Regional Effects"
+          creature={creature}
+          handleSubmit={(regionalEffectsText: string, creatureRegionalEffects: ICreatureRegionalEffect[]) => {
+            handleSubmit({ ...creature, creatureRegionalEffects, regionalEffectsText });
+          }}/>
+      </Modal>
+    );
+  };
+
+  const getSpellsModal = (): ReactElement | null => {
+    if (!spellsModalOpen || !creature) return null;
+
+    return (
+      <Modal
+        onCloseModal={() => setSpellsModalOpen(false)}
+        onCloseModalOverlay={() => setSpellsModalOpen(false)}>
+        <AssociatedSpellsForm
+          buttonLabel="Update Spells"
+          handleSubmit={(spellIds: string[]) => handleSubmit({ ...creature, spellIds })}
+          spellIds={(creature.spells || []).map(spell => String(spell.id))}
+          spells={spells}/>
+      </Modal>
+    );
   };
 
   if (!creature) return null;
 
   const { id, imageUrl, name } = creature;
-
-  const getDetailsTabContent = (): ReactElement | null => {    
-    return (
-      <div style={{ display: tab === CreatureEditPageContentTab.DEATILS ? 'block': 'none'}}>
-        <h2>Creature Details</h2>
-        <CreatureForm
-          creature={creature}
-          handleSubmit={handleSubmit}
-          handleSubmitButtonLabel="Update Creature"
-        />
-      </div>
-    );
-  };
-
-  const getFactionsTabContent = () => {
-    const entityFactions = creature.factions ?? [];
-
-    return (
-      <div style={{ display: tab === CreatureEditPageContentTab.FACTIONS ? 'block': 'none'}}>
-        <h2>Factions</h2>
-        <AssociatedFactionsForm
-          entityFactions={entityFactions}
-          factions={factions}
-          handleSubmit={handleFactionsSubmit}/>
-      </div>
-    );
-  };
-
-  const getMagicItemsTabContent = () => {
-    const entityMagicItems = creature.magicItems ?? [];
-
-    return (
-      <div style={{ display: tab === CreatureEditPageContentTab.MAGIC_ITEMS ? 'block': 'none'}}>
-        <h2>Magic Items</h2>
-        <AssociatedMagicItemsForm
-          entityMagicItems={entityMagicItems}
-          handleSubmit={handleMagicItemsSubmit}
-          magicItems={magicItems}/>
-      </div>
-    );
-  };
-
-  const getRegionalEffectsTabContent = () => {
-    return (
-      <div style={{ display: tab === CreatureEditPageContentTab.REGIONAL_EFFECTS ? 'block': 'none'}}>
-        <h2>Regional Effects</h2>
-        <AssociatedRegionalEffectsForm creature={creature} />
-      </div>
-    );
-  };
-
-  const getSpellsTabContent = () => {
-    const entitySpells = creature.spells ?? [];
-
-    return (
-      <div style={{ display: tab === CreatureEditPageContentTab.SPELLS ? 'block': 'none'}}>
-        <h2>Spells</h2>
-        <KnownSpellsForm
-          entitySpells={entitySpells}
-          handleSubmit={handleSpellsSubmit}
-          spells={spells}/>
-      </div>
-    );
-  };
-
-  const getTab = (tabItem: CreatureEditPageContentTab, label: string): ReactElement => {
-    const classList = {
-      'tab': true,
-      'tab-selected': tabItem === tab
-    };
-
-    return (
-      <a 
-        className={classNames(classList)}
-        onClick={() => {
-          dispatch({
-            type: CreatureEditPageContentActionType.SET_TAB,
-            payload: { tab: tabItem }
-          })
-        }}
-      >
-        {label}
-      </a>
-    );
-  };
 
   return (
     <>
@@ -341,40 +273,45 @@ const CreatureEditPageContent = (): ReactElement | null => {
           <h2>Creature Image</h2>
           <ImageForm
             buttonLabel="Upload Image"
+            imageClassName="token"
             imageUrl={imageUrl}
             inputName="creature-image-file-upload"
             handleSubmit={handleImageUpload}
-            labelText="Token Image"
           />
-          <div className="tabs">
-            {getTab(CreatureEditPageContentTab.DEATILS, 'Details')}
-            <a className="tab">Features</a>
-            <a className="tab">Actions</a>
-            <a className="tab">Legendary Actions</a>
-            <a className="tab">Lair Actions</a>
-            {getTab(CreatureEditPageContentTab.REGIONAL_EFFECTS, 'Regional Effects')}
-            {getTab(CreatureEditPageContentTab.MAGIC_ITEMS, 'Magic Items')}
-            {getTab(CreatureEditPageContentTab.SPELLS, 'Spells')}
-            {getTab(CreatureEditPageContentTab.FACTIONS, 'Factions')}
+          <div>
+            <button onClick={() => setActionsModalOpen(true)}>Manage Actions</button>
+            <button onClick={() => setFeaturesModalOpen(true)}>Manage Features</button>
+            <button onClick={() => setLegendaryActionsModalOpen(true)}>Manage Legendary Actions</button>
+            <button onClick={() => setLairActionsModalOpen(true)}>Manage Lair Actions</button>
+            <button onClick={() => setRegionalEffectsModalOpen(true)}>Manage Regional Effects</button>
+            <button onClick={() => setSpellsModalOpen(true)}>Manage Spells</button>
+            <button onClick={() => setMagicItemsModalOpen(true)}>Manage Magic Items</button>
+            <button onClick={() => setFactionsModalOpen(true)}>Manage Factions</button>
           </div>
-          {getDetailsTabContent()}
-          {getFactionsTabContent()}
-          {getMagicItemsTabContent()}
-          {getRegionalEffectsTabContent()}
-          {getSpellsTabContent()}
+          <CreatureForm
+            creature={creature}
+            factions={factions}
+            handleSubmit={handleSubmit}
+            handleSubmitButtonLabel="Update Creature"
+            magicItems={magicItems}
+            spells={spells}
+          />
         </div>
       </div>
-      <ToastCollection/>
+      {getActionsModal()}
+      {getFactionsModal()}
+      {getFeaturesModal()}
+      {getLairActionsModal()}
+      {getLegendaryActionsModal()}
+      {getMagicItemsModal()}
+      {getRegionalEffectsModal()}
+      {getSpellsModal()}
     </>
   );
 };
 
 const CreatureEditPage = (): ReactElement => {
-  return (
-    <ToastCollectionContextProvider>
-      <CreatureEditPageContent/>
-    </ToastCollectionContextProvider>
-  );
+  return <CreatureEditPageContent/>;
 };
 
 export { CreatureEditPage };

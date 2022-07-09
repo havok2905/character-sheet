@@ -1,29 +1,21 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { IFaction } from '../../types/models';
 
-interface IAssociatedFactionsFormProps {
-  entityFactions: IFaction[];
-  factions: IFaction[];
+interface IAssociatedFactionsForm {
+  buttonLabel: string,
   handleSubmit: (factionIds: string[]) => void;
+  factionIds: string[];
+  factions: IFaction[];
 }
 
 const AssociatedFactionsForm = ({
-  entityFactions,
+  buttonLabel,
   factions,
+  factionIds,
   handleSubmit
-}: IAssociatedFactionsFormProps): ReactElement => {
+}: IAssociatedFactionsForm): ReactElement => {
   const [nameFilter, setNameFilter] = useState('');
-  const [factionIds, setFactionIds] = useState<string[]>([]);
-
-  useEffect(() => {
-    const entityFactionsIds = entityFactions.map(faction => faction.id as string).filter(Boolean);
-    setFactionIds(entityFactionsIds);
-  }, []);
-
-  const onClick = e => {
-    e.preventDefault();
-    handleSubmit(factionIds);
-  }
+  const [updatedFactionIds, setUpdatedFactionIds] = useState([...factionIds]);
 
   const getFactions = (): IFaction[] => {
     let filteredFactions = factions;
@@ -37,32 +29,29 @@ const AssociatedFactionsForm = ({
     return filteredFactions;
   };
 
-  const handleNameFilterOnChange = e => {
-    setNameFilter(e.target.value);
-  }
+  const handleNameFilterOnChange = e => setNameFilter(e.target.value);
 
   const handleFactionToggle = (id: string) => {
-    if (factionIds.includes(id)) {
-      const data = [...factionIds].filter(factionId => factionId !== id);
-      setFactionIds(data);
+    if (updatedFactionIds.includes(id)) {
+      const data = [...updatedFactionIds].filter(factionId => factionId !== id);
+      setUpdatedFactionIds(data);
     } else {
-      const data = [...factionIds, id];
-      setFactionIds(data);
+      const data = [...updatedFactionIds, id];
+      setUpdatedFactionIds(data);
     }
   };
 
   return (
     <>
+      <h2>Factions</h2>
       <form>
         <fieldset>
           <label>Name</label>
           <input onChange={handleNameFilterOnChange} type="text"/>
         </fieldset>
       </form>
-      <button
-        className="button button-constructive"
-        onClick={onClick}>
-        Save
+      <button onClick={() => handleSubmit(updatedFactionIds)}>
+        {buttonLabel}
       </button>
       <table>
         <thead>
@@ -78,8 +67,8 @@ const AssociatedFactionsForm = ({
               const { id, name } = faction;
 
               if (!id) return;
-              
-              const checked = factionIds.includes(id);
+
+              const checked = updatedFactionIds.includes(String(id));
 
               return (
                 <tr>
@@ -88,7 +77,7 @@ const AssociatedFactionsForm = ({
                   <td>
                     <input
                       checked={checked}
-                      onChange={() => handleFactionToggle(id)}
+                      onChange={() => handleFactionToggle(String(id))}
                       type="checkbox"
                       value={id}/>
                   </td>
@@ -99,7 +88,7 @@ const AssociatedFactionsForm = ({
         </tbody>
       </table>
     </>
-  )
+  );
 };
 
 export { AssociatedFactionsForm };

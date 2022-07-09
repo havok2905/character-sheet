@@ -1,32 +1,24 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { ISpell } from '../../types/models';
 import { SpellSchoolsTypes } from '../../types/rules';
 
-interface IKnownSpellsFormProps {
-  entitySpells: ISpell[];
+interface IAssociatedSpellsFormProps {
+  buttonLabel: string,
   handleSubmit: (spellIds: string[]) => void;
+  spellIds: string[];
   spells: ISpell[];
 }
 
-const KnownSpellsForm = ({
-  entitySpells,
+const AssociatedSpellsForm = ({
+  buttonLabel,
   handleSubmit,
+  spellIds,
   spells
-}: IKnownSpellsFormProps): ReactElement => {
+}: IAssociatedSpellsFormProps): ReactElement => {
   const [nameFilter, setNameFilter] = useState('');
   const [levelFilter, setLevelFilter] = useState(0);
   const [schoolSelection, setSchoolSelection] = useState('');
-  const [spellIds, setSpellIds] = useState<string[]>([]);
-
-  useEffect(() => {
-    const entitySpellIds = entitySpells.map(spell => spell.id as string).filter(Boolean);
-    setSpellIds(entitySpellIds);
-  }, []);
-
-  const onClick = e => {
-    e.preventDefault();
-    handleSubmit(spellIds);
-  }
+  const [updatedSpellIds, setUpdatedSpellIds] = useState([...spellIds]);
 
   const getSpells = (): ISpell[] => {
     let filteredSpells = spells;
@@ -52,30 +44,23 @@ const KnownSpellsForm = ({
     return filteredSpells;
   };
 
-  const handleNameFilterOnChange = e => {
-    setNameFilter(e.target.value);
-  }
-
-  const handleLevelFilterOnChange = e => {
-    setLevelFilter(e.target.value);
-  }
-
-  const handleSchoolFilterOnChange = e => {
-    setSchoolSelection(e.target.value);
-  }
+  const handleNameFilterOnChange = e => setNameFilter(e.target.value);
+  const handleLevelFilterOnChange = e => setLevelFilter(e.target.value);
+  const handleSchoolFilterOnChange = e => setSchoolSelection(e.target.value);
 
   const handleSpellToggle = (id: string) => {
-    if (spellIds.includes(id)) {
-      const data = [...spellIds].filter(spellId => spellId !== id);
-      setSpellIds(data);
+    if (updatedSpellIds.includes(id)) {
+      const data = [...updatedSpellIds].filter(spellId => spellId !== id);
+      setUpdatedSpellIds(data);
     } else {
-      const data = [...spellIds, id];
-      setSpellIds(data);
+      const data = [...updatedSpellIds, id];
+      setUpdatedSpellIds(data);
     }
   };
 
   return (
     <>
+      <h2>Spells</h2>
       <form>
         <fieldset>
           <label>Name</label>
@@ -96,10 +81,8 @@ const KnownSpellsForm = ({
           </select>
         </fieldset>
       </form>
-      <button
-        className="button button-constructive"
-        onClick={onClick}>
-        Save
+      <button onClick={() => handleSubmit(updatedSpellIds)}>
+        {buttonLabel}
       </button>
       <table>
         <thead>
@@ -118,7 +101,7 @@ const KnownSpellsForm = ({
 
               if (!id) return;
               
-              const checked = spellIds.includes(id);
+              const checked = updatedSpellIds.includes(String(id));
 
               return (
                 <tr>
@@ -129,7 +112,7 @@ const KnownSpellsForm = ({
                   <td>
                     <input
                       checked={checked}
-                      onChange={() => handleSpellToggle(id)}
+                      onChange={() => handleSpellToggle(String(id))}
                       type="checkbox"
                       value={id}/>
                   </td>
@@ -140,7 +123,7 @@ const KnownSpellsForm = ({
         </tbody>
       </table>
     </>
-  )
+  );
 };
 
-export { KnownSpellsForm };
+export { AssociatedSpellsForm };

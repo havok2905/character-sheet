@@ -2,18 +2,18 @@ import React, { ReactElement, useRef } from 'react';
 
 interface IImageFormProps {
   buttonLabel: string;
+  imageClassName?:string;
   imageUrl?: string;
   handleSubmit: (data: FormData) => void;
   inputName: string;
-  labelText: string;
 }
 
 const ImageForm = ({
   buttonLabel,
   handleSubmit,
+  imageClassName,
   imageUrl,
-  inputName,
-  labelText
+  inputName
 }: IImageFormProps): ReactElement => {
   const imageFormRef = useRef<HTMLInputElement | null>(null);
 
@@ -32,20 +32,17 @@ const ImageForm = ({
 
   return (
     <form onSubmit={onSubmit}>
-      {imageUrl && <img src={imageUrl} />}
-      <fieldset>
-        <label htmlFor={inputName}>
-          {labelText}
-        </label>
-        <input
-          name={inputName}
-          id={inputName}
-          ref={imageFormRef}
-          type="file" />
-        <button className="button button-constructive">
+      {imageUrl && <img className={imageClassName} src={imageUrl} />}
+        <div>
+          <input
+            name={inputName}
+            id={inputName}
+            ref={imageFormRef}
+            type="file" />
+        </div>
+        <button>
           {buttonLabel}
         </button>
-      </fieldset>
     </form>
   );
 };

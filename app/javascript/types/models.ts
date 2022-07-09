@@ -183,6 +183,7 @@ interface ICharacter {
 }
 
 interface ICreatureAction {
+  _destroy?: boolean;
   description: string;
   actionType: string;
   actionCombatType: string;
@@ -191,6 +192,7 @@ interface ICreatureAction {
   damageTwoDiceRoll: string;
   damageTwoType: string;
   damageType: string;
+  id?: string;
   name: string;
   range: string;
   savingThrowDc: number;
@@ -198,16 +200,22 @@ interface ICreatureAction {
 }
 
 interface ICreatureFeature {
+  _destroy?: boolean;
   description: string;
+  id?: string;
   name: string;
 }
 
 interface ICreatureLairAction {
+  _destroy?: boolean;
   description: string;
+  id?: string;
 }
 
 interface ICreatureLegendaryAction {
+  _destroy?: boolean;
   description: string;
+  id?: string;
   name: string;
 }
 
@@ -248,6 +256,7 @@ interface ICreature {
   dexteritySave: number;
   dexterityScore: number;
   factions?: IFaction[];
+  factionIds?: string[];
   flaws: string;
   hp: number;
   id?: string;
@@ -260,6 +269,7 @@ interface ICreature {
   lairActionsText?: string;
   legendaryActionsText?: string;
   magicItems?: IMagicItem[];
+  magicItemIds?: string[];
   name: string;
   personalityTraits: string;
   regionalEffectsText?: string;

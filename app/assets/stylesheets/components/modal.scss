@@ -15,9 +15,11 @@
   border-radius: $border-radius;
   box-shadow: $box-shadow-light;
   box-sizing: border-box;
+  left: calc(50% - 1200px/2);
+  max-height: 800px;
+  overflow-y: scroll;
   padding: $standard-spacing;
   position: absolute;
   top: 100px;
-  left: calc(50% - 700px/2);
-  width: 700px;
+  width: 1200px;
 }

@@ -77,7 +77,6 @@ const MagicItemEditPage = (): ReactElement | null => {
           imageUrl={imageUrl}
           inputName="magic-item-image-file-upload"
           handleSubmit={handleImageUpload}
-          labelText="Token Image"
         />
         <MagicItemForm
           handleSubmit={handleSubmit}
