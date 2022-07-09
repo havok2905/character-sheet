@@ -11,6 +11,8 @@ ruby '3.1.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
+gem 'devise', '~> 4.8', '>= 4.8.1'
+
 gem 'faker', '~> 2.20.0'
 
 gem 'image_processing', '~> 1.2'
