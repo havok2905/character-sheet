@@ -1,3 +1,9 @@
+enum ActionTypes {
+  ACTION = 'Action',
+  BONUS_ACTION = 'Bonus Action',
+  REACTION = 'Reaction'
+}
+
 enum AlignmentTypes {
   CHAOTIC_GOOD = 'Chaotic Good',
   NEUTRAL_GOOD = 'Neutral Good',
@@ -87,6 +93,7 @@ enum SpellSchoolsTypes {
 }
 
 export {
+  ActionTypes,
   AlignmentTypes,
   CR_LIST,
   CreatureCategoryTypes,

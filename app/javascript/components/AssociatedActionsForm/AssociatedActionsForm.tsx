@@ -1,4 +1,5 @@
 import React, { ReactElement, useState } from 'react';
+import { ActionTypes } from '../../types/rules';
 import { ICreature, ICreatureAction } from '../../types/models';
 
 interface IAssociatedActionsFormProps {
@@ -60,10 +61,14 @@ const AssociatedActionsForm = ({
           type="text"
           value={name}/>
         <label>Action Type</label>
-        <input 
+        <select
           onChange={e => func(index, 'actionType', e.target.value)}
-          type="text"
-          value={actionType}/>
+          value={actionType}>
+          <option></option>
+          <option value={ActionTypes.ACTION}>{ActionTypes.ACTION}</option>
+          <option value={ActionTypes.BONUS_ACTION}>{ActionTypes.BONUS_ACTION}</option>
+          <option value={ActionTypes.REACTION}>{ActionTypes.REACTION}</option>
+        </select>
         <label>Action Combat Type</label>
         <input 
           onChange={e => func(index, 'actionCombatType', e.target.value)}
