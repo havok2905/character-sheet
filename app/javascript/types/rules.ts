@@ -8,6 +8,7 @@ enum AlignmentTypes {
   CHAOTIC_EVIL = 'Chaotic Evil',
   NEUTRAL_EVIL = 'Neutral Evil',
   LAWFUL_EVIL = 'Lawful Evil',
+  UNALIGNED = 'Unaligned'
 }
 
 const CR_LIST = [

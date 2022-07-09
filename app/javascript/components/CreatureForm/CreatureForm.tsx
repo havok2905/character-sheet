@@ -193,6 +193,7 @@ const CreatureForm = ({
         <input onChange={e => handleFormChange('creatureType', e.target.value)} type="text" value={creatureType}/>
         <label>Alignment</label>
         <select onChange={e => handleFormChange('alignment', e.target.value as AlignmentTypes)} value={alignment}>
+          <option value={AlignmentTypes.UNALIGNED}>{AlignmentTypes.UNALIGNED}</option>
           <option value={AlignmentTypes.CHAOTIC_GOOD}>{AlignmentTypes.CHAOTIC_GOOD}</option>
           <option value={AlignmentTypes.NEUTRAL_GOOD}>{AlignmentTypes.NEUTRAL_GOOD}</option>
           <option value={AlignmentTypes.LAWFUL_GOOD}>{AlignmentTypes.LAWFUL_GOOD}</option>
