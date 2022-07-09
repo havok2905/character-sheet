@@ -17,8 +17,4 @@ class Character < ApplicationRecord
                                 :creatures,
                                 :spells,
                                 allow_destroy: true
-
-  def total_level
-    (character_class_level || 0) + (multiclass_class_level || 0)
-  end
 end
