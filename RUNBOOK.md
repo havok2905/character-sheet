@@ -13,12 +13,13 @@
 
 1. Clone main
 2. `bundle install`
-3. `npm i`
-4. `rake db:create`
-5. `rake db:migrate`
-6. `rake db:seed`
-7. `npx webpack --watch`
-8. `rails s`
+3. `rake db:create`
+4. `rake db:migrate`
+5. `rake db:seed`
+6. `rails s`
+7. `cd ./frontend`
+8. `npm i`
+9. `npx webpack --watch`
 
 ## Run in production
 - `NODE_ENV=production npx webpack`
@@ -27,12 +28,6 @@
 ### Run in local production
 - `NODE_ENV=production npx webpack`
 - `RAILS_LOG_TO_STDOUT=true RAILS_ENV=production rails s`
-
-## Pre-commit Hook
-
-We need to add a pre-commit hook to perform the following
-
-`./scripts/pre-commit.sh`
 
 ## Rich Content
 
