@@ -24,6 +24,7 @@ import {
   ISpell
 } from "../../types/models";
 import { ImageForm } from '../../components/ImageForm';
+import { Layout } from '../../layouts/Layout';
 import { Modal } from '../../components/Modal';
 
 const getIdFromUrl = ():string => {
@@ -39,7 +40,7 @@ interface ICreatureEditPageContentState {
   spells: ISpell[]
 }
 
-const CreatureEditPageContent = (): ReactElement | null => {
+const CreatureEditPage = (): ReactElement | null => {
   const [actionsModalOpen, setActionsModalOpen] = useState(false);
   const [factionsModalOpen, setFactionsModalOpen] = useState(false);
   const [featuresModalOpen, setFeaturesModalOpen] = useState(false);
@@ -258,7 +259,7 @@ const CreatureEditPageContent = (): ReactElement | null => {
   };
 
   return (
-    <>
+    <Layout>
       <div className="layout">
         <div className="full">
           <a href={`/creatures/${id}`}>
@@ -301,12 +302,8 @@ const CreatureEditPageContent = (): ReactElement | null => {
       {getMagicItemsModal()}
       {getRegionalEffectsModal()}
       {getSpellsModal()}
-    </>
+    </Layout>
   );
-};
-
-const CreatureEditPage = (): ReactElement => {
-  return <CreatureEditPageContent/>;
 };
 
 export { CreatureEditPage };

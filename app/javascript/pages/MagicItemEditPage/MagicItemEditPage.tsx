@@ -7,6 +7,7 @@ import {
 } from '../../utilities/Api/MagicItems';
 import { IMagicItem } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
+import { Layout } from '../../layouts/Layout';
 import { MagicItemForm } from '../../components/MagicItemForm';
 
 const getIdFromUrl = ():string => {
@@ -68,27 +69,29 @@ const MagicItemEditPage = (): ReactElement | null => {
   };
 
   return (
-    <div className="layout">
-      <div className="full">
-        <h1>Edit Magic Item</h1>
-        <a href={`/magic_items/${id}`}>Back</a>
-        <ImageForm
-          buttonLabel="Upload Image"
-          imageUrl={imageUrl}
-          inputName="magic-item-image-file-upload"
-          handleSubmit={handleImageUpload}
-        />
-        <MagicItemForm
-          handleSubmit={handleSubmit}
-          handleSubmitButtonLabel="Update Magic Item"
-          magicItem={magicItem}/>
-        <button
-         
-          onClick={handleDelete}>
-          Delete
-        </button>
+    <Layout>
+      <div className="layout">
+        <div className="full">
+          <h1>Edit Magic Item</h1>
+          <a href={`/magic_items/${id}`}>Back</a>
+          <ImageForm
+            buttonLabel="Upload Image"
+            imageUrl={imageUrl}
+            inputName="magic-item-image-file-upload"
+            handleSubmit={handleImageUpload}
+          />
+          <MagicItemForm
+            handleSubmit={handleSubmit}
+            handleSubmitButtonLabel="Update Magic Item"
+            magicItem={magicItem}/>
+          <button
+          
+            onClick={handleDelete}>
+            Delete
+          </button>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

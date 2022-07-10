@@ -8,6 +8,7 @@ import {
 import { FactionForm } from '../../components/FactionForm';
 import { IFaction } from "../../types/models";
 import { ImageForm } from '../../components/ImageForm';
+import { Layout } from "../../layouts/Layout";
 
 const getIdFromUrl = ():string => {
   const url = new URL(window.location.href);
@@ -68,29 +69,31 @@ const FactionEditPage = (): ReactElement | null => {
   };
 
   return (
-    <div className="layout">
-      <div className="full">
-        <h1>Edit Faction</h1>
-        <a href="/factions">
-          Back
-        </a>
-        <ImageForm
-          buttonLabel="Upload Image"
-          imageUrl={imageUrl}
-          inputName="faction-image-file-upload"
-          handleSubmit={handleImageUpload}
-        />
-        <FactionForm
-          faction={faction}
-          handleSubmit={handleSubmit}
-          handleSubmitButtonLabel="Update Faction"/>
-        <button
-         
-          onClick={handleDelete}>
-          Delete
-        </button>
+    <Layout>
+      <div className="layout">
+        <div className="full">
+          <h1>Edit Faction</h1>
+          <a href="/factions">
+            Back
+          </a>
+          <ImageForm
+            buttonLabel="Upload Image"
+            imageUrl={imageUrl}
+            inputName="faction-image-file-upload"
+            handleSubmit={handleImageUpload}
+          />
+          <FactionForm
+            faction={faction}
+            handleSubmit={handleSubmit}
+            handleSubmitButtonLabel="Update Faction"/>
+          <button
+          
+            onClick={handleDelete}>
+            Delete
+          </button>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

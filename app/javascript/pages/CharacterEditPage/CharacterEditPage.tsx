@@ -25,6 +25,7 @@ import {
   ISpell
 } from "../../types/models";
 import { ImageForm } from '../../components/ImageForm';
+import { Layout } from '../../layouts/Layout';
 import { Modal } from '../../components/Modal';
 
 const getIdFromUrl = ():string => {
@@ -41,7 +42,7 @@ interface ICharacterEditPageContentState {
   spells: ISpell[];
 }
 
-const CharacterEditPageContent = (): ReactElement | null => {
+const CharacterEditPage = (): ReactElement | null => {
   const [attacksModalOpen, setAttacksModalOpen] = useState(false);
   const [creaturesModalOpen, setCreaturesModalOpen] = useState(false);
   const [factionsModalOpen, setFactionsModalOpen] = useState(false);
@@ -255,7 +256,7 @@ const CharacterEditPageContent = (): ReactElement | null => {
   };
 
   return (
-    <>
+    <Layout>
       <div className="layout">
         <div className="full">
           <a href={`/characters/${id}`}>
@@ -298,12 +299,8 @@ const CharacterEditPageContent = (): ReactElement | null => {
       {getInventoryModal()}
       {getMagicItemsModal()}
       {getSpellsModal()}
-    </>
+    </Layout>
   );
-};
-
-const CharacterEditPage = (): ReactElement => {
-  return <CharacterEditPageContent/>;
 };
 
 export { CharacterEditPage };

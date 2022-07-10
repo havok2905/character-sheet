@@ -2,6 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { CharactersTable } from '../../components/CharactersTable';
 import { getCharacters } from '../../utilities/Api/Characters';
 import { ICharacter } from '../../types/models';
+import { Layout } from '../../layouts/Layout';
 
 const CharactersPage = (): ReactElement => {
   const [characters, setCharacters] = useState<ICharacter[]>([]);
@@ -11,15 +12,17 @@ const CharactersPage = (): ReactElement => {
   }, []);
 
   return (
-    <div className="layout">
-      <div className="full">
-        <h1>Characters</h1>
-        <a href="/characters/new">
-          Create
-        </a>
-        <CharactersTable characters={characters}/>
+    <Layout>
+      <div className="layout">
+        <div className="full">
+          <h1>Characters</h1>
+          <a href="/characters/new">
+            Create
+          </a>
+          <CharactersTable characters={characters}/>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

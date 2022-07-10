@@ -1,7 +1,3 @@
-import {
-  DiceRollerComponent
-} from './components/DiceRoller';
-
 import { characterPageBootstrapper } from './pages/CharacterPage';
 import { characterCreatePageBootstrapper } from './pages/CharacterCreatePage';
 import { characterEditPageBootstrapper } from './pages/CharacterEditPage';
@@ -30,11 +26,7 @@ import { spellsPageBootstrapper } from './pages/SpellsPage';
 
 import '../assets/stylesheets/application.scss';
 
-const diceRollerComponent = new DiceRollerComponent();
-
 window.onload = ():void => {
-  diceRollerComponent.run();
-
   characterPageBootstrapper();
   characterEditPageBootstrapper();
   characterCreatePageBootstrapper();

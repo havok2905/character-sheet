@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import { createMagicItem } from '../../utilities/Api/MagicItems';
 import { IMagicItem } from '../../types/models';
+import { Layout } from '../../layouts/Layout';
 import { MagicItemForm } from '../../components/MagicItemForm/MagicItemForm';
 
 const MagicItemCreatePage = (): ReactElement => {
@@ -16,15 +17,17 @@ const MagicItemCreatePage = (): ReactElement => {
   };
 
   return (
-    <div className="layout">
-      <div className="full">
-        <h1>New Magic Item</h1>
-        <a href="/magic_items">Back</a>
-        <MagicItemForm
-          handleSubmit={handleSubmit}
-          handleSubmitButtonLabel="Create Magic Item"/>
+    <Layout>
+      <div className="layout">
+        <div className="full">
+          <h1>New Magic Item</h1>
+          <a href="/magic_items">Back</a>
+          <MagicItemForm
+            handleSubmit={handleSubmit}
+            handleSubmitButtonLabel="Create Magic Item"/>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

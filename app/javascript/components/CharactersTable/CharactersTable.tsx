@@ -10,7 +10,7 @@ interface ICharactersTableProps {
 
 const CharactersTable = ({
   characters
-}): ReactElement => {
+}: ICharactersTableProps): ReactElement => {
   return (
     <ul className="bulletless-list">
       {

@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { destroySpell, getSpell, updateSpell } from '../../utilities/Api/Spells';
 import { ISpell } from '../../types/models';
+import { Layout } from '../../layouts/Layout';
 import { SpellForm } from '../../components/SpellForm/SpellForm';
 
 const getIdFromUrl = ():string => {
@@ -50,21 +51,21 @@ const SpellEditPage = (): ReactElement | null => {
   };
 
   return (
-    <div className="layout">
-      <div className="full">
-        <h1>Edit Spell</h1>
-        <a href={`/spells/${id}`}>Back</a>
-        <SpellForm
-          handleSubmit={handleSubmit}
-          handleSubmitButtonLabel="Update Spell"
-          spell={spell} />
-        <button
-         
-          onClick={handleDelete}>
-          Delete
-        </button>
+    <Layout>
+      <div className="layout">
+        <div className="full">
+          <h1>Edit Spell</h1>
+          <a href={`/spells/${id}`}>Back</a>
+          <SpellForm
+            handleSubmit={handleSubmit}
+            handleSubmitButtonLabel="Update Spell"
+            spell={spell} />
+          <button onClick={handleDelete}>
+            Delete
+          </button>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

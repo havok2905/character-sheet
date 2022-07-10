@@ -6,6 +6,7 @@ import React, {
 import { GearIcon } from '../../components/Icons';
 import { getLocation } from '../../utilities/Api/Locations';
 import { ILocation } from '../../types/models';
+import { Layout } from '../../layouts/Layout';
 import { MarkdownPreview } from '../../components/MarkdownPreview';
 import { Pin } from '../../components/Pin';
 
@@ -33,42 +34,44 @@ const LocationPage = (): ReactElement | null => {
   if (!location) return null;
 
   return (
-    <div className="layout">
-      <div className="full">
-        <div className="sheet-header">
-          <div className="sheet-header-settings">
-            <a href={`/locations/${location.id}/edit`}>
-              <GearIcon/>
-            </a>
+    <Layout>
+      <div className="layout">
+        <div className="full">
+          <div className="sheet-header">
+            <div className="sheet-header-settings">
+              <a href={`/locations/${location.id}/edit`}>
+                <GearIcon/>
+              </a>
+            </div>
           </div>
+          {
+            location.map.imageUrl && (
+              <>
+                <h2>Map</h2>
+                <div className="map-with-pins-editor">
+                  <img src={location.map.imageUrl} alt={`${location.name} map`} width="1000px"/>
+                  { location.map.pins.map(pin => <Pin pin={pin}/>) }
+                </div> 
+              </>
+            )
+          }
+          <h1>{location.name}</h1>
+          {
+            location.sigilUrl && (
+              <>
+                <h2>Sigil</h2>
+                <img src={location.sigilUrl} alt={`${location.name} sigil`}/>
+              </>
+            )
+          }
+          <div className="card">
+            {location.description}
+          </div>
+          <h2>Article</h2>
+          <MarkdownPreview value={location.content}/>
         </div>
-        {
-          location.map.imageUrl && (
-            <>
-              <h2>Map</h2>
-              <div className="map-with-pins-editor">
-                <img src={location.map.imageUrl} alt={`${location.name} map`} width="1000px"/>
-                { location.map.pins.map(pin => <Pin pin={pin}/>) }
-              </div> 
-            </>
-          )
-        }
-        <h1>{location.name}</h1>
-        {
-          location.sigilUrl && (
-            <>
-              <h2>Sigil</h2>
-              <img src={location.sigilUrl} alt={`${location.name} sigil`}/>
-            </>
-          )
-        }
-        <div className="card">
-          {location.description}
-        </div>
-        <h2>Article</h2>
-        <MarkdownPreview value={location.content}/>
       </div>
-    </div>
+    </Layout>
   );
 };
 

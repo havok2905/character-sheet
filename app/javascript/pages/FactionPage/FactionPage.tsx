@@ -4,6 +4,7 @@ import { GearIcon } from '../../components/Icons';
 import { getFaction } from '../../utilities/Api/Factions';
 import { ICharacter, IFaction } from '../../types/models';
 import { ItemWithToken } from '../../components/ItemWithToken';
+import { Layout } from '../../layouts/Layout';
 
 const getIdFromUrl = ():string => {
   const url = new URL(window.location.href);
@@ -62,78 +63,80 @@ const FactionPage = (): ReactElement | null => {
   };
 
   return (
-    <div className="layout">
-      <div className="full">
-        <div className="sheet-header">
-          <div className="sheet-header-settings">
-            <a href={`/factions/${id}/edit`}>
-              <GearIcon/>
-            </a>
+    <Layout>
+      <div className="layout">
+        <div className="full">
+          <div className="sheet-header">
+            <div className="sheet-header-settings">
+              <a href={`/factions/${id}/edit`}>
+                <GearIcon/>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="full">
-        {imageUrl && <img alt="faction portrait" className="token" src={imageUrl}/>}
-        <h1>{name}</h1>
-        <div className="card">
-          <p><strong>Alignment: </strong>{alignment}</p>
-          <p><strong>Goals: </strong>{goals}</p>
-          <p><strong>Ideals: </strong>{ideals}</p>
-          <p><strong>Allies: </strong>{allies}</p>
-          <p><strong>Rivals: </strong>{rivals}</p>
-          <p>{description}</p>
+        <div className="full">
+          {imageUrl && <img alt="faction portrait" className="token" src={imageUrl}/>}
+          <h1>{name}</h1>
+          <div className="card">
+            <p><strong>Alignment: </strong>{alignment}</p>
+            <p><strong>Goals: </strong>{goals}</p>
+            <p><strong>Ideals: </strong>{ideals}</p>
+            <p><strong>Allies: </strong>{allies}</p>
+            <p><strong>Rivals: </strong>{rivals}</p>
+            <p>{description}</p>
+          </div>
+          <h2>Member NPCs</h2>
+          <ul className="bulletless-list">
+            {
+              creatures.map(creature => {
+                const {
+                  id,
+                  imageUrl,
+                  name
+                } = creature;
+
+                return (
+                  <li>
+                    <ItemWithToken
+                      description={creatureRow(creature)}
+                      heading={name}
+                      imageAltText={`${name} token`}
+                      imageUrl={imageUrl}
+                      itemPath={`/creatures/${id}`}
+                    />
+                  </li>
+                );
+              })
+            }
+          </ul>
+          <h2>Member Characters</h2>
+          <ul className="bulletless-list">
+            {
+              characters.map(character => {
+                const {
+                  id,
+                  imageUrl,
+                  name
+                } = character;
+
+                return (
+                  <li>
+                    <ItemWithToken
+                      description={characterClassRow(character)}
+                      heading={name}
+                      imageAltText={`${name} token`}
+                      imageUrl={imageUrl}
+                      itemPath={`/characters/${id}`}
+                      subDescription={characterMulticlassRow(character)}
+                    />
+                  </li>
+                );
+              })
+            }
+          </ul>
         </div>
-        <h2>Member NPCs</h2>
-        <ul className="bulletless-list">
-          {
-            creatures.map(creature => {
-              const {
-                id,
-                imageUrl,
-                name
-              } = creature;
-
-              return (
-                <li>
-                  <ItemWithToken
-                    description={creatureRow(creature)}
-                    heading={name}
-                    imageAltText={`${name} token`}
-                    imageUrl={imageUrl}
-                    itemPath={`/creatures/${id}`}
-                  />
-                </li>
-              );
-            })
-          }
-        </ul>
-        <h2>Member Characters</h2>
-        <ul className="bulletless-list">
-          {
-            characters.map(character => {
-              const {
-                id,
-                imageUrl,
-                name
-              } = character;
-
-              return (
-                <li>
-                  <ItemWithToken
-                    description={characterClassRow(character)}
-                    heading={name}
-                    imageAltText={`${name} token`}
-                    imageUrl={imageUrl}
-                    itemPath={`/characters/${id}`}
-                    subDescription={characterMulticlassRow(character)}
-                  />
-                </li>
-              );
-            })
-          }
-        </ul>
       </div>
-    </div>
+    </Layout>
   );
 };
 

@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { createCreature } from "../../utilities/Api/Creatures";
 import { CreatureForm } from "../../components/CreatureForm/CreatureForm";
 import { ICreature } from "../../types/models";
+import { Layout } from '../../layouts/Layout';
 
 const CreatureCreatePage = (): ReactElement => {
   const handleSubmit = (creature: ICreature) => {
@@ -16,18 +17,20 @@ const CreatureCreatePage = (): ReactElement => {
   };
 
   return (
-    <div className="layout">
-      <div className="full">
-        <h1>New Creature</h1>
-        <a href="/creatures">
-          Back
-        </a>
-        <CreatureForm
-          handleSubmit={handleSubmit}
-          handleSubmitButtonLabel="Create Creature"
-        />
+    <Layout>
+      <div className="layout">
+        <div className="full">
+          <h1>New Creature</h1>
+          <a href="/creatures">
+            Back
+          </a>
+          <CreatureForm
+            handleSubmit={handleSubmit}
+            handleSubmitButtonLabel="Create Creature"
+          />
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

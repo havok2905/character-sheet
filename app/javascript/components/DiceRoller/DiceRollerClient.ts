@@ -1,5 +1,3 @@
-import { IDiceRoller } from './IDiceRoller';
-
 type IParsedRoll = {
   bonus: number,
   bonusOperator: string,
@@ -8,7 +6,11 @@ type IParsedRoll = {
   diceUnit: number
 }
 
-class DiceRoller implements IDiceRoller {
+interface IDiceRollerClient {
+  roll(rollInput: string): number;
+}
+
+class DiceRollerClient implements IDiceRollerClient {
   public roll(rollInput: string): number {
     const {
       bonus,
@@ -65,4 +67,4 @@ class DiceRoller implements IDiceRoller {
   }
 }
 
-export { DiceRoller };
+export { DiceRollerClient };
