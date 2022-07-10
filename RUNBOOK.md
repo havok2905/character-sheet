@@ -97,19 +97,7 @@ Your specified user will need extra permissions set up to perform a mysqldump op
 
 **Require Directories**
 
-- `/var/character-sheet/development/backups/json/`
-- `/var/character-sheet/production/backups/json/`
+- `/var/character-sheet/development/backups/mysql/`
+- `/var/character-sheet/production/backups/mysql/`
 
 `mysqldump -u <USER> -p --all-databases --single-transaction --quick --lock-tables=false | gzip > /var/character-sheet/development/backups/mysql/full-backup-$(date +"%Y_%m_%d_%I_%M_%p").sql.gz`
-
-### JSON Backups
-
-**Do not do this for real projects with a serious amount of data!**
-
-This is an expensive operation and should be seldomly run. This will touch every record in the database, sans users, and convert those entities to JSON.
-
-This will also include duplicted nested data.
-
-- `/var/character-sheet/development/backups/json/` and `/var/character-sheet/production/backups/json/` directories with app permissions to write is required for this job to run.
-- Rake Task: `rake data_dumps:json`, will leverage the folder structure outlined above.
-- Manual Class Usage: `DataDumps::DumpAll.new root_dir: root_dir` will allow for a custom backup path to be provided
