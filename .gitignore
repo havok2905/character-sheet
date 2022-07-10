@@ -38,6 +38,6 @@
 
 .env
 
-/public/**/*.js
-/public/**/*.js.LICENSE.txt
-/public/**/*.css
+/public/javascripts/
+/public/styles/
+/public/images/

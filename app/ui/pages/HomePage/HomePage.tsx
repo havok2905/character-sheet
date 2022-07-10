@@ -1,6 +1,12 @@
 import React, { ReactElement } from 'react';
 import { ImagePanelLink } from '../../components/ImagePanelLink';
 import { Layout } from '../../layouts/Layout';
+import CharactersImage from './home-page-characters-tile.png';
+import CreaturesImage from './home-page-creatures-tile.png';
+import FactionsImage from './home-page-factions-tile.png';
+import LocationsImage from './home-page-locations-tile.png';
+import MagicItemsImage from './home-page-magic-items-tile.png';
+import SpellsImage from './home-page-spells-tile.png';
 
 const HomePage = (): ReactElement => {
   return (
@@ -10,32 +16,32 @@ const HomePage = (): ReactElement => {
           <h1>The D&D Compendium</h1>
           <div className="image-panel-grid">
             <ImagePanelLink
-              imagePath="/home-page-characters-tile.png"
+              imagePath={CharactersImage}
               path="/characters"
               title="Characters"
             />
             <ImagePanelLink
-              imagePath="/home-page-creatures-tile.png"
+              imagePath={CreaturesImage}
               path="/creatures"
               title="Creatures"
             />
             <ImagePanelLink
-              imagePath="/home-page-factions-tile.png"
+              imagePath={FactionsImage}
               path="/factions"
               title="Factions"
             />
             <ImagePanelLink
-              imagePath="/home-page-magic-items-tile.png"
+              imagePath={MagicItemsImage}
               path="/magic_items"
               title="Magic Items"
             />
             <ImagePanelLink
-              imagePath="/home-page-locations-tile.png"
+              imagePath={LocationsImage}
               path="/locations"
               title="Locations"
             />
             <ImagePanelLink
-              imagePath="/home-page-spells-tile.png"
+              imagePath={SpellsImage}
               path="/spells"
               title="Spells"
             />
