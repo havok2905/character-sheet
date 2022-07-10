@@ -45,7 +45,7 @@ class SpellsController < ApplicationController
   private
 
   def spell_response_model(spell)
-    mapper = DataMappers::SpellDataMapper.new
+    mapper = DataMappers::Responses::SpellDataMapper.new
     mapper.run spell
   end
 

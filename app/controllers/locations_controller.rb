@@ -78,7 +78,7 @@ class LocationsController < ApplicationController
   private
 
   def location_response_model(location, map)
-    mapper = DataMappers::LocationDataMapper.new
+    mapper = DataMappers::Responses::LocationDataMapper.new
     mapper.run location, map
   end
 

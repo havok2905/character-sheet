@@ -23,7 +23,7 @@ class PinsController < ApplicationController
   private
 
   def pin_response_model(pin)
-    mapper = DataMappers::PinDataMapper.new
+    mapper = DataMappers::Responses::PinDataMapper.new
     mapper.run pin
   end
 
