@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import { ISpell } from '../../types/models';
+import { NewLineText } from '../NewLineText';
 
 interface ISpellCardProps {
   spell: ISpell;
@@ -44,11 +45,11 @@ const SpellCard = ({
       <p><strong>Target: </strong>{target}</p>
       <p>
         <strong>Description: </strong>
-        {description}
+        <NewLineText text={description}/>
       </p>
       <p>
         <strong>Description at Higher Levels: </strong>
-        {descriptionHigherLevels}
+        <NewLineText text={descriptionHigherLevels}/>
       </p>
     </div>
   );
