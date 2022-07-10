@@ -224,22 +224,20 @@ const CreaturePage = (): ReactElement | null => {
           !!factions?.length && (
             <div className="card">
               <h2>Factions</h2>
-              <ul className="bulletless-list">
-                {
-                  factions.map(faction => {
-                    const { id, imageUrl, name } = faction;
+              {
+                factions.map(faction => {
+                  const { id, imageUrl, name } = faction;
 
-                    return (
-                      <AssociateWithTokenLink
-                        associationUrl={`/factions/${id}`}
-                        imageAltText={`${name} token`}
-                        imageUrl={imageUrl}
-                        linkText={name}
-                      />
-                    )
-                  })
-                }
-              </ul>
+                  return (
+                    <AssociateWithTokenLink
+                      associationUrl={`/factions/${id}`}
+                      imageAltText={`${name} token`}
+                      imageUrl={imageUrl}
+                      linkText={name}
+                    />
+                  )
+                })
+              }
             </div>
           )
         }

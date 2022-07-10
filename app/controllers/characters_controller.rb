@@ -1,158 +1,346 @@
 # frozen_string_literal: true
 
 class CharactersController < ApplicationController
-  include UiCharacterable
-  include UiImagable
-
-  helper_method :character_class_row
-  helper_method :character_multiclass_row
-  helper_method :image_alt_text
-  helper_method :image_url
-
-  before_action :authenticate_user!, only: %i[
-    create
-    destroy
-    edit
-    edit_attacks
-    edit_creatures
-    edit_factions
-    edit_features
-    edit_inventory
-    edit_magic_items
-    edit_resources
-    edit_spells
-    new
-    update
-  ]
-
   def index
-    @characters = characters
+    c = Character.all
+    characters = characters_response_model c
+    respond_to do |format|
+      format.html
+      format.json { render json: { characters: characters } }
+    end
   end
 
   def show
-    @character = character_by_id
+    c = Character.find params[:id]
+    character = character_response_model c
+    respond_to do |format|
+      format.html
+      format.json { render json: { character: character } }
+    end
   end
 
   def new
-    @character = new_character
   end
 
   def create
-    @character = new_character_with_params
-
-    if @character.save
-      redirect_to @character
-    else
-      render :new, status: :unprocessable_entity
-    end
+    c = Character.create create_character_params
+    character = character_response_model c
+    render json: { character: character }
   end
 
   def edit
-    @character = character_by_id
-  end
-
-  def edit_attacks
-    @character = character_by_id
-  end
-
-  def edit_creatures
-    @character = character_by_id
-    @creatures = creatures
-  end
-
-  def edit_factions
-    @character = character_by_id
-    @factions = factions
-  end
-
-  def edit_features
-    @character = character_by_id
-  end
-
-  def edit_inventory
-    @character = character_by_id
-  end
-
-  def edit_magic_items
-    @character = character_by_id
-    @magic_items = magic_items
-  end
-
-  def edit_resources
-    @character = character_by_id
-  end
-
-  def edit_spells
-    @character = character_by_id
-    @spells = spells
   end
 
   def update
-    @character = character_by_id
+    c = Character.find params[:id]
+    c.update update_character_params
+    character = character_response_model c
+    render json: { character: character }
+  end
 
-    if @character.update character_params
-      redirect_to @character
-    else
-      render :edit, status: :unprocessable_entity
-    end
+  def upload_image
+    c = Character.find params[:id]
+    c.image = params['character-image-file-upload']
+    c.save!
+    character = character_response_model c
+    render json: { character: character }
   end
 
   def destroy
-    @character = character_by_id
-    @character.destroy
-    redirect_to characters_path
-  end
-
-  helper_method :get_profcient_class
-  def get_profcient_class(prof)
-    %w[prof exp].include?(prof) ? 'sheet-table-data-bolded' : nil
-  end
-
-  helper_method :get_spells_by_level
-  def get_spells_by_level(level)
-    @character.spells.select { |spell| spell.level == level }
-  end
-
-  helper_method :modify_character
-  def modify_character
-    user_signed_in?
+    c = Character.find params[:id]
+    c.destroy
+    render json: {}
   end
 
   private
 
-  def characters
-    Character.order :name
+  def create_character_params
+    create_character_request.deep_transform_keys!(&:underscore)
   end
 
-  def character_by_id
-    Character.find params[:id]
+  def create_character_request
+    params.require(:character).permit(
+      :ac,
+      :acrobaticsMod,
+      :acrobaticsProf,
+      :age,
+      :alignment,
+      :animalHandlingMod,
+      :animalHandlingProf,
+      :arcanaMod,
+      :arcanaProf,
+      :athleticsMod,
+      :athleticsProf,
+      :armorProficiencies,
+      :background,
+      :backstory,
+      :bonds,
+      :characterClass,
+      :characterClassHitDice,
+      :characterClassLevel,
+      :characterSubClass,
+      :charismaMod,
+      :charismaProf,
+      :charismaSave,
+      :charismaScore,
+      :conditionImmunities,
+      :conditionResistances,
+      :conditionVulnerabilities,
+      :constitutionMod,
+      :constitutionProf,
+      :constitutionSave,
+      :constitutionScore,
+      :copperPieces,
+      :damageImmunities,
+      :damageResistances,
+      :damageVulnerabilities,
+      :deceptionMod,
+      :deceptionProf,
+      :dexterityMod,
+      :dexterityProf,
+      :dexteritySave,
+      :dexterityScore,
+      :electrumPieces,
+      :eyes,
+      :flaws,
+      :goldPieces,
+      :hair,
+      :height,
+      :historyMod,
+      :historyProf,
+      :hp,
+      :ideals,
+      :initiative,
+      :insightMod,
+      :insightProf,
+      :intelligenceMod,
+      :intelligenceProf,
+      :intelligenceSave,
+      :intelligenceScore,
+      :intimidationMod,
+      :intimidationProf,
+      :investigationMod,
+      :investigationProf,
+      :languages,
+      :medicineMod,
+      :medicineProf,
+      :multiclassClass,
+      :multiclassClassHitDice,
+      :multiclassClassLevel,
+      :multiclassSubClass,
+      :name,
+      :natureMod,
+      :natureProf,
+      :passivePerception,
+      :perceptionMod,
+      :perceptionProf,
+      :performanceMod,
+      :performanceProf,
+      :personalityTraits,
+      :persuasionMod,
+      :persuasionProf,
+      :platinumPieces,
+      :proficiencyBonus,
+      :race,
+      :religionMod,
+      :religionProf,
+      :senses,
+      :silverPieces,
+      :skin,
+      :sleightOfHandMod,
+      :sleightOfHandProf,
+      :speed,
+      :spellSlotsFirst,
+      :spellSlotsSecond,
+      :spellSlotsThird,
+      :spellSlotsFourth,
+      :spellSlotsFifth,
+      :spellSlotsSixth,
+      :spellSlotsSeventh,
+      :spellSlotsEighth,
+      :spellSlotsNinth,
+      :spellcastingAbility,
+      :spellcastingModifier,
+      :spellcastingSaveDc,
+      :stealthMod,
+      :stealthProf,
+      :strengthMod,
+      :strengthProf,
+      :strengthSave,
+      :strengthScore,
+      :subRace,
+      :survivalMod,
+      :survivalProf,
+      :toolProficiencies,
+      :weaponProficiencies,
+      :weight,
+      :wisdomMod,
+      :wisdomProf,
+      :wisdomSave,
+      :wisdomScore
+    )
   end
 
-  def character_params
-    params.require(:character).permit!
+  def update_character_params
+    character_params = update_character_request.deep_transform_keys!(&:underscore)
+
+    character_params[:character_attacks].each do |attack|
+      attack.deep_transform_keys!(&:underscore)
+    end
+
+    character_params[:character_attacks_attributes] = character_params[:character_attacks]
+    character_params[:character_features_attributes] = character_params[:character_features]
+    character_params[:character_feature_resources_attributes] = character_params[:character_feature_resources]
+    character_params[:character_items_attributes] = character_params[:character_items]
+
+    character_params.delete :character_attacks
+    character_params.delete :character_features
+    character_params.delete :character_feature_resources
+    character_params.delete :character_items
+
+    character_params 
   end
 
-  def creatures
-    Creature.order :name
+  def update_character_request
+    params.require(:character).permit(
+      :ac,
+      :acrobaticsMod,
+      :acrobaticsProf,
+      :age,
+      :alignment,
+      :animalHandlingMod,
+      :animalHandlingProf,
+      :arcanaMod,
+      :arcanaProf,
+      :athleticsMod,
+      :athleticsProf,
+      :armorProficiencies,
+      :background,
+      :backstory,
+      :bonds,
+      :characterClass,
+      :characterClassHitDice,
+      :characterClassLevel,
+      :characterSubClass,
+      :charismaMod,
+      :charismaProf,
+      :charismaSave,
+      :charismaScore,
+      :conditionImmunities,
+      :conditionResistances,
+      :conditionVulnerabilities,
+      :constitutionMod,
+      :constitutionProf,
+      :constitutionSave,
+      :constitutionScore,
+      :copperPieces,
+      :damageImmunities,
+      :damageResistances,
+      :damageVulnerabilities,
+      :deceptionMod,
+      :deceptionProf,
+      :dexterityMod,
+      :dexterityProf,
+      :dexteritySave,
+      :dexterityScore,
+      :electrumPieces,
+      :eyes,
+      :flaws,
+      :goldPieces,
+      :hair,
+      :height,
+      :historyMod,
+      :historyProf,
+      :hp,
+      :ideals,
+      :initiative,
+      :insightMod,
+      :insightProf,
+      :intelligenceMod,
+      :intelligenceProf,
+      :intelligenceSave,
+      :intelligenceScore,
+      :intimidationMod,
+      :intimidationProf,
+      :investigationMod,
+      :investigationProf,
+      :languages,
+      :medicineMod,
+      :medicineProf,
+      :multiclassClass,
+      :multiclassClassHitDice,
+      :multiclassClassLevel,
+      :multiclassSubClass,
+      :name,
+      :natureMod,
+      :natureProf,
+      :passivePerception,
+      :perceptionMod,
+      :perceptionProf,
+      :performanceMod,
+      :performanceProf,
+      :personalityTraits,
+      :persuasionMod,
+      :persuasionProf,
+      :platinumPieces,
+      :proficiencyBonus,
+      :race,
+      :religionMod,
+      :religionProf,
+      :senses,
+      :silverPieces,
+      :skin,
+      :sleightOfHandMod,
+      :sleightOfHandProf,
+      :speed,
+      :spellSlotsFirst,
+      :spellSlotsSecond,
+      :spellSlotsThird,
+      :spellSlotsFourth,
+      :spellSlotsFifth,
+      :spellSlotsSixth,
+      :spellSlotsSeventh,
+      :spellSlotsEighth,
+      :spellSlotsNinth,
+      :spellcastingAbility,
+      :spellcastingModifier,
+      :spellcastingSaveDc,
+      :stealthMod,
+      :stealthProf,
+      :strengthMod,
+      :strengthProf,
+      :strengthSave,
+      :strengthScore,
+      :subRace,
+      :survivalMod,
+      :survivalProf,
+      :toolProficiencies,
+      :weaponProficiencies,
+      :weight,
+      :wisdomMod,
+      :wisdomProf,
+      :wisdomSave,
+      :wisdomScore,
+      :_destroy,
+      :characterAttacks => [:_destroy, :attackBonus, :critRange, :damageDiceRoll, :damageTwoDiceRoll, :damageTwoType, :damageType, :description, :id, :isSavingThrow, :name, :range, :savingThrowDescription, :savingThrowThreshold, :savingThrowType],
+      :characterFeatures => [:_destroy, :name, :id, :source, :description],
+      :characterFeatureResources => [:_destroy, :name, :id, :total],
+      :characterItems => [:_destroy, :name, :id, :total],
+      :creatureIds => [],
+      :factionIds => [],
+      :magicItemIds => [],
+      :spellIds => []
+    )
   end
 
-  def factions
-    Faction.order :name
+  def character_response_model character
+    mapper = DataMappers::CharacterDataMapper.new
+    mapper.run character
   end
 
-  def magic_items
-    MagicItem.order :name
-  end
-
-  def new_character
-    Character.new
-  end
-
-  def new_character_with_params
-    Character.new character_params
-  end
-
-  def spells
-    Spell.order :name
+  def characters_response_model characters
+    characters.map do |character|
+      character_response_model character
+    end
   end
 end

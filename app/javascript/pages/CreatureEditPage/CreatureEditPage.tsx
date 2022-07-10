@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { AssociatedActionsForm } from '../../components/AssociatedActionsForm';
 import { AssociatedFactionsForm } from '../../components/AssociatedFactionsForm';
-import { AssociatedFeaturesForm } from '../../components/AssociatedFeaturesForm';
+import { AssociatedCreatureFeaturesForm } from '../../components/AssociatedCreatureFeaturesForm';
 import { AssociatedLairActionsForm } from '../../components/AssociatedLairActionsForm';
 import { AssociatedLegendaryActionsForm } from '../../components/AssociatedLegendaryActionsForm';
 import { AssociatedMagicItemsForm } from '../../components/AssociatedMagicItemsForm';
@@ -79,6 +79,10 @@ const CreatureEditPageContent = (): ReactElement | null => {
   }, []);
 
   const { creature, factions, magicItems, spells } = state;
+
+  if (!creature) return null;
+
+  const { id, imageUrl, name } = creature;
 
   const handleDelete = e => {
     e.preventDefault();
@@ -160,7 +164,7 @@ const CreatureEditPageContent = (): ReactElement | null => {
       <Modal
         onCloseModal={() => setFeaturesModalOpen(false)}
         onCloseModalOverlay={() => setFeaturesModalOpen(false)}>
-        <AssociatedFeaturesForm
+        <AssociatedCreatureFeaturesForm
           buttonLabel="Update Features"
           creature={creature}
           handleSubmit={(creatureFeatures: ICreatureFeature[]) => {
@@ -212,7 +216,7 @@ const CreatureEditPageContent = (): ReactElement | null => {
         onCloseModal={() => setMagicItemsModalOpen(false)}
         onCloseModalOverlay={() => setMagicItemsModalOpen(false)}>
         <AssociatedMagicItemsForm
-          buttonLabel="Update Factions"
+          buttonLabel="Update Magic Items"
           handleSubmit={(magicItemIds: string[]) => handleSubmit({ ...creature, magicItemIds })}
           magicItemIds={(creature.magicItems || []).map(magicItem => String(magicItem.id))}
           magicItems={magicItems}/>
@@ -253,10 +257,6 @@ const CreatureEditPageContent = (): ReactElement | null => {
     );
   };
 
-  if (!creature) return null;
-
-  const { id, imageUrl, name } = creature;
-
   return (
     <>
       <div className="layout">
@@ -264,9 +264,7 @@ const CreatureEditPageContent = (): ReactElement | null => {
           <a href={`/creatures/${id}`}>
             Back
           </a>
-          <button
-           
-            onClick={handleDelete}>
+          <button onClick={handleDelete}>
             Delete
           </button>
           <h1>Creature Settings - {name}</h1>
@@ -290,11 +288,8 @@ const CreatureEditPageContent = (): ReactElement | null => {
           </div>
           <CreatureForm
             creature={creature}
-            factions={factions}
             handleSubmit={handleSubmit}
             handleSubmitButtonLabel="Update Creature"
-            magicItems={magicItems}
-            spells={spells}
           />
         </div>
       </div>

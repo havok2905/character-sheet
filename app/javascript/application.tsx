@@ -1,13 +1,11 @@
 import {
-  CharacterAttackForm,
-  CharacterFeatureForm,
-  CharacterItemForm,
-  CharacterResourceForm
-} from './components/CharacterForm';
-import {
   DiceRollerComponent
 } from './components/DiceRoller';
 
+import { characterPageBootstrapper } from './pages/CharacterPage';
+import { characterCreatePageBootstrapper } from './pages/CharacterCreatePage';
+import { characterEditPageBootstrapper } from './pages/CharacterEditPage';
+import { charactersPageBootstrapper } from './pages/CharactersPage';
 import { creaturePageBootstrapper } from './pages/CreaturePage';
 import { creatureCreatePageBootstrapper } from './pages/CreatureCreatePage';
 import { creatureEditPageBootstrapper } from './pages/CreatureEditPage';
@@ -32,18 +30,15 @@ import { spellsPageBootstrapper } from './pages/SpellsPage';
 
 import '../assets/stylesheets/application.scss';
 
-const characterAttackForm = new CharacterAttackForm();
-const characterFeatureForm = new CharacterFeatureForm();
-const characterItemForm = new CharacterItemForm();
-const characterResourceForm = new CharacterResourceForm();
 const diceRollerComponent = new DiceRollerComponent();
 
 window.onload = ():void => {
-  characterAttackForm.run();
-  characterFeatureForm.run();
-  characterItemForm.run();
-  characterResourceForm.run();
   diceRollerComponent.run();
+
+  characterPageBootstrapper();
+  characterEditPageBootstrapper();
+  characterCreatePageBootstrapper();
+  charactersPageBootstrapper();
 
   creaturePageBootstrapper();
   creatureCreatePageBootstrapper();

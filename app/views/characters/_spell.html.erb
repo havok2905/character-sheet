@@ -1,8 +1,0 @@
-<p>School: <%= spell.school %></p>
-<p>Components: (<%= spell.ritual ? 'R' : '' %><%= spell.material_components ? 'M' : '' %><%= spell.somatic_components ? 'S' : '' %><%= spell.verbal_components ? 'V' : '' %><%= spell.concentration ? 'C' : '' %>) <%= spell.components %></p>
-<p>Cating Time: <%= spell.casting_time %></p>
-<p>Duration: <%= spell.duration %></p>
-<p>Range: <%= spell.range %></p>
-<p>Target: <%= spell.target %></p>
-<%= simple_format(spell.description).html_safe %>
-<%= simple_format(spell.description_higher_levels).html_safe %>

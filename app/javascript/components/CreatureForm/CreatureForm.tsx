@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { AlignmentTypes, CreatureCategoryTypes, CR_LIST } from '../../types/rules';
-import { ICreature, IFaction, IMagicItem, ISpell } from '../../types/models';
+import { ICreature } from '../../types/models';
 
 const getFormCopy = (formModel: ICreature) => {
   return {
@@ -25,11 +25,8 @@ const getFormCopy = (formModel: ICreature) => {
 
 interface ICreatureFormProps {
   creature?: ICreature;
-  factions: IFaction[];
   handleSubmit: (creature: ICreature) => void;
   handleSubmitButtonLabel: string;
-  magicItems: IMagicItem[];
-  spells: ISpell[];
 }
 
 const CreatureForm = ({

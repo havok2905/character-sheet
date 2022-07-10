@@ -59,6 +59,46 @@ interface ISpell {
   verbalComponents: boolean;
 }
 
+interface ICharacterAttack {
+  _destroy?: boolean;
+  attackBonus: number;
+  critRange: number;
+  damageDiceRoll: string;
+  damageTwoDiceRoll: string;
+  damageTwoType: string;
+  damageType: string;
+  description: string;
+  id?: string;
+  isSavingThrow: boolean;
+  name: string;
+  range: string;
+  savingThrowDescription: string;
+  savingThrowThreshold: string;
+  savingThrowType: string;
+}
+
+interface ICharacterFeature {
+  _destroy?: boolean;
+  description: string;
+  id?: string;
+  name: string;
+  source: string;
+}
+
+interface ICharacterFeatureResource {
+  _destroy?: boolean;
+  id?: string;
+  name: string;
+  total: number;
+}
+
+interface ICharacterItem {
+  _destroy?: boolean;
+  id?: string;
+  name: string;
+  total: number;
+}
+
 interface ICharacter {
   ac: number;
   acrobaticsMod: number;
@@ -78,6 +118,10 @@ interface ICharacter {
   characterClass: string;
   characterClassHitDice: number;
   characterClassLevel: number;
+  characterAttacks?: ICharacterAttack[];
+  characterFeatures?: ICharacterFeature[];
+  characterFeatureResources?: ICharacterFeatureResource[];
+  characterItems?: ICharacterItem[];
   characterSubClass: string;
   charismaMod: number;
   charismaProf: string;
@@ -91,6 +135,8 @@ interface ICharacter {
   constitutionSave: number;
   constitutionScore: number;
   copperPieces: number;
+  creatures?: ICreature[];
+  creatureIds?: string[];
   damageImmunities: string;
   damageResistances: string;
   damageVulnerabilities: string;
@@ -102,18 +148,20 @@ interface ICharacter {
   dexterityScore: number;
   electrumPieces: number;
   eyes: string;
+  factions?: IFaction[];
+  factionIds?: string[];
   flaws: string;
   goldPieces: number;
   hair: string;
   height: string;
   historyMod: number;
   historyProf: string;
-  id?: string;
-  imageUrl?: string;
-  insightMod: number;
   hp: number;
+  id?: string;
   ideals: string;
+  imageUrl?: string;
   initiative: number;
+  insightMod: number;
   insightProf: string;
   intelligenceMod: number;
   intelligenceProf: string;
@@ -124,6 +172,8 @@ interface ICharacter {
   investigationMod: number;
   investigationProf: string;
   languages: string;
+  magicItems?: IMagicItem[];
+  magicItemIds?: string[];
   medicineMod: number;
   medicineProf: string;
   multiclassClass: string;
@@ -151,6 +201,9 @@ interface ICharacter {
   skin: string;
   sleightOfHandMod: number;
   sleightOfHandProf: string;
+  speed: number;
+  spells?: ISpell[];
+  spellIds?: string[];
   spellSlotsEighth: number;
   spellSlotsFifth: number;
   spellSlotsFirst: number;
@@ -169,7 +222,6 @@ interface ICharacter {
   strengthProf: string;
   strengthSave: number;
   strengthScore: number;
-  speed: number;
   subRace: string;
   survivalMod: number;
   survivalProf: string;
@@ -303,8 +355,8 @@ interface ICreature {
 interface IFaction {
   alignment: string;
   allies: string;
-  characters?: ICharacter[],
-  creatures?: ICreature[],
+  characters?: ICharacter[];
+  creatures?: ICreature[];
   description: string;
   goals: string;
   id?: string;
@@ -316,6 +368,10 @@ interface IFaction {
 
 export {
   ICharacter,
+  ICharacterAttack,
+  ICharacterFeature,
+  ICharacterFeatureResource,
+  ICharacterItem,
   ICreature,
   ICreatureAction,
   ICreatureFeature,

@@ -1,9 +1,0 @@
-<div class="map-with-pins">
-  <img alt=<%= map_alt_text %> src=<%= map_url %> width="1000px"/>
-  <% pins.each do |pin| %>
-    <div class="map-pin" style="left:<%= pin.x %>px;top:<%= pin.y %>px">
-      <div class="map-pin-inner">
-      </div>
-    </div>   
-  <% end %>
-</div>
