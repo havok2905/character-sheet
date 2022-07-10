@@ -321,7 +321,8 @@ class CharactersController < ApplicationController
       :wisdomScore,
       :_destroy,
       characterAttacks: %i[_destroy attackBonus critRange damageDiceRoll damageTwoDiceRoll damageTwoType
-                           damageType description id isSavingThrow name range savingThrowDescription savingThrowThreshold savingThrowType],
+                           damageType description id isSavingThrow name range savingThrowDescription
+                           savingThrowThreshold savingThrowType],
       characterFeatures: %i[_destroy name id source description],
       characterFeatureResources: %i[_destroy name id total],
       characterItems: %i[_destroy name id total],

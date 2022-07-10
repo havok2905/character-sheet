@@ -13,9 +13,9 @@ Layout/EmptyLineAfterGuardClause:
 Metrics/BlockLength:
   Enabled: false
 Metrics/ClassLength:
-  Max: 300
+  Enabled: false
 Metrics/MethodLength:
-  Max: 15
+  Enabled: false
 Naming/AccessorMethodName:
   Enabled: false
 Style/Documentation:

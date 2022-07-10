@@ -55,28 +55,32 @@ class SpellsController < ApplicationController
     end
   end
 
+  def spell_request
+    %i[
+      castingTime
+      components
+      concentration
+      description
+      descriptionHigherLevels
+      duration
+      level
+      materialComponents
+      name
+      range
+      ritual
+      school
+      somaticComponents
+      target
+      verbalComponents
+    ]
+  end
+
   def create_spell_params
     create_spell_request.deep_transform_keys!(&:underscore)
   end
 
   def create_spell_request
-    params.require(:spell).permit(
-      :castingTime,
-      :components,
-      :concentration,
-      :description,
-      :descriptionHigherLevels,
-      :duration,
-      :level,
-      :materialComponents,
-      :name,
-      :range,
-      :ritual,
-      :school,
-      :somaticComponents,
-      :target,
-      :verbalComponents
-    )
+    params.require(:spell).permit(*spell_request)
   end
 
   def update_spell_params
@@ -84,22 +88,6 @@ class SpellsController < ApplicationController
   end
 
   def update_spell_request
-    params.require(:spell).permit(
-      :castingTime,
-      :components,
-      :concentration,
-      :description,
-      :descriptionHigherLevels,
-      :duration,
-      :level,
-      :materialComponents,
-      :name,
-      :range,
-      :ritual,
-      :school,
-      :somaticComponents,
-      :target,
-      :verbalComponents
-    )
+    params.require(:spell).permit(*spell_request)
   end
 end

@@ -178,11 +178,11 @@ module DataMappers
     def charcter_feature_resources_response(character)
       character_feature_resources = character.character_feature_resources || []
 
-      character_feature_resources.map do |character_feature_resources|
+      character_feature_resources.map do |character_feature_resource|
         {
-          id: character_feature_resources.id,
-          name: character_feature_resources.name,
-          total: character_feature_resources.total
+          id: character_feature_resource.id,
+          name: character_feature_resource.name,
+          total: character_feature_resource.total
         }
       end
     end
