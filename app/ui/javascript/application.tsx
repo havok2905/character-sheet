@@ -24,7 +24,7 @@ import { spellCreatePageBootstrapper } from './pages/SpellCreatePage';
 import { spellEditPageBootstrapper } from './pages/SpellEditPage';
 import { spellsPageBootstrapper } from './pages/SpellsPage';
 
-import '../assets/stylesheets/application.scss';
+import '../styles/application.scss';
 
 window.onload = ():void => {
   characterPageBootstrapper();
