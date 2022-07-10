@@ -1,4 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
+import { AlignmentTypes } from '../../types/rules';
 import { IFaction } from '../../types/models';
 
 interface IFactionFormProps {
@@ -73,12 +74,22 @@ const FactionForm = ({
         <label htmlFor="faction-alignment">
           Alignment
         </label>
-        <input
+        <select
           id="faction-alignment"
           name="faction-alignment"
           onChange={e => setAlignmentField(e.target.value)}
-          type="text"
-          value={alignmentField}/>
+          value={alignmentField}>
+          <option value={AlignmentTypes.UNALIGNED}>{AlignmentTypes.UNALIGNED}</option>
+          <option value={AlignmentTypes.CHAOTIC_GOOD}>{AlignmentTypes.CHAOTIC_GOOD}</option>
+          <option value={AlignmentTypes.NEUTRAL_GOOD}>{AlignmentTypes.NEUTRAL_GOOD}</option>
+          <option value={AlignmentTypes.LAWFUL_GOOD}>{AlignmentTypes.LAWFUL_GOOD}</option>
+          <option value={AlignmentTypes.CHAOTIC_NEUTRAL}>{AlignmentTypes.CHAOTIC_NEUTRAL}</option>
+          <option value={AlignmentTypes.NEUTRAL}>{AlignmentTypes.NEUTRAL}</option>
+          <option value={AlignmentTypes.LAWFUL_NEUTRAL}>{AlignmentTypes.LAWFUL_NEUTRAL}</option>
+          <option value={AlignmentTypes.CHAOTIC_EVIL}>{AlignmentTypes.CHAOTIC_EVIL}</option>
+          <option value={AlignmentTypes.NEUTRAL_EVIL}>{AlignmentTypes.NEUTRAL_EVIL}</option>
+          <option value={AlignmentTypes.LAWFUL_EVIL}>{AlignmentTypes.LAWFUL_EVIL}</option>
+        </select>
         <label htmlFor="faction-goals">
           Goals
         </label>

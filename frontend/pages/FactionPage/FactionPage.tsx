@@ -5,6 +5,7 @@ import { getFaction } from '../../utilities/Api/Factions';
 import { ICharacter, IFaction } from '../../types/models';
 import { ItemWithToken } from '../../components/ItemWithToken';
 import { Layout } from '../../layouts/Layout';
+import { NewLineText } from '../../components/NewLineText/NewLineText';
 
 const getIdFromUrl = ():string => {
   const url = new URL(window.location.href);
@@ -83,7 +84,7 @@ const FactionPage = (): ReactElement | null => {
             <p><strong>Ideals: </strong>{ideals}</p>
             <p><strong>Allies: </strong>{allies}</p>
             <p><strong>Rivals: </strong>{rivals}</p>
-            <p>{description}</p>
+            <NewLineText text={description}/>
           </div>
           <h2>Member NPCs</h2>
           <ul className="bulletless-list">
