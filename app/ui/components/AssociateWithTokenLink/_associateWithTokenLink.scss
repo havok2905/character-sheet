@@ -1,0 +1,24 @@
+@import '../../globalstyles/variables.scss';
+
+.pet-and-associate-link {
+  display: block;
+  text-decoration: none;
+  transition: background-color $hover-transition;
+
+  &:hover {
+    background-color: $light-black;
+  }
+}
+
+.pet-and-associate-link-content {
+  align-items: center;
+  display: flex;
+  padding: $small-spacing;
+  width: 100%;
+
+  .token {
+    margin-right: $standard-spacing;
+    height: $token-size-small;
+    width: $token-size-small;
+  }
+}

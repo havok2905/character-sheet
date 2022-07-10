@@ -2,7 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: path.join(__dirname, '/app/ui/javascript/application.tsx'),
+  entry: path.join(__dirname, '/app/ui/index.tsx'),
   output: {
     path: path.resolve(__dirname, 'public'),
     publicPath: path.resolve(__dirname, 'public'),

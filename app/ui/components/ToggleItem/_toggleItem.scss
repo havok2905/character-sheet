@@ -1,0 +1,14 @@
+@import '../../globalstyles/variables.scss';
+
+.toggle-item:not(:last-of-type) {
+  border-bottom: $border-standard;
+}
+
+.toggle-header {
+  cursor: pointer;
+
+  svg {
+    margin-right: $small-spacing;
+    vertical-align: middle;
+  }
+}
