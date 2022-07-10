@@ -12,7 +12,7 @@ const MagicItemCreatePage = (): ReactElement => {
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = `/magic_items/new`;
+        window.location.href = '/magic_items/new';
       });
   };
 

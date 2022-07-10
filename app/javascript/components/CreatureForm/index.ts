@@ -1,2 +1,2 @@
-import { CreatureForm } from "./CreatureForm";
+import { CreatureForm } from './CreatureForm';
 export { CreatureForm };

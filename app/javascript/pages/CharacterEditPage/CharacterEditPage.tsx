@@ -7,12 +7,12 @@ import { AssociatedFeatureResourcesForm } from '../../components/AssociatedFeatu
 import { AssociatedInventoryForm } from '../../components/AssociatedInventoryForm';
 import { AssociatedMagicItemsForm } from '../../components/AssociatedMagicItemsForm';
 import { AssociatedSpellsForm } from '../../components/AssociatedSpellsForm';
-import { destroyCharacter, getCharacter, updateCharacter, uploadCharacterImage } from "../../utilities/Api/Characters";
+import { destroyCharacter, getCharacter, updateCharacter, uploadCharacterImage } from '../../utilities/Api/Characters';
 import { getCreatures } from '../../utilities/Api/Creatures';
 import { getFactions } from '../../utilities/Api/Factions';
 import { getMagicItems } from '../../utilities/Api/MagicItems';
 import { getSpells } from '../../utilities/Api/Spells';
-import { CharacterForm } from "../../components/CharacterForm/";
+import { CharacterForm } from '../../components/CharacterForm/';
 import {
   ICharacter,
   ICharacterAttack,
@@ -23,7 +23,7 @@ import {
   IFaction,
   IMagicItem,
   ISpell
-} from "../../types/models";
+} from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
 import { Layout } from '../../layouts/Layout';
 import { Modal } from '../../components/Modal';
@@ -98,7 +98,7 @@ const CharacterEditPage = (): ReactElement | null => {
 
     destroyCharacter(id)
       .then(() => {
-        window.location.href = `/characters/`;
+        window.location.href = '/characters/';
       })
       .catch((error) => {
         console.error('Error:', error);

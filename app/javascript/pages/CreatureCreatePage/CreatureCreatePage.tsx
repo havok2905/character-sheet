@@ -1,7 +1,7 @@
-import React, { ReactElement } from "react";
-import { createCreature } from "../../utilities/Api/Creatures";
-import { CreatureForm } from "../../components/CreatureForm/CreatureForm";
-import { ICreature } from "../../types/models";
+import React, { ReactElement } from 'react';
+import { createCreature } from '../../utilities/Api/Creatures';
+import { CreatureForm } from '../../components/CreatureForm/CreatureForm';
+import { ICreature } from '../../types/models';
 import { Layout } from '../../layouts/Layout';
 
 const CreatureCreatePage = (): ReactElement => {
@@ -12,7 +12,7 @@ const CreatureCreatePage = (): ReactElement => {
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = `/creatures/new`;
+        window.location.href = '/creatures/new';
       });
   };
 

@@ -58,7 +58,7 @@ const LocationEditPage = (): ReactElement => {
 
     destroyLocation(id)
       .then(() => {
-        window.location.href = `/locations/`;
+        window.location.href = '/locations/';
       })
       .catch((error) => {
         console.error('Error:', error);

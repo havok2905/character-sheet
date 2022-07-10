@@ -4,7 +4,7 @@ import { GearIcon } from '../../components/Icons';
 import { getCreature } from '../../utilities/Api/Creatures';
 import { getSpellsByLevel } from '../../utilities/UiHelpers/getSpellsByLevel';
 import { ICreature } from '../../types/models';
-import { Layout } from "../../layouts/Layout";
+import { Layout } from '../../layouts/Layout';
 import { SpellCard } from '../../components/SpellCard';
 import { ToggleItem } from '../../components/ToggleItem';
 

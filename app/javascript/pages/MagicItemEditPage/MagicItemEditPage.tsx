@@ -35,7 +35,7 @@ const MagicItemEditPage = (): ReactElement | null => {
 
     destroyMagicItem(id)
       .then(() => {
-        window.location.href = `/magic_items/`;
+        window.location.href = '/magic_items/';
       })
       .catch((error) => {
         console.error('Error:', error);

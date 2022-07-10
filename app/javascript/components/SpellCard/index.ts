@@ -1,2 +1,2 @@
-import { SpellCard } from "./SpellCard";
+import { SpellCard } from './SpellCard';
 export { SpellCard };

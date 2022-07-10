@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { CreaturesTable } from '../../components/CreaturesTable/CreaturesTable';
 import { getCreatures } from '../../utilities/Api/Creatures';
 import { ICreature } from '../../types/models';
-import { Layout } from "../../layouts/Layout";
+import { Layout } from '../../layouts/Layout';
 
 const CreaturesPage = (): ReactElement => {
   const [creatures, setCreatures] = useState<ICreature[]>([]);

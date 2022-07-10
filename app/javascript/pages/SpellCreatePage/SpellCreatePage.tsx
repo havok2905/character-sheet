@@ -12,7 +12,7 @@ const SpellCreatePage = (): ReactElement => {
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = `/spells/new`;
+        window.location.href = '/spells/new';
       });
   };
 

@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from 'react';
 import { getSpells } from '../../utilities/Api/Spells';
 import { ISpell } from '../../types/models';
 import { Layout } from '../../layouts/Layout';

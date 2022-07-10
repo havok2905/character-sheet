@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from 'react';
 import { ISpell } from '../../types/models';
 import { SpellSchoolsTypes } from '../../types/rules';
 

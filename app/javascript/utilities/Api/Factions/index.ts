@@ -1,8 +1,8 @@
-import { createFaction } from "./createFaction";
+import { createFaction } from './createFaction';
 import { destroyFaction } from './destroyFaction';
-import { getFaction } from "./getFaction";
-import { getFactions } from "./getFactions";
-import { updateFaction } from "./updateFaction";
+import { getFaction } from './getFaction';
+import { getFactions } from './getFactions';
+import { updateFaction } from './updateFaction';
 import { uploadFactionImage } from './uploadFactionImage';
 
 export {

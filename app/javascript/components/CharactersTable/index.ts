@@ -1,2 +1,2 @@
-import { CharactersTable } from "./CharactersTable";
+import { CharactersTable } from './CharactersTable';
 export { CharactersTable };

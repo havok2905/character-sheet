@@ -1,4 +1,4 @@
-import { ICreature } from "../../types/models";
+import { ICreature } from '../../types/models';
 
 const creatureRow = (creature: ICreature): string => {
   const {

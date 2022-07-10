@@ -10,7 +10,7 @@ type ICreateSpellResponse = {
 };
 
 const createSpell = (data: ICreateSpellRequest): Promise<ICreateSpellResponse> => {
-  return fetch(`/spells.json`, {
+  return fetch('/spells.json', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)

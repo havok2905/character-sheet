@@ -7,8 +7,8 @@ import { AssociatedLegendaryActionsForm } from '../../components/AssociatedLegen
 import { AssociatedMagicItemsForm } from '../../components/AssociatedMagicItemsForm';
 import { AssociatedRegionalEffectsForm } from '../../components/AssociatedRegionalEffectsForm';
 import { AssociatedSpellsForm } from '../../components/AssociatedSpellsForm';
-import { CreatureForm } from "../../components/CreatureForm/CreatureForm";
-import { destroyCreature, getCreature, updateCreature, uploadCreatureImage } from "../../utilities/Api/Creatures";
+import { CreatureForm } from '../../components/CreatureForm/CreatureForm';
+import { destroyCreature, getCreature, updateCreature, uploadCreatureImage } from '../../utilities/Api/Creatures';
 import { getFactions } from '../../utilities/Api/Factions';
 import { getMagicItems } from '../../utilities/Api/MagicItems';
 import { getSpells } from '../../utilities/Api/Spells';
@@ -22,7 +22,7 @@ import {
   IFaction,
   IMagicItem,
   ISpell
-} from "../../types/models";
+} from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
 import { Layout } from '../../layouts/Layout';
 import { Modal } from '../../components/Modal';
@@ -92,7 +92,7 @@ const CreatureEditPage = (): ReactElement | null => {
 
     destroyCreature(id)
       .then(() => {
-        window.location.href = `/creatures/`;
+        window.location.href = '/creatures/';
       })
       .catch((error) => {
         console.error('Error:', error);

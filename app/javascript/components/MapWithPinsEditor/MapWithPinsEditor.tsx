@@ -234,10 +234,10 @@ const MapWithPinsEditor = ({
           payload: { pins: [ ...statefulPins, data.pin ]}
         });
 
-        add(ToastCollectionErrorTypes.INFO, `Pin was created`);
+        add(ToastCollectionErrorTypes.INFO, 'Pin was created');
       })
       .catch(() => {
-        add(ToastCollectionErrorTypes.ERROR, `There was an issue creating this pin`);
+        add(ToastCollectionErrorTypes.ERROR, 'There was an issue creating this pin');
       });
   };
 

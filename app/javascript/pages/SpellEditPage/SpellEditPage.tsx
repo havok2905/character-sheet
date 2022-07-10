@@ -29,7 +29,7 @@ const SpellEditPage = (): ReactElement | null => {
 
     destroySpell(id)
       .then(() => {
-        window.location.href = `/spells/`;
+        window.location.href = '/spells/';
       })
       .catch((error) => {
         console.error('Error:', error);

@@ -4,6 +4,7 @@
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
     "eslint": "eslint app/javascript/ --ext .js,.ts,.tsx",
+    "eslint-fix": "eslint app/javascript/ --ext .js,.ts,.tsx --fix",
     "lint": "npm run eslint && npm run stylelint",
     "stylelint": "stylelint **/*.scss",
     "test": "jest"

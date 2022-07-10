@@ -1,5 +1,5 @@
 import { createPortal } from 'react-dom'
-import React, { ReactElement, useEffect } from "react";
+import React, { ReactElement, useEffect } from 'react';
 
 const Modal = ({
   children,

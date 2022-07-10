@@ -1,2 +1,2 @@
-import { DiceRoller } from "./DiceRoller";
+import { DiceRoller } from './DiceRoller';
 export { DiceRoller };

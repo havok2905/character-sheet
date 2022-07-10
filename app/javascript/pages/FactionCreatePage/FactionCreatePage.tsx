@@ -1,8 +1,8 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement } from 'react';
 import { createFaction } from '../../utilities/Api/Factions';
 import { FactionForm } from '../../components/FactionForm';
-import { IFaction } from "../../types/models";
-import { Layout } from "../../layouts/Layout";
+import { IFaction } from '../../types/models';
+import { Layout } from '../../layouts/Layout';
 
 const FactionCreatePage = (): ReactElement => {
   const handleSubmit = (faction: IFaction) => {
@@ -12,7 +12,7 @@ const FactionCreatePage = (): ReactElement => {
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = `/factions/new`;
+        window.location.href = '/factions/new';
       });
   };
 

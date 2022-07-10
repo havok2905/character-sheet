@@ -1,8 +1,8 @@
-import React, { ReactElement } from "react";
-import { createCharacter } from "../../utilities/Api/Characters";
-import { CharacterForm } from "../../components/CharacterForm/";
-import { ICharacter } from "../../types/models";
-import { Layout } from "../../layouts/Layout";
+import React, { ReactElement } from 'react';
+import { createCharacter } from '../../utilities/Api/Characters';
+import { CharacterForm } from '../../components/CharacterForm/';
+import { ICharacter } from '../../types/models';
+import { Layout } from '../../layouts/Layout';
 
 const CharacterCreatePage = (): ReactElement => {
   const handleSubmit = (character: ICharacter) => {
@@ -12,7 +12,7 @@ const CharacterCreatePage = (): ReactElement => {
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = `/characters/new`;
+        window.location.href = '/characters/new';
       });
   };
 

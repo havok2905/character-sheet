@@ -1,4 +1,4 @@
-import { ICharacter } from "../../types/models";
+import { ICharacter } from '../../types/models';
 
 const characterMulticlassRow = (character: ICharacter): string => {
   const {

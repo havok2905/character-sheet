@@ -6,9 +6,9 @@ import {
   uploadFactionImage
 } from '../../utilities/Api/Factions';
 import { FactionForm } from '../../components/FactionForm';
-import { IFaction } from "../../types/models";
+import { IFaction } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
-import { Layout } from "../../layouts/Layout";
+import { Layout } from '../../layouts/Layout';
 
 const getIdFromUrl = ():string => {
   const url = new URL(window.location.href);
@@ -35,7 +35,7 @@ const FactionEditPage = (): ReactElement | null => {
 
     destroyFaction(id)
       .then(() => {
-        window.location.href = `/factions/`;
+        window.location.href = '/factions/';
       })
       .catch((error) => {
         console.error('Error:', error);

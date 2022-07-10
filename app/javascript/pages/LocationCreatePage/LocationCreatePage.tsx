@@ -24,7 +24,7 @@ const LocationCreatePage = (): ReactElement => {
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = `/locations/new`;
+        window.location.href = '/locations/new';
       });
   };
 
