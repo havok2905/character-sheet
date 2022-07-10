@@ -6,7 +6,7 @@ class FactionsController < ApplicationController
     factions = factions_response_model f
     respond_to do |format|
       format.html
-      format.json { render json: { factions: factions } }
+      format.json { render json: { factions: } }
     end
   end
 
@@ -15,27 +15,25 @@ class FactionsController < ApplicationController
     faction = faction_response_model f
     respond_to do |format|
       format.html
-      format.json { render json: { faction: faction } }
+      format.json { render json: { faction: } }
     end
   end
 
-  def new
-  end
+  def new; end
 
   def create
     f = Faction.create create_faction_params
     faction = faction_response_model f
-    render json: { faction: faction }
+    render json: { faction: }
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     f = Faction.find params[:id]
     f.update update_faction_params
     faction = faction_response_model f
-    render json: { faction: faction }
+    render json: { faction: }
   end
 
   def upload_image
@@ -43,7 +41,7 @@ class FactionsController < ApplicationController
     f.image = params['faction-image-file-upload']
     f.save!
     faction = faction_response_model f
-    render json: { faction: faction }
+    render json: { faction: }
   end
 
   def destroy
@@ -86,12 +84,12 @@ class FactionsController < ApplicationController
     )
   end
 
-  def faction_response_model faction
+  def faction_response_model(faction)
     mapper = DataMappers::FactionDataMapper.new
     mapper.run faction
   end
 
-  def factions_response_model factions
+  def factions_response_model(factions)
     factions.map do |faction|
       faction_response_model faction
     end

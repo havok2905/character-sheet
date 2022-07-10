@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module DataMappers
   class MagicItemDataMapper < DataMappers::BaseDataMapper
-    def run magic_item
+    def run(magic_item)
       image_url = get_image_url magic_item, :image
 
       {

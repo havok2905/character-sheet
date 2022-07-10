@@ -6,6 +6,6 @@ module CoreRules
       'Action',
       'Bonus Action',
       'Reaction'
-    ]
+    ].freeze
   end
 end

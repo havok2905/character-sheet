@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module DataMappers
   class PinDataMapper < DataMappers::BaseDataMapper
-    def run pin
+    def run(pin)
       {
         id: pin.id,
         mapId: pin.map_id,

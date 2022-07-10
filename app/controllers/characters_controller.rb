@@ -6,7 +6,7 @@ class CharactersController < ApplicationController
     characters = characters_response_model c
     respond_to do |format|
       format.html
-      format.json { render json: { characters: characters } }
+      format.json { render json: { characters: } }
     end
   end
 
@@ -15,27 +15,25 @@ class CharactersController < ApplicationController
     character = character_response_model c
     respond_to do |format|
       format.html
-      format.json { render json: { character: character } }
+      format.json { render json: { character: } }
     end
   end
 
-  def new
-  end
+  def new; end
 
   def create
     c = Character.create create_character_params
     character = character_response_model c
-    render json: { character: character }
+    render json: { character: }
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     c = Character.find params[:id]
     c.update update_character_params
     character = character_response_model c
-    render json: { character: character }
+    render json: { character: }
   end
 
   def upload_image
@@ -43,7 +41,7 @@ class CharactersController < ApplicationController
     c.image = params['character-image-file-upload']
     c.save!
     character = character_response_model c
-    render json: { character: character }
+    render json: { character: }
   end
 
   def destroy
@@ -198,7 +196,7 @@ class CharactersController < ApplicationController
     character_params.delete :character_feature_resources
     character_params.delete :character_items
 
-    character_params 
+    character_params
   end
 
   def update_character_request
@@ -322,23 +320,24 @@ class CharactersController < ApplicationController
       :wisdomSave,
       :wisdomScore,
       :_destroy,
-      :characterAttacks => [:_destroy, :attackBonus, :critRange, :damageDiceRoll, :damageTwoDiceRoll, :damageTwoType, :damageType, :description, :id, :isSavingThrow, :name, :range, :savingThrowDescription, :savingThrowThreshold, :savingThrowType],
-      :characterFeatures => [:_destroy, :name, :id, :source, :description],
-      :characterFeatureResources => [:_destroy, :name, :id, :total],
-      :characterItems => [:_destroy, :name, :id, :total],
-      :creatureIds => [],
-      :factionIds => [],
-      :magicItemIds => [],
-      :spellIds => []
+      characterAttacks: %i[_destroy attackBonus critRange damageDiceRoll damageTwoDiceRoll damageTwoType
+                           damageType description id isSavingThrow name range savingThrowDescription savingThrowThreshold savingThrowType],
+      characterFeatures: %i[_destroy name id source description],
+      characterFeatureResources: %i[_destroy name id total],
+      characterItems: %i[_destroy name id total],
+      creatureIds: [],
+      factionIds: [],
+      magicItemIds: [],
+      spellIds: []
     )
   end
 
-  def character_response_model character
+  def character_response_model(character)
     mapper = DataMappers::CharacterDataMapper.new
     mapper.run character
   end
 
-  def characters_response_model characters
+  def characters_response_model(characters)
     characters.map do |character|
       character_response_model character
     end

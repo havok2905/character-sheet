@@ -19,8 +19,7 @@ class MagicItemsController < ApplicationController
     end
   end
 
-  def new
-  end
+  def new; end
 
   def create
     m = MagicItem.create create_magic_item_params
@@ -28,8 +27,7 @@ class MagicItemsController < ApplicationController
     render json: { magicItem: magic_item }
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     m = MagicItem.find params[:id]
@@ -54,12 +52,12 @@ class MagicItemsController < ApplicationController
 
   private
 
-  def magic_item_response_model magic_item
+  def magic_item_response_model(magic_item)
     mapper = DataMappers::MagicItemDataMapper.new
     mapper.run magic_item
   end
 
-  def magic_items_response_model magic_items
+  def magic_items_response_model(magic_items)
     magic_items.map do |magic_item|
       magic_item_response_model magic_item
     end

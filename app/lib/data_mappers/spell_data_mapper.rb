@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module DataMappers
   class SpellDataMapper < DataMappers::BaseDataMapper
-    def run spell
+    def run(spell)
       {
         castingTime: spell.casting_time,
         components: spell.components,

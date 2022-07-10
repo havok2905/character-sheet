@@ -6,7 +6,7 @@ class SpellsController < ApplicationController
     spells = spells_response_model s
     respond_to do |format|
       format.html
-      format.json { render json: { spells: spells } }
+      format.json { render json: { spells: } }
     end
   end
 
@@ -15,27 +15,25 @@ class SpellsController < ApplicationController
     spell = spell_response_model s
     respond_to do |format|
       format.html
-      format.json { render json: { spell: spell } }
+      format.json { render json: { spell: } }
     end
   end
 
-  def new
-  end
+  def new; end
 
   def create
     s = Spell.create create_spell_params
     spell = spell_response_model s
-    render json: { spell: spell }
+    render json: { spell: }
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     s = Spell.find params[:id]
     s.update update_spell_params
     spell = spell_response_model s
-    render json: { spell: spell }
+    render json: { spell: }
   end
 
   def destroy
@@ -46,12 +44,12 @@ class SpellsController < ApplicationController
 
   private
 
-  def spell_response_model spell
+  def spell_response_model(spell)
     mapper = DataMappers::SpellDataMapper.new
     mapper.run spell
   end
 
-  def spells_response_model spells
+  def spells_response_model(spells)
     spells.map do |spell|
       spell_response_model spell
     end

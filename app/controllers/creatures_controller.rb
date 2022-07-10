@@ -6,7 +6,7 @@ class CreaturesController < ApplicationController
     creatures = creatures_response_model c
     respond_to do |format|
       format.html
-      format.json { render json: { creatures: creatures } }
+      format.json { render json: { creatures: } }
     end
   end
 
@@ -15,27 +15,25 @@ class CreaturesController < ApplicationController
     creature = creature_response_model c
     respond_to do |format|
       format.html
-      format.json { render json: { creature: creature } }
+      format.json { render json: { creature: } }
     end
   end
 
-  def new
-  end
+  def new; end
 
   def create
     c = Creature.create create_creature_params
     creature = creature_response_model c
-    render json: { creature: creature }
+    render json: { creature: }
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     c = Creature.find params[:id]
     c.update update_creature_params
     creature = creature_response_model c
-    render json: { creature: creature }
+    render json: { creature: }
   end
 
   def upload_image
@@ -43,7 +41,7 @@ class CreaturesController < ApplicationController
     c.image = params['creature-image-file-upload']
     c.save!
     creature = creature_response_model c
-    render json: { creature: creature }
+    render json: { creature: }
   end
 
   def destroy
@@ -137,7 +135,7 @@ class CreaturesController < ApplicationController
     creature_params.delete :creature_lair_actions
     creature_params.delete :creature_legendary_actions
     creature_params.delete :creature_regional_effects
-    
+
     creature_params
   end
 
@@ -203,23 +201,24 @@ class CreaturesController < ApplicationController
       :wisdomSave,
       :wisdomScore,
       :_destroy,
-      :creatureActions => [:_destroy, :actionType, :actionCombatType, :attackBonus, :damageDiceRoll, :damageType, :damageTwoDiceRoll, :damageTwoType, :description, :id, :name, :range, :savingThrowDc, :savingThrowType],
-      :creatureFeatures => [:_destroy, :description, :id, :name],
-      :creatureLairActions => [:_destroy, :description, :id],
-      :creatureLegendaryActions => [:_destroy, :description, :id, :name],
-      :creatureRegionalEffects => [:_destroy, :description, :id],
-      :factionIds => [],
-      :magicItemIds => [],
-      :spellIds => []
+      creatureActions: %i[_destroy actionType actionCombatType attackBonus damageDiceRoll damageType
+                          damageTwoDiceRoll damageTwoType description id name range savingThrowDc savingThrowType],
+      creatureFeatures: %i[_destroy description id name],
+      creatureLairActions: %i[_destroy description id],
+      creatureLegendaryActions: %i[_destroy description id name],
+      creatureRegionalEffects: %i[_destroy description id],
+      factionIds: [],
+      magicItemIds: [],
+      spellIds: []
     )
   end
 
-  def creature_response_model creature
+  def creature_response_model(creature)
     mapper = DataMappers::CreatureDataMapper.new
     mapper.run creature
   end
 
-  def creatures_response_model creatures
+  def creatures_response_model(creatures)
     creatures.map do |creature|
       creature_response_model creature
     end

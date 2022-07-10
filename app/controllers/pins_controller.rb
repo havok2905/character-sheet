@@ -4,12 +4,12 @@ class PinsController < ApplicationController
   def create
     p = Pin.create create_pin_params
     pin = pin_response_model p
-    render json: { pin: pin }
+    render json: { pin: }
   end
 
   def destroy
     p = Pin.find params[:id]
-    p.destroy if p
+    p&.destroy
     render json: {}
   end
 
@@ -17,12 +17,12 @@ class PinsController < ApplicationController
     p = Pin.find params[:id]
     p.update update_pin_params
     pin = pin_response_model p
-    render json: { pin: pin }
+    render json: { pin: }
   end
 
   private
 
-  def pin_response_model pin
+  def pin_response_model(pin)
     mapper = DataMappers::PinDataMapper.new
     mapper.run pin
   end

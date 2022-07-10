@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module DataMappers
   class FactionDataMapper < DataMappers::BaseDataMapper
-    def run faction
+    def run(faction)
       image_url = get_image_url faction, :image
 
       {
@@ -17,10 +19,10 @@ module DataMappers
         rivals: faction.rivals
       }
     end
-  
+
     private
 
-    def characters_response faction
+    def characters_response(faction)
       characters = faction.characters || []
 
       characters.map do |character|
@@ -29,15 +31,15 @@ module DataMappers
         {
           ac: character.ac,
           acrobaticsMod: character.acrobatics_mod,
-          acrobaticsProf:  character.acrobatics_prof,
+          acrobaticsProf: character.acrobatics_prof,
           age: character.age,
           alignment: character.alignment,
           animalHandlingMod: character.animal_handling_mod,
-          animalHandlingProf:  character.animal_handling_prof,
+          animalHandlingProf: character.animal_handling_prof,
           arcanaMod: character.arcana_mod,
-          arcanaProf:  character.arcana_prof,
+          arcanaProf: character.arcana_prof,
           athleticsMod: character.athletics_mod,
-          athleticsProf:  character.athletics_prof,
+          athleticsProf: character.athletics_prof,
           armorProficiencies: character.armor_proficiencies,
           background: character.background,
           backstory: character.backstory,
@@ -151,7 +153,7 @@ module DataMappers
       end
     end
 
-    def creatures_response faction
+    def creatures_response(faction)
       creatures = faction.creatures || []
 
       creatures.map do |creature|

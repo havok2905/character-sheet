@@ -6,8 +6,8 @@ class LocationsController < ApplicationController
     locations = locations_response_model l
     respond_to do |format|
       format.html
-      format.json { render json: { locations: locations } }
-     end
+      format.json { render json: { locations: } }
+    end
   end
 
   def show
@@ -16,23 +16,20 @@ class LocationsController < ApplicationController
     location = location_response_model l, m
     respond_to do |format|
       format.html
-      format.json { render json: { location: location } }
+      format.json { render json: { location: } }
     end
   end
 
-  def new
-  end
+  def new; end
 
-  def edit
-  end
+  def edit; end
 
-  def map_settings
-  end
+  def map_settings; end
 
   def create
     l = Location.create create_location_params
     location = location_response_model l, nil
-    render json: { location: location }
+    render json: { location: }
   end
 
   def upload_map
@@ -44,22 +41,22 @@ class LocationsController < ApplicationController
       m.save!
     else
       m = Map.create({
-        image: params['location-map-file-upload'],
-        location_id: params[:id]
-      })
+                       image: params['location-map-file-upload'],
+                       location_id: params[:id]
+                     })
     end
 
     location = location_response_model l, m
-    render json: { location: location }
+    render json: { location: }
   end
 
   def upload_sigil
     l = Location.find params[:id]
-    m = Map.where(location_id: params[:id]).first    
+    m = Map.where(location_id: params[:id]).first
     l.sigil = params['location-sigil-file-upload']
     l.save!
     location = location_response_model l, m
-    render json: { location: location }
+    render json: { location: }
   end
 
   def update
@@ -67,25 +64,25 @@ class LocationsController < ApplicationController
     m = Map.where(location_id: params[:id]).first
     l.update update_location_params
     location = location_response_model l, m
-    render json: { location: location }
+    render json: { location: }
   end
 
   def destroy
     l = Location.find params[:id]
     m = Map.where(location_id: params[:id]).first
-    m.destroy if m
+    m&.destroy
     l.destroy
     render json: {}
   end
 
   private
 
-  def location_response_model location, map
+  def location_response_model(location, map)
     mapper = DataMappers::LocationDataMapper.new
     mapper.run location, map
   end
 
-  def locations_response_model locations
+  def locations_response_model(locations)
     locations.map do |location|
       map = Map.where(location_id: location.id).first
       location_response_model location, map

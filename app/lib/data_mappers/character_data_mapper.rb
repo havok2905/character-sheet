@@ -1,20 +1,22 @@
+# frozen_string_literal: true
+
 module DataMappers
   class CharacterDataMapper < DataMappers::BaseDataMapper
-    def run character
+    def run(character)
       image_url = get_image_url character, :image
 
       {
         ac: character.ac,
         acrobaticsMod: character.acrobatics_mod,
-        acrobaticsProf:  character.acrobatics_prof,
+        acrobaticsProf: character.acrobatics_prof,
         age: character.age,
         alignment: character.alignment,
         animalHandlingMod: character.animal_handling_mod,
-        animalHandlingProf:  character.animal_handling_prof,
+        animalHandlingProf: character.animal_handling_prof,
         arcanaMod: character.arcana_mod,
-        arcanaProf:  character.arcana_prof,
+        arcanaProf: character.arcana_prof,
         athleticsMod: character.athletics_mod,
-        athleticsProf:  character.athletics_prof,
+        athleticsProf: character.athletics_prof,
         armorProficiencies: character.armor_proficiencies,
         background: character.background,
         backstory: character.backstory,
@@ -137,7 +139,7 @@ module DataMappers
 
     private
 
-    def character_attacks_response character
+    def character_attacks_response(character)
       character_attacks = character.character_attacks || []
 
       character_attacks.map do |character_attack|
@@ -155,12 +157,12 @@ module DataMappers
           range: character_attack.range,
           savingThrowDescription: character_attack.saving_throw_description,
           savingThrowThreshold: character_attack.saving_throw_threshold,
-          savingThrowType: character_attack.saving_throw_type,
+          savingThrowType: character_attack.saving_throw_type
         }
       end
     end
 
-    def character_features_response character
+    def character_features_response(character)
       character_features = character.character_features || []
 
       character_features.map do |character_feature|
@@ -173,7 +175,7 @@ module DataMappers
       end
     end
 
-    def charcter_feature_resources_response character
+    def charcter_feature_resources_response(character)
       character_feature_resources = character.character_feature_resources || []
 
       character_feature_resources.map do |character_feature_resources|
@@ -185,7 +187,7 @@ module DataMappers
       end
     end
 
-    def character_items_response character
+    def character_items_response(character)
       character_items = character.character_items || []
 
       character_items.map do |character_item|
@@ -197,7 +199,7 @@ module DataMappers
       end
     end
 
-    def creatures_response character
+    def creatures_response(character)
       creatures = character.creatures || []
 
       creatures.map do |creature|
@@ -211,7 +213,7 @@ module DataMappers
       end
     end
 
-    def factions_response character
+    def factions_response(character)
       factions = character.factions || []
 
       factions.map do |faction|
@@ -231,7 +233,7 @@ module DataMappers
       end
     end
 
-    def magic_items_response character
+    def magic_items_response(character)
       magic_items = character.magic_items || []
 
       magic_items.map do |magic_item|
@@ -250,7 +252,7 @@ module DataMappers
       end
     end
 
-    def spells_response character
+    def spells_response(character)
       spells = character.spells || []
 
       spells.map do |spell|

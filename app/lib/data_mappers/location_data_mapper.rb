@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module DataMappers
   class LocationDataMapper < DataMappers::BaseDataMapper
-    def run location, map
+    def run(location, map)
       image_url = get_image_url map, :image
       sigil_url = get_image_url location, :sigil
 
@@ -20,7 +22,7 @@ module DataMappers
 
     private
 
-    def pins_response map
+    def pins_response(map)
       pins = map.pins || []
 
       pins.map do |pin|

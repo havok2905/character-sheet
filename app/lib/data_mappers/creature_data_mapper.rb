@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module DataMappers
   class CreatureDataMapper < DataMappers::BaseDataMapper
-    def run creature
+    def run(creature)
       image_url = get_image_url creature, :image
 
       {
@@ -75,10 +77,10 @@ module DataMappers
         wisdomScore: creature.wisdom_score
       }
     end
-  
+
     private
 
-    def creature_actions_response creature
+    def creature_actions_response(creature)
       creature_actions = creature.creature_actions || []
 
       creature_actions.map do |creature_action|
@@ -100,7 +102,7 @@ module DataMappers
       end
     end
 
-    def creature_features_response creature
+    def creature_features_response(creature)
       creature_features = creature.creature_features || []
 
       creature_features.map do |creature_feature|
@@ -112,7 +114,7 @@ module DataMappers
       end
     end
 
-    def creature_lair_actions_response creature
+    def creature_lair_actions_response(creature)
       creature_lair_actions = creature.creature_lair_actions || []
 
       creature_lair_actions.map do |creature_lair_action|
@@ -123,7 +125,7 @@ module DataMappers
       end
     end
 
-    def creature_legendary_actions_response creature
+    def creature_legendary_actions_response(creature)
       creature_legendary_actions = creature.creature_legendary_actions || []
 
       creature_legendary_actions.map do |creature_legendary_action|
@@ -135,7 +137,7 @@ module DataMappers
       end
     end
 
-    def creature_regional_effects_response creature
+    def creature_regional_effects_response(creature)
       creature_regional_effects = creature.creature_regional_effects || []
 
       creature_regional_effects.map do |creature_regional_effect|
@@ -146,7 +148,7 @@ module DataMappers
       end
     end
 
-    def factions_response creature
+    def factions_response(creature)
       factions = creature.factions || []
 
       factions.map do |faction|
@@ -166,7 +168,7 @@ module DataMappers
       end
     end
 
-    def magic_items_response creature
+    def magic_items_response(creature)
       magic_items = creature.magic_items || []
 
       magic_items.map do |magic_item|
@@ -185,7 +187,7 @@ module DataMappers
       end
     end
 
-    def spells_response creature
+    def spells_response(creature)
       spells = creature.spells || []
 
       spells.map do |spell|
