@@ -34,10 +34,11 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-/node_modules
+
 
 .env
 
+/frontend/node_modules
 /public/javascripts/
 /public/styles/
 /public/images/
