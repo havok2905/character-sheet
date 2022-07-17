@@ -23,7 +23,7 @@ module DataMappers
     private
 
     def pins_response(map)
-      pins = map.pins || []
+      pins = (map && map.pins) || []
 
       pins.map do |pin|
         {
