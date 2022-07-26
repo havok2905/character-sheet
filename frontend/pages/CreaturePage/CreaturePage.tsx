@@ -5,6 +5,7 @@ import { getCreature } from '../../utilities/Api/Creatures';
 import { getSpellsByLevel } from '../../utilities/UiHelpers/getSpellsByLevel';
 import { ICreature } from '../../types/models';
 import { Layout } from '../../layouts/Layout';
+import { NewLineText } from '../../components/NewLineText';
 import { SpellCard } from '../../components/SpellCard';
 import { ToggleItem } from '../../components/ToggleItem';
 
@@ -186,7 +187,7 @@ const CreaturePage = (): ReactElement | null => {
                 <p><strong>Ideals:</strong> {ideals}</p>
                 <p><strong>Bonds:</strong> {bonds}</p>
                 <p><strong>Flaws:</strong> {flaws}</p>
-                {description}
+                <NewLineText text={description}/>
               </div>
             )
           }
@@ -194,7 +195,7 @@ const CreaturePage = (): ReactElement | null => {
             !!backstory && (
               <div className="card">
                 <h2>Backstory</h2>
-                {backstory}
+                <NewLineText text={backstory}/>
               </div>
             )
           }
@@ -253,7 +254,7 @@ const CreaturePage = (): ReactElement | null => {
                     
                     return (
                       <ToggleItem heading={name}>
-                        {description}
+                        <NewLineText text={description}/>
                       </ToggleItem>
                     );
                   })

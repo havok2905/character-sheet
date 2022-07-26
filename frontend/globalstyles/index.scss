@@ -174,21 +174,25 @@ table {
   box-shadow: $box-shadow-light;
   margin: $standard-spacing 0;
   width: 100%;
-}
 
-table th {
-  border-bottom: $border-standard;
-  color: $true-white;
-  padding: $small-spacing;
-  text-align: left;
-  text-transform: uppercase;
-}
+  th {
+    border-bottom: $border-standard;
+    color: $true-white;
+    padding: $small-spacing;
+    text-align: left;
+    text-transform: uppercase;
+  }
 
-table td {
-  border-bottom: $border-standard;
-  padding: $small-spacing;
-}
+  td {
+    border-bottom: $border-standard;
+    padding: $small-spacing;
 
-table tr:last-of-type td {
-  border: none;
+    a {
+      margin-right: $small-spacing;
+    }
+  }
+
+  tr:last-of-type td {
+    border: none;
+  }
 }
