@@ -40,6 +40,15 @@ class PinsController < ApplicationController
   end
 
   def update_pin_request
-    params.require(:pin).permit(:id, :mapId, :name, :x, :y)
+    params.require(:pin).permit(
+      :id,
+      :mapId,
+      :name,
+      :x,
+      :y,
+      creatureIds: [],
+      factionIds: [],
+      magicItemIds: []
+    )
   end
 end

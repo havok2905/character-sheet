@@ -2,15 +2,11 @@
 
 module DataMappers
   module Responses
-    class PinDataMapper < DataMappers::Responses::BaseDataMapper
+    class PinDataMapper
       def run(pin)
-        {
-          id: pin.id,
-          mapId: pin.map_id,
-          name: pin.name,
-          x: pin.x,
-          y: pin.y
-        }
+        pin_entity = DataMappers::Responses::Entities::PinEntity.new
+        response = pin_entity.run pin
+        response
       end
     end
   end

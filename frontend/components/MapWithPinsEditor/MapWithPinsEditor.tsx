@@ -1,17 +1,21 @@
 import React, {
   ReactElement,
-  useContext,
   useEffect,
   useReducer,
   useRef
 } from 'react';
 import { createPin, destroyPin, updatePin } from '../../utilities/Api/Pins';
 import { PinEditModal } from './PinEditModal';
-import { Modal } from '../Modal';
-import { IFaction, ICreature, IMagicItem, IMap, IPin } from '../../types/models';
+import { PinViewModal } from './PinViewModal';
+import {
+  ICreature,
+  IFaction,
+  ILocation,
+  IMagicItem,
+  IMap,
+  IPin
+} from '../../types/models';
 import { Pin } from '../Pin';
-//import { ToastCollectionContext } from '../ToastCollection';
-//import { ToastCollectionErrorTypes } from '../../types/toasts';
 import './_mapWithPinsEditor.scss';
 
 enum MapEditorReducerActionType {
@@ -51,6 +55,7 @@ type IMapEditorReducerState = {
 type IMapWithPinsEditorProps = {
   creatures: ICreature[];
   factions: IFaction[];
+  location: ILocation;
   magicItems: IMagicItem[];
   map: IMap;
   resourceName: string;
@@ -129,6 +134,7 @@ const initialState: IMapEditorReducerState = {
 const MapWithPinsEditor = ({
   creatures,
   factions,
+  location,
   magicItems,
   map: {
     id,
@@ -144,8 +150,6 @@ const MapWithPinsEditor = ({
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const mapWithPinsRef = useRef<HTMLDivElement>(null);
-
-  //const { add } = useContext(ToastCollectionContext);
 
   const {
     editModalOpen,
@@ -184,10 +188,10 @@ const MapWithPinsEditor = ({
 
     updatePin(pinId, { pin })
       .then(() => {
-        //add(ToastCollectionErrorTypes.INFO, `Pin ${pinId} was updated`);
+        console.log(`Pin ${pinId} was updated`);
       })
-      .catch(() => {
-        //add(ToastCollectionErrorTypes.ERROR, `There was an issue updated pin ${pinId}`);
+      .catch(error => {
+        console.error(error);
       });
   };
 
@@ -241,11 +245,9 @@ const MapWithPinsEditor = ({
           type: MapEditorReducerActionType.ADD_NEW_PIN,
           payload: { pins: [ ...statefulPins, data.pin ]}
         });
-
-        //add(ToastCollectionErrorTypes.INFO, 'Pin was created');
       })
-      .catch(() => {
-        //add(ToastCollectionErrorTypes.ERROR, 'There was an issue creating this pin');
+      .catch(error => {
+        console.error(error);
       });
   };
 
@@ -257,10 +259,10 @@ const MapWithPinsEditor = ({
 
     destroyPin(pinId)
       .then(() => {
-        //add(ToastCollectionErrorTypes.INFO, `Pin ${pinId} was deleted`);
+        console.log('delete pin');
       })
-      .catch(() => {
-        //add(ToastCollectionErrorTypes.ERROR, `There was an issue deleting pin, ${pinId}`);
+      .catch(error => {
+        console.error(error);
       });
   };
 
@@ -321,6 +323,7 @@ const MapWithPinsEditor = ({
       <PinEditModal
         creatures={creatures}
         factions={factions}
+        location={location}
         magicItems={magicItems}
         onCloseModal={handleEditModalClose}
         onCloseModalOverlay={handleEditModalClose}
@@ -334,22 +337,12 @@ const MapWithPinsEditor = ({
 
     const pin = statefulPins.find(item => item.id === viewedPinId);
 
-    if (!pin) return null;
-
-    const { name } = pin;
-
-    return (
-      <Modal
+    return pin ? (
+      <PinViewModal
         onCloseModal={handleViewModalClose}
-        onCloseModalOverlay={handleViewModalClose}>
-        <h2>Edit Map - {viewedPinId}</h2>
-        <p><strong>Name:</strong> {name}</p>
-        <h3>Factions</h3>
-        <h3>NPCs</h3>
-        <h3>Creatures</h3>
-        <h3>Magic Items</h3>
-      </Modal>
-    );
+        onCloseModalOverlay={handleViewModalClose}
+        pin={pin} />
+    ) : null;
   };
 
   return (

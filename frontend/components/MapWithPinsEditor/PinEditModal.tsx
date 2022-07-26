@@ -2,6 +2,7 @@ import React, { ReactElement, useState } from 'react';
 import {
   IFaction,
   ICreature,
+  ILocation,
   IMagicItem,
   IPin
 } from '../../types/models';
@@ -11,6 +12,7 @@ import { updatePin } from '../../utilities/Api/Pins';
 interface IPinEditModalProps {
   creatures: ICreature[];
   factions: IFaction[];
+  location: ILocation;
   magicItems: IMagicItem[];
   onCloseModal: () => void;
   onCloseModalOverlay: () => void;
@@ -21,15 +23,16 @@ interface IPinEditModalProps {
 const PinEditModal = ({
   creatures,
   factions,
+  location,
   magicItems,
   onCloseModal,
   onCloseModalOverlay,
   onEditPinName,
   pin
 }: IPinEditModalProps): ReactElement => {
-  const [updatedFactionIds, setUpdatedFactionIds] = useState([] as string[]);
-  const [updatedCreatureIds, setUpdatedCreatureIds] = useState([] as string[]);
-  const [updatedMagicItemIds, setUpdatedMagicItemIds] = useState([] as string[]);
+  const [updatedFactionIds, setUpdatedFactionIds] = useState((pin?.factions ?? []).map(faction => String(faction.id)));
+  const [updatedCreatureIds, setUpdatedCreatureIds] = useState((pin?.creatures ?? []).map(creature => String(creature.id)));
+  const [updatedMagicItemIds, setUpdatedMagicItemIds] = useState((pin?.magicItems ?? []).map(magicItem => String(magicItem.id)));
 
   const { id, name } = pin;
 
@@ -40,19 +43,17 @@ const PinEditModal = ({
 
     if (!id) return;
 
-    console.log({
-      pin,
-      updatedCreatureIds,
-      updatedFactionIds,
-      updatedMagicItemIds
-    });
+    const updatedPin = {
+      ...pin,
+      creatureIds: updatedCreatureIds,
+      factionIds: updatedFactionIds,
+      magicItemIds: updatedMagicItemIds
+    };
 
-    //TODO: Remove guard
-    return;
-
-    updatePin(id, { pin })
+    updatePin(id, { pin: updatedPin })
       .then(() => {
         onCloseModal();
+        window.location.href = `/locations/${location.id}`;
       })
       .catch(error => {
         console.error(error);
@@ -90,7 +91,7 @@ const PinEditModal = ({
                       checked={checked}
                       onChange={() => {
                         const stringId = String(id);
-                        if (updatedIds.includes(id)) {
+                        if (updatedIds.includes(stringId)) {
                           const data = [...updatedIds].filter(entityId => entityId !== stringId);
                           setUpdatedIds(data);
                         } else {

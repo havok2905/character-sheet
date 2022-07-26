@@ -7,7 +7,10 @@ import {
 } from './rules';
 
 interface IPin {
+  creatures?: ICreature[];
+  factions?: IFaction[];
   id?: string;
+  magicItems?: IMagicItem[];
   mapId: string;
   name: string;
   x: number;

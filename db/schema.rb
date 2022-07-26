@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_23_060427) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_26_055948) do
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
@@ -379,6 +379,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_23_060427) do
     t.index ["magic_item_id"], name: "index_creatures_magic_items_on_magic_item_id"
   end
 
+  create_table "creatures_pins", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "pin_id", null: false
+    t.bigint "creature_id", null: false
+    t.index ["creature_id"], name: "index_creatures_pins_on_creature_id"
+    t.index ["pin_id"], name: "index_creatures_pins_on_pin_id"
+  end
+
   create_table "creatures_spells", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "creature_id", null: false
     t.bigint "spell_id", null: false
@@ -398,6 +405,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_23_060427) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "factions_pins", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "pin_id", null: false
+    t.bigint "faction_id", null: false
+    t.index ["faction_id"], name: "index_factions_pins_on_faction_id"
+    t.index ["pin_id"], name: "index_factions_pins_on_pin_id"
+  end
+
   create_table "locations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "description"
     t.string "name"
@@ -415,6 +429,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_23_060427) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "magic_items_pins", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "pin_id", null: false
+    t.bigint "magic_item_id", null: false
+    t.index ["magic_item_id"], name: "index_magic_items_pins_on_magic_item_id"
+    t.index ["pin_id"], name: "index_magic_items_pins_on_pin_id"
   end
 
   create_table "maps", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

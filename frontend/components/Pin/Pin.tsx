@@ -5,6 +5,7 @@ import './_pin.scss';
 
 type IPinProps = {
   focused?: boolean;
+  onClick?: (id: string) => void;
   onMouseDown?: (id: string) => void;
   onMouseUp?: (id: string) => void;
   pin: IPin;
@@ -13,6 +14,7 @@ type IPinProps = {
 
 const Pin = ({
   focused,
+  onClick,
   onMouseDown,
   onMouseUp,
   pin,
@@ -34,6 +36,7 @@ const Pin = ({
   return (
     <div
       className="pin"
+      onClick={() => { if (onClick) onClick(id) }}
       onMouseDown={() => { if (onMouseDown) onMouseDown(id); }}
       onMouseUp={() => { if (onMouseUp) onMouseUp(id); }}
       style={style}>
