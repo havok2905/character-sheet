@@ -334,7 +334,7 @@ class CharactersController < ApplicationController
   end
 
   def character_response_model(character)
-    mapper = DataMappers::CharacterDataMapper.new
+    mapper = DataMappers::Responses::CharacterDataMapper.new
     mapper.run character
   end
 

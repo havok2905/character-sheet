@@ -1,31 +1,9 @@
 # frozen_string_literal: true
 
 module DataMappers
-  class FactionDataMapper < DataMappers::BaseDataMapper
-    def run(faction)
-      image_url = get_image_url faction, :image
-
-      {
-        alignment: faction.alignment,
-        allies: faction.allies,
-        characters: characters_response(faction),
-        creatures: creatures_response(faction),
-        description: faction.description,
-        goals: faction.goals,
-        id: faction.id,
-        ideals: faction.ideals,
-        imageUrl: image_url,
-        name: faction.name,
-        rivals: faction.rivals
-      }
-    end
-
-    private
-
-    def characters_response(faction)
-      characters = faction.characters || []
-
-      characters.map do |character|
+  module Responses
+    class CharacterDataMapper < DataMappers::Responses::BaseDataMapper
+      def run(character)
         image_url = get_image_url character, :image
 
         {
@@ -47,6 +25,10 @@ module DataMappers
           characterClass: character.character_class,
           characterClassHitDice: character.character_class_hit_dice,
           characterClassLevel: character.character_class_level,
+          characterAttacks: character_attacks_response(character),
+          characterFeatures: character_features_response(character),
+          characterFeatureResources: charcter_feature_resources_response(character),
+          characterItems: character_items_response(character),
           characterSubClass: character.character_sub_class,
           charismaMod: character.charisma_mod,
           charismaProf: character.charisma_prof,
@@ -60,6 +42,7 @@ module DataMappers
           constitutionSave: character.constitution_save,
           constitutionScore: character.constitution_score,
           copperPieces: character.copper_pieces,
+          creatures: creatures_response(character),
           damageImmunities: character.damage_immunities,
           damageResistances: character.damage_resistances,
           damageVulnerabilities: character.damage_vulnerabilities,
@@ -71,6 +54,7 @@ module DataMappers
           dexterityScore: character.dexterity_score,
           electrumPieces: character.electrum_pieces,
           eyes: character.eyes,
+          factions: factions_response(character),
           flaws: character.flaws,
           goldPieces: character.gold_pieces,
           hair: character.hair,
@@ -93,6 +77,7 @@ module DataMappers
           investigationMod: character.investigation_mod,
           investigationProf: character.investigation_prof,
           languages: character.languages,
+          magicItems: magic_items_response(character),
           medicineMod: character.medicine_mod,
           medicineProf: character.medicine_prof,
           multiclassClass: character.multiclass_class,
@@ -121,6 +106,7 @@ module DataMappers
           sleightOfHandMod: character.sleight_of_hand_mod,
           sleightOfHandProf: character.sleight_of_hand_prof,
           speed: character.speed,
+          spells: spells_response(character),
           spellSlotsFirst: character.spell_slots_first,
           spellSlotsSecond: character.spell_slots_second,
           spellSlotsThird: character.spell_slots_third,
@@ -151,77 +137,145 @@ module DataMappers
           wisdomScore: character.wisdom_score
         }
       end
-    end
 
-    def creatures_response(faction)
-      creatures = faction.creatures || []
+      private
 
-      creatures.map do |creature|
-        image_url = get_image_url creature, :image
+      def character_attacks_response(character)
+        character_attacks = character.character_attacks || []
 
-        {
-          ac: creature.ac,
-          alignment: creature.alignment,
-          armor: creature.armor,
-          backstory: creature.backstory,
-          bonds: creature.bonds,
-          charismaMod: creature.charisma_mod,
-          charismaSave: creature.charisma_save,
-          charismaScore: creature.charisma_score,
-          conditionImmunities: creature.condition_immunities,
-          conditionResistances: creature.condition_resistances,
-          conditionVulnerabilities: creature.condition_vulnerabilities,
-          constitutionMod: creature.constitution_mod,
-          constitutionSave: creature.constitution_save,
-          constitutionScore: creature.constitution_score,
-          cr: creature.cr,
-          creatureCategory: creature.creature_category,
-          creatureType: creature.creature_type,
-          damageImmunities: creature.damage_immunities,
-          damageResistances: creature.damage_resistances,
-          damageVulnerabilities: creature.damage_vulnerabilities,
-          description: creature.description,
-          dexterityMod: creature.dexterity_mod,
-          dexteritySave: creature.dexterity_save,
-          dexterityScore: creature.dexterity_score,
-          flaws: creature.flaws,
-          hp: creature.hp,
-          id: creature.id,
-          ideals: creature.ideals,
-          imageUrl: image_url,
-          intelligenceMod: creature.intelligence_mod,
-          intelligenceSave: creature.intelligence_save,
-          intelligenceScore: creature.intelligence_score,
-          languages: creature.languages,
-          lairActionsText: creature.lair_actions_text,
-          legendaryActionsText: creature.legendary_actions_text,
-          name: creature.name,
-          personalityTraits: creature.personality_traits,
-          regionalEffectsText: creature.regional_effects_text,
-          senses: creature.senses,
-          size: creature.size,
-          skills: creature.skills,
-          speed: creature.speed,
-          spellSlotsFirst: creature.spell_slots_first,
-          spellSlotsSecond: creature.spell_slots_second,
-          spellSlotsThird: creature.spell_slots_third,
-          spellSlotsFourth: creature.spell_slots_fourth,
-          spellSlotsFifth: creature.spell_slots_fifth,
-          spellSlotsSixth: creature.spell_slots_sixth,
-          spellSlotsSeventh: creature.spell_slots_seventh,
-          spellSlotsEighth: creature.spell_slots_eighth,
-          spellSlotsNinth: creature.spell_slots_ninth,
-          spellcastingAbility: creature.spellcasting_ability,
-          spellcastingLevel: creature.spellcasting_level,
-          spellcastingModifier: creature.spellcasting_modifier,
-          spellcastingSaveDc: creature.spellcasting_save_dc,
-          strengthMod: creature.strength_mod,
-          strengthSave: creature.strength_save,
-          strengthScore: creature.strength_score,
-          wisdomMod: creature.wisdom_mod,
-          wisdomSave: creature.wisdom_save,
-          wisdomScore: creature.wisdom_score
-        }
+        character_attacks.map do |character_attack|
+          {
+            attackBonus: character_attack.attack_bonus,
+            critRange: character_attack.crit_range,
+            damageDiceRoll: character_attack.damage_dice_roll,
+            damageTwoDiceRoll: character_attack.damage_two_dice_roll,
+            damageTwoType: character_attack.damage_two_type,
+            damageType: character_attack.damage_type,
+            description: character_attack.description,
+            id: character_attack.id,
+            isSavingThrow: character_attack.is_saving_throw,
+            name: character_attack.name,
+            range: character_attack.range,
+            savingThrowDescription: character_attack.saving_throw_description,
+            savingThrowThreshold: character_attack.saving_throw_threshold,
+            savingThrowType: character_attack.saving_throw_type
+          }
+        end
+      end
+
+      def character_features_response(character)
+        character_features = character.character_features || []
+
+        character_features.map do |character_feature|
+          {
+            description: character_feature.description,
+            id: character_feature.id,
+            name: character_feature.name,
+            source: character_feature.source
+          }
+        end
+      end
+
+      def charcter_feature_resources_response(character)
+        character_feature_resources = character.character_feature_resources || []
+
+        character_feature_resources.map do |character_feature_resource|
+          {
+            id: character_feature_resource.id,
+            name: character_feature_resource.name,
+            total: character_feature_resource.total
+          }
+        end
+      end
+
+      def character_items_response(character)
+        character_items = character.character_items || []
+
+        character_items.map do |character_item|
+          {
+            id: character_item.id,
+            name: character_item.name,
+            total: character_item.total
+          }
+        end
+      end
+
+      def creatures_response(character)
+        creatures = character.creatures || []
+
+        creatures.map do |creature|
+          image_url = get_image_url creature, :image
+
+          {
+            id: creature.id,
+            imageUrl: image_url,
+            name: creature.name
+          }
+        end
+      end
+
+      def factions_response(character)
+        factions = character.factions || []
+
+        factions.map do |faction|
+          image_url = get_image_url faction, :image
+
+          {
+            alignment: faction.alignment,
+            allies: faction.allies,
+            description: faction.description,
+            goals: faction.goals,
+            id: faction.id,
+            ideals: faction.ideals,
+            imageUrl: image_url,
+            name: faction.name,
+            rivals: faction.rivals
+          }
+        end
+      end
+
+      def magic_items_response(character)
+        magic_items = character.magic_items || []
+
+        magic_items.map do |magic_item|
+          image_url = get_image_url magic_item, :image
+
+          {
+            attunement: magic_item.attunement,
+            category: magic_item.category,
+            description: magic_item.description,
+            id: magic_item.id,
+            imageUrl: image_url,
+            rarity: magic_item.rarity,
+            subCategory: magic_item.sub_category,
+            name: magic_item.name
+          }
+        end
+      end
+
+      def spells_response(character)
+        spells = character.spells || []
+
+        spells.map do |spell|
+          {
+            castingTime: spell.casting_time,
+            components: spell.components,
+            concentration: spell.concentration,
+            description: spell.description,
+            descriptionHigherLevels: spell.description_higher_levels,
+            duration: spell.duration,
+            id: spell.id,
+            level: spell.level,
+            materialComponents: spell.material_components,
+            name: spell.name,
+            range: spell.range,
+            ritual: spell.ritual,
+            school: spell.school,
+            somaticComponents: spell.somatic_components,
+            target: spell.target,
+            verbalComponents: spell.verbal_components
+          }
+        end
       end
     end
   end

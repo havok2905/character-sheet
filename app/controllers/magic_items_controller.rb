@@ -53,7 +53,7 @@ class MagicItemsController < ApplicationController
   private
 
   def magic_item_response_model(magic_item)
-    mapper = DataMappers::MagicItemDataMapper.new
+    mapper = DataMappers::Responses::MagicItemDataMapper.new
     mapper.run magic_item
   end
 

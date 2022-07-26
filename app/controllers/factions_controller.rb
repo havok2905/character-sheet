@@ -85,7 +85,7 @@ class FactionsController < ApplicationController
   end
 
   def faction_response_model(faction)
-    mapper = DataMappers::FactionDataMapper.new
+    mapper = DataMappers::Responses::FactionDataMapper.new
     mapper.run faction
   end
 

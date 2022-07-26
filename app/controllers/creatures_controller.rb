@@ -214,7 +214,7 @@ class CreaturesController < ApplicationController
   end
 
   def creature_response_model(creature)
-    mapper = DataMappers::CreatureDataMapper.new
+    mapper = DataMappers::Responses::CreatureDataMapper.new
     mapper.run creature
   end
 
