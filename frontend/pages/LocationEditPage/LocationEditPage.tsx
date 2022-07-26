@@ -11,7 +11,15 @@ import {
   uploadLocationMap,
   uploadLocationSigil
 } from '../../utilities/Api/Locations';
-import { ILocation } from '../../types/models';
+import { getCreatures } from '../../utilities/Api/Creatures';
+import { getFactions } from '../../utilities/Api/Factions';
+import { getMagicItems } from '../../utilities/Api/MagicItems';
+import {
+  ICreature,
+  IFaction,
+  ILocation,
+  IMagicItem
+} from '../../types/models';
 import { Layout } from '../../layouts/Layout';
 import { MapWithPinsEditor } from '../../components/MapWithPinsEditor';
 import { MarkdownEditor } from '../../components/MarkdownEditor';
@@ -27,11 +35,23 @@ const getIdFromUrl = ():string => {
   return parts[1];
 };
 
+interface ILocationEditPageState {
+  creatures: ICreature[];
+  factions: IFaction[];
+  location: ILocation | null;
+  magicItems: IMagicItem[];
+}
+
 const LocationEditPage = (): ReactElement => {
   const [contentField, setContentField] = useState('');
   const [descriptionField, setDescriptionField] = useState('');
-  const [location, setLocation] = useState<ILocation | null>(null);
   const [nameField, setNameField] = useState('');
+  const [state, setState] = useState<ILocationEditPageState>({
+    creatures: [] as ICreature[],
+    factions: [] as IFaction[],
+    location: null,
+    magicItems: [] as IMagicItem[]
+  });
 
   const mapFileUploadRef = useRef<HTMLInputElement | null>(null);
   const sigilFileUploadRef = useRef<HTMLInputElement | null>(null);
@@ -39,17 +59,36 @@ const LocationEditPage = (): ReactElement => {
   useEffect(() => {
     const id = getIdFromUrl();
 
-    getLocation(id)
-      .then(data => {
-        setContentField(data.location.content);
-        setDescriptionField(data.location.description);
-        setLocation(data.location);
-        setNameField(data.location.name);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });    
+    Promise.all([
+      getCreatures(),
+      getFactions(),
+      getLocation(id),
+      getMagicItems()
+    ]).then(([
+      creatureData,
+      factionData,
+      locationData,
+      magicItemData
+    ]) => {
+      setState({
+        creatures: creatureData.creatures,
+        factions: factionData.factions,
+        location: locationData.location,
+        magicItems: magicItemData.magicItems
+      });
+
+      setContentField(locationData.location.content);
+      setDescriptionField(locationData.location.description);
+      setNameField(locationData.location.name);
+    });
   }, []);
+
+  const {
+    creatures,
+    factions,
+    location,
+    magicItems
+  } = state;
 
   const handleDelete = e => {
     e.preventDefault();
@@ -133,7 +172,6 @@ const LocationEditPage = (): ReactElement => {
   } = location ?? {};
 
   return (
-    <ToastCollectionContextProvider>
       <Layout>
         <div className="layout">
           <div className="full">
@@ -157,7 +195,16 @@ const LocationEditPage = (): ReactElement => {
                 </button>
               </fieldset>
             </form>
-            {map && <MapWithPinsEditor map={map} resourceName={name} />}
+            {
+              map && (
+                <MapWithPinsEditor
+                  creatures={creatures}
+                  factions={factions}
+                  magicItems={magicItems}
+                  map={map}
+                  resourceName={name} />
+              )
+            }
             <h2>Sigil</h2>
             {sigilUrl && <img src={sigilUrl} alt={`${name} sigil`}/>}
             <form onSubmit={handleSigilSubmit}>
@@ -217,8 +264,6 @@ const LocationEditPage = (): ReactElement => {
           </div>
         </div>
       </Layout>
-      <ToastCollection/>
-    </ToastCollectionContextProvider>
   );
 };
 

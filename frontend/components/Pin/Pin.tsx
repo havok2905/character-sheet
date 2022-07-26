@@ -18,7 +18,7 @@ const Pin = ({
   pin,
   selected
 }: IPinProps): ReactElement => {
-  const { id, x, y } = pin;
+  const { id, name, x, y } = pin;
 
   const style = {
     left: `${String(x)}px`,
@@ -26,19 +26,28 @@ const Pin = ({
   };
 
   const classList = {
-    'pin': true,
+    'pin-body': true,
     'pin-selected': selected,
     'pin-focused': focused
   };
 
   return (
     <div
-      className={classNames(classList)}
+      className="pin"
       onMouseDown={() => { if (onMouseDown) onMouseDown(id); }}
-      onMouseUp={() => { if (onMouseDown) onMouseUp(id); }}
+      onMouseUp={() => { if (onMouseUp) onMouseUp(id); }}
       style={style}>
-      <div className="pin-inner">
+      <div className={classNames(classList)}>
+        <div className="pin-inner">
+        </div>
       </div>
+      {
+        name && (
+          <span className="pin-label">
+            {name}
+          </span>
+        )
+      }
     </div>
   )
 };
