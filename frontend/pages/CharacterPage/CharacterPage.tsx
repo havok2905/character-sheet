@@ -687,6 +687,17 @@ const CharacterPage = (): ReactElement | null => {
                       );
                     })
                   }
+                  <p><strong>10th Level</strong></p>
+                  {
+                    getSpellsByLevel(10, spells).map(spell => {
+                      const {name} = spell;
+                      return (
+                        <ToggleItem heading={name}>
+                          <SpellCard spell={spell}/>
+                        </ToggleItem>
+                      );
+                    })
+                  }
                 </>
               )
             }

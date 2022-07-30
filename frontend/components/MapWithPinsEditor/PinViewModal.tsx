@@ -77,7 +77,7 @@ const PinViewModal = ({
 
           return (
             <AssociateWithTokenLink
-              associationUrl={`/magicItems/${id}`}  
+              associationUrl={`/magic_items/${id}`}  
               imageAltText={`${name} token`}
               imageUrl={imageUrl}  
               linkText={name}
