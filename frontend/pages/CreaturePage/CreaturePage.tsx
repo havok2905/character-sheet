@@ -6,6 +6,7 @@ import { ICreature } from '../../types/models';
 import { Layout } from '../../layouts/Layout';
 import { NewLineText } from '../../components/NewLineText';
 import { SpellListByLevel } from '../../components/SpellListByLevel';
+import { StatBlock } from '../../components/StatBlock';
 import { ToggleItem } from '../../components/ToggleItem';
 
 const getIdFromUrl = ():string => {
@@ -30,15 +31,9 @@ const CreaturePage = (): ReactElement | null => {
     armor,
     backstory,
     bonds,
-    charismaMod,
-    charismaSave,
-    charismaScore,
     conditionImmunities,
     conditionResistances,
     conditionVulnerabilities,
-    constitutionMod,
-    constitutionSave,
-    constitutionScore,
     cr,
     creatureActions,
     creatureFeatures,
@@ -50,18 +45,12 @@ const CreaturePage = (): ReactElement | null => {
     damageResistances,
     damageVulnerabilities,
     description,
-    dexterityMod,
-    dexteritySave,
-    dexterityScore,
     factions,
     flaws,
     hp,
     id,
     ideals,
     imageUrl,
-    intelligenceMod,
-    intelligenceSave,
-    intelligenceScore,
     lairActionsText,
     languages,
     legendaryActionsText,
@@ -87,12 +76,6 @@ const CreaturePage = (): ReactElement | null => {
     spellSlotsSeventh,
     spellSlotsSixth,
     spellSlotsThird,
-    strengthMod,
-    strengthSave,
-    strengthScore,
-    wisdomMod,
-    wisdomSave,
-    wisdomScore
   } = creature;
 
   return (
@@ -113,7 +96,7 @@ const CreaturePage = (): ReactElement | null => {
           </div>
         </div>
         <div className="column">
-          <table >
+          <table>
             <thead>
               <tr>
                 <th>CR</th>
@@ -131,48 +114,7 @@ const CreaturePage = (): ReactElement | null => {
               </tr>
             </tbody>
           </table>
-          <table >
-            <thead>
-              <tr>
-                <th></th>
-                <th>STR</th>
-                <th>DEX</th>
-                <th>CON</th>
-                <th>INT</th>
-                <th>WIS</th>
-                <th>CHA</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Score</td>
-                <td>{strengthScore}</td>
-                <td>{dexterityScore}</td>
-                <td>{constitutionScore}</td>
-                <td>{intelligenceScore}</td>
-                <td>{wisdomScore}</td>
-                <td>{charismaScore}</td>
-              </tr>
-              <tr>
-                <td>Mod</td>
-                <td>{strengthMod}</td>
-                <td>{dexterityMod}</td>
-                <td>{constitutionMod}</td>
-                <td>{intelligenceMod}</td>
-                <td>{wisdomMod}</td>
-                <td>{charismaMod}</td>
-              </tr>
-              <tr>
-                <td>Save</td>
-                <td>{strengthSave}</td>
-                <td>{dexteritySave}</td>
-                <td>{constitutionSave}</td>
-                <td>{intelligenceSave}</td>
-                <td>{wisdomSave}</td>
-                <td>{charismaSave}</td>
-              </tr>
-            </tbody>
-          </table>
+          <StatBlock entity={creature} />
           <div className="card">
             <h2>Skills</h2>
             {skills}

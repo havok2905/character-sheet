@@ -1,4 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
+import { AbilitySkills } from '../../components/AbilitySkills';
 import { AssociateWithTokenLink } from '../../components/AssociateWithTokenLink';
 import { characterClassRow } from '../../utilities/UiHelpers/characterClassRow';
 import { characterMulticlassRow } from '../../utilities/UiHelpers/characterMulticlassRow';
@@ -6,6 +7,7 @@ import { GearIcon } from '../../components/Icons';
 import { getCharacter } from '../../utilities/Api/Characters';
 import { ICharacter } from '../../types/models';
 import { SpellListByLevel } from '../../components/SpellListByLevel';
+import { StatBlock } from '../../components/StatBlock';
 import { ToggleItem } from '../../components/ToggleItem';
 import { Layout } from '../../layouts/Layout';
 
@@ -27,17 +29,10 @@ const CharacterPage = (): ReactElement | null => {
 
   const {
     ac,
-    acrobaticsMod,
-    acrobaticsProf,
+
     age,
     alignment,
-    animalHandlingMod,
-    animalHandlingProf,
-    arcanaMod,
-    arcanaProf,
     armorProficiencies,
-    athleticsMod,
-    athleticsProf,
     background,
     backstory,
     bonds,
@@ -47,28 +42,14 @@ const CharacterPage = (): ReactElement | null => {
     characterFeatures = [],
     characterFeatureResources = [],
     characterItems = [],
-    charismaMod,
-    charismaProf,
-    charismaSave,
-    charismaScore,
     conditionImmunities,
     conditionResistances,
     conditionVulnerabilities,
-    constitutionMod,
-    constitutionProf,
-    constitutionSave,
-    constitutionScore,
     copperPieces,
     creatures = [],
     damageImmunities,
     damageResistances,
     damageVulnerabilities,
-    deceptionMod,
-    deceptionProf,
-    dexterityMod,
-    dexterityProf,
-    dexteritySave,
-    dexterityScore,
     electrumPieces,
     eyes,
     factions = [],
@@ -76,51 +57,25 @@ const CharacterPage = (): ReactElement | null => {
     goldPieces,
     hair,
     height,
-    historyMod,
-    historyProf,
     hp,
     id,
     ideals,
     imageUrl,
     initiative,
-    insightMod,
-    insightProf,
-    intelligenceMod,
-    intelligenceProf,
-    intelligenceSave,
-    intelligenceScore,
-    intimidationMod,
-    intimidationProf,
-    investigationMod,
-    investigationProf,
     languages,
     magicItems = [],
-    medicineMod,
-    medicineProf,
     multiclassClass,
     multiclassClassHitDice,
     multiclassClassLevel,
     name,
-    natureMod,
-    natureProf,
     passivePerception,
-    perceptionMod,
-    perceptionProf,
-    performanceMod,
-    performanceProf,
     personalityTraits,
-    persuasionMod,
-    persuasionProf,
     platinumPieces,
     proficiencyBonus,
     race,
-    religionMod,
-    religionProf,
     senses,
     silverPieces,
     skin,
-    sleightOfHandMod,
-    sleightOfHandProf,
     speed,
     spells = [],
     spellSlotsEighth,
@@ -135,28 +90,11 @@ const CharacterPage = (): ReactElement | null => {
     spellcastingAbility,
     spellcastingSaveDc,
     spellcastingModifier,
-    stealthMod,
-    stealthProf,
-    strengthMod,
-    strengthProf,
-    strengthSave,
-    strengthScore,
     subRace,
-    survivalMod,
-    survivalProf,
     toolProficiencies,
     weaponProficiencies,
     weight,
-    wisdomMod,
-    wisdomProf,
-    wisdomSave,
-    wisdomScore
   } = character;
-
-  const getProficientClass = (prof: string): string | undefined => {
-    const profs = ['exp', 'prof'];
-    return profs.includes(prof) ? 'sheet-table-data-bolded': undefined
-  };
 
   return (
     <Layout>
@@ -202,168 +140,8 @@ const CharacterPage = (): ReactElement | null => {
               </tr>
             </tbody>
           </table>
-          <table>
-            <thead>
-              <tr>
-                <th></th>
-                <th>STR</th>
-                <th>DEX</th>
-                <th>CON</th>
-                <th>INT</th>
-                <th>WIS</th>
-                <th>CHA</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Score</td>
-                <td>{strengthScore}</td>
-                <td>{dexterityScore}</td>
-                <td>{constitutionScore}</td>
-                <td>{intelligenceScore}</td>
-                <td>{wisdomScore}</td>
-                <td>{charismaScore}</td>
-              </tr>
-              <tr>
-                <td>Mod</td>
-                <td>{strengthMod}</td>
-                <td>{dexterityMod}</td>
-                <td>{constitutionMod}</td>
-                <td>{intelligenceMod}</td>
-                <td>{wisdomMod}</td>
-                <td>{charismaMod}</td>
-              </tr>
-              <tr>
-                <td>Save</td>
-                <td className={getProficientClass(strengthProf)}>{strengthSave}</td>
-                <td className={getProficientClass(dexterityProf)}>{dexteritySave}</td>
-                <td className={getProficientClass(constitutionProf)}>{constitutionSave}</td>
-                <td className={getProficientClass(intelligenceProf)}>{intelligenceSave}</td>
-                <td className={getProficientClass(wisdomProf)}>{wisdomSave}</td>
-                <td className={getProficientClass(charismaProf)}>{charismaSave}</td>
-              </tr>
-            </tbody>
-          </table>
-          <table>
-            <thead>
-              <tr>
-                <th>Prof</th>
-                <th>Ability</th>
-                <th>Skill</th>
-                <th>Mod</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{acrobaticsProf}</td>
-                <td>Dex</td>
-                <td>Acrobatics</td>
-                <td className={getProficientClass(acrobaticsProf)}>{acrobaticsMod}</td>
-              </tr>
-              <tr>
-                <td>{animalHandlingProf}</td>
-                <td>Wis</td>
-                <td>Animal Handling</td>
-                <td className={getProficientClass(animalHandlingProf)}>{animalHandlingMod}</td>
-              </tr>
-              <tr>
-                <td>{arcanaProf}</td>
-                <td>Int</td>
-                <td>Arcana</td>
-                <td className={getProficientClass(arcanaProf)}>{arcanaMod}</td>
-              </tr>
-              <tr>
-                <td>{athleticsProf}</td>
-                <td>Str</td>
-                <td>Athletics</td>
-                <td className={getProficientClass(athleticsProf)}>{athleticsMod}</td>
-              </tr>
-              <tr>
-                <td>{deceptionProf}</td>
-                <td>Cha</td>
-                <td>Deception</td>
-                <td className={getProficientClass(deceptionProf)}>{deceptionMod}</td>
-              </tr>
-              <tr>
-                <td>{historyProf}</td>
-                <td>Int</td>
-                <td>History</td>
-                <td className={getProficientClass(historyProf)}>{historyMod}</td>
-              </tr>
-              <tr>
-                <td>{insightProf}</td>
-                <td>Wis</td>
-                <td>Insight</td>
-                <td className={getProficientClass(insightProf)}>{insightMod}</td>
-              </tr>
-              <tr>
-                <td>{intimidationProf}</td>
-                <td>Cha</td>
-                <td>Intimidation</td>
-                <td className={getProficientClass(intimidationProf)}>{intimidationMod}</td>
-              </tr>
-              <tr>
-                <td>{investigationProf}</td>
-                <td>Int</td>
-                <td>Investigation</td>
-                <td className={getProficientClass(investigationProf)}>{investigationMod}</td>
-              </tr>
-              <tr>
-                <td>{medicineProf}</td>
-                <td>Wis</td>
-                <td>Medicine</td>
-                <td className={getProficientClass(medicineProf)}>{medicineMod}</td>
-              </tr>
-              <tr>
-                <td>{natureProf}</td>
-                <td>Int</td>
-                <td>Nature</td>
-                <td className={getProficientClass(natureProf)}>{natureMod}</td>
-              </tr>
-              <tr>
-                <td>{perceptionProf}</td>
-                <td>Wis</td>
-                <td>Perception</td>
-                <td className={getProficientClass(perceptionProf)}>{perceptionMod}</td>
-              </tr>
-              <tr>
-                <td>{performanceProf}</td>
-                <td>Cha</td>
-                <td>Performance</td>
-                <td className={getProficientClass(performanceProf)}>{performanceMod}</td>
-              </tr>
-              <tr>
-                <td>{perceptionProf}</td>
-                <td>Cha</td>
-                <td>Persuasion</td>
-                <td className={getProficientClass(persuasionProf)}>{persuasionMod}</td>
-              </tr>
-              <tr>
-                <td>{religionProf}</td>
-                <td>int</td>
-                <td>Religion</td>
-                <td className={getProficientClass(religionProf)}>{religionMod}</td>
-              </tr>
-              <tr>
-                <td>{sleightOfHandProf}</td>
-                <td>Dex</td>
-                <td>Sleight of Hand</td>
-                <td className={getProficientClass(sleightOfHandProf)}>{sleightOfHandMod}</td>
-              </tr>
-              <tr>
-                <td>{stealthProf}</td>
-                <td>Dex</td>
-                <td>Stealth</td>
-                <td className={getProficientClass(stealthProf)}>{stealthMod}</td>
-              </tr>
-              <tr>
-                <td>{survivalProf}</td>
-                <td>Wis</td>
-                <td>Survival</td>
-                <td className={getProficientClass(survivalProf)}>{survivalMod}</td>
-              </tr>
-            </tbody>
-          </table>
+          <StatBlock entity={character} />
+          <AbilitySkills entity={character} />
           {
             !!magicItems?.length && (
               <div className="card">
