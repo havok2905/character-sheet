@@ -8,6 +8,7 @@ import { NewLineText } from '../../components/NewLineText';
 import { SpellListByLevel } from '../../components/SpellListByLevel';
 import { StatBlock } from '../../components/StatBlock';
 import { ToggleItem } from '../../components/ToggleItem';
+import { Token } from '../../components/Token';
 
 const getIdFromUrl = ():string => {
   const url = new URL(window.location.href);
@@ -326,7 +327,7 @@ const CreaturePage = (): ReactElement | null => {
                 <GearIcon/>
               </a>
             </div>
-            {!!imageUrl && <img alt="creature portrait" className="token" src={imageUrl}/>}
+            <Token imageAltText="creature portrait" imageUrl={imageUrl}/>
             <div>
               <h1>{name}</h1>
               <p>{size} {creatureType}, {alignment}</p>

@@ -3,6 +3,7 @@ import { GearIcon } from '../../components/Icons/GearIcon';
 import { getMagicItem } from '../../utilities/Api/MagicItems';
 import { IMagicItem } from '../../types/models';
 import { Layout } from '../../layouts/Layout';
+import { Token } from '../../components/Token';
 
 const getIdFromUrl = ():string => {
   const url = new URL(window.location.href);
@@ -44,7 +45,7 @@ const MagicItemPage = (): ReactElement | null => {
           </div>
         </div>
         <div className="full">
-          {imageUrl && <img alt={`${name} token`} className="token" src={imageUrl} />}
+          <Token imageAltText={`${name} - token`} imageUrl={imageUrl}/>
           <h1>{name}</h1>
           <div className="card">
             <p><strong>Attunement: </strong>{attunement ? 'Has attunement' : ''}</p>

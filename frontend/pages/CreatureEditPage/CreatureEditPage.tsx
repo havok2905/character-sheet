@@ -272,7 +272,6 @@ const CreatureEditPage = (): ReactElement | null => {
           <h2>Creature Image</h2>
           <ImageForm
             buttonLabel="Upload Image"
-            imageClassName="token"
             imageUrl={imageUrl}
             inputName="creature-image-file-upload"
             handleSubmit={handleImageUpload}

@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import { Token } from '../Token';
 
 interface IItemWithTokenProps {
   description: string;
@@ -20,7 +21,10 @@ const ItemWithToken = ({
   return (
     <a className="card-link" href={itemPath}>
       <div className="card card-with-icon">
-        {imageUrl && <img alt={imageAltText} className="token" src={imageUrl} />}
+        <Token
+          imageAltText={imageAltText}
+          imageUrl={imageUrl}
+          size="small"/>
         <div>
           <h2>{heading}</h2>
           <p>{description}</p>

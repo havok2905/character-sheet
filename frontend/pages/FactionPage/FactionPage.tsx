@@ -6,6 +6,7 @@ import { ICharacter, IFaction } from '../../types/models';
 import { ItemWithToken } from '../../components/ItemWithToken';
 import { Layout } from '../../layouts/Layout';
 import { NewLineText } from '../../components/NewLineText/NewLineText';
+import { Token } from '../../components/Token';
 
 const getIdFromUrl = ():string => {
   const url = new URL(window.location.href);
@@ -76,7 +77,7 @@ const FactionPage = (): ReactElement | null => {
           </div>
         </div>
         <div className="full">
-          {imageUrl && <img alt="faction portrait" className="token" src={imageUrl}/>}
+          <Token imageAltText={`${name} - token`} imageUrl={imageUrl}/>
           <h1>{name}</h1>
           <div className="card">
             <p><strong>Alignment: </strong>{alignment}</p>

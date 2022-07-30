@@ -269,7 +269,6 @@ const CharacterEditPage = (): ReactElement | null => {
           <h2>Character Image</h2>
           <ImageForm
             buttonLabel="Upload Image"
-            imageClassName="token"
             imageUrl={imageUrl}
             inputName="character-image-file-upload"
             handleSubmit={handleImageUpload}

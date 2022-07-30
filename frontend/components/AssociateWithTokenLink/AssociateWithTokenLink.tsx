@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import { Token } from '../Token';
 import './_associateWithTokenLink.scss';
 
 interface IAssociateWithTokenLinkProps {
@@ -17,7 +18,10 @@ const AssociateWithTokenLink = ({
   return (
     <a className="pet-and-associate-link" href={associationUrl}>
       <div className="pet-and-associate-link-content">
-        {imageUrl && <img alt={imageAltText} className="token" src={imageUrl}/>}
+        <Token
+          imageAltText={imageAltText}
+          imageUrl={imageUrl}
+          size="small" />
         {linkText}
       </div>
     </a>

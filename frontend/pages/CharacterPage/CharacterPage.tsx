@@ -9,6 +9,7 @@ import { ICharacter } from '../../types/models';
 import { SpellListByLevel } from '../../components/SpellListByLevel';
 import { StatBlock } from '../../components/StatBlock';
 import { ToggleItem } from '../../components/ToggleItem';
+import { Token } from '../../components/Token';
 import { Layout } from '../../layouts/Layout';
 
 const getIdFromUrl = ():string => {
@@ -328,11 +329,6 @@ const CharacterPage = (): ReactElement | null => {
     );
   };
 
-  const getCharacterPortrait = (): ReactElement | null => {
-    if (!imageUrl) return null;
-    return <img alt="character portrait" className="token" src={imageUrl}/>;
-  };
-
   const getCharacterResources = (): ReactElement | null => {
     if (!characterFeatureResources?.length) return null;
 
@@ -375,7 +371,7 @@ const CharacterPage = (): ReactElement | null => {
                 <GearIcon/>
               </a>
             </div>
-            {getCharacterPortrait()}
+            <Token imageAltText="character portrait" imageUrl={imageUrl}/>
             <div>
               <h1>{name}</h1>
               <p>{characterClassRow(character)}</p>

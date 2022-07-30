@@ -8,9 +8,6 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-
-
-
 .column {
   width: $column-width;
 }
@@ -40,13 +37,6 @@
 
   &.card-with-icon {
     display: flex;
-
-    .token {
-      border-radius: $border-radius-circle;
-      height: $token-size-small;
-      margin-right: $standard-spacing;
-      width: $token-size-small;
-    }
   }
 }
 
@@ -56,12 +46,6 @@
   .card:hover {
     box-shadow: $box-shadow-heavy;
   }
-}
-
-.token {
-  border-radius: $border-radius-circle;
-  height: $token-size-standard;
-  width: $token-size-standard;
 }
 
 .sheet-header {
