@@ -4,9 +4,8 @@ import { characterClassRow } from '../../utilities/UiHelpers/characterClassRow';
 import { characterMulticlassRow } from '../../utilities/UiHelpers/characterMulticlassRow';
 import { GearIcon } from '../../components/Icons';
 import { getCharacter } from '../../utilities/Api/Characters';
-import { getSpellsByLevel } from '../../utilities/UiHelpers/getSpellsByLevel';
 import { ICharacter } from '../../types/models';
-import { SpellCard } from '../../components/SpellCard';
+import { SpellListByLevel } from '../../components/SpellListByLevel';
 import { ToggleItem } from '../../components/ToggleItem';
 import { Layout } from '../../layouts/Layout';
 
@@ -124,6 +123,15 @@ const CharacterPage = (): ReactElement | null => {
     sleightOfHandProf,
     speed,
     spells = [],
+    spellSlotsEighth,
+    spellSlotsFifth,
+    spellSlotsFirst,
+    spellSlotsFourth,
+    spellSlotsNinth,
+    spellSlotsSecond,
+    spellSlotsSeventh,
+    spellSlotsSixth,
+    spellSlotsThird,
     spellcastingAbility,
     spellcastingSaveDc,
     spellcastingModifier,
@@ -577,127 +585,17 @@ const CharacterPage = (): ReactElement | null => {
             {
               !!spells?.length && (
                 <>
-                  <p><strong>Cantrips</strong></p>
-                  {
-                    getSpellsByLevel(0, spells).map(spell => {
-                      const {name} = spell;
-                      return (
-                        <ToggleItem heading={name}>
-                          <SpellCard spell={spell}/>
-                        </ToggleItem>
-                      );
-                    })
-                  }
-                  <p><strong>1st Level</strong></p>
-                  {
-                    getSpellsByLevel(1, spells).map(spell => {
-                      const {name} = spell;
-                      return (
-                        <ToggleItem heading={name}>
-                          <SpellCard spell={spell}/>
-                        </ToggleItem>
-                      );
-                    })
-                  }
-                  <p><strong>2nd Level</strong></p>
-                  {
-                    getSpellsByLevel(2, spells).map(spell => {
-                      const {name} = spell;
-                      return (
-                        <ToggleItem heading={name}>
-                          <SpellCard spell={spell}/>
-                        </ToggleItem>
-                      );
-                    })
-                  }
-                  <p><strong>3rd Level</strong></p>
-                  {
-                    getSpellsByLevel(3, spells).map(spell => {
-                      const {name} = spell;
-                      return (
-                        <ToggleItem heading={name}>
-                          <SpellCard spell={spell}/>
-                        </ToggleItem>
-                      );
-                    })
-                  }
-                  <p><strong>4th Level</strong></p>
-                  {
-                    getSpellsByLevel(4, spells).map(spell => {
-                      const {name} = spell;
-                      return (
-                        <ToggleItem heading={name}>
-                          <SpellCard spell={spell}/>
-                        </ToggleItem>
-                      );
-                    })
-                  }
-                  <p><strong>5th Level</strong></p>
-                  {
-                    getSpellsByLevel(5, spells).map(spell => {
-                      const {name} = spell;
-                      return (
-                        <ToggleItem heading={name}>
-                          <SpellCard spell={spell}/>
-                        </ToggleItem>
-                      );
-                    })
-                  }
-                  <p><strong>6th Level</strong></p>
-                  {
-                    getSpellsByLevel(6, spells).map(spell => {
-                      const {name} = spell;
-                      return (
-                        <ToggleItem heading={name}>
-                          <SpellCard spell={spell}/>
-                        </ToggleItem>
-                      );
-                    })
-                  }
-                  <p><strong>7th Level</strong></p>
-                  {
-                    getSpellsByLevel(7, spells).map(spell => {
-                      const {name} = spell;
-                      return (
-                        <ToggleItem heading={name}>
-                          <SpellCard spell={spell}/>
-                        </ToggleItem>
-                      );
-                    })
-                  }
-                  <p><strong>8th Level</strong></p>
-                  {
-                    getSpellsByLevel(8, spells).map(spell => {
-                      const {name} = spell;
-                      return (
-                        <ToggleItem heading={name}>
-                          <SpellCard spell={spell}/>
-                        </ToggleItem>
-                      );
-                    })
-                  }
-                  <p><strong>9th Level</strong></p>
-                  {
-                    getSpellsByLevel(9, spells).map(spell => {
-                      const {name} = spell;
-                      return (
-                        <ToggleItem heading={name}>
-                          <SpellCard spell={spell}/>
-                        </ToggleItem>
-                      );
-                    })
-                  }
-                  <p><strong>10th Level</strong></p>
-                  {
-                    getSpellsByLevel(10, spells).map(spell => {
-                      const {name} = spell;
-                      return (
-                        <ToggleItem heading={name}>
-                          <SpellCard spell={spell}/>
-                        </ToggleItem>
-                      );
-                    })
-                  }
+                  <SpellListByLevel label="Cantrips" spellLevel={0} spellSlots={0} spells={spells} />
+                  <SpellListByLevel label="1st Level" spellLevel={1} spellSlots={spellSlotsFirst} spells={spells} />
+                  <SpellListByLevel label="2nd Level" spellLevel={2} spellSlots={spellSlotsSecond} spells={spells} />
+                  <SpellListByLevel label="3rd Level" spellLevel={3} spellSlots={spellSlotsThird} spells={spells} />
+                  <SpellListByLevel label="4th Level" spellLevel={4} spellSlots={spellSlotsFourth} spells={spells} />
+                  <SpellListByLevel label="5th Level" spellLevel={5} spellSlots={spellSlotsFifth} spells={spells} />
+                  <SpellListByLevel label="6th Level" spellLevel={6} spellSlots={spellSlotsSixth} spells={spells} />
+                  <SpellListByLevel label="7th Level" spellLevel={7} spellSlots={spellSlotsSeventh} spells={spells} />
+                  <SpellListByLevel label="8th Level" spellLevel={9} spellSlots={spellSlotsEighth} spells={spells} />
+                  <SpellListByLevel label="9th Level" spellLevel={9} spellSlots={spellSlotsNinth} spells={spells} />
+                  <SpellListByLevel label="10th Level" spellLevel={10} spellSlots={0} spells={spells} />
                 </>
               )
             }

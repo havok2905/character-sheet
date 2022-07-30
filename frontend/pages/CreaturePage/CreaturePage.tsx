@@ -2,11 +2,10 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { AssociateWithTokenLink } from '../../components/AssociateWithTokenLink';
 import { GearIcon } from '../../components/Icons';
 import { getCreature } from '../../utilities/Api/Creatures';
-import { getSpellsByLevel } from '../../utilities/UiHelpers/getSpellsByLevel';
-import { ICreature, ISpell } from '../../types/models';
+import { ICreature } from '../../types/models';
 import { Layout } from '../../layouts/Layout';
 import { NewLineText } from '../../components/NewLineText';
-import { SpellCard } from '../../components/SpellCard';
+import { SpellListByLevel } from '../../components/SpellListByLevel';
 import { ToggleItem } from '../../components/ToggleItem';
 
 const getIdFromUrl = ():string => {
@@ -79,6 +78,15 @@ const CreaturePage = (): ReactElement | null => {
     spellcastingModifier,
     spellcastingSaveDc,
     spells,
+    spellSlotsEighth,
+    spellSlotsFifth,
+    spellSlotsFirst,
+    spellSlotsFourth,
+    spellSlotsNinth,
+    spellSlotsSecond,
+    spellSlotsSeventh,
+    spellSlotsSixth,
+    spellSlotsThird,
     strengthMod,
     strengthSave,
     strengthScore,
@@ -86,24 +94,6 @@ const CreaturePage = (): ReactElement | null => {
     wisdomSave,
     wisdomScore
   } = creature;
-
-  const spellsByLevel = (label: string, spellLevel: number, spells: ISpell[]) => {
-    return (
-      <>
-        <p><strong>{label}</strong></p>
-        {
-          getSpellsByLevel(spellLevel, spells).map(spell => {
-            const {name} = spell;
-            return (
-              <ToggleItem heading={name}>
-                <SpellCard spell={spell}/>
-              </ToggleItem>
-            );
-          })
-        }
-      </>
-    )
-  };
 
   return (
     <Layout>
@@ -375,17 +365,17 @@ const CreaturePage = (): ReactElement | null => {
           {
             !!spells?.length && (
               <div className='card'>
-                {spellsByLevel('Cantrips', 0, spells)}
-                {spellsByLevel('1st Level', 1, spells)}
-                {spellsByLevel('2nd Level', 2, spells)}
-                {spellsByLevel('3rd Level', 3, spells)}
-                {spellsByLevel('4th Level', 4, spells)}
-                {spellsByLevel('5th Level', 5, spells)}
-                {spellsByLevel('6th Level', 6, spells)}
-                {spellsByLevel('7th Level', 7, spells)}
-                {spellsByLevel('8th Level', 8, spells)}
-                {spellsByLevel('9th Level', 9, spells)}
-                {spellsByLevel('10th Level', 10, spells)}
+                <SpellListByLevel label="Cantrips" spellLevel={0} spellSlots={0} spells={spells} />
+                <SpellListByLevel label="1st Level" spellLevel={1} spellSlots={spellSlotsFirst} spells={spells} />
+                <SpellListByLevel label="2nd Level" spellLevel={2} spellSlots={spellSlotsSecond} spells={spells} />
+                <SpellListByLevel label="3rd Level" spellLevel={3} spellSlots={spellSlotsThird} spells={spells} />
+                <SpellListByLevel label="4th Level" spellLevel={4} spellSlots={spellSlotsFourth} spells={spells} />
+                <SpellListByLevel label="5th Level" spellLevel={5} spellSlots={spellSlotsFifth} spells={spells} />
+                <SpellListByLevel label="6th Level" spellLevel={6} spellSlots={spellSlotsSixth} spells={spells} />
+                <SpellListByLevel label="7th Level" spellLevel={7} spellSlots={spellSlotsSeventh} spells={spells} />
+                <SpellListByLevel label="8th Level" spellLevel={9} spellSlots={spellSlotsEighth} spells={spells} />
+                <SpellListByLevel label="9th Level" spellLevel={9} spellSlots={spellSlotsNinth} spells={spells} />
+                <SpellListByLevel label="10th Level" spellLevel={10} spellSlots={0} spells={spells} />
               </div>
             )
           }
