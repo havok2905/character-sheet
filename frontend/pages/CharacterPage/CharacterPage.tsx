@@ -171,6 +171,52 @@ const CharacterPage = (): ReactElement | null => {
     );
   };
 
+  const getCharacterAttacks = (): ReactElement | null => {
+    if (!characterAttacks?.length) return null;
+
+    return (
+      <div className="card">
+        <h2>Attacks</h2>
+        {
+          characterAttacks.map(attack => {
+            const {
+              attackBonus,
+              critRange,
+              damageDiceRoll,
+              damageTwoDiceRoll,
+              damageTwoType,
+              damageType,
+              description,
+              isSavingThrow,
+              name,
+              range,
+              savingThrowDescription,
+              savingThrowThreshold,
+              savingThrowType
+            } = attack;
+
+            return (
+              <ToggleItem heading={name}>
+                {getOptionalProperty('Atatck Bonus', attackBonus)}
+                {getOptionalProperty('Crit Range', critRange)}
+                {getOptionalProperty('Damage Dice Roll', damageDiceRoll)}
+                {getOptionalProperty('Damage Two Dice Roll', damageTwoDiceRoll)}
+                {getOptionalProperty('Damage Two Type', damageTwoType)}
+                {getOptionalProperty('Damage Type', damageType)}
+                {getOptionalProperty('Description', description)}
+                {getOptionalProperty('Is Saving Throw', isSavingThrow ? 'Yes' : 'No')}
+                {getOptionalProperty('Range', range)}
+                {getOptionalProperty('Saving Throw Description', savingThrowDescription)}
+                {getOptionalProperty('Saving Throw Threshold', savingThrowThreshold)}
+                {getOptionalProperty('Saving Throw Type', savingThrowType)}
+              </ToggleItem>
+            );
+          })
+        }
+      </div>
+    )
+  };
+
   const getCharacterBackstory = (): ReactElement | null => {
     if (!backstory) return null;
 
@@ -303,6 +349,17 @@ const CharacterPage = (): ReactElement | null => {
     );
   };
 
+  const getCharacterSenses = () => {
+    if (!senses) return null;
+    
+    return (
+      <>
+        <h2>Senses</h2>
+        {senses}
+      </>
+    );
+  };
+
   const getOptionalProperty = (label: string, value: string | number): ReactElement | null => {
     if (value === null || value === undefined || value === '') return null;
     return <p><strong>{label}</strong> {value}</p>;
@@ -352,49 +409,10 @@ const CharacterPage = (): ReactElement | null => {
           {getAssociatedCreaturesCard()}
           {getAssociatedFactionsCard()}
           {getCharacterResources()}
-          <div className="card">
-            <h2>Attacks</h2>
-            {
-              characterAttacks.map(attack => {
-                const {
-                  attackBonus,
-                  critRange,
-                  damageDiceRoll,
-                  damageTwoDiceRoll,
-                  damageTwoType,
-                  damageType,
-                  description,
-                  isSavingThrow,
-                  name,
-                  range,
-                  savingThrowDescription,
-                  savingThrowThreshold,
-                  savingThrowType
-                } = attack;
-
-                return (
-                  <ToggleItem heading={name}>
-                    {getOptionalProperty('Atatck Bonus', attackBonus)}
-                    {getOptionalProperty('Crit Range', critRange)}
-                    {getOptionalProperty('Damage Dice Roll', damageDiceRoll)}
-                    {getOptionalProperty('Damage Two Dice Roll', damageTwoDiceRoll)}
-                    {getOptionalProperty('Damage Two Type', damageTwoType)}
-                    {getOptionalProperty('Damage Type', damageType)}
-                    {getOptionalProperty('Description', description)}
-                    {getOptionalProperty('Is Saving Throw', isSavingThrow ? 'Yes' : 'No')}
-                    {getOptionalProperty('Range', range)}
-                    {getOptionalProperty('Saving Throw Description', savingThrowDescription)}
-                    {getOptionalProperty('Saving Throw Threshold', savingThrowThreshold)}
-                    {getOptionalProperty('Saving Throw Type', savingThrowType)}
-                  </ToggleItem>
-                );
-              })
-            }
-          </div>
+          {getCharacterAttacks()}
           {getCharacterFeatures()}
           <div className="card">
-            <h2>Senses</h2>
-            <p>{senses}</p>
+            {getCharacterSenses()}
             {getOptionalProperty('Passive Perception', passivePerception)}
             <h2>Proficinencies</h2>
             {getOptionalProperty('Armor Proficiencies', armorProficiencies)}

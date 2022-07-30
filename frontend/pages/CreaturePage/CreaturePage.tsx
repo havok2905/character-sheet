@@ -77,6 +77,244 @@ const CreaturePage = (): ReactElement | null => {
     spellSlotsSixth,
     spellSlotsThird,
   } = creature;
+  const getOptionalProperty = (label: string, value: string | number): ReactElement | null => {
+    if (value === null || value === undefined || value === '') return null;
+    return <p><strong>{label}</strong> {value}</p>;
+  };
+
+  const getAssociatedFactionsCard = (): ReactElement | null => {
+    if (!factions?.length) return null;
+
+    return (
+      <div className="card">
+        <h2>Factions</h2>
+        {
+          factions.map(faction => {
+            const { id, imageUrl, name } = faction;
+
+            return (
+              <AssociateWithTokenLink
+                associationUrl={`/factions/${id}`}
+                imageAltText={`${name} token`}
+                imageUrl={imageUrl}
+                linkText={name}
+              />
+            )
+          })
+        }
+      </div>
+    );
+  };
+
+  const getAssociatedMagicItemsCard = (): ReactElement | null => {
+    if (!magicItems?.length) return null;
+
+    return (
+      <div className="card">
+        <h2>Magic Items</h2>
+        {
+          magicItems.map(item => {
+            const {
+              id,
+              imageUrl,
+              name
+            } = item;
+            
+            return (
+              <AssociateWithTokenLink
+                associationUrl={`/magic_items/${id}`}
+                imageAltText={`${name} token`}
+                imageUrl={imageUrl}
+                linkText={name}
+              />
+            );
+          })
+        }
+      </div>
+    );
+  };
+  
+  const getCreatureAbout = (): ReactElement | null => {
+    if (!personalityTraits && !ideals && !bonds && !flaws && !description) return null;
+
+    return (
+      <div className="card">
+        <h2>About</h2>
+        {getOptionalProperty('Personality Traits', personalityTraits)}
+        {getOptionalProperty('Ideals', ideals)}
+        {getOptionalProperty('Bonds', bonds)}
+        {getOptionalProperty('Flaws', flaws)}
+        {description && <NewLineText text={description}/>}
+      </div>
+    );
+  };
+
+  const getCreatureActions = (): ReactElement | null => {
+    if (!creatureActions?.length) return null;
+
+    return (
+      <div className="card">
+        <h2>Actions</h2>
+        {
+          creatureActions.map(action => {
+            const {
+              actionCombatType,
+              actionType,
+              attackBonus,
+              damageDiceRoll,
+              damageTwoDiceRoll,
+              damageTwoType,
+              damageType,
+              description,
+              name,
+              range,
+              savingThrowDc,
+              savingThrowType
+            } = action;
+
+            return (
+              <ToggleItem heading={`${name}: ${actionType}`}>
+                {actionCombatType && <p>{actionCombatType}</p>}
+                {getOptionalProperty('To Hit', attackBonus)}
+                {getOptionalProperty('Damage', damageDiceRoll && damageType ? `${damageDiceRoll} ${damageType}` : '')}
+                {getOptionalProperty('Damage Two', damageTwoDiceRoll && damageTwoType ? `${damageTwoDiceRoll} ${damageTwoType}` : '')}
+                {getOptionalProperty('Range', range)}
+                {getOptionalProperty('Save DC', savingThrowDc && savingThrowType ? `DC${savingThrowDc} ${savingThrowType}` : '')}
+                {getOptionalProperty('Description', description)}
+              </ToggleItem>
+            );
+          })
+        }
+      </div>
+    );
+  };
+
+  const getCreatureBackstory = (): ReactElement | null => {
+    if (!backstory) return null;
+
+    return (
+      <div className="card">
+        <h2>Backstory</h2>
+        {backstory}
+      </div>
+    );
+  };
+
+  const getCreatureFeatures = (): ReactElement | null => {
+    if (!creatureFeatures?.length) return null;
+
+    return (
+      <div className="card">
+        <h2>Features</h2>
+        {
+          creatureFeatures.map(feature => {
+            const { description, name } = feature;
+            
+            return (
+              <ToggleItem heading={name}>
+                <NewLineText text={description}/>
+              </ToggleItem>
+            );
+          })
+        }
+      </div>
+    )
+  };
+
+  const getCreatureLairActions = (): ReactElement | null => {
+    if (!creatureLairActions?.length) return null;
+
+    return (
+      <div className="card">
+        <h2>Lair Actions</h2>
+        <p>{lairActionsText}</p>
+        <ul className="bulletless-list">
+          {creatureLairActions.map(action => <li>{action.description}</li>)}
+        </ul>
+      </div>
+    );
+  };
+
+  const getCreatureLegendaryActions = (): ReactElement | null => {
+    if (!creatureLegendaryActions?.length) return null;
+
+    return (
+      <div className="card">
+        <h2>Legendary Actions</h2>
+        <p>{legendaryActionsText}</p>
+        {
+          creatureLegendaryActions.map(action => {
+            const { description, name } = action;
+
+            return (
+              <ToggleItem heading={name}>
+                {description}
+              </ToggleItem>
+            );
+          })
+        }
+      </div>
+    );
+  };
+
+  const getCreatureMiscStats = (): ReactElement => {
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>CR</th>
+            <th>AC</th>
+            <th>HP</th>
+            <th>Speed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{cr}</td>
+            <td>{ac}, ( {armor} )</td>
+            <td>{hp}</td>
+            <td>{speed}</td>
+          </tr>
+        </tbody>
+      </table>
+    );
+  };
+
+  const getCreatureRegionalEffects = (): ReactElement | null => {
+    if (!creatureRegionalEffects?.length) return null;
+
+    return (
+      <div className="card">
+        <h2>Regional Effects</h2>
+        <p>{regionalEffectsText}</p>
+        <ul className="bulletless-list">
+          {creatureRegionalEffects.map(effect => <li>{effect.description}</li>)}
+        </ul>
+      </div>
+    );
+  };
+
+  const getCreatureSenses = () => {
+    if (!senses) return null;
+    
+    return (
+      <>
+        <h2>Senses</h2>
+        {senses}
+      </>
+    );
+  };
+
+  const getCreatureSkills = () => {
+    if (!skills) return null;
+    
+    return (
+      <>
+        <h2>Skills</h2>
+        {skills}
+      </>
+    );
+  };
 
   return (
     <Layout>
@@ -96,231 +334,55 @@ const CreaturePage = (): ReactElement | null => {
           </div>
         </div>
         <div className="column">
-          <table>
-            <thead>
-              <tr>
-                <th>CR</th>
-                <th>AC</th>
-                <th>HP</th>
-                <th>Speed</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{cr}</td>
-                <td>{ac}, ( {armor} )</td>
-                <td>{hp}</td>
-                <td>{speed}</td>
-              </tr>
-            </tbody>
-          </table>
+          {getCreatureMiscStats()}
           <StatBlock entity={creature} />
           <div className="card">
-            <h2>Skills</h2>
-            {skills}
-            <h2>Senses</h2>
-            {senses}
+            {getCreatureSkills()}
+            {getCreatureSenses()}
             <h2>Proficiencies</h2>
-            <p><strong>Condition Immunities:</strong> {conditionImmunities}</p>
-            <p><strong>Condition Resistences:</strong> {conditionResistances}</p>
-            <p><strong>Condition Vulnerabilities:</strong> {conditionVulnerabilities}</p>
-            <p><strong>Damage Immunities:</strong> {damageImmunities}</p>
-            <p><strong>Damage Resistences:</strong> {damageResistances}</p>
-            <p><strong>Damage Vulnerabilities:</strong> {damageVulnerabilities}</p>
-            <p><strong>Languages:</strong> {languages}</p>
+            {getOptionalProperty('Condition Immunities', conditionImmunities)}
+            {getOptionalProperty('Condition Resistences', conditionResistances)}
+            {getOptionalProperty('Condition Vulnerabilities', conditionVulnerabilities)}
+            {getOptionalProperty('Damage Immunities', damageImmunities)}
+            {getOptionalProperty('Damage Resistences', damageResistances)}
+            {getOptionalProperty('Damage Vulnerabilities', damageVulnerabilities)}
+            {getOptionalProperty('Languages', languages)}
           </div>
-          {
-            !!( personalityTraits || ideals || bonds || flaws || description ) && (
-              <div className="card">
-                <h2>About</h2>
-                <p><strong>Personality Traits:</strong> {personalityTraits}</p>
-                <p><strong>Ideals:</strong> {ideals}</p>
-                <p><strong>Bonds:</strong> {bonds}</p>
-                <p><strong>Flaws:</strong> {flaws}</p>
-                <NewLineText text={description}/>
-              </div>
-            )
-          }
-          {
-            !!backstory && (
-              <div className="card">
-                <h2>Backstory</h2>
-                <NewLineText text={backstory}/>
-              </div>
-            )
-          }
-          {
-            !!creatureLairActions?.length && (
-              <div className="card">
-                <h2>Lair Actions</h2>
-                <p>{lairActionsText}</p>
-                <ul className="bulletless-list">
-                  {creatureLairActions.map(action => <li>{action.description}</li>)}
-                </ul>
-              </div>
-            )
-          }
-          {
-            !!creatureRegionalEffects?.length && (
-              <div className="card">
-                <h2>Regional Effects</h2>
-                <p>{regionalEffectsText}</p>
-                <ul className="bulletless-list">
-                  {creatureRegionalEffects.map(effect => <li>{effect.description}</li>)}
-                </ul>
-              </div>
-            )
-          }
+          {getCreatureAbout()}
+          {getCreatureBackstory()}
+          {getCreatureLairActions()}
+          {getCreatureRegionalEffects()}
         </div>
         <div className="column">
-          {
-            !!factions?.length && (
-              <div className="card">
-                <h2>Factions</h2>
-                {
-                  factions.map(faction => {
-                    const { id, imageUrl, name } = faction;
-
-                    return (
-                      <AssociateWithTokenLink
-                        associationUrl={`/factions/${id}`}
-                        imageAltText={`${name} token`}
-                        imageUrl={imageUrl}
-                        linkText={name}
-                      />
-                    )
-                  })
-                }
-              </div>
-            )
-          }
-          {
-            !!creatureFeatures?.length && (
-              <div className="card">
-                <h2>Features</h2>
-                {
-                  creatureFeatures.map(feature => {
-                    const { description, name } = feature;
-                    
-                    return (
-                      <ToggleItem heading={name}>
-                        <NewLineText text={description}/>
-                      </ToggleItem>
-                    );
-                  })
-                }
-              </div>
-            )
-          }
-          {
-            !!creatureActions?.length && (
-              <div className="card">
-                <h2>Actions</h2>
-                {
-                  creatureActions.map(action => {
-                    const {
-                      actionCombatType,
-                      actionType,
-                      attackBonus,
-                      damageDiceRoll,
-                      damageTwoDiceRoll,
-                      damageTwoType,
-                      damageType,
-                      description,
-                      name,
-                      range,
-                      savingThrowDc,
-                      savingThrowType
-                    } = action;
-
-                    return (
-                      <ToggleItem heading={`${name}: ${actionType}`}>
-                        <p>{actionCombatType}</p>
-                        <p>To Hit: {attackBonus}</p>
-                        <p>Damage {damageDiceRoll} {damageType}</p>
-                        <p>Damage Two {damageTwoDiceRoll} {damageTwoType}</p>
-                        <p>Range: {range}</p>
-                        <p>Save DC: DC{savingThrowDc} {savingThrowType}</p>
-                        {description}
-                      </ToggleItem>
-                    );
-                  })
-                }
-              </div>
-            )
-          }
-          {
-            !!creatureLegendaryActions?.length && (
-              <div className="card">
-                <h2>Legendary Actions</h2>
-                <p>{legendaryActionsText}</p>
-                {
-                  creatureLegendaryActions.map(action => {
-                    const { description, name } = action;
-
-                    return (
-                      <ToggleItem heading={name}>
-                        {description}
-                      </ToggleItem>
-                    );
-                  })
-                }
-              </div>
-            )
-          }
-          {
-            !!magicItems?.length && (
-              <div className="card">
-                <h2>Magic Items</h2>
-                {
-                  magicItems.map(item => {
-                    const {
-                      id,
-                      imageUrl,
-                      name
-                    } = item;
-                    
-                    return (
-                      <AssociateWithTokenLink
-                        associationUrl={`/magic_items/${id}`}
-                        imageAltText={`${name} token`}
-                        imageUrl={imageUrl}
-                        linkText={name}
-                      />
-                    );
-                  })
-                }
-              </div>
-            )
-          }
-          {
-            !!spells?.length && (
-              <div className="card">
-                <h2>Spellcasting</h2>
-                <p><strong>Level:</strong> {spellcastingLevel}</p>
-                <p><strong>Ability:</strong> {spellcastingAbility}</p>
-                <p><strong>Bonus:</strong> {spellcastingModifier}</p>
-                <p><strong>Save DC:</strong> {spellcastingSaveDc}</p>
-              </div>
-            )
-          }
-          {
-            !!spells?.length && (
-              <div className='card'>
-                <SpellListByLevel label="Cantrips" spellLevel={0} spellSlots={0} spells={spells} />
-                <SpellListByLevel label="1st Level" spellLevel={1} spellSlots={spellSlotsFirst} spells={spells} />
-                <SpellListByLevel label="2nd Level" spellLevel={2} spellSlots={spellSlotsSecond} spells={spells} />
-                <SpellListByLevel label="3rd Level" spellLevel={3} spellSlots={spellSlotsThird} spells={spells} />
-                <SpellListByLevel label="4th Level" spellLevel={4} spellSlots={spellSlotsFourth} spells={spells} />
-                <SpellListByLevel label="5th Level" spellLevel={5} spellSlots={spellSlotsFifth} spells={spells} />
-                <SpellListByLevel label="6th Level" spellLevel={6} spellSlots={spellSlotsSixth} spells={spells} />
-                <SpellListByLevel label="7th Level" spellLevel={7} spellSlots={spellSlotsSeventh} spells={spells} />
-                <SpellListByLevel label="8th Level" spellLevel={9} spellSlots={spellSlotsEighth} spells={spells} />
-                <SpellListByLevel label="9th Level" spellLevel={9} spellSlots={spellSlotsNinth} spells={spells} />
-                <SpellListByLevel label="10th Level" spellLevel={10} spellSlots={0} spells={spells} />
-              </div>
-            )
-          }
+          {getAssociatedFactionsCard()}
+          {getCreatureFeatures()}
+          {getCreatureActions()}
+          {getCreatureLegendaryActions()}
+          {getAssociatedMagicItemsCard()} 
+          <div className="card">
+            <h2>Spellbook</h2>
+            {getOptionalProperty('Level', spellcastingLevel)}
+            {getOptionalProperty('Ability', spellcastingAbility)}
+            {getOptionalProperty('Bonus', spellcastingModifier)}
+            {getOptionalProperty('Save DC', spellcastingSaveDc)}
+            {
+              !!spells?.length && (
+                <div className='card'>
+                  <SpellListByLevel label="Cantrips" spellLevel={0} spellSlots={0} spells={spells} />
+                  <SpellListByLevel label="1st Level" spellLevel={1} spellSlots={spellSlotsFirst} spells={spells} />
+                  <SpellListByLevel label="2nd Level" spellLevel={2} spellSlots={spellSlotsSecond} spells={spells} />
+                  <SpellListByLevel label="3rd Level" spellLevel={3} spellSlots={spellSlotsThird} spells={spells} />
+                  <SpellListByLevel label="4th Level" spellLevel={4} spellSlots={spellSlotsFourth} spells={spells} />
+                  <SpellListByLevel label="5th Level" spellLevel={5} spellSlots={spellSlotsFifth} spells={spells} />
+                  <SpellListByLevel label="6th Level" spellLevel={6} spellSlots={spellSlotsSixth} spells={spells} />
+                  <SpellListByLevel label="7th Level" spellLevel={7} spellSlots={spellSlotsSeventh} spells={spells} />
+                  <SpellListByLevel label="8th Level" spellLevel={9} spellSlots={spellSlotsEighth} spells={spells} />
+                  <SpellListByLevel label="9th Level" spellLevel={9} spellSlots={spellSlotsNinth} spells={spells} />
+                  <SpellListByLevel label="10th Level" spellLevel={10} spellSlots={0} spells={spells} />
+                </div>
+              )
+            }
+          </div>
         </div>
       </div>
     </Layout>
