@@ -29,7 +29,6 @@ const CharacterPage = (): ReactElement | null => {
 
   const {
     ac,
-
     age,
     alignment,
     armorProficiencies,
@@ -96,6 +95,219 @@ const CharacterPage = (): ReactElement | null => {
     weight,
   } = character;
 
+  const getAssociatedCreaturesCard = (): ReactElement | null => {
+    if (!creatures?.length) return null;
+
+    return (
+      <div className="card">
+        <h2>Creatures</h2>
+        {
+          creatures.map(creature => {
+            const { id, imageUrl, name } = creature;
+
+            return (
+              <AssociateWithTokenLink
+                associationUrl={`/creatures/${id}`}
+                imageAltText={`${name} token`}
+                imageUrl={imageUrl}
+                linkText={name}
+              />
+            )
+          })
+        }
+      </div>
+    );
+  };
+
+  const getAssociatedFactionsCard = (): ReactElement | null => {
+    if (!factions?.length) return null;
+
+    return (
+      <div className="card">
+        <h2>Factions</h2>
+        {
+          factions.map(faction => {
+            const { id, imageUrl, name } = faction;
+
+            return (
+              <AssociateWithTokenLink
+                associationUrl={`/factions/${id}`}
+                imageAltText={`${name} token`}
+                imageUrl={imageUrl}
+                linkText={name}
+              />
+            )
+          })
+        }
+      </div>
+    );
+  };
+
+  const getAssociatedMagicItemsCard = (): ReactElement | null => {
+    if (!magicItems?.length) return null;
+
+    return (
+      <div className="card">
+        <h2>Magic Items</h2>
+        {
+          magicItems.map(item => {
+            const {
+              id,
+              imageUrl,
+              name
+            } = item;
+            
+            return (
+              <AssociateWithTokenLink
+                associationUrl={`/magic_items/${id}`}
+                imageAltText={`${name} token`}
+                imageUrl={imageUrl}
+                linkText={name}
+              />
+            );
+          })
+        }
+      </div>
+    );
+  };
+
+  const getCharacterBackstory = (): ReactElement | null => {
+    if (!backstory) return null;
+
+    return (
+      <div className="card">
+        <h2>Backstory</h2>
+        {backstory}
+      </div>
+    );
+  };
+
+  const getCharacterFeatures = (): ReactElement | null => {
+    if (!characterFeatures?.length) return null;
+
+    return (
+      <div className="card">
+        <h2>Features</h2>
+        {
+          characterFeatures.map(feature => {
+            const { description, name, source } = feature;
+
+            return (
+              <ToggleItem heading={name}>
+                <p><strong>Source:</strong> {source}</p>
+                <p><strong>Description:</strong> {description}</p>
+              </ToggleItem>
+            );
+          })
+        }
+      </div>
+    )
+  };
+
+  const getCharacterInventory = (): ReactElement => {
+    return (
+      <>
+        {
+          !!characterItems?.length && (
+            <div className="card">
+              <h2>Inventory</h2>
+              {
+                characterItems.map(item => {
+                  const { name, total } = item;
+
+                  return (
+                    <div className="item">
+                      <p>
+                        <strong>
+                          {name}: {total}
+                        </strong>
+                      </p>
+                    </div>
+                  )
+                })
+              }
+            </div>
+          )
+        }
+        <table>
+          <thead>
+            <tr>
+              <th>Copper</th>
+              <th>Silver</th>
+              <th>Electrum</th>
+              <th>Gold</th>
+              <th>Platinum</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{copperPieces}</td>
+              <td>{silverPieces}</td>
+              <td>{electrumPieces}</td>
+              <td>{goldPieces}</td>
+              <td>{platinumPieces}</td>
+            </tr>
+          </tbody>
+        </table>
+      </>
+    );
+  };
+
+  const getCharacterMiscStats = (): ReactElement => {
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>AC</th>
+            <th>HP</th>
+            <th>Hit Dice</th>
+            <th>M Hit Dice</th>
+            <th>Initiative</th>
+            <th>Speed</th>
+            <th>Prof Bonus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{ac}</td>
+            <td>{hp}</td>
+            <td>{characterClassLevel}d{characterClassHitDice}</td>
+            <td>{multiclassClassLevel}d{multiclassClassHitDice}</td>
+            <td>{initiative}</td>
+            <td>{speed}</td>
+            <td>{proficiencyBonus}</td>
+          </tr>
+        </tbody>
+      </table>
+    );
+  };
+
+  const getCharacterPortrait = (): ReactElement | null => {
+    if (!imageUrl) return null;
+    return <img alt="character portrait" className="token" src={imageUrl}/>;
+  };
+
+  const getCharacterResources = (): ReactElement | null => {
+    if (!characterFeatureResources?.length) return null;
+
+    return (
+      <div className="card">
+        <h2>Resources</h2>
+        {
+          characterFeatureResources.map(resource => {
+            const { name, total } = resource;
+            return <p>{name}: {total}</p>;
+          })
+        }
+      </div>
+    );
+  };
+
+  const getOptionalProperty = (label: string, value: string | number): ReactElement | null => {
+    if (value === null || value === undefined || value === '') return null;
+    return <p><strong>{label}</strong> {value}</p>;
+  };
+
   return (
     <Layout>
       <div className="layout">
@@ -106,7 +318,7 @@ const CharacterPage = (): ReactElement | null => {
                 <GearIcon/>
               </a>
             </div>
-            {!!imageUrl && <img alt="character portrait" className="token" src={imageUrl}/>}
+            {getCharacterPortrait()}
             <div>
               <h1>{name}</h1>
               <p>{characterClassRow(character)}</p>
@@ -116,169 +328,30 @@ const CharacterPage = (): ReactElement | null => {
           </div>
         </div>
         <div className="column">
-          <table>
-            <thead>
-              <tr>
-                <th>AC</th>
-                <th>HP</th>
-                <th>Hit Dice</th>
-                <th>M Hit Dice</th>
-                <th>Initiative</th>
-                <th>Speed</th>
-                <th>Prof Bonus</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{ac}</td>
-                <td>{hp}</td>
-                <td>{characterClassLevel}d{characterClassHitDice}</td>
-                <td>{multiclassClassLevel}d{multiclassClassHitDice}</td>
-                <td>{initiative}</td>
-                <td>{speed}</td>
-                <td>{proficiencyBonus}</td>
-              </tr>
-            </tbody>
-          </table>
+          {getCharacterMiscStats()}
           <StatBlock entity={character} />
           <AbilitySkills entity={character} />
-          {
-            !!magicItems?.length && (
-              <div className="card">
-                <h2>Magic Items</h2>
-                {
-                  magicItems.map(item => {
-                    const {
-                      id,
-                      imageUrl,
-                      name
-                    } = item;
-                    
-                    return (
-                      <AssociateWithTokenLink
-                        associationUrl={`/magic_items/${id}`}
-                        imageAltText={`${name} token`}
-                        imageUrl={imageUrl}
-                        linkText={name}
-                      />
-                    );
-                  })
-                }
-              </div>
-            )
-          }
-          <div className="card">
-            <h2>Inventory</h2>
-            {
-              characterItems.map(item => {
-                const { name, total } = item;
-
-                return (
-                  <div className="item">
-                    <p>
-                      <strong>
-                        {name}: {total}
-                      </strong>
-                    </p>
-                  </div>
-                )
-              })
-            }
-          </div>
-          <table>
-            <thead>
-              <tr>
-                <th>Copper</th>
-                <th>Silver</th>
-                <th>Electrum</th>
-                <th>Gold</th>
-                <th>Platinum</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{copperPieces}</td>
-                <td>{silverPieces}</td>
-                <td>{electrumPieces}</td>
-                <td>{goldPieces}</td>
-                <td>{platinumPieces}</td>
-              </tr>
-            </tbody>
-          </table>
+          {getAssociatedMagicItemsCard()}
+          {getCharacterInventory()}
           <div className="card">
             <h2>Biography</h2>
-            <p><strong>Age:</strong> {age}</p>
-            <p><strong>Height:</strong> {height}</p>
-            <p><strong>Weight:</strong> {weight}</p>
-            <p><strong>Hair:</strong> {hair}</p>
-            <p><strong>Skin:</strong> {skin}</p>
-            <p><strong>Eyes:</strong> {eyes}</p>
-            <p><strong>Personality Traits:</strong> {personalityTraits}</p>
-            <p><strong>Ideals:</strong> {ideals}</p>
-            <p><strong>Bonds:</strong> {bonds}</p>
-            <p><strong>Flaws:</strong> {flaws}</p>
+            {getOptionalProperty('Age', age)}
+            {getOptionalProperty('Height', height)}
+            {getOptionalProperty('Weight', weight)}
+            {getOptionalProperty('Hair', hair)}
+            {getOptionalProperty('Skin', skin)}
+            {getOptionalProperty('Eyes', eyes)}
+            {getOptionalProperty('Personality Traits', personalityTraits)}
+            {getOptionalProperty('Ideals', ideals)}
+            {getOptionalProperty('Bonds', bonds)}
+            {getOptionalProperty('Flaws', flaws)}
           </div>
-          {
-            backstory && (
-              <div className="card">
-                <h2>Backstory</h2>
-                {backstory}
-              </div>
-            )
-          }
+          {getCharacterBackstory()}
         </div>
         <div className="column">
-          {
-            !!creatures?.length && (
-              <div className="card">
-                <h2>Pets and NPCs</h2>
-                {
-                  creatures.map(creature => {
-                    const { id, imageUrl, name } = creature;
-
-                    return (
-                      <AssociateWithTokenLink
-                        associationUrl={`/creatures/${id}`}
-                        imageAltText={`${name} token`}
-                        imageUrl={imageUrl}
-                        linkText={name}
-                      />
-                    )
-                  })
-                }
-              </div>
-            )
-          }
-          {
-            !!factions?.length && (
-              <div className="card">
-                <h2>Factions</h2>
-                {
-                  factions.map(faction => {
-                    const { id, imageUrl, name } = faction;
-
-                    return (
-                      <AssociateWithTokenLink
-                        associationUrl={`/factions/${id}`}
-                        imageAltText={`${name} token`}
-                        imageUrl={imageUrl}
-                        linkText={name}
-                      />
-                    )
-                  })
-                }
-              </div>
-            )
-          }
-          <div className="card">
-            <h2>Resources</h2>
-            {
-              characterFeatureResources.map(resource => {
-                const { name, total } = resource;
-                return <p>{name}: {total}</p>;
-              })
-            }
-          </div>
+          {getAssociatedCreaturesCard()}
+          {getAssociatedFactionsCard()}
+          {getCharacterResources()}
           <div className="card">
             <h2>Attacks</h2>
             {
@@ -301,65 +374,45 @@ const CharacterPage = (): ReactElement | null => {
 
                 return (
                   <ToggleItem heading={name}>
-                    <p><strong>Atatck Bonus: </strong>{attackBonus}</p>
-                    <p><strong>Crit Range: </strong>{critRange}</p>
-                    <p><strong>Damage Dice Roll: </strong>{damageDiceRoll}</p>
-                    <p><strong>Damage Two Dice Roll: </strong>{damageTwoDiceRoll}</p>
-                    <p><strong>Damage Two Type: </strong>{damageTwoType}</p>
-                    <p><strong>Damage Type: </strong>{damageType}</p>
-                    <p>
-                      <strong>Description: </strong>
-                      {description}
-                    </p>
-                    <p><strong>Is Saving Throw: </strong>{isSavingThrow ? 'Yes' : 'No'}</p>
-                    <p><strong>Range: </strong>{range}</p>
-                    <p><strong>Saving Throw Description: </strong>{savingThrowDescription}</p>
-                    <p><strong>Saving Throw Threshold: </strong>{savingThrowThreshold}</p>
-                    <p><strong>Saving Throw Type: </strong>{savingThrowType}</p>
+                    {getOptionalProperty('Atatck Bonus', attackBonus)}
+                    {getOptionalProperty('Crit Range', critRange)}
+                    {getOptionalProperty('Damage Dice Roll', damageDiceRoll)}
+                    {getOptionalProperty('Damage Two Dice Roll', damageTwoDiceRoll)}
+                    {getOptionalProperty('Damage Two Type', damageTwoType)}
+                    {getOptionalProperty('Damage Type', damageType)}
+                    {getOptionalProperty('Description', description)}
+                    {getOptionalProperty('Is Saving Throw', isSavingThrow ? 'Yes' : 'No')}
+                    {getOptionalProperty('Range', range)}
+                    {getOptionalProperty('Saving Throw Description', savingThrowDescription)}
+                    {getOptionalProperty('Saving Throw Threshold', savingThrowThreshold)}
+                    {getOptionalProperty('Saving Throw Type', savingThrowType)}
                   </ToggleItem>
                 );
               })
             }
           </div>
-          <div className="card">
-            <h2>Features</h2>
-            {
-              characterFeatures.map(feature => {
-                const { description, name, source } = feature;
-
-                return (
-                  <ToggleItem heading={name}>
-                    <p><strong>Source:</strong> {source}</p>
-                    <p>
-                      <strong>Description:</strong>
-                      {description}
-                    </p>
-                  </ToggleItem>
-                );
-              })
-            }
-          </div>
+          {getCharacterFeatures()}
           <div className="card">
             <h2>Senses</h2>
             <p>{senses}</p>
-            <p><strong>Passive Perception:</strong> {passivePerception}</p>
+            {getOptionalProperty('Passive Perception', passivePerception)}
             <h2>Proficinencies</h2>
-            <p><strong>Armor Proficiencies:</strong> {armorProficiencies}</p>
-            <p><strong>Condition Immunities:</strong> {conditionImmunities}</p>
-            <p><strong>Condition Resistences:</strong> {conditionResistances}</p>
-            <p><strong>Condition Vulnerabilities:</strong> {conditionVulnerabilities}</p>
-            <p><strong>Damage Immunities:</strong> {damageImmunities}</p>
-            <p><strong>Damage Resistences:</strong> {damageResistances}</p>
-            <p><strong>Damage Vulnerabilities:</strong> {damageVulnerabilities}</p>
-            <p><strong>Languages:</strong> {languages}</p>
-            <p><strong>Tool Proficiencies:</strong> {toolProficiencies}</p>
-            <p><strong>Weapon Proficiencies:</strong> {weaponProficiencies}</p>
+            {getOptionalProperty('Armor Proficiencies', armorProficiencies)}
+            {getOptionalProperty('Condition Immunities', conditionImmunities)}
+            {getOptionalProperty('Condition Resistences', conditionResistances)}
+            {getOptionalProperty('Condition Vulnerabilities', conditionVulnerabilities)}
+            {getOptionalProperty('Damage Immunities', damageImmunities)}
+            {getOptionalProperty('Damage Resistences', damageResistances)}
+            {getOptionalProperty('Damage Vulnerabilities', damageVulnerabilities)}
+            {getOptionalProperty('Languages', languages)}
+            {getOptionalProperty('Tool Proficiencies', toolProficiencies)}
+            {getOptionalProperty('Weapon Proficiencies', weaponProficiencies)}
           </div>
           <div className="card">
             <h2>Spellbook</h2>
-            <p><strong>Ability:</strong> {spellcastingAbility}</p>
-            <p><strong>Bonus:</strong> {spellcastingModifier}</p>
-            <p><strong>Save DC:</strong> {spellcastingSaveDc}</p>
+            {getOptionalProperty('Ability', spellcastingAbility)}
+            {getOptionalProperty('Bonus', spellcastingModifier)}
+            {getOptionalProperty('Save DC', spellcastingSaveDc)}
             {
               !!spells?.length && (
                 <>
