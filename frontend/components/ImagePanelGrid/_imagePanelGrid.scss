@@ -1,0 +1,6 @@
+.image-panel-grid {
+  display: grid;
+  grid-column-gap: 66px;
+  grid-row-gap: 66px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
