@@ -68,8 +68,8 @@ const FactionPage = (): ReactElement | null => {
     <Layout>
       <div className="layout">
         <div className="full">
-          <div className="sheet-header">
-            <div className="sheet-header-settings">
+          <div className="page-header">
+            <div className="page-header-settings">
               <a href={`/factions/${id}/edit`}>
                 <GearIcon/>
               </a>
