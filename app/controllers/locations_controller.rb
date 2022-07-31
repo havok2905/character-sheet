@@ -50,6 +50,15 @@ class LocationsController < ApplicationController
     render json: { location: }
   end
 
+  def upload_hero_image
+    l = Location.find params[:id]
+    m = Map.where(location_id: params[:id]).first
+    l.hero_image = params['location-hero-image-file-upload']
+    l.save!
+    location = location_response_model l, m
+    render json: { location: }
+  end
+
   def upload_sigil
     l = Location.find params[:id]
     m = Map.where(location_id: params[:id]).first

@@ -49,6 +49,19 @@ const LocationPage = (): ReactElement | null => {
     ) : null;
   };
 
+  const {
+    content,
+    description,
+    heroImageUrl,
+    id,
+    map: {
+      imageUrl,
+      pins = []
+    } = {},
+    name,
+    sigilUrl
+  } = location;
+
   return (
     <>
       <Layout>
@@ -56,19 +69,19 @@ const LocationPage = (): ReactElement | null => {
           <div className="full">
             <div className="sheet-header">
               <div className="sheet-header-settings">
-                <a href={`/locations/${location.id}/edit`}>
+                <a href={`/locations/${id}/edit`}>
                   <GearIcon/>
                 </a>
               </div>
             </div>
             {
-              location.map.imageUrl && (
+              imageUrl && (
                 <>
                   <h2>Map</h2>
                   <div className="map-with-pins-editor">
-                    <img src={location.map.imageUrl} alt={`${location.name} map`} width="1000px"/>
+                    <img src={imageUrl} alt={`${name} map`} width="1000px"/>
                     {
-                      location.map.pins.map(pin => {
+                      pins.map(pin => {
                         return (
                           <Pin
                             onClick={(id) => {
@@ -83,20 +96,24 @@ const LocationPage = (): ReactElement | null => {
                 </>
               )
             }
-            <h1>{location.name}</h1>
+            <h1>{name}</h1>
             {
-              location.sigilUrl && (
+              sigilUrl && (
                 <>
                   <h2>Sigil</h2>
-                  <img src={location.sigilUrl} alt={`${location.name} sigil`}/>
+                  <img src={sigilUrl} alt={`${name} sigil`}/>
                 </>
               )
             }
-            <div className="card">
-              {location.description}
-            </div>
-            <h2>Article</h2>
-            <MarkdownPreview value={location.content}/>
+            {heroImageUrl && <img src={heroImageUrl} alt={`${name} hero image`}/>}
+            {
+              description && (
+                <div className="card">
+                  {description}
+                </div>
+              )
+            }
+            <MarkdownPreview value={content}/>
           </div>
         </div>
       </Layout>

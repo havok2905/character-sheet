@@ -26,6 +26,7 @@ interface IMap {
 interface ILocation {
   content: string;
   description: string;
+  heroImageUrl: string;
   id?: string;
   map: IMap;
   name: string;

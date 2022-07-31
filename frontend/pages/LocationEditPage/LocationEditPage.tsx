@@ -8,6 +8,7 @@ import {
   destroyLocation,
   getLocation,
   updateLocation,
+  uploadLocationHeroImage,
   uploadLocationMap,
   uploadLocationSigil
 } from '../../utilities/Api/Locations';
@@ -49,6 +50,7 @@ const LocationEditPage = (): ReactElement => {
     magicItems: [] as IMagicItem[]
   });
 
+  const heroImageFileUploadRef = useRef<HTMLInputElement | null>(null);
   const mapFileUploadRef = useRef<HTMLInputElement | null>(null);
   const sigilFileUploadRef = useRef<HTMLInputElement | null>(null);
 
@@ -121,6 +123,26 @@ const LocationEditPage = (): ReactElement => {
       });
   };
 
+  const handleHeroImageSubmit = e => {
+    e.preventDefault();
+
+    const id = getIdFromUrl();
+    const data = new FormData();
+    const filesToUpload = heroImageFileUploadRef?.current?.files;
+
+    if (!filesToUpload?.length) return;
+
+    data.append('location-hero-image-file-upload', filesToUpload[0]);
+
+    uploadLocationHeroImage(id, data)
+      .then(data => {
+        window.location.href = `/locations/${data.location.id}`;
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+
   const handleSigilSubmit = e => {
     e.preventDefault();
 
@@ -162,6 +184,7 @@ const LocationEditPage = (): ReactElement => {
   };
 
   const {
+    heroImageUrl,
     map,
     name = '',
     sigilUrl = ''
@@ -202,6 +225,23 @@ const LocationEditPage = (): ReactElement => {
                 resourceName={name} />
             )
           }
+          <h2>Hero Image</h2>
+          {heroImageUrl && <img src={heroImageUrl} alt={`${name} hero image`}/>}
+          <form onSubmit={handleHeroImageSubmit}>
+            <fieldset>
+              <label htmlFor="location-hero-image">
+                Hero Image
+              </label>
+              <input
+                name="location-hero-image"
+                id="location-hero-image"
+                ref={heroImageFileUploadRef}
+                type="file" />
+              <button>
+                Update Hero Image
+              </button>
+            </fieldset>
+          </form>
           <h2>Sigil</h2>
           {sigilUrl && <img src={sigilUrl} alt={`${name} sigil`}/>}
           <form onSubmit={handleSigilSubmit}>

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   post '/factions/:id/upload_image', to: 'factions#upload_image', as: 'faction_upload_image'
 
   resources :locations
+  post '/locations/:id/upload_hero_image', to: 'locations#upload_hero_image', as: 'location_upload_hero_image'
   post '/locations/:id/upload_sigil', to: 'locations#upload_sigil', as: 'location_upload_sigil'
   post '/locations/:id/upload_map', to: 'locations#upload_map', as: 'location_upload_map'
 
