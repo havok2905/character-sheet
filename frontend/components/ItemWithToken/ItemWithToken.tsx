@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import { Card } from '../Card';
 import { Token } from '../Token';
 
 interface IItemWithTokenProps {
@@ -19,19 +20,17 @@ const ItemWithToken = ({
   subDescription
 }: IItemWithTokenProps): ReactElement => {
   return (
-    <a className="card-link" href={itemPath}>
-      <div className="card card-with-icon">
-        <Token
-          imageAltText={imageAltText}
-          imageUrl={imageUrl}
-          size="small"/>
-        <div>
-          <h2>{heading}</h2>
-          <p>{description}</p>
-          {subDescription && <p>{subDescription}</p>}
-        </div>
+    <Card hasToken path={itemPath}>
+      <Token
+        imageAltText={imageAltText}
+        imageUrl={imageUrl}
+        size="small"/>
+      <div>
+        <h2>{heading}</h2>
+        <p>{description}</p>
+        {subDescription && <p>{subDescription}</p>}
       </div>
-    </a>
+    </Card>
   );
 };
 

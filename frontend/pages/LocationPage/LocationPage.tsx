@@ -3,6 +3,7 @@ import React, {
   useEffect,
   useState
 } from 'react';
+import { Card } from '../../components/Card';
 import { GearIcon } from '../../components/Icons';
 import { getLocation } from '../../utilities/Api/Locations';
 import { ILocation } from '../../types/models';
@@ -108,9 +109,9 @@ const LocationPage = (): ReactElement | null => {
             {heroImageUrl && <img src={heroImageUrl} alt={`${name} hero image`}/>}
             {
               description && (
-                <div className="card">
+                <Card>
                   {description}
-                </div>
+                </Card>
               )
             }
             <MarkdownPreview value={content}/>

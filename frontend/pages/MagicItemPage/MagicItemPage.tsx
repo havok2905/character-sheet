@@ -1,4 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
+import { Card } from '../../components/Card';
 import { GearIcon } from '../../components/Icons/GearIcon';
 import { getMagicItem } from '../../utilities/Api/MagicItems';
 import { IMagicItem } from '../../types/models';
@@ -47,7 +48,7 @@ const MagicItemPage = (): ReactElement | null => {
         <div className="full">
           <Token imageAltText={`${name} - token`} imageUrl={imageUrl}/>
           <h1>{name}</h1>
-          <div className="card">
+          <Card>
             <p><strong>Attunement: </strong>{attunement ? 'Has attunement' : ''}</p>
             <p><strong>Category: </strong>{category}</p>
             <p><strong>Sub Category: </strong>{subCategory}</p>
@@ -56,7 +57,7 @@ const MagicItemPage = (): ReactElement | null => {
               <strong>Description: </strong>
               {description}
             </p>
-          </div>
+          </Card>
         </div>
       </div>
     </Layout>

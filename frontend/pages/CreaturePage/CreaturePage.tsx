@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { AssociateWithTokenLink } from '../../components/AssociateWithTokenLink';
+import { Card } from '../../components/Card';
 import { GearIcon } from '../../components/Icons';
 import { getCreature } from '../../utilities/Api/Creatures';
 import { ICreature } from '../../types/models';
@@ -87,7 +88,7 @@ const CreaturePage = (): ReactElement | null => {
     if (!factions?.length) return null;
 
     return (
-      <div className="card">
+      <Card>
         <h2>Factions</h2>
         {
           factions.map(faction => {
@@ -103,7 +104,7 @@ const CreaturePage = (): ReactElement | null => {
             )
           })
         }
-      </div>
+      </Card>
     );
   };
 
@@ -111,7 +112,7 @@ const CreaturePage = (): ReactElement | null => {
     if (!magicItems?.length) return null;
 
     return (
-      <div className="card">
+      <Card>
         <h2>Magic Items</h2>
         {
           magicItems.map(item => {
@@ -131,7 +132,7 @@ const CreaturePage = (): ReactElement | null => {
             );
           })
         }
-      </div>
+      </Card>
     );
   };
   
@@ -139,14 +140,14 @@ const CreaturePage = (): ReactElement | null => {
     if (!personalityTraits && !ideals && !bonds && !flaws && !description) return null;
 
     return (
-      <div className="card">
+      <Card>
         <h2>About</h2>
         {getOptionalProperty('Personality Traits', personalityTraits)}
         {getOptionalProperty('Ideals', ideals)}
         {getOptionalProperty('Bonds', bonds)}
         {getOptionalProperty('Flaws', flaws)}
         {description && <NewLineText text={description}/>}
-      </div>
+      </Card>
     );
   };
 
@@ -154,7 +155,7 @@ const CreaturePage = (): ReactElement | null => {
     if (!creatureActions?.length) return null;
 
     return (
-      <div className="card">
+      <Card>
         <h2>Actions</h2>
         {
           creatureActions.map(action => {
@@ -186,7 +187,7 @@ const CreaturePage = (): ReactElement | null => {
             );
           })
         }
-      </div>
+      </Card>
     );
   };
 
@@ -194,10 +195,10 @@ const CreaturePage = (): ReactElement | null => {
     if (!backstory) return null;
 
     return (
-      <div className="card">
+      <Card>
         <h2>Backstory</h2>
         {backstory}
-      </div>
+      </Card>
     );
   };
 
@@ -205,7 +206,7 @@ const CreaturePage = (): ReactElement | null => {
     if (!creatureFeatures?.length) return null;
 
     return (
-      <div className="card">
+      <Card>
         <h2>Features</h2>
         {
           creatureFeatures.map(feature => {
@@ -218,7 +219,7 @@ const CreaturePage = (): ReactElement | null => {
             );
           })
         }
-      </div>
+      </Card>
     )
   };
 
@@ -226,13 +227,13 @@ const CreaturePage = (): ReactElement | null => {
     if (!creatureLairActions?.length) return null;
 
     return (
-      <div className="card">
+      <Card>
         <h2>Lair Actions</h2>
         <p>{lairActionsText}</p>
         <ul className="bulletless-list">
           {creatureLairActions.map(action => <li>{action.description}</li>)}
         </ul>
-      </div>
+      </Card>
     );
   };
 
@@ -240,7 +241,7 @@ const CreaturePage = (): ReactElement | null => {
     if (!creatureLegendaryActions?.length) return null;
 
     return (
-      <div className="card">
+      <Card>
         <h2>Legendary Actions</h2>
         <p>{legendaryActionsText}</p>
         {
@@ -254,7 +255,7 @@ const CreaturePage = (): ReactElement | null => {
             );
           })
         }
-      </div>
+      </Card>
     );
   };
 
@@ -285,13 +286,13 @@ const CreaturePage = (): ReactElement | null => {
     if (!creatureRegionalEffects?.length) return null;
 
     return (
-      <div className="card">
+      <Card>
         <h2>Regional Effects</h2>
         <p>{regionalEffectsText}</p>
         <ul className="bulletless-list">
           {creatureRegionalEffects.map(effect => <li>{effect.description}</li>)}
         </ul>
-      </div>
+      </Card>
     );
   };
 
@@ -337,7 +338,7 @@ const CreaturePage = (): ReactElement | null => {
         <div className="column">
           {getCreatureMiscStats()}
           <StatBlock entity={creature} />
-          <div className="card">
+          <Card>
             {getCreatureSkills()}
             {getCreatureSenses()}
             <h2>Proficiencies</h2>
@@ -348,7 +349,7 @@ const CreaturePage = (): ReactElement | null => {
             {getOptionalProperty('Damage Resistences', damageResistances)}
             {getOptionalProperty('Damage Vulnerabilities', damageVulnerabilities)}
             {getOptionalProperty('Languages', languages)}
-          </div>
+          </Card>
           {getCreatureAbout()}
           {getCreatureBackstory()}
           {getCreatureLairActions()}
@@ -360,7 +361,7 @@ const CreaturePage = (): ReactElement | null => {
           {getCreatureActions()}
           {getCreatureLegendaryActions()}
           {getAssociatedMagicItemsCard()} 
-          <div className="card">
+          <Card>
             <h2>Spellbook</h2>
             {getOptionalProperty('Level', spellcastingLevel)}
             {getOptionalProperty('Ability', spellcastingAbility)}
@@ -368,7 +369,7 @@ const CreaturePage = (): ReactElement | null => {
             {getOptionalProperty('Save DC', spellcastingSaveDc)}
             {
               !!spells?.length && (
-                <div className='card'>
+                <>
                   <SpellListByLevel label="Cantrips" spellLevel={0} spellSlots={0} spells={spells} />
                   <SpellListByLevel label="1st Level" spellLevel={1} spellSlots={spellSlotsFirst} spells={spells} />
                   <SpellListByLevel label="2nd Level" spellLevel={2} spellSlots={spellSlotsSecond} spells={spells} />
@@ -380,10 +381,10 @@ const CreaturePage = (): ReactElement | null => {
                   <SpellListByLevel label="8th Level" spellLevel={9} spellSlots={spellSlotsEighth} spells={spells} />
                   <SpellListByLevel label="9th Level" spellLevel={9} spellSlots={spellSlotsNinth} spells={spells} />
                   <SpellListByLevel label="10th Level" spellLevel={10} spellSlots={0} spells={spells} />
-                </div>
+                </>
               )
             }
-          </div>
+          </Card>
         </div>
       </div>
     </Layout>

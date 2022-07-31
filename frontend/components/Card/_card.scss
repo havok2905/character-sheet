@@ -1,0 +1,24 @@
+@import '../../globalstyles/variables.scss';
+
+.card {
+  background-color: $dark-black;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow-light;
+  box-sizing: border-box;
+  margin: $standard-spacing 0;
+  padding: $standard-spacing;
+  position: relative;
+  transition: box-shadow $hover-transition;
+
+  &.card-with-token {
+    display: flex;
+  }
+}
+
+.card-link {
+  text-decoration: none;
+
+  .card:hover {
+    box-shadow: $box-shadow-heavy;
+  }
+}

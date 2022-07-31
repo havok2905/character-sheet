@@ -1,4 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
+import { Card } from '../../components/Card';
 import { creatureRow } from '../../utilities/UiHelpers/creatureRow';
 import { GearIcon } from '../../components/Icons';
 import { getFaction } from '../../utilities/Api/Factions';
@@ -79,14 +80,14 @@ const FactionPage = (): ReactElement | null => {
         <div className="full">
           <Token imageAltText={`${name} - token`} imageUrl={imageUrl}/>
           <h1>{name}</h1>
-          <div className="card">
+          <Card>
             <p><strong>Alignment: </strong>{alignment}</p>
             <p><strong>Goals: </strong>{goals}</p>
             <p><strong>Ideals: </strong>{ideals}</p>
             <p><strong>Allies: </strong>{allies}</p>
             <p><strong>Rivals: </strong>{rivals}</p>
             <NewLineText text={description}/>
-          </div>
+          </Card>
           <h2>Member NPCs</h2>
           <ul className="bulletless-list">
             {

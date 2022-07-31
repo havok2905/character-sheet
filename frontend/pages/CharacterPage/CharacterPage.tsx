@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { AbilitySkills } from '../../components/AbilitySkills';
 import { AssociateWithTokenLink } from '../../components/AssociateWithTokenLink';
+import { Card } from '../../components/Card';
 import { characterClassRow } from '../../utilities/UiHelpers/characterClassRow';
 import { characterMulticlassRow } from '../../utilities/UiHelpers/characterMulticlassRow';
 import { GearIcon } from '../../components/Icons';
@@ -100,7 +101,7 @@ const CharacterPage = (): ReactElement | null => {
     if (!creatures?.length) return null;
 
     return (
-      <div className="card">
+      <Card>
         <h2>Creatures</h2>
         {
           creatures.map(creature => {
@@ -116,7 +117,7 @@ const CharacterPage = (): ReactElement | null => {
             )
           })
         }
-      </div>
+      </Card>
     );
   };
 
@@ -124,7 +125,7 @@ const CharacterPage = (): ReactElement | null => {
     if (!factions?.length) return null;
 
     return (
-      <div className="card">
+      <Card>
         <h2>Factions</h2>
         {
           factions.map(faction => {
@@ -140,7 +141,7 @@ const CharacterPage = (): ReactElement | null => {
             )
           })
         }
-      </div>
+      </Card>
     );
   };
 
@@ -148,7 +149,7 @@ const CharacterPage = (): ReactElement | null => {
     if (!magicItems?.length) return null;
 
     return (
-      <div className="card">
+      <Card>
         <h2>Magic Items</h2>
         {
           magicItems.map(item => {
@@ -168,7 +169,7 @@ const CharacterPage = (): ReactElement | null => {
             );
           })
         }
-      </div>
+      </Card>
     );
   };
 
@@ -176,7 +177,7 @@ const CharacterPage = (): ReactElement | null => {
     if (!characterAttacks?.length) return null;
 
     return (
-      <div className="card">
+      <Card>
         <h2>Attacks</h2>
         {
           characterAttacks.map(attack => {
@@ -214,7 +215,7 @@ const CharacterPage = (): ReactElement | null => {
             );
           })
         }
-      </div>
+      </Card>
     )
   };
 
@@ -222,10 +223,10 @@ const CharacterPage = (): ReactElement | null => {
     if (!backstory) return null;
 
     return (
-      <div className="card">
+      <Card>
         <h2>Backstory</h2>
         {backstory}
-      </div>
+      </Card>
     );
   };
 
@@ -233,7 +234,7 @@ const CharacterPage = (): ReactElement | null => {
     if (!characterFeatures?.length) return null;
 
     return (
-      <div className="card">
+      <Card>
         <h2>Features</h2>
         {
           characterFeatures.map(feature => {
@@ -247,7 +248,7 @@ const CharacterPage = (): ReactElement | null => {
             );
           })
         }
-      </div>
+      </Card>
     )
   };
 
@@ -256,7 +257,7 @@ const CharacterPage = (): ReactElement | null => {
       <>
         {
           !!characterItems?.length && (
-            <div className="card">
+            <Card>
               <h2>Inventory</h2>
               {
                 characterItems.map(item => {
@@ -273,7 +274,7 @@ const CharacterPage = (): ReactElement | null => {
                   )
                 })
               }
-            </div>
+            </Card>
           )
         }
         <table>
@@ -333,7 +334,7 @@ const CharacterPage = (): ReactElement | null => {
     if (!characterFeatureResources?.length) return null;
 
     return (
-      <div className="card">
+      <Card>
         <h2>Resources</h2>
         {
           characterFeatureResources.map(resource => {
@@ -341,7 +342,7 @@ const CharacterPage = (): ReactElement | null => {
             return <p>{name}: {total}</p>;
           })
         }
-      </div>
+      </Card>
     );
   };
 
@@ -386,7 +387,7 @@ const CharacterPage = (): ReactElement | null => {
           <AbilitySkills entity={character} />
           {getAssociatedMagicItemsCard()}
           {getCharacterInventory()}
-          <div className="card">
+          <Card>
             <h2>Biography</h2>
             {getOptionalProperty('Age', age)}
             {getOptionalProperty('Height', height)}
@@ -398,7 +399,7 @@ const CharacterPage = (): ReactElement | null => {
             {getOptionalProperty('Ideals', ideals)}
             {getOptionalProperty('Bonds', bonds)}
             {getOptionalProperty('Flaws', flaws)}
-          </div>
+          </Card>
           {getCharacterBackstory()}
         </div>
         <div className="column">
@@ -407,7 +408,7 @@ const CharacterPage = (): ReactElement | null => {
           {getCharacterResources()}
           {getCharacterAttacks()}
           {getCharacterFeatures()}
-          <div className="card">
+          <Card>
             {getCharacterSenses()}
             {getOptionalProperty('Passive Perception', passivePerception)}
             <h2>Proficinencies</h2>
@@ -421,8 +422,8 @@ const CharacterPage = (): ReactElement | null => {
             {getOptionalProperty('Languages', languages)}
             {getOptionalProperty('Tool Proficiencies', toolProficiencies)}
             {getOptionalProperty('Weapon Proficiencies', weaponProficiencies)}
-          </div>
-          <div className="card">
+          </Card>
+          <Card>
             <h2>Spellbook</h2>
             {getOptionalProperty('Ability', spellcastingAbility)}
             {getOptionalProperty('Bonus', spellcastingModifier)}
@@ -444,7 +445,7 @@ const CharacterPage = (): ReactElement | null => {
                 </>
               )
             }
-          </div>
+          </Card>
         </div>
       </div>
     </Layout>
