@@ -7,6 +7,7 @@ import FactionsImage from './home-page-factions-tile.png';
 import LocationsImage from './home-page-locations-tile.png';
 import MagicItemsImage from './home-page-magic-items-tile.png';
 import SpellsImage from './home-page-spells-tile.png';
+import WikiImage from './home-page-wiki-tile.png';
 
 const HomePage = (): ReactElement => {
   const panels = [
@@ -39,6 +40,11 @@ const HomePage = (): ReactElement => {
       imagePath: SpellsImage,
       path: '/spells',
       title: 'Spells'
+    },
+    {
+      imagePath: WikiImage,
+      path: '/wiki',
+      title: 'Wiki'
     }
   ];
 

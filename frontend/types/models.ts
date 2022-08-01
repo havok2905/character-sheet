@@ -6,6 +6,14 @@ import {
   SpellSchoolsTypes
 } from './rules';
 
+interface IArticle {
+  content: string;
+  heroImageUrl: string;
+  id?: string;
+  tags: string[];
+  title: string;
+}
+
 interface IPin {
   creatures?: ICreature[];
   factions?: IFaction[];
@@ -371,6 +379,7 @@ interface IFaction {
 }
 
 export {
+  IArticle,
   ICharacter,
   ICharacterAttack,
   ICharacterFeature,

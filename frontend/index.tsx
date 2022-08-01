@@ -23,6 +23,10 @@ import { spellPageBootstrapper } from './pages/SpellPage';
 import { spellCreatePageBootstrapper } from './pages/SpellCreatePage';
 import { spellEditPageBootstrapper } from './pages/SpellEditPage';
 import { spellsPageBootstrapper } from './pages/SpellsPage';
+import { wikiPageBootstrapper } from './pages/WikiPage';
+import { wikiArticlePageBootstrapper } from './pages/WikiArticlePage';
+import { wikiCreatePageBootstrapper } from './pages/WikiCreatePage';
+import { wikiEditPageBootstrapper } from './pages/WikiEditPage';
 
 import './globalstyles/index.scss';
 
@@ -58,4 +62,9 @@ window.onload = ():void => {
   spellCreatePageBootstrapper();
   spellEditPageBootstrapper();
   spellsPageBootstrapper();
+
+  wikiPageBootstrapper();
+  wikiArticlePageBootstrapper();
+  wikiCreatePageBootstrapper();
+  wikiEditPageBootstrapper();
 };

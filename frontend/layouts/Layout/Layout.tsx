@@ -19,6 +19,7 @@ const Layout = ({
           <li><a href="/magic_items">Magic Items</a></li>
           <li><a href="/locations">Locations</a></li>
           <li><a href="/spells">Spells</a></li>
+          <li><a href="/wiki">Wiki</a></li>
         </ul>
       </nav>
       {children}

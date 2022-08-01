@@ -37,5 +37,8 @@ Rails.application.routes.draw do
   patch '/users/:id/update_password', to: 'users#update_password', as: 'user_update_password'
   patch '/users/:id/update_username', to: 'users#update_username', as: 'user_update_username'
 
+  resources :wiki
+  post '/wiki/:id/upload_hero_image', to: 'wiki#upload_hero_image', as: 'wiki_upload_hero_image'
+
   root 'home#index'
 end
