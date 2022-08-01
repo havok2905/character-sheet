@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   resources :creatures
   post '/creatures/:id/upload_image', to: 'creatures#upload_image', as: 'creature_upload_image'
 
+  get '/exports/json', to: 'exports#json', as: 'exports_json'
+  get '/exports/json_download', to: 'exports#json_download', as: 'exports_json_download'
+
   resources :factions
   post '/factions/:id/upload_image', to: 'factions#upload_image', as: 'faction_upload_image'
 

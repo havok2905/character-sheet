@@ -52,7 +52,7 @@ map.save!
 magic_item = MagicItem.create(
   {
     attunement: true,
-    category: CoreRules::ItemCategory::WEAPON,
+    category: 'weapon',
     description: "When you hit with an Attack using this magic sword, the target takes an extra 1d6 cold damage. In addition, while you hold the sword, you have Resistance to fire damage.
   
     In freezing temperatures, the blade sheds bright light in a 10-foot radius and dim light for an additional 10 feet.
@@ -60,7 +60,7 @@ magic_item = MagicItem.create(
     When you draw this weapon, you can extinguish all nonmagical flames within 30 feet of you. This property can be used no more than once per hour.
     ",
     name: "Frost Brand",
-    rarity: CoreRules::ItemRarity::VERY_RARE,
+    rarity: 'very rare',
     sub_category: 'any sword'
   }
 )
@@ -80,7 +80,7 @@ spells = Spell.create([
     name: "Frostbite",
     range: "60ft.",
     ritual: false,
-    school: CoreRules::SpellSchools::EVOCATION,
+    school: 'Evocation',
     somatic_components: true,
     target: "One target",
     verbal_components: true
@@ -97,7 +97,7 @@ spells = Spell.create([
     name: "Guiding Bolt",
     range: "120ft.",
     ritual: false,
-    school: CoreRules::SpellSchools::EVOCATION,
+    school: 'Evocation',
     somatic_components: true,
     target: "A creature of your choice within range",
     verbal_components: true
@@ -114,7 +114,7 @@ spells = Spell.create([
     name: "Hold Person",
     range: "60ft.",
     ritual: false,
-    school: CoreRules::SpellSchools::ENCHANTMENT,
+    school: 'Enchantment',
     somatic_components: true,
     target: "A creature of your choice within range",
     verbal_components: true
@@ -131,7 +131,7 @@ spells = Spell.create([
     name: "Mage Hand",
     range: "30ft.",
     ritual: false,
-    school: CoreRules::SpellSchools::CONJURATION,
+    school: 'Conjuration',
     somatic_components: true,
     target: "",
     verbal_components: true
