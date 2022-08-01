@@ -1,4 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react';
+import { DmScreen } from '../../components/DmScreen';
 import { DiceRoller } from '../../components/DiceRoller';
 
 interface ILayoutProps {
@@ -23,7 +24,10 @@ const Layout = ({
         </ul>
       </nav>
       {children}
-      <DiceRoller/>
+      <footer>
+        <DmScreen/>
+        <DiceRoller/>
+      </footer>
       <div id="modal-root"></div>
       <div id="toast-collection-root"></div>
     </>
