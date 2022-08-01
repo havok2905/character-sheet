@@ -8,7 +8,7 @@ import {
 
 interface IArticle {
   content: string;
-  heroImageUrl: string;
+  heroImageUrl?: string;
   id?: string;
   tags: string[];
   title: string;

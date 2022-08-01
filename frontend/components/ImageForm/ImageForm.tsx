@@ -1,5 +1,4 @@
 import React, { ReactElement, useRef } from 'react';
-import { Token } from '../Token';
 
 interface IImageFormProps {
   buttonLabel: string;
@@ -31,7 +30,7 @@ const ImageForm = ({
 
   return (
     <form onSubmit={onSubmit}>
-      <Token imageAltText='' imageUrl={imageUrl} />
+      <img src={imageUrl}/>
       <div>
         <input
           name={inputName}

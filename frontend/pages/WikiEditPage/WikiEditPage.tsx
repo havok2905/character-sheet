@@ -1,9 +1,4 @@
-import React, {
-  ReactElement,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import {
   destroyArticle,
   getArticle,
@@ -11,10 +6,9 @@ import {
   uploadArticleHeroImage,
 } from '../../utilities/Api/Articles';
 import { IArticle } from '../../types/models';
+import { ImageForm } from '../../components/ImageForm/ImageForm';
 import { Layout } from '../../layouts/Layout';
-import { MarkdownEditor } from '../../components/MarkdownEditor';
-import { MarkdownPreview } from '../../components/MarkdownPreview';
-import { TagEditor } from '../../components/TagEditor';
+import { WikiForm } from '../../components/WikiForm';
 
 const getIdFromUrl = ():string => {
   const url = new URL(window.location.href);
@@ -26,30 +20,21 @@ interface IArticleEditPageState {
   article: IArticle | null;
 }
 
-const WikiEditPage = (): ReactElement => {
-  const [contentField, setContentField] = useState('');
+const WikiEditPage = (): ReactElement | null => {
   const [state, setState] = useState<IArticleEditPageState>({ article: null });
-  const [tagsField, setTagsField] = useState<string[]>([]);
-  const [titleField, setTitleField] = useState('');
-
-  const heroImageFileUploadRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const id = getIdFromUrl();
 
     getArticle(id)
       .then((data) => {
-        const { content, tags, title } = data.article;
         setState({ article: data.article });
-        setContentField(content);
-        setTagsField(tags);
-        setTitleField(title);
       })
   }, []);
 
-  const {
-    article
-  } = state;
+  const { article } = state;
+
+  if (!article) return null;
 
   const handleDelete = e => {
     e.preventDefault();
@@ -66,18 +51,10 @@ const WikiEditPage = (): ReactElement => {
       });
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  const handleSubmit = (article: IArticle) => {
     const id = getIdFromUrl();
 
-    updateArticle(id, {
-      article: {
-        content: contentField,
-        tags: tagsField,
-        title: titleField
-      }
-    })
+    updateArticle(id, { article })
       .then(data => {
         window.location.href = `/wiki/${data.article.id}`;
       })
@@ -86,16 +63,10 @@ const WikiEditPage = (): ReactElement => {
       });
   };
 
-  const handleHeroImageSubmit = e => {
-    e.preventDefault();
-
+  const handleHeroImageSubmit = (data: FormData | undefined) => {
     const id = getIdFromUrl();
-    const data = new FormData();
-    const filesToUpload = heroImageFileUploadRef?.current?.files;
 
-    if (!filesToUpload?.length) return;
-
-    data.append('article-hero-image-file-upload', filesToUpload[0]);
+    if (!data || !id) return;
 
     uploadArticleHeroImage(id, data)
       .then(data => {
@@ -106,10 +77,7 @@ const WikiEditPage = (): ReactElement => {
       });
   };
 
-  const {
-    heroImageUrl,
-    title = ''
-  } = article ?? {};
+  const { heroImageUrl } = article ?? {};
 
   return (
     <Layout>
@@ -120,55 +88,15 @@ const WikiEditPage = (): ReactElement => {
             Delete
           </button>
           <h2>Hero Image</h2>
-          {heroImageUrl && <img src={heroImageUrl} alt={`${title} hero image`}/>}
-          <form onSubmit={handleHeroImageSubmit}>
-            <fieldset>
-              <label htmlFor="article-hero-image">
-                Hero Image
-              </label>
-              <input
-                name="article-hero-image"
-                id="article-hero-image"
-                ref={heroImageFileUploadRef}
-                type="file" />
-              <button>
-                Update Hero Image
-              </button>
-            </fieldset>
-          </form>
-          <TagEditor
-            onChange={(tags: string[]) => {setTagsField([...tags])}}
-            onRemove={(tag: string) => {setTagsField(tagsField.filter(item => tag !== item))}}
-            value={tagsField}/>
-          <form onSubmit={handleSubmit}>
-            <fieldset>
-              <label htmlFor="wiki-article-title">
-                Title
-              </label>
-              <input
-                id="wiki-article-title"
-                name="wiki-article-title"
-                onChange={(e) => setTitleField(e.target.value) }
-                type="text"
-                value={titleField}>  
-              </input>
-            </fieldset>
-            <fieldset>
-              <label htmlFor="wiki-article-content">
-                Content
-              </label>
-              <MarkdownEditor
-                onChange={(e) => {setContentField(e.target.value)}}
-                value={contentField}
-              />
-              <MarkdownPreview value={contentField}/>
-            </fieldset>
-            <fieldset>
-              <button>
-                Update Wiki Article
-              </button>
-            </fieldset>
-          </form>
+          <ImageForm
+            buttonLabel="Update Hero Image"
+            handleSubmit={handleHeroImageSubmit}
+            imageUrl={heroImageUrl}
+            inputName="article-hero-image-file-upload"/>
+          <WikiForm
+            article={article}
+            handleSubmit={handleSubmit}
+            handleSubmitButtonLabel="Update Wiki Article" />
         </div>
       </div>
     </Layout>
