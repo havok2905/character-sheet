@@ -4,6 +4,7 @@ import React, {
   useRef,
   useState
 } from 'react';
+import { DeleteButton } from '../../components/DeleteButton';
 import {
   destroyLocation,
   getLocation,
@@ -88,9 +89,7 @@ const LocationEditPage = (): ReactElement => {
     magicItems
   } = state;
 
-  const handleDelete = e => {
-    e.preventDefault();
-    
+  const handleDelete = () => {
     const id = getIdFromUrl();
 
     destroyLocation(id)
@@ -195,9 +194,9 @@ const LocationEditPage = (): ReactElement => {
       <div className="layout">
         <div className="full">
           <h1>Edit Location</h1>
-          <button className='button button-destructive' onClick={handleDelete}>
-            Delete
-          </button>
+          <DeleteButton
+            buttonText="Delete Location"
+            handleDelete={handleDelete}/>
           <h2>Map</h2>
           <form onSubmit={handleMapSubmit}>
             <fieldset>

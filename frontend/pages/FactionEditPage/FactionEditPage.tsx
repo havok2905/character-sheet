@@ -1,4 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
+import { DeleteButton } from '../../components/DeleteButton';
 import {
   destroyFaction,
   getFaction,
@@ -28,9 +29,7 @@ const FactionEditPage = (): ReactElement | null => {
 
   const { id, imageUrl } = faction;
 
-  const handleDelete = e => {
-    e.preventDefault();
-
+  const handleDelete = () => {
     if (!id) return;
 
     destroyFaction(id)
@@ -86,11 +85,9 @@ const FactionEditPage = (): ReactElement | null => {
             faction={faction}
             handleSubmit={handleSubmit}
             handleSubmitButtonLabel="Update Faction"/>
-          <button
-          
-            onClick={handleDelete}>
-            Delete
-          </button>
+          <DeleteButton
+            buttonText="Delete Faction"
+            handleDelete={handleDelete}/>
         </div>
       </div>
     </Layout>

@@ -1,4 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
+import { DeleteButton } from '../../components/DeleteButton';
 import {
   destroyArticle,
   getArticle,
@@ -36,9 +37,7 @@ const WikiEditPage = (): ReactElement | null => {
 
   if (!article) return null;
 
-  const handleDelete = e => {
-    e.preventDefault();
-    
+  const handleDelete = () => {
     const id = getIdFromUrl();
 
     destroyArticle(id)
@@ -84,9 +83,9 @@ const WikiEditPage = (): ReactElement | null => {
       <div className="layout">
         <div className="full">
           <h1>Edit Wiki Article</h1>
-          <button className='button button-destructive' onClick={handleDelete}>
-            Delete
-          </button>
+          <DeleteButton
+            buttonText="Delete Wiki Article"
+            handleDelete={handleDelete}/>
           <h2>Hero Image</h2>
           <ImageForm
             buttonLabel="Update Hero Image"

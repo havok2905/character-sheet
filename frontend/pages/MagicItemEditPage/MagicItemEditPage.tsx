@@ -1,4 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
+import { DeleteButton } from '../../components/DeleteButton';
 import {
   destroyMagicItem,
   getMagicItem,
@@ -28,9 +29,7 @@ const MagicItemEditPage = (): ReactElement | null => {
 
   const { id, imageUrl } = magicItem;
 
-  const handleDelete = e => {
-    e.preventDefault();
-
+  const handleDelete = () => {
     if (!id) return;
 
     destroyMagicItem(id)
@@ -84,11 +83,9 @@ const MagicItemEditPage = (): ReactElement | null => {
             handleSubmit={handleSubmit}
             handleSubmitButtonLabel="Update Magic Item"
             magicItem={magicItem}/>
-          <button
-          
-            onClick={handleDelete}>
-            Delete
-          </button>
+          <DeleteButton
+            buttonText="Delete Magic Item"
+            handleDelete={handleDelete}/>
         </div>
       </div>
     </Layout>

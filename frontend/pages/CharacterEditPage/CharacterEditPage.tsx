@@ -7,6 +7,7 @@ import { AssociatedFeatureResourcesForm } from '../../components/AssociatedFeatu
 import { AssociatedInventoryForm } from '../../components/AssociatedInventoryForm';
 import { AssociatedMagicItemsForm } from '../../components/AssociatedMagicItemsForm';
 import { AssociatedSpellsForm } from '../../components/AssociatedSpellsForm';
+import { DeleteButton } from '../../components/DeleteButton';
 import { destroyCharacter, getCharacter, updateCharacter, uploadCharacterImage } from '../../utilities/Api/Characters';
 import { getCreatures } from '../../utilities/Api/Creatures';
 import { getFactions } from '../../utilities/Api/Factions';
@@ -91,9 +92,7 @@ const CharacterEditPage = (): ReactElement | null => {
 
   const { id, imageUrl, name } = character;
 
-  const handleDelete = e => {
-    e.preventDefault();
-
+  const handleDelete = () => {
     if (!id) return;
 
     destroyCharacter(id)
@@ -262,9 +261,9 @@ const CharacterEditPage = (): ReactElement | null => {
           <a href={`/characters/${id}`}>
             Back
           </a>
-          <button onClick={handleDelete}>
-            Delete
-          </button>
+          <DeleteButton
+            buttonText="Delete Character"
+            handleDelete={handleDelete}/>
           <h1>Character Settings - {name}</h1>
           <h2>Character Image</h2>
           <ImageForm

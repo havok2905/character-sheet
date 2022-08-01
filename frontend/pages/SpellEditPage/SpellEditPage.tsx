@@ -1,4 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
+import { DeleteButton } from '../../components/DeleteButton';
 import { destroySpell, getSpell, updateSpell } from '../../utilities/Api/Spells';
 import { ISpell } from '../../types/models';
 import { Layout } from '../../layouts/Layout';
@@ -22,9 +23,7 @@ const SpellEditPage = (): ReactElement | null => {
 
   const { id } = spell;
 
-  const handleDelete = e => {
-    e.preventDefault();
-
+  const handleDelete = () => {
     if (!id) return;
 
     destroySpell(id)
@@ -60,9 +59,9 @@ const SpellEditPage = (): ReactElement | null => {
             handleSubmit={handleSubmit}
             handleSubmitButtonLabel="Update Spell"
             spell={spell} />
-          <button onClick={handleDelete}>
-            Delete
-          </button>
+          <DeleteButton
+            buttonText="Delete Spell"
+            handleDelete={handleDelete}/>
         </div>
       </div>
     </Layout>
