@@ -5,7 +5,7 @@ type IGetCreatureResponse = {
 };
 
 const getCreature = (id: string): Promise<IGetCreatureResponse> => {
-  return fetch(`/creatures/${id}.json`, {
+  return fetch(`/api/creatures/${id}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
   }).then(response => response.json());

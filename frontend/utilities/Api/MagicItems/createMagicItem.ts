@@ -9,7 +9,7 @@ type ICreateMagicItemResponse = {
 };
 
 const createMagicItem = (data: ICreateMagicItemRequest): Promise<ICreateMagicItemResponse> => {
-  return fetch('/magic_items.json', {
+  return fetch('/api/magic_items', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)

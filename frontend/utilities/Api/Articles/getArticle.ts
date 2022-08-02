@@ -5,7 +5,7 @@ type IGetArticleResponse = {
 };
 
 const getArticle = (id: string): Promise<IGetArticleResponse> => {
-  return fetch(`/wiki/${id}.json`, {
+  return fetch(`/api/wiki/${id}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
   }).then(response => response.json());

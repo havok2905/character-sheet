@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
 import { ImagePanelGrid } from '../../components/ImagePanelGrid';
-import { Layout } from '../../layouts/Layout';
 import CharactersImage from './home-page-characters-tile.png';
 import CreaturesImage from './home-page-creatures-tile.png';
 import FactionsImage from './home-page-factions-tile.png';
@@ -49,14 +48,12 @@ const HomePage = (): ReactElement => {
   ];
 
   return (
-    <Layout>
-      <div className="layout">
-        <div className="full">
-          <h1>The D&D Compendium</h1>
-          <ImagePanelGrid panels={panels} />
-        </div>
+    <div className="layout">
+      <div className="full">
+        <h1>The D&D Compendium</h1>
+        <ImagePanelGrid panels={panels} />
       </div>
-    </Layout>
+    </div>
   );
 };
 

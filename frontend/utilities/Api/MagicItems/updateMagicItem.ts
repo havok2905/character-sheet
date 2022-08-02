@@ -9,7 +9,7 @@ type IUpdateMagicItemResponse = {
 };
 
 const updateMagicItem = (id: string, data: IUpdateMagicItemRequest): Promise<IUpdateMagicItemResponse> => {
-  return fetch(`/magic_items/${id}.json`, {
+  return fetch(`/api/magic_items/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)

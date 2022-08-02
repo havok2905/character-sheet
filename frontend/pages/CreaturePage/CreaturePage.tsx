@@ -4,25 +4,22 @@ import { Card } from '../../components/Card';
 import { GearIcon } from '../../components/Icons';
 import { getCreature } from '../../utilities/Api/Creatures';
 import { ICreature } from '../../types/models';
-import { Layout } from '../../layouts/Layout';
 import { NewLineText } from '../../components/NewLineText';
 import { SpellListByLevel } from '../../components/SpellListByLevel';
 import { StatBlock } from '../../components/StatBlock';
 import { ToggleItem } from '../../components/ToggleItem';
 import { Token } from '../../components/Token';
-
-const getIdFromUrl = ():string => {
-  const url = new URL(window.location.href);
-  const parts = url.pathname.split('/').filter(Boolean);
-  return parts[1];
-};
+import { useParams } from "react-router-dom";
 
 const CreaturePage = (): ReactElement | null => {
   const [creature, setCreature] = useState<ICreature | null>(null);
+  
+  const params = useParams();
 
   useEffect(() => {
-    const id = getIdFromUrl();
-    getCreature(id).then(data => setCreature(data.creature));
+    if (params.id) {
+      getCreature(params.id).then(data => setCreature(data.creature));
+    }
   }, []);
 
   if (!creature) return null;
@@ -319,75 +316,73 @@ const CreaturePage = (): ReactElement | null => {
   };
 
   return (
-    <Layout>
-      <div className="layout">
-        <div className="full">
-          <div className="page-header">
-            <div className="page-header-settings">
-              <a href={`/creatures/${id}/edit`}>
-                <GearIcon/>
-              </a>
-            </div>
-            <Token imageAltText="creature portrait" imageUrl={imageUrl}/>
-            <div>
-              <h1>{name}</h1>
-              <p>{size} {creatureType}, {alignment}</p>
-            </div>
+    <div className="layout">
+      <div className="full">
+        <div className="page-header">
+          <div className="page-header-settings">
+            <a href={`/creatures/${id}/edit`}>
+              <GearIcon/>
+            </a>
+          </div>
+          <Token imageAltText="creature portrait" imageUrl={imageUrl}/>
+          <div>
+            <h1>{name}</h1>
+            <p>{size} {creatureType}, {alignment}</p>
           </div>
         </div>
-        <div className="column">
-          {getCreatureMiscStats()}
-          <StatBlock entity={creature} />
-          <Card>
-            {getCreatureSkills()}
-            {getCreatureSenses()}
-            <h2>Proficiencies</h2>
-            {getOptionalProperty('Condition Immunities', conditionImmunities)}
-            {getOptionalProperty('Condition Resistences', conditionResistances)}
-            {getOptionalProperty('Condition Vulnerabilities', conditionVulnerabilities)}
-            {getOptionalProperty('Damage Immunities', damageImmunities)}
-            {getOptionalProperty('Damage Resistences', damageResistances)}
-            {getOptionalProperty('Damage Vulnerabilities', damageVulnerabilities)}
-            {getOptionalProperty('Languages', languages)}
-          </Card>
-          {getCreatureAbout()}
-          {getCreatureBackstory()}
-          {getCreatureLairActions()}
-          {getCreatureRegionalEffects()}
-        </div>
-        <div className="column">
-          {getAssociatedFactionsCard()}
-          {getCreatureFeatures()}
-          {getCreatureActions()}
-          {getCreatureLegendaryActions()}
-          {getAssociatedMagicItemsCard()} 
-          <Card>
-            <h2>Spellbook</h2>
-            {getOptionalProperty('Level', spellcastingLevel)}
-            {getOptionalProperty('Ability', spellcastingAbility)}
-            {getOptionalProperty('Bonus', spellcastingModifier)}
-            {getOptionalProperty('Save DC', spellcastingSaveDc)}
-            {
-              !!spells?.length && (
-                <>
-                  <SpellListByLevel label="Cantrips" spellLevel={0} spellSlots={0} spells={spells} />
-                  <SpellListByLevel label="1st Level" spellLevel={1} spellSlots={spellSlotsFirst} spells={spells} />
-                  <SpellListByLevel label="2nd Level" spellLevel={2} spellSlots={spellSlotsSecond} spells={spells} />
-                  <SpellListByLevel label="3rd Level" spellLevel={3} spellSlots={spellSlotsThird} spells={spells} />
-                  <SpellListByLevel label="4th Level" spellLevel={4} spellSlots={spellSlotsFourth} spells={spells} />
-                  <SpellListByLevel label="5th Level" spellLevel={5} spellSlots={spellSlotsFifth} spells={spells} />
-                  <SpellListByLevel label="6th Level" spellLevel={6} spellSlots={spellSlotsSixth} spells={spells} />
-                  <SpellListByLevel label="7th Level" spellLevel={7} spellSlots={spellSlotsSeventh} spells={spells} />
-                  <SpellListByLevel label="8th Level" spellLevel={9} spellSlots={spellSlotsEighth} spells={spells} />
-                  <SpellListByLevel label="9th Level" spellLevel={9} spellSlots={spellSlotsNinth} spells={spells} />
-                  <SpellListByLevel label="10th Level" spellLevel={10} spellSlots={0} spells={spells} />
-                </>
-              )
-            }
-          </Card>
-        </div>
       </div>
-    </Layout>
+      <div className="column">
+        {getCreatureMiscStats()}
+        <StatBlock entity={creature} />
+        <Card>
+          {getCreatureSkills()}
+          {getCreatureSenses()}
+          <h2>Proficiencies</h2>
+          {getOptionalProperty('Condition Immunities', conditionImmunities)}
+          {getOptionalProperty('Condition Resistences', conditionResistances)}
+          {getOptionalProperty('Condition Vulnerabilities', conditionVulnerabilities)}
+          {getOptionalProperty('Damage Immunities', damageImmunities)}
+          {getOptionalProperty('Damage Resistences', damageResistances)}
+          {getOptionalProperty('Damage Vulnerabilities', damageVulnerabilities)}
+          {getOptionalProperty('Languages', languages)}
+        </Card>
+        {getCreatureAbout()}
+        {getCreatureBackstory()}
+        {getCreatureLairActions()}
+        {getCreatureRegionalEffects()}
+      </div>
+      <div className="column">
+        {getAssociatedFactionsCard()}
+        {getCreatureFeatures()}
+        {getCreatureActions()}
+        {getCreatureLegendaryActions()}
+        {getAssociatedMagicItemsCard()} 
+        <Card>
+          <h2>Spellbook</h2>
+          {getOptionalProperty('Level', spellcastingLevel)}
+          {getOptionalProperty('Ability', spellcastingAbility)}
+          {getOptionalProperty('Bonus', spellcastingModifier)}
+          {getOptionalProperty('Save DC', spellcastingSaveDc)}
+          {
+            !!spells?.length && (
+              <>
+                <SpellListByLevel label="Cantrips" spellLevel={0} spellSlots={0} spells={spells} />
+                <SpellListByLevel label="1st Level" spellLevel={1} spellSlots={spellSlotsFirst} spells={spells} />
+                <SpellListByLevel label="2nd Level" spellLevel={2} spellSlots={spellSlotsSecond} spells={spells} />
+                <SpellListByLevel label="3rd Level" spellLevel={3} spellSlots={spellSlotsThird} spells={spells} />
+                <SpellListByLevel label="4th Level" spellLevel={4} spellSlots={spellSlotsFourth} spells={spells} />
+                <SpellListByLevel label="5th Level" spellLevel={5} spellSlots={spellSlotsFifth} spells={spells} />
+                <SpellListByLevel label="6th Level" spellLevel={6} spellSlots={spellSlotsSixth} spells={spells} />
+                <SpellListByLevel label="7th Level" spellLevel={7} spellSlots={spellSlotsSeventh} spells={spells} />
+                <SpellListByLevel label="8th Level" spellLevel={9} spellSlots={spellSlotsEighth} spells={spells} />
+                <SpellListByLevel label="9th Level" spellLevel={9} spellSlots={spellSlotsNinth} spells={spells} />
+                <SpellListByLevel label="10th Level" spellLevel={10} spellSlots={0} spells={spells} />
+              </>
+            )
+          }
+        </Card>
+      </div>
+    </div>
   );
 };
 

@@ -4,30 +4,20 @@ class CharactersController < ApplicationController
   def index
     c = Character.all
     characters = characters_response_model c
-    respond_to do |format|
-      format.html
-      format.json { render json: { characters: } }
-    end
+    render json: { characters: }
   end
 
   def show
     c = Character.find params[:id]
     character = character_response_model c
-    respond_to do |format|
-      format.html
-      format.json { render json: { character: } }
-    end
+    render json: { character: }
   end
-
-  def new; end
 
   def create
     c = Character.create create_character_params
     character = character_response_model c
     render json: { character: }
   end
-
-  def edit; end
 
   def update
     c = Character.find params[:id]

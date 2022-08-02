@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import { createSpell } from '../../utilities/Api/Spells';
 import { ISpell } from '../../types/models';
-import { Layout } from '../../layouts/Layout';
 import { SpellForm } from '../../components/SpellForm/SpellForm';
 
 const SpellCreatePage = (): ReactElement => {
@@ -17,17 +16,15 @@ const SpellCreatePage = (): ReactElement => {
   };
 
   return (
-    <Layout>
-      <div className="layout">
-        <div className="full">
-          <h1>New Spell</h1>
-          <a href="/spells">Back</a>
-          <SpellForm
-            handleSubmit={handleSubmit}
-            handleSubmitButtonLabel="Create Spell"/>
-        </div>
+    <div className="layout">
+      <div className="full">
+        <h1>New Spell</h1>
+        <a href="/spells">Back</a>
+        <SpellForm
+          handleSubmit={handleSubmit}
+          handleSubmitButtonLabel="Create Spell"/>
       </div>
-    </Layout>
+    </div>
   );
 };
 

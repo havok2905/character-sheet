@@ -9,7 +9,7 @@ type IUpdateCharacterResponse = {
 };
 
 const updateCharacter = (id: string, data: IUpdateCharacterRequest): Promise<IUpdateCharacterResponse> => {
-  return fetch(`/characters/${id}.json`, {
+  return fetch(`/api/characters/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)

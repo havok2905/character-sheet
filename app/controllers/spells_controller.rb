@@ -4,30 +4,20 @@ class SpellsController < ApplicationController
   def index
     s = Spell.all
     spells = spells_response_model s
-    respond_to do |format|
-      format.html
-      format.json { render json: { spells: } }
-    end
+    render json: { spells: }
   end
 
   def show
     s = Spell.find params[:id]
     spell = spell_response_model s
-    respond_to do |format|
-      format.html
-      format.json { render json: { spell: } }
-    end
+    render json: { spell: }
   end
-
-  def new; end
 
   def create
     s = Spell.create create_spell_params
     spell = spell_response_model s
     render json: { spell: }
   end
-
-  def edit; end
 
   def update
     s = Spell.find params[:id]

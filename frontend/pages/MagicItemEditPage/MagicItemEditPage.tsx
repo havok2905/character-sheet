@@ -8,21 +8,18 @@ import {
 } from '../../utilities/Api/MagicItems';
 import { IMagicItem } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
-import { Layout } from '../../layouts/Layout';
 import { MagicItemForm } from '../../components/MagicItemForm';
-
-const getIdFromUrl = ():string => {
-  const url = new URL(window.location.href);
-  const parts = url.pathname.split('/').filter(Boolean);
-  return parts[1];
-};
+import { useParams } from "react-router-dom";
 
 const MagicItemEditPage = (): ReactElement | null => {
   const [magicItem, setMagicItem] = useState<IMagicItem | null>(null);
+  
+  const params = useParams();
 
   useEffect(() => {
-    const id = getIdFromUrl();
-    getMagicItem(id).then(data => setMagicItem(data.magicItem));
+    if (params.id) {
+      getMagicItem(params.id).then(data => setMagicItem(data.magicItem));
+    }
   }, []);
 
   if (!magicItem) return null;
@@ -68,27 +65,25 @@ const MagicItemEditPage = (): ReactElement | null => {
   };
 
   return (
-    <Layout>
-      <div className="layout">
-        <div className="full">
-          <h1>Edit Magic Item</h1>
-          <a href={`/magic_items/${id}`}>Back</a>
-          <ImageForm
-            buttonLabel="Upload Image"
-            imageUrl={imageUrl}
-            inputName="magic-item-image-file-upload"
-            handleSubmit={handleImageUpload}
-          />
-          <MagicItemForm
-            handleSubmit={handleSubmit}
-            handleSubmitButtonLabel="Update Magic Item"
-            magicItem={magicItem}/>
-          <DeleteButton
-            buttonText="Delete Magic Item"
-            handleDelete={handleDelete}/>
-        </div>
+    <div className="layout">
+      <div className="full">
+        <h1>Edit Magic Item</h1>
+        <a href={`/magic_items/${id}`}>Back</a>
+        <ImageForm
+          buttonLabel="Upload Image"
+          imageUrl={imageUrl}
+          inputName="magic-item-image-file-upload"
+          handleSubmit={handleImageUpload}
+        />
+        <MagicItemForm
+          handleSubmit={handleSubmit}
+          handleSubmitButtonLabel="Update Magic Item"
+          magicItem={magicItem}/>
+        <DeleteButton
+          buttonText="Delete Magic Item"
+          handleDelete={handleDelete}/>
       </div>
-    </Layout>
+    </div>
   );
 };
 

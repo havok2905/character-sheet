@@ -15,7 +15,7 @@ type IUpdateLocationsResponse = {
 };
 
 const updateLocation = (id: string, data: IUpdateLocationRequest): Promise<IUpdateLocationsResponse> => {
-  return fetch(`/locations/${id}.json`, {
+  return fetch(`/api/locations/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)

@@ -5,7 +5,7 @@ type IGetFactionsResponse = {
 };
 
 const getFactions = (): Promise<IGetFactionsResponse> => {
-  return fetch('/factions.json', {
+  return fetch('/api/factions', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
   }).then(response => response.json());

@@ -9,7 +9,7 @@ type ICreateFactionResponse = {
 };
 
 const createFaction = (data: ICreateFactionRequest): Promise<ICreateFactionResponse> => {
-  return fetch('/factions.json', {
+  return fetch('/api/factions', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)

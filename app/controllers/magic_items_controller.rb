@@ -4,30 +4,20 @@ class MagicItemsController < ApplicationController
   def index
     m = MagicItem.all
     magic_items = magic_items_response_model m
-    respond_to do |format|
-      format.html
-      format.json { render json: { magicItems: magic_items } }
-    end
+    render json: { magicItems: magic_items }
   end
 
   def show
     m = MagicItem.find params[:id]
     magic_item = magic_item_response_model m
-    respond_to do |format|
-      format.html
-      format.json { render json: { magicItem: magic_item } }
-    end
+    render json: { magicItem: magic_item }
   end
-
-  def new; end
 
   def create
     m = MagicItem.create create_magic_item_params
     magic_item = magic_item_response_model m
     render json: { magicItem: magic_item }
   end
-
-  def edit; end
 
   def update
     m = MagicItem.find params[:id]

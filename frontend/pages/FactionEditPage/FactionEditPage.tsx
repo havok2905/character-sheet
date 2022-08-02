@@ -9,20 +9,17 @@ import {
 import { FactionForm } from '../../components/FactionForm';
 import { IFaction } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
-import { Layout } from '../../layouts/Layout';
-
-const getIdFromUrl = ():string => {
-  const url = new URL(window.location.href);
-  const parts = url.pathname.split('/').filter(Boolean);
-  return parts[1];
-};
+import { useParams } from "react-router-dom";
 
 const FactionEditPage = (): ReactElement | null => {
   const [faction, setFaction] = useState<IFaction | null>(null);
 
+  const params = useParams();
+
   useEffect(() => {
-    const id = getIdFromUrl();
-    getFaction(id).then(data => setFaction(data.faction));
+    if (params.id) {
+      getFaction(params.id).then(data => setFaction(data.faction));
+    }
   }, []);
 
   if (!faction) return null;
@@ -68,29 +65,27 @@ const FactionEditPage = (): ReactElement | null => {
   };
 
   return (
-    <Layout>
-      <div className="layout">
-        <div className="full">
-          <h1>Edit Faction</h1>
-          <a href="/factions">
-            Back
-          </a>
-          <ImageForm
-            buttonLabel="Upload Image"
-            imageUrl={imageUrl}
-            inputName="faction-image-file-upload"
-            handleSubmit={handleImageUpload}
-          />
-          <FactionForm
-            faction={faction}
-            handleSubmit={handleSubmit}
-            handleSubmitButtonLabel="Update Faction"/>
-          <DeleteButton
-            buttonText="Delete Faction"
-            handleDelete={handleDelete}/>
-        </div>
+    <div className="layout">
+      <div className="full">
+        <h1>Edit Faction</h1>
+        <a href="/factions">
+          Back
+        </a>
+        <ImageForm
+          buttonLabel="Upload Image"
+          imageUrl={imageUrl}
+          inputName="faction-image-file-upload"
+          handleSubmit={handleImageUpload}
+        />
+        <FactionForm
+          faction={faction}
+          handleSubmit={handleSubmit}
+          handleSubmitButtonLabel="Update Faction"/>
+        <DeleteButton
+          buttonText="Delete Faction"
+          handleDelete={handleDelete}/>
       </div>
-    </Layout>
+    </div>
   );
 };
 

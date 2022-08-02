@@ -1,7 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { getArticles } from '../../utilities/Api/Articles';
 import { IArticle } from '../../types/models';
-import { Layout } from '../../layouts/Layout';
 import { WikiItem } from '../../components/WikiItem';
 
 const WikiPage = (): ReactElement => {
@@ -47,41 +46,39 @@ const WikiPage = (): ReactElement => {
   }
 
   return (
-    <Layout>
-      <div className="layout">
-        <div className="full">
-          <h1>Wiki</h1>
-          <a href="/wiki/new">Create</a>
-          <form>
-            <fieldset>
-              <label>Tag</label>
-              <input onChange={handleTagFilterOnChange} type="text"/>
-              <label>Title</label>
-              <input onChange={handleTitleFilterOnChange} type="text"/>
-            </fieldset>
-          </form>
-          {
-            getFilteredArticles().map(article => {
-              const {
-                heroImageUrl,
-                id,
-                tags,
-                title
-              } = article;
-              
-              return (
-                <WikiItem
-                  path={`/wiki/${id}`}
-                  imagePath={heroImageUrl}
-                  tags={tags}
-                  title={title}
-                />
-              );
-            })
-          }
-        </div>
+    <div className="layout">
+      <div className="full">
+        <h1>Wiki</h1>
+        <a href="/wiki/new">Create</a>
+        <form>
+          <fieldset>
+            <label>Tag</label>
+            <input onChange={handleTagFilterOnChange} type="text"/>
+            <label>Title</label>
+            <input onChange={handleTitleFilterOnChange} type="text"/>
+          </fieldset>
+        </form>
+        {
+          getFilteredArticles().map(article => {
+            const {
+              heroImageUrl,
+              id,
+              tags,
+              title
+            } = article;
+            
+            return (
+              <WikiItem
+                path={`/wiki/${id}`}
+                imagePath={heroImageUrl || ''}
+                tags={tags}
+                title={title}
+              />
+            );
+          })
+        }
       </div>
-    </Layout>
+    </div>
   );
 };
 

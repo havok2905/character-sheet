@@ -26,14 +26,8 @@ import {
   ISpell
 } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
-import { Layout } from '../../layouts/Layout';
 import { Modal } from '../../components/Modal';
-
-const getIdFromUrl = ():string => {
-  const url = new URL(window.location.href);
-  const parts = url.pathname.split('/').filter(Boolean);
-  return parts[1];
-};
+import { useParams } from "react-router-dom";
 
 interface ICharacterEditPageContentState {
   character: ICharacter | null;
@@ -60,30 +54,32 @@ const CharacterEditPage = (): ReactElement | null => {
     spells: [] as ISpell[]
   });
 
-  useEffect(() => {
-    const id = getIdFromUrl();
+  const params = useParams();
 
-    Promise.all([
-      getCharacter(id),
-      getCreatures(),
-      getFactions(),
-      getMagicItems(),
-      getSpells()
-    ]).then(([
-      characterData,
-      creatureData,
-      factionData,
-      magicItemsData,
-      spellsData
-    ]) => {
-      setState({
-        character: characterData.character,
-        creatures: creatureData.creatures,
-        factions: factionData.factions,
-        magicItems: magicItemsData.magicItems,
-        spells: spellsData.spells
+  useEffect(() => {
+    if (params.id) {
+      Promise.all([
+        getCharacter(params.id),
+        getCreatures(),
+        getFactions(),
+        getMagicItems(),
+        getSpells()
+      ]).then(([
+        characterData,
+        creatureData,
+        factionData,
+        magicItemsData,
+        spellsData
+      ]) => {
+        setState({
+          character: characterData.character,
+          creatures: creatureData.creatures,
+          factions: factionData.factions,
+          magicItems: magicItemsData.magicItems,
+          spells: spellsData.spells
+        });
       });
-    });
+    }
   }, []);
 
   const { character, creatures, factions, magicItems, spells } = state;
@@ -255,7 +251,7 @@ const CharacterEditPage = (): ReactElement | null => {
   };
 
   return (
-    <Layout>
+    <>
       <div className="layout">
         <div className="full">
           <a href={`/characters/${id}`}>
@@ -297,7 +293,7 @@ const CharacterEditPage = (): ReactElement | null => {
       {getInventoryModal()}
       {getMagicItemsModal()}
       {getSpellsModal()}
-    </Layout>
+    </>
   );
 };
 

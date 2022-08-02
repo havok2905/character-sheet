@@ -8,14 +8,8 @@ import {
 } from '../../utilities/Api/Articles';
 import { IArticle } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm/ImageForm';
-import { Layout } from '../../layouts/Layout';
+import { useParams } from "react-router-dom";
 import { WikiForm } from '../../components/WikiForm';
-
-const getIdFromUrl = ():string => {
-  const url = new URL(window.location.href);
-  const parts = url.pathname.split('/').filter(Boolean);
-  return parts[1];
-};
 
 interface IArticleEditPageState {
   article: IArticle | null;
@@ -23,14 +17,16 @@ interface IArticleEditPageState {
 
 const WikiEditPage = (): ReactElement | null => {
   const [state, setState] = useState<IArticleEditPageState>({ article: null });
+  
+  const params = useParams();
 
   useEffect(() => {
-    const id = getIdFromUrl();
-
-    getArticle(id)
-      .then((data) => {
-        setState({ article: data.article });
-      })
+    if (params.id) {
+      getArticle(params.id)
+        .then((data) => {
+          setState({ article: data.article });
+        })
+    }
   }, []);
 
   const { article } = state;
@@ -38,36 +34,34 @@ const WikiEditPage = (): ReactElement | null => {
   if (!article) return null;
 
   const handleDelete = () => {
-    const id = getIdFromUrl();
-
-    destroyArticle(id)
-      .then(() => {
-        window.location.href = '/wiki/';
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        window.location.href = `/wiki/${id}/edit/`;
-      });
+    if (params.id) {
+      destroyArticle(params.id)
+        .then(() => {
+          window.location.href = '/wiki/';
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          window.location.href = `/wiki/${params.id}/edit/`;
+        });
+    }
   }
 
   const handleSubmit = (article: IArticle) => {
-    const id = getIdFromUrl();
-
-    updateArticle(id, { article })
-      .then(data => {
-        window.location.href = `/wiki/${data.article.id}`;
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+    if (params.id) {
+      updateArticle(params.id, { article })
+        .then(data => {
+          window.location.href = `/wiki/${data.article.id}`;
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    }
   };
 
   const handleHeroImageSubmit = (data: FormData | undefined) => {
-    const id = getIdFromUrl();
+    if (!data || !params.id) return;
 
-    if (!data || !id) return;
-
-    uploadArticleHeroImage(id, data)
+    uploadArticleHeroImage(params.id, data)
       .then(data => {
         window.location.href = `/wiki/${data.article.id}`;
       })
@@ -79,26 +73,24 @@ const WikiEditPage = (): ReactElement | null => {
   const { heroImageUrl } = article ?? {};
 
   return (
-    <Layout>
-      <div className="layout">
-        <div className="full">
-          <h1>Edit Wiki Article</h1>
-          <DeleteButton
-            buttonText="Delete Wiki Article"
-            handleDelete={handleDelete}/>
-          <h2>Hero Image</h2>
-          <ImageForm
-            buttonLabel="Update Hero Image"
-            handleSubmit={handleHeroImageSubmit}
-            imageUrl={heroImageUrl}
-            inputName="article-hero-image-file-upload"/>
-          <WikiForm
-            article={article}
-            handleSubmit={handleSubmit}
-            handleSubmitButtonLabel="Update Wiki Article" />
-        </div>
+    <div className="layout">
+      <div className="full">
+        <h1>Edit Wiki Article</h1>
+        <DeleteButton
+          buttonText="Delete Wiki Article"
+          handleDelete={handleDelete}/>
+        <h2>Hero Image</h2>
+        <ImageForm
+          buttonLabel="Update Hero Image"
+          handleSubmit={handleHeroImageSubmit}
+          imageUrl={heroImageUrl}
+          inputName="article-hero-image-file-upload"/>
+        <WikiForm
+          article={article}
+          handleSubmit={handleSubmit}
+          handleSubmitButtonLabel="Update Wiki Article" />
       </div>
-    </Layout>
+    </div>
   );
 };
 

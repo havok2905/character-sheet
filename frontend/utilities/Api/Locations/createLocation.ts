@@ -13,7 +13,7 @@ type ICreateLocationResponse = {
 };
 
 const createLocation = (data: ICreateLocationRequest): Promise<ICreateLocationResponse> => {
-  return fetch('/locations.json', {
+  return fetch('/api/locations', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)

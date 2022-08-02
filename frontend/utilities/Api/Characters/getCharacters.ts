@@ -5,7 +5,7 @@ type IGetCharactersResponse = {
 };
 
 const getCharacters = (): Promise<IGetCharactersResponse> => {
-  return fetch('/characters.json', {
+  return fetch('/api/characters', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
   }).then(response => response.json());

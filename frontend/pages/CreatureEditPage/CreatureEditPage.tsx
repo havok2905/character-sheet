@@ -25,14 +25,8 @@ import {
   ISpell
 } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
-import { Layout } from '../../layouts/Layout';
 import { Modal } from '../../components/Modal';
-
-const getIdFromUrl = ():string => {
-  const url = new URL(window.location.href);
-  const parts = url.pathname.split('/').filter(Boolean);
-  return parts[1];
-};
+import { useParams } from "react-router-dom";
 
 interface ICreatureEditPageContentState {
   creature: ICreature | null,
@@ -57,27 +51,29 @@ const CreatureEditPage = (): ReactElement | null => {
     spells: [] as ISpell[]
   });
 
-  useEffect(() => {
-    const id = getIdFromUrl();
+  const params = useParams();
 
-    Promise.all([
-      getCreature(id),
-      getFactions(),
-      getMagicItems(),
-      getSpells()
-    ]).then(([
-      creatureData,
-      factionData,
-      magicItemsData,
-      spellsData
-    ]) => {
-      setState({
-        creature: creatureData.creature,
-        factions: factionData.factions,
-        magicItems: magicItemsData.magicItems,
-        spells: spellsData.spells
+  useEffect(() => {
+    if (params.id) {
+      Promise.all([
+        getCreature(params.id),
+        getFactions(),
+        getMagicItems(),
+        getSpells()
+      ]).then(([
+        creatureData,
+        factionData,
+        magicItemsData,
+        spellsData
+      ]) => {
+        setState({
+          creature: creatureData.creature,
+          factions: factionData.factions,
+          magicItems: magicItemsData.magicItems,
+          spells: spellsData.spells
+        });
       });
-    });
+    }
   }, []);
 
   const { creature, factions, magicItems, spells } = state;
@@ -258,7 +254,7 @@ const CreatureEditPage = (): ReactElement | null => {
   };
 
   return (
-    <Layout>
+    <>
       <div className="layout">
         <div className="full">
           <a href={`/creatures/${id}`}>
@@ -300,7 +296,7 @@ const CreatureEditPage = (): ReactElement | null => {
       {getMagicItemsModal()}
       {getRegionalEffectsModal()}
       {getSpellsModal()}
-    </Layout>
+    </>
   );
 };
 

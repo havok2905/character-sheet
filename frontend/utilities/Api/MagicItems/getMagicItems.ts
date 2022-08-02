@@ -5,7 +5,7 @@ type IGetMagicItemsResponse = {
 };
 
 const getMagicItems = (): Promise<IGetMagicItemsResponse> => {
-  return fetch('/magic_items.json', {
+  return fetch('/api/magic_items', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
   }).then(response => response.json());

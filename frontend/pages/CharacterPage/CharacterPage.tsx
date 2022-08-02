@@ -11,20 +11,16 @@ import { SpellListByLevel } from '../../components/SpellListByLevel';
 import { StatBlock } from '../../components/StatBlock';
 import { ToggleItem } from '../../components/ToggleItem';
 import { Token } from '../../components/Token';
-import { Layout } from '../../layouts/Layout';
-
-const getIdFromUrl = ():string => {
-  const url = new URL(window.location.href);
-  const parts = url.pathname.split('/').filter(Boolean);
-  return parts[1];
-};
+import { useParams } from "react-router-dom";
 
 const CharacterPage = (): ReactElement | null => {
   const [character, setCharacter] = useState<ICharacter | null>(null);
+  const params = useParams();
 
   useEffect(() => {
-    const id = getIdFromUrl();
-    getCharacter(id).then(data => setCharacter(data.character));
+    if (params.id) {
+      getCharacter(params.id).then(data => setCharacter(data.character));
+    }
   }, []);
 
   if (!character) return null;
@@ -363,92 +359,90 @@ const CharacterPage = (): ReactElement | null => {
   };
 
   return (
-    <Layout>
-      <div className="layout">
-        <div className="full">
-          <div className="page-header">
-            <div className="page-header-settings">
-              <a href={`/characters/${id}/edit`}>
-                <GearIcon/>
-              </a>
-            </div>
-            <Token imageAltText="character portrait" imageUrl={imageUrl}/>
-            <div>
-              <h1>{name}</h1>
-              <p>{characterClassRow(character)}</p>
-              {multiclassClass && <p>{characterMulticlassRow(character)}</p>}
-              <p>{race} ( {subRace} ), {background}, {alignment}</p>
-            </div>
+    <div className="layout">
+      <div className="full">
+        <div className="page-header">
+          <div className="page-header-settings">
+            <a href={`/characters/${id}/edit`}>
+              <GearIcon/>
+            </a>
+          </div>
+          <Token imageAltText="character portrait" imageUrl={imageUrl}/>
+          <div>
+            <h1>{name}</h1>
+            <p>{characterClassRow(character)}</p>
+            {multiclassClass && <p>{characterMulticlassRow(character)}</p>}
+            <p>{race} ( {subRace} ), {background}, {alignment}</p>
           </div>
         </div>
-        <div className="column">
-          {getCharacterMiscStats()}
-          <StatBlock entity={character} />
-          <AbilitySkills entity={character} />
-          {getAssociatedMagicItemsCard()}
-          {getCharacterInventory()}
-          <Card>
-            <h2>Biography</h2>
-            {getOptionalProperty('Age', age)}
-            {getOptionalProperty('Height', height)}
-            {getOptionalProperty('Weight', weight)}
-            {getOptionalProperty('Hair', hair)}
-            {getOptionalProperty('Skin', skin)}
-            {getOptionalProperty('Eyes', eyes)}
-            {getOptionalProperty('Personality Traits', personalityTraits)}
-            {getOptionalProperty('Ideals', ideals)}
-            {getOptionalProperty('Bonds', bonds)}
-            {getOptionalProperty('Flaws', flaws)}
-          </Card>
-          {getCharacterBackstory()}
-        </div>
-        <div className="column">
-          {getAssociatedCreaturesCard()}
-          {getAssociatedFactionsCard()}
-          {getCharacterResources()}
-          {getCharacterAttacks()}
-          {getCharacterFeatures()}
-          <Card>
-            {getCharacterSenses()}
-            {getOptionalProperty('Passive Perception', passivePerception)}
-            <h2>Proficinencies</h2>
-            {getOptionalProperty('Armor Proficiencies', armorProficiencies)}
-            {getOptionalProperty('Condition Immunities', conditionImmunities)}
-            {getOptionalProperty('Condition Resistences', conditionResistances)}
-            {getOptionalProperty('Condition Vulnerabilities', conditionVulnerabilities)}
-            {getOptionalProperty('Damage Immunities', damageImmunities)}
-            {getOptionalProperty('Damage Resistences', damageResistances)}
-            {getOptionalProperty('Damage Vulnerabilities', damageVulnerabilities)}
-            {getOptionalProperty('Languages', languages)}
-            {getOptionalProperty('Tool Proficiencies', toolProficiencies)}
-            {getOptionalProperty('Weapon Proficiencies', weaponProficiencies)}
-          </Card>
-          <Card>
-            <h2>Spellbook</h2>
-            {getOptionalProperty('Ability', spellcastingAbility)}
-            {getOptionalProperty('Bonus', spellcastingModifier)}
-            {getOptionalProperty('Save DC', spellcastingSaveDc)}
-            {
-              !!spells?.length && (
-                <>
-                  <SpellListByLevel label="Cantrips" spellLevel={0} spellSlots={0} spells={spells} />
-                  <SpellListByLevel label="1st Level" spellLevel={1} spellSlots={spellSlotsFirst} spells={spells} />
-                  <SpellListByLevel label="2nd Level" spellLevel={2} spellSlots={spellSlotsSecond} spells={spells} />
-                  <SpellListByLevel label="3rd Level" spellLevel={3} spellSlots={spellSlotsThird} spells={spells} />
-                  <SpellListByLevel label="4th Level" spellLevel={4} spellSlots={spellSlotsFourth} spells={spells} />
-                  <SpellListByLevel label="5th Level" spellLevel={5} spellSlots={spellSlotsFifth} spells={spells} />
-                  <SpellListByLevel label="6th Level" spellLevel={6} spellSlots={spellSlotsSixth} spells={spells} />
-                  <SpellListByLevel label="7th Level" spellLevel={7} spellSlots={spellSlotsSeventh} spells={spells} />
-                  <SpellListByLevel label="8th Level" spellLevel={9} spellSlots={spellSlotsEighth} spells={spells} />
-                  <SpellListByLevel label="9th Level" spellLevel={9} spellSlots={spellSlotsNinth} spells={spells} />
-                  <SpellListByLevel label="10th Level" spellLevel={10} spellSlots={0} spells={spells} />
-                </>
-              )
-            }
-          </Card>
-        </div>
       </div>
-    </Layout>
+      <div className="column">
+        {getCharacterMiscStats()}
+        <StatBlock entity={character} />
+        <AbilitySkills entity={character} />
+        {getAssociatedMagicItemsCard()}
+        {getCharacterInventory()}
+        <Card>
+          <h2>Biography</h2>
+          {getOptionalProperty('Age', age)}
+          {getOptionalProperty('Height', height)}
+          {getOptionalProperty('Weight', weight)}
+          {getOptionalProperty('Hair', hair)}
+          {getOptionalProperty('Skin', skin)}
+          {getOptionalProperty('Eyes', eyes)}
+          {getOptionalProperty('Personality Traits', personalityTraits)}
+          {getOptionalProperty('Ideals', ideals)}
+          {getOptionalProperty('Bonds', bonds)}
+          {getOptionalProperty('Flaws', flaws)}
+        </Card>
+        {getCharacterBackstory()}
+      </div>
+      <div className="column">
+        {getAssociatedCreaturesCard()}
+        {getAssociatedFactionsCard()}
+        {getCharacterResources()}
+        {getCharacterAttacks()}
+        {getCharacterFeatures()}
+        <Card>
+          {getCharacterSenses()}
+          {getOptionalProperty('Passive Perception', passivePerception)}
+          <h2>Proficinencies</h2>
+          {getOptionalProperty('Armor Proficiencies', armorProficiencies)}
+          {getOptionalProperty('Condition Immunities', conditionImmunities)}
+          {getOptionalProperty('Condition Resistences', conditionResistances)}
+          {getOptionalProperty('Condition Vulnerabilities', conditionVulnerabilities)}
+          {getOptionalProperty('Damage Immunities', damageImmunities)}
+          {getOptionalProperty('Damage Resistences', damageResistances)}
+          {getOptionalProperty('Damage Vulnerabilities', damageVulnerabilities)}
+          {getOptionalProperty('Languages', languages)}
+          {getOptionalProperty('Tool Proficiencies', toolProficiencies)}
+          {getOptionalProperty('Weapon Proficiencies', weaponProficiencies)}
+        </Card>
+        <Card>
+          <h2>Spellbook</h2>
+          {getOptionalProperty('Ability', spellcastingAbility)}
+          {getOptionalProperty('Bonus', spellcastingModifier)}
+          {getOptionalProperty('Save DC', spellcastingSaveDc)}
+          {
+            !!spells?.length && (
+              <>
+                <SpellListByLevel label="Cantrips" spellLevel={0} spellSlots={0} spells={spells} />
+                <SpellListByLevel label="1st Level" spellLevel={1} spellSlots={spellSlotsFirst} spells={spells} />
+                <SpellListByLevel label="2nd Level" spellLevel={2} spellSlots={spellSlotsSecond} spells={spells} />
+                <SpellListByLevel label="3rd Level" spellLevel={3} spellSlots={spellSlotsThird} spells={spells} />
+                <SpellListByLevel label="4th Level" spellLevel={4} spellSlots={spellSlotsFourth} spells={spells} />
+                <SpellListByLevel label="5th Level" spellLevel={5} spellSlots={spellSlotsFifth} spells={spells} />
+                <SpellListByLevel label="6th Level" spellLevel={6} spellSlots={spellSlotsSixth} spells={spells} />
+                <SpellListByLevel label="7th Level" spellLevel={7} spellSlots={spellSlotsSeventh} spells={spells} />
+                <SpellListByLevel label="8th Level" spellLevel={9} spellSlots={spellSlotsEighth} spells={spells} />
+                <SpellListByLevel label="9th Level" spellLevel={9} spellSlots={spellSlotsNinth} spells={spells} />
+                <SpellListByLevel label="10th Level" spellLevel={10} spellSlots={0} spells={spells} />
+              </>
+            )
+          }
+        </Card>
+      </div>
+    </div>
   );
 };
 

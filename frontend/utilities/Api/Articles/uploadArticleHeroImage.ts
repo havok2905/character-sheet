@@ -5,7 +5,7 @@ type IUploadArticleHeroImageResponse = {
 };
 
 const uploadArticleHeroImage = (id: string, data: FormData): Promise<IUploadArticleHeroImageResponse> => {
-  return fetch(`/wiki/${id}/upload_hero_image.json`, {
+  return fetch(`/api/wiki/${id}/upload_hero_image`, {
     body: data,
     method: 'POST'
   }).then(response => response.json())

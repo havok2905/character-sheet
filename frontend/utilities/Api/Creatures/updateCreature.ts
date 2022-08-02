@@ -9,7 +9,7 @@ type IUpdateCreatureResponse = {
 };
 
 const updateCreature = (id: string, data: IUpdateCreatureRequest): Promise<IUpdateCreatureResponse> => {
-  return fetch(`/creatures/${id}.json`, {
+  return fetch(`/api/creatures/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)

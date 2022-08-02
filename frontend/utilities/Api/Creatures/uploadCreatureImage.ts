@@ -5,7 +5,7 @@ type IUploadCreatureImageResponse = {
 };
 
 const uploadCreatureImage = (id: string, data: FormData): Promise<IUploadCreatureImageResponse> => {
-  return fetch(`/creatures/${id}/upload_image.json`, {
+  return fetch(`/api/creatures/${id}/upload_image`, {
     body: data,
     method: 'POST'
   }).then(response => response.json())

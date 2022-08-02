@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react';
 import { createCharacter } from '../../utilities/Api/Characters';
 import { CharacterForm } from '../../components/CharacterForm/';
 import { ICharacter } from '../../types/models';
-import { Layout } from '../../layouts/Layout';
 
 const CharacterCreatePage = (): ReactElement => {
   const handleSubmit = (character: ICharacter) => {
@@ -17,20 +16,18 @@ const CharacterCreatePage = (): ReactElement => {
   };
 
   return (
-    <Layout>
-      <div className="layout">
-        <div className="full">
-          <h1>New Character</h1>
-          <a href="/characters">
-            Back
-          </a>
-          <CharacterForm
-            handleSubmit={handleSubmit}
-            handleSubmitButtonLabel="Create Character"
-          />
-        </div>
+    <div className="layout">
+      <div className="full">
+        <h1>New Character</h1>
+        <a href="/characters">
+          Back
+        </a>
+        <CharacterForm
+          handleSubmit={handleSubmit}
+          handleSubmitButtonLabel="Create Character"
+        />
       </div>
-    </Layout>
+    </div>
   );
 };
 

@@ -5,7 +5,7 @@ type IGetSpellsResponse = {
 };
 
 const getSpells = (): Promise<IGetSpellsResponse> => {
-  return fetch('/spells.json', {
+  return fetch('/api/spells', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
   }).then(response => response.json());

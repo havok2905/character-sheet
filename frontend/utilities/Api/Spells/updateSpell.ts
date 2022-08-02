@@ -10,7 +10,7 @@ type IUpdateSpellResponse = {
 };
 
 const updateSpell = (id: string, data: IUpdateSpellRequest): Promise<IUpdateSpellResponse> => {
-  return fetch(`/spells/${id}.json`, {
+  return fetch(`/api/spells/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)

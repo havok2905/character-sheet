@@ -4,27 +4,15 @@ class LocationsController < ApplicationController
   def index
     l = Location.order(:name)
     locations = locations_response_model l
-    respond_to do |format|
-      format.html
-      format.json { render json: { locations: } }
-    end
+    render json: { locations: }
   end
 
   def show
     l = Location.find params[:id]
     m = Map.where(location_id: l.id).first
     location = location_response_model l, m
-    respond_to do |format|
-      format.html
-      format.json { render json: { location: } }
-    end
+    render json: { location: }
   end
-
-  def new; end
-
-  def edit; end
-
-  def map_settings; end
 
   def create
     l = Location.create create_location_params

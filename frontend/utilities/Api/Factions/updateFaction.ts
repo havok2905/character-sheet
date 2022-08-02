@@ -9,7 +9,7 @@ type IUpdateFactionResponse = {
 };
 
 const updateFaction = (id: string, data: IUpdateFactionRequest): Promise<IUpdateFactionResponse> => {
-  return fetch(`/factions/${id}.json`, {
+  return fetch(`/api/factions/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)

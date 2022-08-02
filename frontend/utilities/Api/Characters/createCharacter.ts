@@ -9,7 +9,7 @@ type ICreateCharacterResponse = {
 };
 
 const createCharacter = (data: ICreateCharacterRequest): Promise<ICreateCharacterResponse> => {
-  return fetch('/characters.json', {
+  return fetch('/api/characters', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)

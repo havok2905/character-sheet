@@ -5,7 +5,7 @@ type IGetSpellResponse = {
 };
 
 const getSpell = (id: string): Promise<IGetSpellResponse> => {
-  return fetch(`/spells/${id}.json`, {
+  return fetch(`/api/spells/${id}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
   }).then(response => response.json());

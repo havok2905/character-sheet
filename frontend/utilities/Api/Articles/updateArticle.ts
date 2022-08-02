@@ -15,7 +15,7 @@ type IUpdateArticleResponse = {
 };
 
 const updateArticle = (id: string, data: IUpdateArticleRequest): Promise<IUpdateArticleResponse> => {
-  return fetch(`/wiki/${id}.json`, {
+  return fetch(`/api/wiki/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)

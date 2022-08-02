@@ -5,7 +5,7 @@ type IUploadLocationMapResponse = {
 };
 
 const uploadLocationMap = (id: string, data: FormData): Promise<IUploadLocationMapResponse> => {
-  return fetch(`/locations/${id}/upload_map.json`, {
+  return fetch(`/api/locations/${id}/upload_map`, {
     body: data,
     method: 'POST'
   }).then(response => response.json())

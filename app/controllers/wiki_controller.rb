@@ -4,24 +4,14 @@ class WikiController < ApplicationController
   def index
     a = Article.order(:title)
     articles = articles_response_model a
-    respond_to do |format|
-      format.html
-      format.json { render json: { articles: } }
-    end
+    render json: { articles: }
   end
 
   def show
     a = Article.find params[:id]
     article = article_response_model a
-    respond_to do |format|
-      format.html
-      format.json { render json: { article: } }
-    end
+    render json: { article: }
   end
-
-  def new; end
-
-  def edit; end
 
   def create
     create_params = create_article_params

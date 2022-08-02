@@ -4,30 +4,20 @@ class FactionsController < ApplicationController
   def index
     f = Faction.all
     factions = factions_response_model f
-    respond_to do |format|
-      format.html
-      format.json { render json: { factions: } }
-    end
+    render json: { factions: }
   end
 
   def show
     f = Faction.find params[:id]
     faction = faction_response_model f
-    respond_to do |format|
-      format.html
-      format.json { render json: { faction: } }
-    end
+    render json: { faction: }
   end
-
-  def new; end
 
   def create
     f = Faction.create create_faction_params
     faction = faction_response_model f
     render json: { faction: }
   end
-
-  def edit; end
 
   def update
     f = Faction.find params[:id]

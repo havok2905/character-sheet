@@ -1,6 +1,5 @@
 import React, { ReactElement, useState } from 'react';
 import { createLocation } from '../../utilities/Api/Locations';
-import { Layout } from '../../layouts/Layout';
 import { MarkdownEditor } from '../../components/MarkdownEditor';
 import { MarkdownPreview } from '../../components/MarkdownPreview';
 
@@ -29,49 +28,47 @@ const LocationCreatePage = (): ReactElement => {
   };
 
   return (
-    <Layout>
-      <div className="layout">
-        <div className="full">
-          <h1>New Location</h1>
-          <form onSubmit={handleSubmit}>
-            <fieldset>
-              <label htmlFor="location-name">
-                Name
-              </label>
-              <input
-                id="location-name"
-                name="location-name"
-                onChange={(e) => setName(e.target.value) }
-                type="text">  
-              </input>
-              <label htmlFor="location-description">
-                Description
-              </label>
-              <textarea
-                id="location-description"
-                name="location-description"
-                onChange={(e) => setDescription(e.target.value)}>
-              </textarea>
-            </fieldset>
-            <fieldset>
-              <label htmlFor="location-content">
-                Content
-              </label>
-              <MarkdownEditor
-                onChange={(e) => {setContent(e.target.value)}}
-                value={content}
-              />
-              <MarkdownPreview value={content}/>
-            </fieldset>
-            <fieldset>
-              <button>
-                Create Location
-              </button>
-            </fieldset>
-          </form>
-        </div>
+    <div className="layout">
+      <div className="full">
+        <h1>New Location</h1>
+        <form onSubmit={handleSubmit}>
+          <fieldset>
+            <label htmlFor="location-name">
+              Name
+            </label>
+            <input
+              id="location-name"
+              name="location-name"
+              onChange={(e) => setName(e.target.value) }
+              type="text">  
+            </input>
+            <label htmlFor="location-description">
+              Description
+            </label>
+            <textarea
+              id="location-description"
+              name="location-description"
+              onChange={(e) => setDescription(e.target.value)}>
+            </textarea>
+          </fieldset>
+          <fieldset>
+            <label htmlFor="location-content">
+              Content
+            </label>
+            <MarkdownEditor
+              onChange={(e) => {setContent(e.target.value)}}
+              value={content}
+            />
+            <MarkdownPreview value={content}/>
+          </fieldset>
+          <fieldset>
+            <button>
+              Create Location
+            </button>
+          </fieldset>
+        </form>
       </div>
-    </Layout>
+    </div>
   );
 };
 

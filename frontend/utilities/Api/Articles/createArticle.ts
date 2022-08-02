@@ -13,7 +13,7 @@ type ICreateArticleResponse = {
 };
 
 const createArticle = (data: ICreateArticleRequest): Promise<ICreateArticleResponse> => {
-  return fetch('/wiki.json', {
+  return fetch('/api/wiki', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)

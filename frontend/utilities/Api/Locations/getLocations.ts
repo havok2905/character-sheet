@@ -5,7 +5,7 @@ type IGetLocationsResponse = {
 };
 
 const getLocations = (): Promise<IGetLocationsResponse> => {
-  return fetch('/locations.json', {
+  return fetch('/api/locations', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
   }).then(response => response.json());

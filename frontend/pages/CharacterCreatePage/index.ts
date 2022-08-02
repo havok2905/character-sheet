@@ -1,7 +1,2 @@
 import { CharacterCreatePage } from './CharacterCreatePage';
-import { characterCreatePageBootstrapper } from './characterCreatePageBootstrapper';
-
-export {
-  CharacterCreatePage,
-  characterCreatePageBootstrapper
-};
+export { CharacterCreatePage };

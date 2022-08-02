@@ -5,7 +5,7 @@ type IUploadFactionImageResponse = {
 };
 
 const uploadFactionImage = (id: string, data: FormData): Promise<IUploadFactionImageResponse> => {
-  return fetch(`/factions/${id}/upload_image.json`, {
+  return fetch(`/api/factions/${id}/upload_image`, {
     body: data,
     method: 'POST'
   }).then(response => response.json())

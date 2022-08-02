@@ -4,30 +4,20 @@ class CreaturesController < ApplicationController
   def index
     c = Creature.all
     creatures = creatures_response_model c
-    respond_to do |format|
-      format.html
-      format.json { render json: { creatures: } }
-    end
+    render json: { creatures: }
   end
 
   def show
     c = Creature.find params[:id]
     creature = creature_response_model c
-    respond_to do |format|
-      format.html
-      format.json { render json: { creature: } }
-    end
+    render json: { creature: }
   end
-
-  def new; end
 
   def create
     c = Creature.create create_creature_params
     creature = creature_response_model c
     render json: { creature: }
   end
-
-  def edit; end
 
   def update
     c = Creature.find params[:id]

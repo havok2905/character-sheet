@@ -2,21 +2,18 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { DeleteButton } from '../../components/DeleteButton';
 import { destroySpell, getSpell, updateSpell } from '../../utilities/Api/Spells';
 import { ISpell } from '../../types/models';
-import { Layout } from '../../layouts/Layout';
 import { SpellForm } from '../../components/SpellForm/SpellForm';
-
-const getIdFromUrl = ():string => {
-  const url = new URL(window.location.href);
-  const parts = url.pathname.split('/').filter(Boolean);
-  return parts[1];
-};
+import { useParams } from "react-router-dom";
 
 const SpellEditPage = (): ReactElement | null => {
   const [spell, setSpell] = useState<ISpell | null>(null);
+  
+  const params = useParams();
 
   useEffect(() => {
-    const id = getIdFromUrl();
-    getSpell(id).then(data => setSpell(data.spell));
+    if (params.id) {
+      getSpell(params.id).then(data => setSpell(data.spell));
+    }
   }, []);
 
   if (!spell) return null;
@@ -50,21 +47,19 @@ const SpellEditPage = (): ReactElement | null => {
   };
 
   return (
-    <Layout>
-      <div className="layout">
-        <div className="full">
-          <h1>Edit Spell</h1>
-          <a href={`/spells/${id}`}>Back</a>
-          <SpellForm
-            handleSubmit={handleSubmit}
-            handleSubmitButtonLabel="Update Spell"
-            spell={spell} />
-          <DeleteButton
-            buttonText="Delete Spell"
-            handleDelete={handleDelete}/>
-        </div>
+    <div className="layout">
+      <div className="full">
+        <h1>Edit Spell</h1>
+        <a href={`/spells/${id}`}>Back</a>
+        <SpellForm
+          handleSubmit={handleSubmit}
+          handleSubmitButtonLabel="Update Spell"
+          spell={spell} />
+        <DeleteButton
+          buttonText="Delete Spell"
+          handleDelete={handleDelete}/>
       </div>
-    </Layout>
+    </div>
   );
 };
 
