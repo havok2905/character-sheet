@@ -4,7 +4,7 @@ import { GearIcon } from '../../components/Icons/GearIcon';
 import { getMagicItem } from '../../utilities/Api/MagicItems';
 import { IMagicItem } from '../../types/models';
 import { Token } from '../../components/Token';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 const MagicItemPage = (): ReactElement | null => {
   const [magicItem, setMagicItem] = useState<IMagicItem | null>(null);

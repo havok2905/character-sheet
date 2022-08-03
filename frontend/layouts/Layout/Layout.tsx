@@ -11,7 +11,7 @@ import {
   SPELLS_ROUTE,
   WIKI_ROUTE
 } from '../../app';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 interface ILayoutProps {
   children: ReactNode;

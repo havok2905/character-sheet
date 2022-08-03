@@ -1,2 +1,2 @@
-import { StatBlock } from "./StatBlock";
+import { StatBlock } from './StatBlock';
 export { StatBlock };

@@ -4,7 +4,7 @@ import { getArticle } from '../../utilities/Api/Articles';
 import { IArticle } from '../../types/models';
 import { MarkdownPreview } from '../../components/MarkdownPreview';
 import { TagList } from '../../components/TagEditor/TagList';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 const WikiArticlePage = (): ReactElement | null => {
   const [article, setArticle] = useState<IArticle | null>(null);

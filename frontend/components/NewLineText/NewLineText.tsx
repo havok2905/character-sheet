@@ -10,7 +10,7 @@ const NewLineText = ({
   return (
     <>
       {
-        text.split('\n').map((value, index) => {
+        text.split('\n').map(value => {
           return (
             <>
               {value}

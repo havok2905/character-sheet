@@ -19,7 +19,7 @@ module DataMappers
       end
 
       def pins_response(map)
-        pins = (map && map.pins) || []
+        pins = map&.pins || []
 
         pins.map do |pin|
           pin_entity = DataMappers::Responses::Entities::PinEntity.new
@@ -32,7 +32,7 @@ module DataMappers
       end
 
       def pin_creatures_response(pin)
-        creatures = (pin && pin.creatures) || []
+        creatures = pin&.creatures || []
 
         creatures.map do |creature|
           creature_entity = DataMappers::Responses::Entities::CreatureEntity.new
@@ -41,7 +41,7 @@ module DataMappers
       end
 
       def pin_factions_response(pin)
-        factions = (pin && pin.factions) || []
+        factions = pin&.factions || []
 
         factions.map do |faction|
           faction_entity = DataMappers::Responses::Entities::FactionEntity.new
@@ -50,7 +50,7 @@ module DataMappers
       end
 
       def pin_magic_items_response(pin)
-        magic_items = (pin && pin.magic_items) || []
+        magic_items = pin&.magic_items || []
 
         magic_items.map do |magic_item|
           magic_item_entity = DataMappers::Responses::Entities::MagicItemEntity.new

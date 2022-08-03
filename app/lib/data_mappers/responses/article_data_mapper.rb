@@ -13,11 +13,9 @@ module DataMappers
       private
 
       def tags_response(article)
-        tags = (article && article.tags) || []
-        
-        tags.map do |tag|
-          tag.title
-        end
+        tags = article&.tags || []
+
+        tags.map(&:title)
       end
     end
   end

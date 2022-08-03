@@ -1,2 +1,2 @@
-import { AbilitySkills } from "./AbilitySkills";
+import { AbilitySkills } from './AbilitySkills';
 export { AbilitySkills };

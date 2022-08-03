@@ -9,7 +9,7 @@ import {
 import { FactionForm } from '../../components/FactionForm';
 import { IFaction } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 const FactionEditPage = (): ReactElement | null => {
   const [faction, setFaction] = useState<IFaction | null>(null);

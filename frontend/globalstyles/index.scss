@@ -44,8 +44,8 @@
 }
 
 body {
-  margin: 0 0 100px 0;
-  padding-top: 50px;
+  margin: 0 0 100px;
+  padding-top: 100px;
 }
 
 html {
@@ -94,6 +94,7 @@ footer {
   padding: $standard-spacing;
   position: fixed;
   width: 100%;
+  z-index: 10;
 }
 
 /* stylelint-disable-next-line string-quotes */
@@ -104,36 +105,6 @@ input[type="number"], input[type="text"], select, textarea {
   color: $true-white;
   margin-bottom: $small-spacing;
   padding: $small-spacing;
-}
-
-nav {
-  align-items: center;
-  background-color: $dark-black;
-  box-sizing: border-box;
-  box-shadow: $box-shadow-light;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: $standard-spacing;
-  padding: 0 $standard-spacing;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1;
-}
-
-nav ul {
-  align-items: center;
-  box-sizing: border-box;
-  display: flex;
-  height: 60px;
-}
-
-nav ul li {
-  margin-right: $standard-spacing;
-}
-
-nav ul li a {
-  color: $true-white;
 }
 
 strong {
@@ -168,4 +139,34 @@ table {
   tr:last-of-type td {
     border: none;
   }
+}
+
+nav {
+  align-items: center;
+  background-color: $dark-black;
+  box-sizing: border-box;
+  box-shadow: $box-shadow-light;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $standard-spacing;
+  padding: 0 $standard-spacing;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+nav ul {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  height: 60px;
+}
+
+nav ul li {
+  margin-right: $standard-spacing;
+}
+
+nav ul li a {
+  color: $true-white;
 }

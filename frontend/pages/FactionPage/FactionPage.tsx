@@ -7,7 +7,7 @@ import { ICharacter, IFaction } from '../../types/models';
 import { ItemWithToken } from '../../components/ItemWithToken';
 import { NewLineText } from '../../components/NewLineText/NewLineText';
 import { Token } from '../../components/Token';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 const FactionPage = (): ReactElement | null => {
   const [faction, setFaction] = useState<IFaction | null>(null);

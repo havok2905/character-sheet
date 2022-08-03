@@ -5,8 +5,7 @@ module DataMappers
     class SpellDataMapper
       def run(spell)
         spell_entity = DataMappers::Responses::Entities::SpellEntity.new
-        response = spell_entity.run spell
-        response
+        spell_entity.run spell
       end
     end
   end

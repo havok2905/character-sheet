@@ -5,8 +5,7 @@ module DataMappers
     class PinDataMapper
       def run(pin)
         pin_entity = DataMappers::Responses::Entities::PinEntity.new
-        response = pin_entity.run pin
-        response
+        pin_entity.run pin
       end
     end
   end

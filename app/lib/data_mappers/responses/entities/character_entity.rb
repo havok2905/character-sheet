@@ -139,7 +139,7 @@ module DataMappers
 
         def character_attacks_response(character)
           character_attacks = character.character_attacks || []
-  
+
           character_attacks.map do |character_attack|
             {
               attackBonus: character_attack.attack_bonus,
@@ -159,10 +159,10 @@ module DataMappers
             }
           end
         end
-  
+
         def character_features_response(character)
           character_features = character.character_features || []
-  
+
           character_features.map do |character_feature|
             {
               description: character_feature.description,
@@ -172,10 +172,10 @@ module DataMappers
             }
           end
         end
-  
+
         def charcter_feature_resources_response(character)
           character_feature_resources = character.character_feature_resources || []
-  
+
           character_feature_resources.map do |character_feature_resource|
             {
               id: character_feature_resource.id,
@@ -184,10 +184,10 @@ module DataMappers
             }
           end
         end
-  
+
         def character_items_response(character)
           character_items = character.character_items || []
-  
+
           character_items.map do |character_item|
             {
               id: character_item.id,

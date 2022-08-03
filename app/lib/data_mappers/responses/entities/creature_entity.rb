@@ -81,7 +81,7 @@ module DataMappers
 
         def creature_actions_response(creature)
           creature_actions = creature.creature_actions || []
-  
+
           creature_actions.map do |creature_action|
             {
               id: creature_action.id,
@@ -100,10 +100,10 @@ module DataMappers
             }
           end
         end
-  
+
         def creature_features_response(creature)
           creature_features = creature.creature_features || []
-  
+
           creature_features.map do |creature_feature|
             {
               id: creature_feature.id,
@@ -112,10 +112,10 @@ module DataMappers
             }
           end
         end
-  
+
         def creature_lair_actions_response(creature)
           creature_lair_actions = creature.creature_lair_actions || []
-  
+
           creature_lair_actions.map do |creature_lair_action|
             {
               id: creature_lair_action.id,
@@ -123,10 +123,10 @@ module DataMappers
             }
           end
         end
-  
+
         def creature_legendary_actions_response(creature)
           creature_legendary_actions = creature.creature_legendary_actions || []
-  
+
           creature_legendary_actions.map do |creature_legendary_action|
             {
               id: creature_legendary_action.id,
@@ -135,10 +135,10 @@ module DataMappers
             }
           end
         end
-  
+
         def creature_regional_effects_response(creature)
           creature_regional_effects = creature.creature_regional_effects || []
-  
+
           creature_regional_effects.map do |creature_regional_effect|
             {
               id: creature_regional_effect.id,

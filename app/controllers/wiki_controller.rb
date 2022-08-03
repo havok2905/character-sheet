@@ -15,20 +15,20 @@ class WikiController < ApplicationController
 
   def create
     create_params = create_article_params
-    
+
     tags_to_associate = []
 
     create_params[:tags].each do |tag|
       existing_tag = Tag.where(title: tag).first
-      existing_tag = Tag.create(title: tag) unless existing_tag
+      existing_tag ||= Tag.create(title: tag)
       tags_to_associate.push existing_tag
     end
 
     a = Article.create({
-      content: create_params[:content],
-      tags: tags_to_associate,
-      title: create_params[:title]
-    })
+                         content: create_params[:content],
+                         tags: tags_to_associate,
+                         title: create_params[:title]
+                       })
 
     article = article_response_model a
     render json: { article: }
@@ -43,15 +43,15 @@ class WikiController < ApplicationController
 
     update_params[:tags].each do |tag|
       existing_tag = Tag.where(title: tag).first
-      existing_tag = Tag.create(title: tag) unless existing_tag
+      existing_tag ||= Tag.create(title: tag)
       tags_to_associate.push existing_tag
     end
 
     a.update({
-      content: update_params[:content],
-      tags: tags_to_associate,
-      title: update_params[:title]
-    })
+               content: update_params[:content],
+               tags: tags_to_associate,
+               title: update_params[:title]
+             })
 
     article = article_response_model a
     render json: { article: }

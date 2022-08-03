@@ -3,29 +3,21 @@
 module DataMappers
   module Responses
     class ExportDataMapper
-      def run(
-        articles,
-        characters,
-        creatures,
-        factions,
-        locations_hash,
-        magic_items,
-        spells
-      )
+      def run(options)
         {
-          articles: articles_response(articles),
-          characters: characters_response(characters),
-          creatures: creatures_response(creatures),
-          factions: factions_response(factions),
-          locations: locations_response(locations_hash),
-          magicItems: magic_items_response(magic_items),
-          spells: spells_response(spells)
+          articles: articles_response(options[:articles]),
+          characters: characters_response(options[:characters]),
+          creatures: creatures_response(options[:creatures]),
+          factions: factions_response(options[:factions]),
+          locations: locations_response(options[:locations_hash]),
+          magicItems: magic_items_response(options[:magic_items]),
+          spells: spells_response(options[:spells])
         }
       end
 
       private
 
-      def articles_response articles
+      def articles_response(articles)
         articles.map do |article|
           article_entity = DataMappers::Responses::Entities::ArticleEntity.new
           response = article_entity.run article
@@ -34,7 +26,7 @@ module DataMappers
         end
       end
 
-      def characters_response characters
+      def characters_response(characters)
         characters.map do |character|
           character_entity = DataMappers::Responses::Entities::CharacterEntity.new
           response = character_entity.run character
@@ -46,7 +38,7 @@ module DataMappers
         end
       end
 
-      def creatures_response creatures
+      def creatures_response(creatures)
         creatures.map do |creature|
           creature_entity = DataMappers::Responses::Entities::CreatureEntity.new
           response = creature_entity.run creature
@@ -57,7 +49,7 @@ module DataMappers
         end
       end
 
-      def factions_response factions
+      def factions_response(factions)
         factions.map do |faction|
           faction_entity = DataMappers::Responses::Entities::FactionEntity.new
           response = faction_entity.run faction
@@ -67,7 +59,7 @@ module DataMappers
         end
       end
 
-      def locations_response locations_hash
+      def locations_response(locations_hash)
         locations_hash.map do |location_hash|
           location = location_hash[:location]
           map = location_hash[:map]
@@ -80,14 +72,6 @@ module DataMappers
       end
 
       def magic_items_response(magic_items)
-        magic_items.map do |magic_item|
-          magic_item_entity = DataMappers::Responses::Entities::MagicItemEntity.new
-          magic_item_entity.run magic_item
-        end
-      end
-
-      def nested_magic_items_response(entity)
-        magic_items = entity.magic_items || []
         magic_items.map do |magic_item|
           magic_item_entity = DataMappers::Responses::Entities::MagicItemEntity.new
           magic_item_entity.run magic_item
@@ -134,7 +118,7 @@ module DataMappers
       end
 
       def nested_pins_response(map)
-        pins = (map && map.pins) || []
+        pins = map&.pins || []
 
         pins.map do |pin|
           pin_entity = DataMappers::Responses::Entities::PinEntity.new
@@ -155,11 +139,9 @@ module DataMappers
       end
 
       def nested_tags_response(entity)
-        tags = (entity && entity.tags) || []
-        
-        tags.map do |tag|
-          tag.title
-        end
+        tags = entity&.tags || []
+
+        tags.map(&:title)
       end
 
       def spells_response(spells)

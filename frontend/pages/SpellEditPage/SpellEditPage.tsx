@@ -3,7 +3,7 @@ import { DeleteButton } from '../../components/DeleteButton';
 import { destroySpell, getSpell, updateSpell } from '../../utilities/Api/Spells';
 import { ISpell } from '../../types/models';
 import { SpellForm } from '../../components/SpellForm/SpellForm';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 const SpellEditPage = (): ReactElement | null => {
   const [spell, setSpell] = useState<ISpell | null>(null);

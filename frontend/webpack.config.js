@@ -1,5 +1,5 @@
 const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: path.join(__dirname, './index.tsx'),
@@ -14,7 +14,7 @@ module.exports = {
         test: /\.(d.ts|ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             presets: [
               '@babel/preset-env',
@@ -27,15 +27,15 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         use: [
-          "style-loader",
+          'style-loader',
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
               esModule: false
             }
           },
-          "css-loader",
-          "sass-loader"
+          'css-loader',
+          'sass-loader'
         ]
       },
       {
@@ -52,8 +52,8 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "styles/application.css",
-      chunkFilename: "application.css"
+      filename: 'styles/application.css',
+      chunkFilename: 'application.css'
     })
   ]
 }

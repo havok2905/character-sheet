@@ -5,8 +5,7 @@ module DataMappers
     class MagicItemDataMapper
       def run(magic_item)
         magic_item_entity = DataMappers::Responses::Entities::MagicItemEntity.new
-        response = magic_item_entity.run magic_item
-        response
+        magic_item_entity.run magic_item
       end
     end
   end

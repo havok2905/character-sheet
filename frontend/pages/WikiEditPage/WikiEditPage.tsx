@@ -8,7 +8,7 @@ import {
 } from '../../utilities/Api/Articles';
 import { IArticle } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm/ImageForm';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import { WikiForm } from '../../components/WikiForm';
 
 interface IArticleEditPageState {

@@ -11,7 +11,7 @@ import { SpellListByLevel } from '../../components/SpellListByLevel';
 import { StatBlock } from '../../components/StatBlock';
 import { ToggleItem } from '../../components/ToggleItem';
 import { Token } from '../../components/Token';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 const CharacterPage = (): ReactElement | null => {
   const [character, setCharacter] = useState<ICharacter | null>(null);

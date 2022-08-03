@@ -27,7 +27,7 @@ import {
 } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
 import { Modal } from '../../components/Modal';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 interface ICharacterEditPageContentState {
   character: ICharacter | null;

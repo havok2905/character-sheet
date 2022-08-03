@@ -2,13 +2,13 @@
 
 class ExportsController < ApplicationController
   def json
-    response = export_response(*required_data)
+    response = export_response(required_data)
     render json: response
   end
 
   def json_download
-    response = export_response(*required_data)
-    send_data response.to_json, type: :json, :filename => 'export.json', disposition: 'attachment'
+    response = export_response(required_data)
+    send_data response.to_json, type: :json, filename: 'export.json', disposition: 'attachment'
   end
 
   private
@@ -24,24 +24,24 @@ class ExportsController < ApplicationController
 
     locations_hash = locations.map do |location|
       {
-        location: location,
+        location:,
         map: Map.where(location_id: location.id).first
       }
     end
 
-    [
-      articles,
-      characters,
-      creatures,
-      factions,
-      locations_hash,
-      magic_items,
-      spells
-    ]
+    {
+      articles:,
+      characters:,
+      creatures:,
+      factions:,
+      locations_hash:,
+      magic_items:,
+      spells:
+    }
   end
 
-  def export_response(articles, characters, creatures, factions, locations_hash, magic_items, spells)
+  def export_response(options)
     mapper = DataMappers::Responses::ExportDataMapper.new
-    mapper.run articles, characters, creatures, factions, locations_hash, magic_items, spells
+    mapper.run options
   end
 end

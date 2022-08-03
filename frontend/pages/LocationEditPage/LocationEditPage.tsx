@@ -25,7 +25,7 @@ import {
 import { MapWithPinsEditor } from '../../components/MapWithPinsEditor';
 import { MarkdownEditor } from '../../components/MarkdownEditor';
 import { MarkdownPreview } from '../../components/MarkdownPreview';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 interface ILocationEditPageState {
   creatures: ICreature[];

@@ -10,7 +10,7 @@ import { ILocation } from '../../types/models';
 import { MarkdownPreview } from '../../components/MarkdownPreview';
 import { Pin } from '../../components/Pin';
 import { PinViewModal } from '../../components/MapWithPinsEditor/PinViewModal';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 const LocationPage = (): ReactElement | null => {
   const [location, setLocation] = useState<ILocation | null>(null);

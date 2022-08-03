@@ -9,7 +9,7 @@ import {
 import { IMagicItem } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
 import { MagicItemForm } from '../../components/MagicItemForm';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 const MagicItemEditPage = (): ReactElement | null => {
   const [magicItem, setMagicItem] = useState<IMagicItem | null>(null);

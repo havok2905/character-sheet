@@ -1,2 +1,2 @@
-import { DmScreen } from "./DmScreen";
+import { DmScreen } from './DmScreen';
 export { DmScreen };
