@@ -74,7 +74,6 @@ const SpellsTable = ({
       <table>
         <thead>
           <tr>
-            <th>Id</th>
             <th>Name</th>
             <th>Level</th>
             <th>School</th>
@@ -97,7 +96,6 @@ const SpellsTable = ({
 
               return (
                 <tr>
-                  <td>{id}</td>
                   <td>{name}</td>
                   <td>{level}</td>
                   <td>{school}</td>

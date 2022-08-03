@@ -378,7 +378,6 @@ const MapWithPinsEditor = ({
       <table className="map-with-pins-table">
         <thead>
           <tr>
-            <th>Id</th>
             <th>Name</th>
             <th>X</th>
             <th>Y</th>
@@ -398,7 +397,6 @@ const MapWithPinsEditor = ({
                   onMouseLeave={() => {
                     handleTableItemMouseLeave() 
                   }}>
-                  <td>{id}</td>
                   <td>{name}</td>
                   <td>{x}</td>
                   <td>{y}</td>

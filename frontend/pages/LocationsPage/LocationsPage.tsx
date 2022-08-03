@@ -27,7 +27,6 @@ const LocationsPage = (): ReactElement => {
         <table>
           <thead>
             <tr>
-              <th>Id</th>
               <th>Name</th>
               <th>Actions</th>
             </tr>
@@ -37,7 +36,6 @@ const LocationsPage = (): ReactElement => {
               locations.map((l, index) => {
                 return (
                   <tr key={index}>
-                    <td>{l.id}</td>
                     <td>{l.name}</td>
                     <td>
                       <a href={`/locations/${l.id}`}>View</a>
