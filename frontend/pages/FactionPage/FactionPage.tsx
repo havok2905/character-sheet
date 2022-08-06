@@ -1,13 +1,18 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { Card } from '../../components/Card';
+import {
+  CHARACTER_ROUTE,
+  CREATURE_ROUTE,
+  FACTION_EDIT_ROUTE
+} from '../../app';
 import { creatureRow } from '../../utilities/UiHelpers/creatureRow';
 import { GearIcon } from '../../components/Icons';
+import { generatePath, Link, useParams } from 'react-router-dom';
 import { getFaction } from '../../utilities/Api/Factions';
 import { ICharacter, IFaction } from '../../types/models';
 import { ItemWithToken } from '../../components/ItemWithToken';
 import { NewLineText } from '../../components/NewLineText/NewLineText';
 import { Token } from '../../components/Token';
-import { useParams } from 'react-router-dom';
 
 const FactionPage = (): ReactElement | null => {
   const [faction, setFaction] = useState<IFaction | null>(null);
@@ -67,9 +72,9 @@ const FactionPage = (): ReactElement | null => {
       <div className="full">
         <div className="page-header">
           <div className="page-header-settings">
-            <a href={`/factions/${id}/edit`}>
+            <Link to={generatePath(FACTION_EDIT_ROUTE, { id })}>
               <GearIcon/>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -101,7 +106,7 @@ const FactionPage = (): ReactElement | null => {
                     heading={name}
                     imageAltText={`${name} token`}
                     imageUrl={imageUrl}
-                    itemPath={`/creatures/${id}`}
+                    itemPath={generatePath(CREATURE_ROUTE, { id })}
                   />
                 </li>
               );
@@ -125,7 +130,7 @@ const FactionPage = (): ReactElement | null => {
                     heading={name}
                     imageAltText={`${name} token`}
                     imageUrl={imageUrl}
-                    itemPath={`/characters/${id}`}
+                    itemPath={generatePath(CHARACTER_ROUTE, { id })}
                     subDescription={characterMulticlassRow(character)}
                   />
                 </li>

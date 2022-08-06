@@ -1,5 +1,7 @@
 import React, { ReactElement, useState } from 'react';
+import { generatePath, Link } from 'react-router-dom';
 import { ISpell } from '../../types/models';
+import { SPELL_EDIT_ROUTE, SPELL_ROUTE } from '../../app';
 import { SpellSchoolsTypes } from '../../types/rules';
 
 interface ISpellsTableProps {
@@ -102,8 +104,12 @@ const SpellsTable = ({
                   <td>{concentration ? 'C' : ''}</td>
                   <td>{ritual ? 'R' : ''}</td>
                   <td>
-                    <a href={`/spells/${id}`}>View</a>
-                    <a href={`/spells/${id}/edit`}>Edit</a>
+                    <Link to={generatePath(SPELL_ROUTE, { id })}>
+                      View
+                    </Link>
+                    <Link to={generatePath(SPELL_EDIT_ROUTE, { id })}>
+                      Edit
+                    </Link>
                   </td>
                 </tr>
               );

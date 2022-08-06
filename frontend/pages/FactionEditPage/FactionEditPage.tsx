@@ -6,14 +6,24 @@ import {
   updateFaction,
   uploadFactionImage
 } from '../../utilities/Api/Factions';
+import {
+  FACTION_ROUTE,
+  FACTIONS_ROUTE
+} from '../../app';
 import { FactionForm } from '../../components/FactionForm';
+import {
+  generatePath,
+  Link,
+  useNavigate,
+  useParams
+} from 'react-router-dom';
 import { IFaction } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
-import { useParams } from 'react-router-dom';
 
 const FactionEditPage = (): ReactElement | null => {
   const [faction, setFaction] = useState<IFaction | null>(null);
 
+  const navigate = useNavigate();
   const params = useParams();
 
   useEffect(() => {
@@ -31,11 +41,11 @@ const FactionEditPage = (): ReactElement | null => {
 
     destroyFaction(id)
       .then(() => {
-        window.location.href = '/factions/';
+        navigate(FACTIONS_ROUTE);
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = `/factions/${id}/edit/`;
+        location.reload();
       });
   };
 
@@ -44,11 +54,11 @@ const FactionEditPage = (): ReactElement | null => {
 
     updateFaction(id, { faction })
       .then(() => {
-        window.location.href = `/factions/${id}`;
+        navigate(generatePath(FACTION_ROUTE, { id }));
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = `/factions/${id}`;
+        navigate(generatePath(FACTION_ROUTE, { id }));
       });
   };
 
@@ -56,8 +66,8 @@ const FactionEditPage = (): ReactElement | null => {
     if (!data || !id) return;
               
     uploadFactionImage(id, data)
-      .then(data => {
-        window.location.href = `/factions/${data.faction.id}`;
+      .then(() => {
+        navigate(generatePath(FACTION_ROUTE, { id }));
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -68,9 +78,9 @@ const FactionEditPage = (): ReactElement | null => {
     <div className="layout">
       <div className="full">
         <h1>Edit Faction</h1>
-        <a href="/factions">
+        <Link to={generatePath(FACTION_ROUTE, { id })}>
           Back
-        </a>
+        </Link>
         <ImageForm
           buttonLabel="Upload Image"
           imageUrl={imageUrl}

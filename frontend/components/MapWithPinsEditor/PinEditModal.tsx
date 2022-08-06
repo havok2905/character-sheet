@@ -1,5 +1,11 @@
 import React, { ReactElement, useState } from 'react';
 import {
+  CREATURES_ROUTE,
+  FACTIONS_ROUTE,
+  MAGIC_ITEMS_ROUTE
+} from '../../app';
+import { generatePath, Link } from 'react-router-dom';
+import {
   IFaction,
   ICreature,
   ILocation,
@@ -85,7 +91,11 @@ const PinEditModal = ({
               return (
                 <tr>
                   <td>{name}</td>
-                  <td><a href={`${baseRoute}/${id}`}>View</a></td>
+                  <td>
+                    <Link to={generatePath(baseRoute, { id })}>
+                      View
+                    </Link>
+                  </td>
                   <td>
                     <input
                       checked={checked}
@@ -129,11 +139,11 @@ const PinEditModal = ({
         </fieldset>
       </form>
       <h3>Factions</h3>
-      {getEntityTable('/factions', factions, updatedFactionIds, setUpdatedFactionIds)}
+      {getEntityTable(FACTIONS_ROUTE, factions, updatedFactionIds, setUpdatedFactionIds)}
       <h3>Creatures</h3>
-      {getEntityTable('/creatures', creatures, updatedCreatureIds, setUpdatedCreatureIds)}
+      {getEntityTable(CREATURES_ROUTE, creatures, updatedCreatureIds, setUpdatedCreatureIds)}
       <h3>Magic Items</h3>
-      {getEntityTable('/magic_items', magicItems, updatedMagicItemIds, setUpdatedMagicItemIds)}
+      {getEntityTable(MAGIC_ITEMS_ROUTE, magicItems, updatedMagicItemIds, setUpdatedMagicItemIds)}
     </Modal>
   );
 };

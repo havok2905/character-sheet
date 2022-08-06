@@ -1,17 +1,26 @@
 import React, { ReactElement } from 'react';
 import { createMagicItem } from '../../utilities/Api/MagicItems';
+import {
+  generatePath,
+  Link,
+  useNavigate
+} from 'react-router-dom';
 import { IMagicItem } from '../../types/models';
 import { MagicItemForm } from '../../components/MagicItemForm/MagicItemForm';
+import { MAGIC_ITEM_ROUTE, MAGIC_ITEMS_ROUTE } from '../../app';
 
 const MagicItemCreatePage = (): ReactElement => {
+  const navigate = useNavigate();
+
   const handleSubmit = (magicItem: IMagicItem) => {
     createMagicItem({ magicItem })
       .then(data => {
-        window.location.href = `/magic_items/${data.magicItem.id}`;
+        const id = data.magicItem.id;
+        navigate(generatePath(MAGIC_ITEM_ROUTE, { id }));
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = '/magic_items/new';
+        location.reload();
       });
   };
 
@@ -19,7 +28,9 @@ const MagicItemCreatePage = (): ReactElement => {
     <div className="layout">
       <div className="full">
         <h1>New Magic Item</h1>
-        <a href="/magic_items">Back</a>
+        <Link to={MAGIC_ITEMS_ROUTE}>
+          Back
+        </Link>
         <MagicItemForm
           handleSubmit={handleSubmit}
           handleSubmitButtonLabel="Create Magic Item"/>

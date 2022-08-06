@@ -6,14 +6,24 @@ import {
   updateMagicItem,
   uploadMagicItemImage
 } from '../../utilities/Api/MagicItems';
+import {
+  generatePath,
+  Link,
+  useNavigate,
+  useParams
+} from 'react-router-dom';
 import { IMagicItem } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
 import { MagicItemForm } from '../../components/MagicItemForm';
-import { useParams } from 'react-router-dom';
+import {
+  MAGIC_ITEM_ROUTE,
+  MAGIC_ITEMS_ROUTE
+} from '../../app';
 
 const MagicItemEditPage = (): ReactElement | null => {
   const [magicItem, setMagicItem] = useState<IMagicItem | null>(null);
   
+  const navigate = useNavigate();
   const params = useParams();
 
   useEffect(() => {
@@ -31,11 +41,11 @@ const MagicItemEditPage = (): ReactElement | null => {
 
     destroyMagicItem(id)
       .then(() => {
-        window.location.href = '/magic_items/';
+        navigate(MAGIC_ITEMS_ROUTE);
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = `/magic_items/${id}/edit/`;
+        location.reload();
       });
   };
   
@@ -44,11 +54,11 @@ const MagicItemEditPage = (): ReactElement | null => {
 
     updateMagicItem(id, { magicItem })
       .then(() => {
-        window.location.href = `/magic_items/${id}`;
+        navigate(generatePath(MAGIC_ITEM_ROUTE, { id }));
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = `/magic_items/${id}`;
+        location.reload();
       });
   };
 
@@ -56,11 +66,12 @@ const MagicItemEditPage = (): ReactElement | null => {
     if (!data || !id) return;
               
     uploadMagicItemImage(id, data)
-      .then(data => {
-        window.location.href = `/magic_items/${data.magicItem.id}`;
+      .then(() => {
+        navigate(generatePath(MAGIC_ITEM_ROUTE, { id }));
       })
       .catch((error) => {
         console.error('Error:', error);
+        location.reload();
       });
   };
 
@@ -68,7 +79,9 @@ const MagicItemEditPage = (): ReactElement | null => {
     <div className="layout">
       <div className="full">
         <h1>Edit Magic Item</h1>
-        <a href={`/magic_items/${id}`}>Back</a>
+        <Link to={generatePath(MAGIC_ITEM_ROUTE, { id })}>
+          Back
+        </Link>
         <ImageForm
           buttonLabel="Upload Image"
           imageUrl={imageUrl}

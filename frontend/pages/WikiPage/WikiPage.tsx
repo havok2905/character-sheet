@@ -1,7 +1,9 @@
 import React, { ReactElement, useEffect, useState } from 'react';
+import { generatePath, Link } from 'react-router-dom';
 import { getArticles } from '../../utilities/Api/Articles';
 import { IArticle } from '../../types/models';
 import { WikiItem } from '../../components/WikiItem';
+import { WIKI_CREATE_ROUTE, WIKI_ITEM_ROUTE } from '../../app';
 
 const WikiPage = (): ReactElement => {
   const [articles, setArticles] = useState<IArticle[]>([]);
@@ -49,7 +51,9 @@ const WikiPage = (): ReactElement => {
     <div className="layout">
       <div className="full">
         <h1>Wiki</h1>
-        <a href="/wiki/new">Create</a>
+        <Link to={WIKI_CREATE_ROUTE}>
+          Create
+        </Link>
         <form>
           <fieldset>
             <label>Tag</label>
@@ -69,7 +73,7 @@ const WikiPage = (): ReactElement => {
             
             return (
               <WikiItem
-                path={`/wiki/${id}`}
+                path={generatePath(WIKI_ITEM_ROUTE, { id })}
                 imagePath={heroImageUrl || ''}
                 tags={tags}
                 title={title}

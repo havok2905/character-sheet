@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 import { Token } from '../Token';
 import './_associateWithTokenLink.scss';
 
@@ -16,7 +17,7 @@ const AssociateWithTokenLink = ({
   linkText
 }: IAssociateWithTokenLinkProps): ReactElement => {
   return (
-    <a className="pet-and-associate-link" href={associationUrl}>
+    <Link className="pet-and-associate-link" to={associationUrl}>
       <div className="pet-and-associate-link-content">
         <Token
           imageAltText={imageAltText}
@@ -24,7 +25,7 @@ const AssociateWithTokenLink = ({
           size="small" />
         {linkText}
       </div>
-    </a>
+    </Link>
   );
 };
 

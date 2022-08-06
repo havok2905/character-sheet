@@ -1,4 +1,6 @@
 import React, { ReactElement, useState } from 'react';
+import { CREATURE_ROUTE } from '../../app';
+import { generatePath, Link } from 'react-router-dom';
 import { ICreature } from '../../types/models';
 
 interface IAssociatedCreaturesForm {
@@ -71,7 +73,11 @@ const AssociatedCreaturesForm = ({
               return (
                 <tr>
                   <td>{name}</td>
-                  <td><a href={`/creatures/${id}`}>View</a></td>
+                  <td>
+                    <Link to={generatePath(CREATURE_ROUTE, { id })}>
+                      View
+                    </Link>
+                  </td>
                   <td>
                     <input
                       checked={checked}

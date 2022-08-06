@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 import { TagList } from '../TagEditor/TagList';
 import './_wikiItem.scss';
 
@@ -16,7 +17,7 @@ const WikiItem = ({
   title
 }: IWikiItemProps): ReactElement => {
   return (
-    <a className="wiki-item" href={path}>
+    <Link className="wiki-item" to={path}>
       <img src={imagePath} />
       <div className="wiki-item-content">
         <h2>{title}</h2>
@@ -24,7 +25,7 @@ const WikiItem = ({
           <TagList tags={tags}/>
         </div>
       </div>
-    </a>
+    </Link>
   );
 };
 

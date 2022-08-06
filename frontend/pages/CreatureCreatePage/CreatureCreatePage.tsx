@@ -1,17 +1,29 @@
 import React, { ReactElement } from 'react';
+import {
+  CREATURE_ROUTE,
+  CREATURES_ROUTE
+} from '../../app';
 import { createCreature } from '../../utilities/Api/Creatures';
 import { CreatureForm } from '../../components/CreatureForm/CreatureForm';
+import {
+  generatePath,
+  Link,
+  useNavigate
+} from 'react-router-dom';
 import { ICreature } from '../../types/models';
 
 const CreatureCreatePage = (): ReactElement => {
+  const navigate = useNavigate();
+
   const handleSubmit = (creature: ICreature) => {
     createCreature({ creature })
       .then(data => {
-        window.location.href = `/creatures/${data.creature.id}`;
+        const id = data.creature.id;
+        navigate(generatePath(CREATURE_ROUTE, { id }));
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = '/creatures/new';
+        location.reload();
       });
   };
 
@@ -19,9 +31,9 @@ const CreatureCreatePage = (): ReactElement => {
     <div className="layout">
       <div className="full">
         <h1>New Creature</h1>
-        <a href="/creatures">
+        <Link to={CREATURES_ROUTE}>
           Back
-        </a>
+        </Link>
         <CreatureForm
           handleSubmit={handleSubmit}
           handleSubmitButtonLabel="Create Creature"

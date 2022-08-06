@@ -1,17 +1,26 @@
 import React, { ReactElement } from 'react';
 import { createArticle } from '../../utilities/Api/Articles';
+import {
+  generatePath,
+  Link,
+  useNavigate
+} from 'react-router-dom';
 import { IArticle } from '../../types/models';
 import { WikiForm } from '../../components/WikiForm';
+import { WIKI_ITEM_ROUTE, WIKI_ROUTE } from '../../app';
 
 const WikiCreatePage = (): ReactElement => {
+  const navigate = useNavigate();
+
   const handleSubmit = (article: IArticle) => {
     createArticle({ article })
       .then(data => {
-        window.location.href = `/wiki/${data.article.id}`;
+        const id = data.article.id;
+        navigate(generatePath(WIKI_ITEM_ROUTE, { id }));
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = '/wiki/new';
+        location.reload();
       });
   };
 
@@ -19,6 +28,9 @@ const WikiCreatePage = (): ReactElement => {
     <div className="layout">
       <div className="full">
         <h1>New Wiki Article</h1>
+        <Link to={WIKI_ROUTE}>
+          Back
+        </Link>
         <WikiForm
           handleSubmit={handleSubmit}
           handleSubmitButtonLabel="Create Wiki Article" />

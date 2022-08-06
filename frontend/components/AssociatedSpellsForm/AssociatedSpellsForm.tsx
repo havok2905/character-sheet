@@ -1,5 +1,7 @@
 import React, { ReactElement, useState } from 'react';
+import { generatePath, Link } from 'react-router-dom';
 import { ISpell } from '../../types/models';
+import { SPELL_ROUTE } from '../../app';
 import { SpellSchoolsTypes } from '../../types/rules';
 
 interface IAssociatedSpellsFormProps {
@@ -106,7 +108,11 @@ const AssociatedSpellsForm = ({
                   <td>{name}</td>
                   <td>{level}</td>
                   <td>{school}</td>
-                  <td><a href={`/spells/${id}`}>View</a></td>
+                  <td>
+                    <Link to={generatePath(SPELL_ROUTE, { id })}>
+                      View
+                    </Link>
+                  </td>
                   <td>
                     <input
                       checked={checked}

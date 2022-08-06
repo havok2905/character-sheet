@@ -1,4 +1,6 @@
 import React, { ReactElement, useState } from 'react';
+import { FACTION_ROUTE } from '../../app';
+import { generatePath, Link } from 'react-router-dom';
 import { IFaction } from '../../types/models';
 
 interface IAssociatedFactionsForm {
@@ -71,7 +73,11 @@ const AssociatedFactionsForm = ({
               return (
                 <tr>
                   <td>{name}</td>
-                  <td><a href={`/factions/${id}`}>View</a></td>
+                  <td>
+                    <Link to={generatePath(FACTION_ROUTE, { id })}>
+                      View
+                    </Link>
+                  </td>
                   <td>
                     <input
                       checked={checked}

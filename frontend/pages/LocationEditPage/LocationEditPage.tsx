@@ -13,6 +13,12 @@ import {
   uploadLocationMap,
   uploadLocationSigil
 } from '../../utilities/Api/Locations';
+import {
+  generatePath,
+  Link,
+  useNavigate,
+  useParams
+} from 'react-router-dom';
 import { getCreatures } from '../../utilities/Api/Creatures';
 import { getFactions } from '../../utilities/Api/Factions';
 import { getMagicItems } from '../../utilities/Api/MagicItems';
@@ -22,10 +28,13 @@ import {
   ILocation,
   IMagicItem
 } from '../../types/models';
+import {
+  LOCATION_ROUTE,
+  LOCATIONS_ROUTE
+} from '../../app';
 import { MapWithPinsEditor } from '../../components/MapWithPinsEditor';
 import { MarkdownEditor } from '../../components/MarkdownEditor';
 import { MarkdownPreview } from '../../components/MarkdownPreview';
-import { useParams } from 'react-router-dom';
 
 interface ILocationEditPageState {
   creatures: ICreature[];
@@ -34,7 +43,7 @@ interface ILocationEditPageState {
   magicItems: IMagicItem[];
 }
 
-const LocationEditPage = (): ReactElement => {
+const LocationEditPage = (): ReactElement | null => {
   const [contentField, setContentField] = useState('');
   const [descriptionField, setDescriptionField] = useState('');
   const [nameField, setNameField] = useState('');
@@ -45,6 +54,7 @@ const LocationEditPage = (): ReactElement => {
     magicItems: [] as IMagicItem[]
   });
 
+  const navigate = useNavigate();
   const params = useParams();
 
   const heroImageFileUploadRef = useRef<HTMLInputElement | null>(null);
@@ -85,15 +95,25 @@ const LocationEditPage = (): ReactElement => {
     magicItems
   } = state;
 
+  if (!location) return null;
+
+  const {
+    heroImageUrl,
+    id,
+    map,
+    name = '',
+    sigilUrl = ''
+  } = location ?? {};
+
   const handleDelete = () => {
-    if (params.id) {
-      destroyLocation(params.id)
+    if (id) {
+      destroyLocation(id)
         .then(() => {
-          window.location.href = '/locations/';
+          navigate(LOCATIONS_ROUTE);
         })
         .catch((error) => {
           console.error('Error:', error);
-          window.location.href = `/locations/${params.id}/edit/`;
+          window.location.reload();
         });
     }
   }
@@ -101,7 +121,7 @@ const LocationEditPage = (): ReactElement => {
   const handleMapSubmit = e => {
     e.preventDefault();
 
-    if (params.id) {
+    if (id) {
       const data = new FormData();
       const filesToUpload = mapFileUploadRef?.current?.files;
 
@@ -109,9 +129,9 @@ const LocationEditPage = (): ReactElement => {
 
       data.append('location-map-file-upload', filesToUpload[0]);
 
-      uploadLocationMap(params.id, data)
-        .then(data => {
-          window.location.href = `/locations/${data.location.id}`;
+      uploadLocationMap(id, data)
+        .then(() => {
+          navigate(generatePath(LOCATION_ROUTE, { id }));
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -122,7 +142,7 @@ const LocationEditPage = (): ReactElement => {
   const handleHeroImageSubmit = e => {
     e.preventDefault();
 
-    if (params.id) {
+    if (id) {
       const data = new FormData();
       const filesToUpload = heroImageFileUploadRef?.current?.files;
 
@@ -130,9 +150,9 @@ const LocationEditPage = (): ReactElement => {
 
       data.append('location-hero-image-file-upload', filesToUpload[0]);
 
-      uploadLocationHeroImage(params.id, data)
-        .then(data => {
-          window.location.href = `/locations/${data.location.id}`;
+      uploadLocationHeroImage(id, data)
+        .then(() => {
+          navigate(generatePath(LOCATION_ROUTE, { id }));
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -143,7 +163,7 @@ const LocationEditPage = (): ReactElement => {
   const handleSigilSubmit = e => {
     e.preventDefault();
 
-    if (params.id) {
+    if (id) {
       const data = new FormData();
       const filesToUpload = sigilFileUploadRef?.current?.files;
 
@@ -151,9 +171,9 @@ const LocationEditPage = (): ReactElement => {
 
       data.append('location-sigil-file-upload', filesToUpload[0]);
 
-      uploadLocationSigil(params.id, data)
-        .then(data => {
-          window.location.href = `/locations/${data.location.id}`;
+      uploadLocationSigil(id, data)
+        .then(() => {
+          navigate(generatePath(LOCATION_ROUTE, { id }));
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -164,16 +184,16 @@ const LocationEditPage = (): ReactElement => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    if (params.id) {
-      updateLocation(params.id, {
+    if (id) {
+      updateLocation(id, {
         location: {
           content: contentField,
           description: descriptionField,
           name: nameField
         }
       })
-        .then(data => {
-          window.location.href = `/locations/${data.location.id}`;
+        .then(() => {
+          navigate(generatePath(LOCATION_ROUTE, { id }));
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -181,17 +201,13 @@ const LocationEditPage = (): ReactElement => {
     }
   };
 
-  const {
-    heroImageUrl,
-    map,
-    name = '',
-    sigilUrl = ''
-  } = location ?? {};
-
   return (
     <div className="layout">
       <div className="full">
         <h1>Edit Location</h1>
+        <Link to={generatePath(LOCATION_ROUTE, { id })}>
+          Back
+        </Link>
         <DeleteButton
           buttonText="Delete Location"
           handleDelete={handleDelete}/>

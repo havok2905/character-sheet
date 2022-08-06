@@ -1,7 +1,9 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { getMagicItems } from '../../utilities/Api/MagicItems';
 import { IMagicItem } from '../../types/models';
+import { Link } from 'react-router-dom';
 import { MagicItemsTable } from '../../components/MagicItemsTable';
+import { LOCATION_CREATE_ROUTE } from '../../app';
 
 const MagicItemsPage = (): ReactElement => {
   const [magicItems, setMagicItems] = useState<IMagicItem[]>([]);
@@ -14,9 +16,9 @@ const MagicItemsPage = (): ReactElement => {
     <div className="layout">
       <div className="full">
         <h1>Magic Items</h1>
-        <a href="/magic_items/new">
+        <Link to={LOCATION_CREATE_ROUTE}>
           Create
-        </a>
+        </Link>
         <MagicItemsTable magicItems={magicItems}/>
       </div>
     </div>

@@ -1,7 +1,9 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { getSpells } from '../../utilities/Api/Spells';
 import { ISpell } from '../../types/models';
+import { Link } from 'react-router-dom';
 import { SpellsTable } from '../../components/SpellsTable';
+import { SPELL_CREATE_ROUTE } from '../../app';
 
 const SpellsPage = (): ReactElement => {
   const [spells, setSpells] = useState<ISpell[]>([]);
@@ -14,9 +16,9 @@ const SpellsPage = (): ReactElement => {
     <div className="layout">
       <div className="full">
         <h1>Spells</h1>
-        <a href="/spells/new">
+        <Link to={SPELL_CREATE_ROUTE}>
           Create
-        </a>
+        </Link>
         <SpellsTable spells={spells}/>
       </div>
     </div>

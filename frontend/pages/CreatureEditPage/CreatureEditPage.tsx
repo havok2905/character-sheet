@@ -7,9 +7,24 @@ import { AssociatedLegendaryActionsForm } from '../../components/AssociatedLegen
 import { AssociatedMagicItemsForm } from '../../components/AssociatedMagicItemsForm';
 import { AssociatedRegionalEffectsForm } from '../../components/AssociatedRegionalEffectsForm';
 import { AssociatedSpellsForm } from '../../components/AssociatedSpellsForm';
+import {
+  CREATURE_ROUTE,
+  CREATURES_ROUTE
+} from '../../app';
 import { CreatureForm } from '../../components/CreatureForm/CreatureForm';
 import { DeleteButton } from '../../components/DeleteButton';
-import { destroyCreature, getCreature, updateCreature, uploadCreatureImage } from '../../utilities/Api/Creatures';
+import {
+  destroyCreature,
+  getCreature,
+  updateCreature,
+  uploadCreatureImage
+} from '../../utilities/Api/Creatures';
+import {
+  generatePath,
+  Link,
+  useNavigate,
+  useParams
+} from 'react-router-dom';
 import { getFactions } from '../../utilities/Api/Factions';
 import { getMagicItems } from '../../utilities/Api/MagicItems';
 import { getSpells } from '../../utilities/Api/Spells';
@@ -26,7 +41,6 @@ import {
 } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
 import { Modal } from '../../components/Modal';
-import { useParams } from 'react-router-dom';
 
 interface ICreatureEditPageContentState {
   creature: ICreature | null,
@@ -51,6 +65,7 @@ const CreatureEditPage = (): ReactElement | null => {
     spells: [] as ISpell[]
   });
 
+  const navigate = useNavigate();
   const params = useParams();
 
   useEffect(() => {
@@ -87,11 +102,11 @@ const CreatureEditPage = (): ReactElement | null => {
 
     destroyCreature(id)
       .then(() => {
-        window.location.href = '/creatures/';
+        navigate(CREATURES_ROUTE);
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = `/creatures/${id}/edit/`;
+        location.reload();
       });
   };
 
@@ -100,11 +115,11 @@ const CreatureEditPage = (): ReactElement | null => {
 
     updateCreature(id, { creature })
       .then(() => {
-        window.location.href = `/creatures/${id}`;
+        navigate(generatePath(CREATURE_ROUTE, { id }));
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = `/creatures/${id}`;
+        navigate(generatePath(CREATURE_ROUTE, { id }));
       });
   };
 
@@ -112,8 +127,8 @@ const CreatureEditPage = (): ReactElement | null => {
     if (!data || !id) return;
               
     uploadCreatureImage(id, data)
-      .then(data => {
-        window.location.href = `/creatures/${data.creature.id}/edit`;
+      .then(() => {
+        location.reload();
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -257,9 +272,9 @@ const CreatureEditPage = (): ReactElement | null => {
     <>
       <div className="layout">
         <div className="full">
-          <a href={`/creatures/${id}`}>
+          <Link to={generatePath(CREATURE_ROUTE, { id })}>
             Back
-          </a>
+          </Link>
           <DeleteButton
             buttonText="Delete Creature"
             handleDelete={handleDelete}/>

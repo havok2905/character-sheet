@@ -1,17 +1,29 @@
 import React, { ReactElement } from 'react';
 import { createFaction } from '../../utilities/Api/Factions';
+import {
+  FACTION_ROUTE,
+  FACTIONS_ROUTE
+} from '../../app';
 import { FactionForm } from '../../components/FactionForm';
+import {
+  generatePath,
+  Link,
+  useNavigate
+} from 'react-router-dom';
 import { IFaction } from '../../types/models';
 
 const FactionCreatePage = (): ReactElement => {
+  const navigate = useNavigate();
+
   const handleSubmit = (faction: IFaction) => {
     createFaction({ faction })
       .then(data => {
-        window.location.href = `/factions/${data.faction.id}`;
+        const id = data.faction.id;
+        navigate(generatePath(FACTION_ROUTE, { id }));
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = '/factions/new';
+        location.reload();
       });
   };
 
@@ -19,9 +31,9 @@ const FactionCreatePage = (): ReactElement => {
     <div className="layout">
       <div className="full">
         <h1>New Faction</h1>
-        <a href="/factions">
+        <Link to={FACTIONS_ROUTE}>
           Back
-        </a>
+        </Link>
         <FactionForm
           handleSubmit={handleSubmit}
           handleSubmitButtonLabel="Create Faction"/>

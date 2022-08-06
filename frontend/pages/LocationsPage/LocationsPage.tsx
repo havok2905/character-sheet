@@ -3,8 +3,14 @@ import React, {
   useEffect,
   useState
 } from 'react';
+import { generatePath, Link } from 'react-router-dom';
 import { getLocations } from '../../utilities/Api/Locations';
 import { ILocation } from '../../types/models';
+import {
+  LOCATION_ROUTE,
+  LOCATION_CREATE_ROUTE,
+  LOCATION_EDIT_ROUTE
+} from '../../app';
 
 const LocationsPage = (): ReactElement => {
   const [locations, setLocations] = useState<ILocation[]>([]);
@@ -23,7 +29,9 @@ const LocationsPage = (): ReactElement => {
     <div className="layout">
       <div className="full">
         <h1>Locations</h1>
-        <a href="/locations/new">Create</a>
+        <Link to={LOCATION_CREATE_ROUTE}>
+          Create
+        </Link>
         <table>
           <thead>
             <tr>
@@ -34,12 +42,17 @@ const LocationsPage = (): ReactElement => {
           <tbody>
             {
               locations.map((l, index) => {
+                const { id, name } = l;
                 return (
                   <tr key={index}>
-                    <td>{l.name}</td>
+                    <td>{name}</td>
                     <td>
-                      <a href={`/locations/${l.id}`}>View</a>
-                      <a href={`/locations/${l.id}/edit`}>Edit</a>
+                      <Link to={generatePath(LOCATION_ROUTE, { id })}>
+                        View
+                      </Link>
+                      <Link to={generatePath(LOCATION_EDIT_ROUTE, { id })}>
+                        Edit
+                      </Link>
                     </td>
                   </tr>
                 )

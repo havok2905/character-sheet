@@ -1,10 +1,11 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { GearIcon } from '../../components/Icons';
 import { getArticle } from '../../utilities/Api/Articles';
+import { generatePath, Link, useParams } from 'react-router-dom';
 import { IArticle } from '../../types/models';
 import { MarkdownPreview } from '../../components/MarkdownPreview';
 import { TagList } from '../../components/TagEditor/TagList';
-import { useParams } from 'react-router-dom';
+import { WIKI_EDIT_ROUTE } from '../../app';
 
 const WikiArticlePage = (): ReactElement | null => {
   const [article, setArticle] = useState<IArticle | null>(null);
@@ -38,9 +39,9 @@ const WikiArticlePage = (): ReactElement | null => {
       <div className="full">
         <div className="page-header">
           <div className="page-header-settings">
-            <a href={`/wiki/${id}/edit`}>
+            <Link to={generatePath(WIKI_EDIT_ROUTE, { id })}>
               <GearIcon/>
-            </a>
+            </Link>
           </div>
         </div>
         <h1>{title}</h1>

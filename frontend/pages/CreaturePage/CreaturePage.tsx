@@ -1,7 +1,13 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { AssociateWithTokenLink } from '../../components/AssociateWithTokenLink';
 import { Card } from '../../components/Card';
+import {
+  CREATURE_EDIT_ROUTE,
+  FACTION_ROUTE,
+  MAGIC_ITEM_ROUTE
+} from '../../app';
 import { GearIcon } from '../../components/Icons';
+import { generatePath, Link, useParams } from 'react-router-dom';
 import { getCreature } from '../../utilities/Api/Creatures';
 import { ICreature } from '../../types/models';
 import { NewLineText } from '../../components/NewLineText';
@@ -9,11 +15,10 @@ import { SpellListByLevel } from '../../components/SpellListByLevel';
 import { StatBlock } from '../../components/StatBlock';
 import { ToggleItem } from '../../components/ToggleItem';
 import { Token } from '../../components/Token';
-import { useParams } from 'react-router-dom';
 
 const CreaturePage = (): ReactElement | null => {
   const [creature, setCreature] = useState<ICreature | null>(null);
-  
+
   const params = useParams();
 
   useEffect(() => {
@@ -93,7 +98,7 @@ const CreaturePage = (): ReactElement | null => {
 
             return (
               <AssociateWithTokenLink
-                associationUrl={`/factions/${id}`}
+                associationUrl={generatePath(FACTION_ROUTE, { id })}
                 imageAltText={`${name} token`}
                 imageUrl={imageUrl}
                 linkText={name}
@@ -121,7 +126,7 @@ const CreaturePage = (): ReactElement | null => {
             
             return (
               <AssociateWithTokenLink
-                associationUrl={`/magic_items/${id}`}
+                associationUrl={generatePath(MAGIC_ITEM_ROUTE, { id })}
                 imageAltText={`${name} token`}
                 imageUrl={imageUrl}
                 linkText={name}
@@ -320,9 +325,9 @@ const CreaturePage = (): ReactElement | null => {
       <div className="full">
         <div className="page-header">
           <div className="page-header-settings">
-            <a href={`/creatures/${id}/edit`}>
+            <Link to={generatePath(CREATURE_EDIT_ROUTE, { id })}>
               <GearIcon/>
-            </a>
+            </Link>
           </div>
           <Token imageAltText="creature portrait" imageUrl={imageUrl}/>
           <div>

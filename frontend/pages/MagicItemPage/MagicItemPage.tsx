@@ -1,10 +1,11 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { Card } from '../../components/Card';
 import { GearIcon } from '../../components/Icons/GearIcon';
+import { generatePath, Link, useParams } from 'react-router-dom';
 import { getMagicItem } from '../../utilities/Api/MagicItems';
 import { IMagicItem } from '../../types/models';
+import { MAGIC_ITEM_EDIT_ROUTE } from '../../app';
 import { Token } from '../../components/Token';
-import { useParams } from 'react-router-dom';
 
 const MagicItemPage = (): ReactElement | null => {
   const [magicItem, setMagicItem] = useState<IMagicItem | null>(null);
@@ -35,9 +36,9 @@ const MagicItemPage = (): ReactElement | null => {
       <div className="full">
         <div className="page-header">
           <div className="page-header-settings">
-            <a href={`/magic_items/${id}/edit`}>
+            <Link to={generatePath(MAGIC_ITEM_EDIT_ROUTE, { id })}>
               <GearIcon/>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

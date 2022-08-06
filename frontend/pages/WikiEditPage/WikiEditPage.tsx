@@ -6,10 +6,16 @@ import {
   updateArticle,
   uploadArticleHeroImage,
 } from '../../utilities/Api/Articles';
+import {
+  generatePath,
+  Link,
+  useNavigate,
+  useParams
+} from 'react-router-dom';
 import { IArticle } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm/ImageForm';
-import { useParams } from 'react-router-dom';
 import { WikiForm } from '../../components/WikiForm';
+import { WIKI_ITEM_ROUTE, WIKI_ROUTE } from '../../app';
 
 interface IArticleEditPageState {
   article: IArticle | null;
@@ -18,6 +24,7 @@ interface IArticleEditPageState {
 const WikiEditPage = (): ReactElement | null => {
   const [state, setState] = useState<IArticleEditPageState>({ article: null });
   
+  const navigate = useNavigate();
   const params = useParams();
 
   useEffect(() => {
@@ -33,49 +40,54 @@ const WikiEditPage = (): ReactElement | null => {
 
   if (!article) return null;
 
+  const { heroImageUrl, id } = article ?? {};
+
   const handleDelete = () => {
-    if (params.id) {
-      destroyArticle(params.id)
+    if (id) {
+      destroyArticle(id)
         .then(() => {
-          window.location.href = '/wiki/';
+          navigate(WIKI_ROUTE);
         })
         .catch((error) => {
           console.error('Error:', error);
-          window.location.href = `/wiki/${params.id}/edit/`;
+          location.reload();
         });
     }
   }
 
   const handleSubmit = (article: IArticle) => {
-    if (params.id) {
-      updateArticle(params.id, { article })
-        .then(data => {
-          window.location.href = `/wiki/${data.article.id}`;
+    if (id) {
+      updateArticle(id, { article })
+        .then(() => {
+          navigate(generatePath(WIKI_ITEM_ROUTE, { id }));
         })
         .catch((error) => {
           console.error('Error:', error);
+          location.reload();
         });
     }
   };
 
   const handleHeroImageSubmit = (data: FormData | undefined) => {
-    if (!data || !params.id) return;
+    if (!data || !id) return;
 
-    uploadArticleHeroImage(params.id, data)
-      .then(data => {
-        window.location.href = `/wiki/${data.article.id}`;
+    uploadArticleHeroImage(id, data)
+      .then(() => {
+        navigate(generatePath(WIKI_ITEM_ROUTE, { id }));
       })
       .catch((error) => {
         console.error('Error:', error);
+        location.reload();
       });
   };
-
-  const { heroImageUrl } = article ?? {};
 
   return (
     <div className="layout">
       <div className="full">
         <h1>Edit Wiki Article</h1>
+        <Link to={generatePath(WIKI_ITEM_ROUTE, { id })}>
+          Back
+        </Link>
         <DeleteButton
           buttonText="Delete Wiki Article"
           handleDelete={handleDelete}/>

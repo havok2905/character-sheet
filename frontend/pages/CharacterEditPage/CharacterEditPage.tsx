@@ -7,8 +7,24 @@ import { AssociatedFeatureResourcesForm } from '../../components/AssociatedFeatu
 import { AssociatedInventoryForm } from '../../components/AssociatedInventoryForm';
 import { AssociatedMagicItemsForm } from '../../components/AssociatedMagicItemsForm';
 import { AssociatedSpellsForm } from '../../components/AssociatedSpellsForm';
+import {
+  CHARACTER_ROUTE,
+  CHARACTER_EDIT_ROUTE,
+  CHARACTERS_ROUTE
+} from '../../app';
 import { DeleteButton } from '../../components/DeleteButton';
-import { destroyCharacter, getCharacter, updateCharacter, uploadCharacterImage } from '../../utilities/Api/Characters';
+import {
+  destroyCharacter,
+  getCharacter,
+  updateCharacter,
+  uploadCharacterImage
+} from '../../utilities/Api/Characters';
+import {
+  generatePath,
+  Link,
+  useNavigate,
+  useParams
+} from 'react-router-dom';
 import { getCreatures } from '../../utilities/Api/Creatures';
 import { getFactions } from '../../utilities/Api/Factions';
 import { getMagicItems } from '../../utilities/Api/MagicItems';
@@ -27,7 +43,6 @@ import {
 } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
 import { Modal } from '../../components/Modal';
-import { useParams } from 'react-router-dom';
 
 interface ICharacterEditPageContentState {
   character: ICharacter | null;
@@ -54,6 +69,7 @@ const CharacterEditPage = (): ReactElement | null => {
     spells: [] as ISpell[]
   });
 
+  const navigate = useNavigate();
   const params = useParams();
 
   useEffect(() => {
@@ -93,11 +109,11 @@ const CharacterEditPage = (): ReactElement | null => {
 
     destroyCharacter(id)
       .then(() => {
-        window.location.href = '/characters/';
+        navigate(CHARACTERS_ROUTE);
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = `/characters/${id}/edit/`;
+        location.reload();
       });
   };
 
@@ -106,11 +122,11 @@ const CharacterEditPage = (): ReactElement | null => {
 
     updateCharacter(id, { character })
       .then(() => {
-        window.location.href = `/characters/${id}`;
+        navigate(generatePath(CHARACTER_ROUTE, { id }));
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = `/characters/${id}`;
+        navigate(generatePath(CHARACTER_ROUTE, { id }));
       });
   };
 
@@ -119,7 +135,7 @@ const CharacterEditPage = (): ReactElement | null => {
               
     uploadCharacterImage(id, data)
       .then(() => {
-        window.location.href = `/characters/${id}/edit`;
+        location.reload();
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -254,9 +270,9 @@ const CharacterEditPage = (): ReactElement | null => {
     <>
       <div className="layout">
         <div className="full">
-          <a href={`/characters/${id}`}>
+          <Link to={generatePath(CHARACTER_ROUTE, { id })}>
             Back
-          </a>
+          </Link>
           <DeleteButton
             buttonText="Delete Character"
             handleDelete={handleDelete}/>

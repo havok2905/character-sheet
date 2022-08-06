@@ -1,5 +1,14 @@
 import React, { ReactElement } from 'react';
 import { ImagePanelGrid } from '../../components/ImagePanelGrid';
+import {
+  CHARACTERS_ROUTE,
+  CREATURES_ROUTE,
+  FACTIONS_ROUTE,
+  LOCATIONS_ROUTE,
+  MAGIC_ITEMS_ROUTE,
+  SPELLS_ROUTE,
+  WIKI_ROUTE,
+} from '../../app';
 import CharactersImage from './home-page-characters-tile.png';
 import CreaturesImage from './home-page-creatures-tile.png';
 import FactionsImage from './home-page-factions-tile.png';
@@ -12,37 +21,37 @@ const HomePage = (): ReactElement => {
   const panels = [
     {
       imagePath: CharactersImage,
-      path: '/characters',
+      path: CHARACTERS_ROUTE,
       title: 'Characters'
     },
     {
       imagePath: CreaturesImage,
-      path: '/creatures',
+      path: CREATURES_ROUTE,
       title: 'Creatures'
     },
     {
       imagePath: FactionsImage,
-      path: '/factions',
+      path: FACTIONS_ROUTE,
       title: 'Factions'
     },
     {
       imagePath: MagicItemsImage,
-      path: '/magic_items',
+      path: MAGIC_ITEMS_ROUTE,
       title: 'Magic Items'
     },
     {
       imagePath: LocationsImage,
-      path: '/locations',
+      path: LOCATIONS_ROUTE,
       title: 'Locations'
     },
     {
       imagePath: SpellsImage,
-      path: '/spells',
+      path: SPELLS_ROUTE,
       title: 'Spells'
     },
     {
       imagePath: WikiImage,
-      path: '/wiki',
+      path: WIKI_ROUTE,
       title: 'Wiki'
     }
   ];

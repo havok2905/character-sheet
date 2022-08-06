@@ -1,13 +1,20 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { DeleteButton } from '../../components/DeleteButton';
 import { destroySpell, getSpell, updateSpell } from '../../utilities/Api/Spells';
+import {
+  generatePath,
+  Link,
+  useNavigate,
+  useParams
+} from 'react-router-dom';
 import { ISpell } from '../../types/models';
 import { SpellForm } from '../../components/SpellForm/SpellForm';
-import { useParams } from 'react-router-dom';
+import { SPELL_ROUTE, SPELLS_ROUTE } from '../../app';
 
 const SpellEditPage = (): ReactElement | null => {
   const [spell, setSpell] = useState<ISpell | null>(null);
   
+  const navigate = useNavigate();
   const params = useParams();
 
   useEffect(() => {
@@ -25,11 +32,11 @@ const SpellEditPage = (): ReactElement | null => {
 
     destroySpell(id)
       .then(() => {
-        window.location.href = '/spells/';
+        navigate(SPELLS_ROUTE);
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = `/spells/${id}/edit/`;
+        location.reload();
       });
   };
   
@@ -38,11 +45,11 @@ const SpellEditPage = (): ReactElement | null => {
 
     updateSpell(id, { spell })
       .then(() => {
-        window.location.href = `/spells/${id}`;
+        navigate(generatePath(SPELL_ROUTE, { id }));
       })
       .catch((error) => {
         console.error('Error:', error);
-        window.location.href = `/spells/${id}`;
+        location.reload();
       });
   };
 
@@ -50,7 +57,9 @@ const SpellEditPage = (): ReactElement | null => {
     <div className="layout">
       <div className="full">
         <h1>Edit Spell</h1>
-        <a href={`/spells/${id}`}>Back</a>
+        <Link to={generatePath(SPELL_ROUTE, { id })}>
+          Back
+        </Link>
         <SpellForm
           handleSubmit={handleSubmit}
           handleSubmitButtonLabel="Update Spell"

@@ -1,6 +1,8 @@
 import React, { ReactElement, useState } from 'react';
+import { CREATURE_ROUTE } from '../../app';
 import { CreatureCategoryTypes } from '../../types/rules';
 import { creatureRow } from '../../utilities/UiHelpers/creatureRow';
+import { generatePath } from 'react-router-dom';
 import { ICreature } from '../../types/models';
 import { ItemWithToken } from '../../components/ItemWithToken';
 
@@ -84,7 +86,7 @@ const CreaturesTable = ({
                     heading={name}
                     imageAltText={`${name} token`}
                     imageUrl={imageUrl}
-                    itemPath={`/creatures/${id}`}
+                    itemPath={generatePath(CREATURE_ROUTE, { id })}
                   />
                 }
               </li>

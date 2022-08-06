@@ -1,5 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 import './_card.scss';
 
 interface ICardProps {
@@ -20,11 +21,11 @@ const Card = ({
 
   if (path) {
     return (
-      <a className="card-link" href={path}>
+      <Link className="card-link" to={path}>
         <div className={classNames(classList)}>
           {children}
         </div>
-      </a>
+      </Link>
     );
   }
 

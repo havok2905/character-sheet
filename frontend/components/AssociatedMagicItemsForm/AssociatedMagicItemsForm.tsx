@@ -1,5 +1,7 @@
 import React, { ReactElement, useState } from 'react';
+import { generatePath, Link } from 'react-router-dom';
 import { IMagicItem } from '../../types/models';
+import { MAGIC_ITEM_ROUTE } from '../../app';
 
 interface IAssociatedMagicItemsFormProps {
   buttonLabel: string,
@@ -71,7 +73,11 @@ const AssociatedMagicItemsForm = ({
               return (
                 <tr>
                   <td>{name}</td>
-                  <td><a href={`/magic_items/${id}`}>View</a></td>
+                  <td>
+                    <Link to={generatePath(MAGIC_ITEM_ROUTE, { id })}>
+                      View
+                    </Link>
+                  </td>
                   <td>
                     <input
                       checked={checked}

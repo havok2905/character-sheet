@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react';
+import { CHARACTER_ROUTE } from '../../app';
 import { characterClassRow } from '../../utilities/UiHelpers/characterClassRow';
 import { characterMulticlassRow } from '../../utilities/UiHelpers/characterMulticlassRow';
+import { generatePath } from 'react-router-dom';
 import { ICharacter } from '../../types/models';
 import { ItemWithToken } from '../../components/ItemWithToken';
 
@@ -29,7 +31,7 @@ const CharactersTable = ({
                   heading={name}
                   imageAltText={`${name} token`}
                   imageUrl={imageUrl}
-                  itemPath={`/characters/${id}`}
+                  itemPath={generatePath(CHARACTER_ROUTE, { id })}
                   subDescription={characterMulticlassRow(character)}
                 />
               }

@@ -2,16 +2,22 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { AbilitySkills } from '../../components/AbilitySkills';
 import { AssociateWithTokenLink } from '../../components/AssociateWithTokenLink';
 import { Card } from '../../components/Card';
+import {
+  CHARACTER_EDIT_ROUTE,
+  CREATURE_ROUTE,
+  FACTION_ROUTE,
+  MAGIC_ITEM_ROUTE
+} from '../../app';
 import { characterClassRow } from '../../utilities/UiHelpers/characterClassRow';
 import { characterMulticlassRow } from '../../utilities/UiHelpers/characterMulticlassRow';
 import { GearIcon } from '../../components/Icons';
+import { generatePath, Link, useParams } from 'react-router-dom';
 import { getCharacter } from '../../utilities/Api/Characters';
 import { ICharacter } from '../../types/models';
 import { SpellListByLevel } from '../../components/SpellListByLevel';
 import { StatBlock } from '../../components/StatBlock';
 import { ToggleItem } from '../../components/ToggleItem';
 import { Token } from '../../components/Token';
-import { useParams } from 'react-router-dom';
 
 const CharacterPage = (): ReactElement | null => {
   const [character, setCharacter] = useState<ICharacter | null>(null);
@@ -105,7 +111,7 @@ const CharacterPage = (): ReactElement | null => {
 
             return (
               <AssociateWithTokenLink
-                associationUrl={`/creatures/${id}`}
+                associationUrl={generatePath(CREATURE_ROUTE, { id })}
                 imageAltText={`${name} token`}
                 imageUrl={imageUrl}
                 linkText={name}
@@ -129,7 +135,7 @@ const CharacterPage = (): ReactElement | null => {
 
             return (
               <AssociateWithTokenLink
-                associationUrl={`/factions/${id}`}
+                associationUrl={generatePath(FACTION_ROUTE, { id })}
                 imageAltText={`${name} token`}
                 imageUrl={imageUrl}
                 linkText={name}
@@ -157,7 +163,7 @@ const CharacterPage = (): ReactElement | null => {
             
             return (
               <AssociateWithTokenLink
-                associationUrl={`/magic_items/${id}`}
+                associationUrl={generatePath(MAGIC_ITEM_ROUTE, { id })}
                 imageAltText={`${name} token`}
                 imageUrl={imageUrl}
                 linkText={name}
@@ -363,9 +369,9 @@ const CharacterPage = (): ReactElement | null => {
       <div className="full">
         <div className="page-header">
           <div className="page-header-settings">
-            <a href={`/characters/${id}/edit`}>
+            <Link to={generatePath(CHARACTER_EDIT_ROUTE, { id })}>
               <GearIcon/>
-            </a>
+            </Link>
           </div>
           <Token imageAltText="character portrait" imageUrl={imageUrl}/>
           <div>

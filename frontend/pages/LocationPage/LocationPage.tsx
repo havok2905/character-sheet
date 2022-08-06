@@ -5,12 +5,13 @@ import React, {
 } from 'react';
 import { Card } from '../../components/Card';
 import { GearIcon } from '../../components/Icons';
+import { generatePath, Link, useParams } from 'react-router-dom';
 import { getLocation } from '../../utilities/Api/Locations';
 import { ILocation } from '../../types/models';
+import { LOCATION_EDIT_ROUTE } from '../../app';
 import { MarkdownPreview } from '../../components/MarkdownPreview';
 import { Pin } from '../../components/Pin';
 import { PinViewModal } from '../../components/MapWithPinsEditor/PinViewModal';
-import { useParams } from 'react-router-dom';
 
 const LocationPage = (): ReactElement | null => {
   const [location, setLocation] = useState<ILocation | null>(null);
@@ -65,9 +66,9 @@ const LocationPage = (): ReactElement | null => {
         <div className="full">
           <div className="page-header">
             <div className="page-header-settings">
-              <a href={`/locations/${id}/edit`}>
+              <Link to={generatePath(LOCATION_EDIT_ROUTE, { id })}>
                 <GearIcon/>
-              </a>
+              </Link>
             </div>
           </div>
           {
