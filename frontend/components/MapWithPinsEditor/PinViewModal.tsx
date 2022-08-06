@@ -1,6 +1,12 @@
 import React, { ReactElement } from 'react';
-import { IPin } from '../../types/models';
 import { AssociateWithTokenLink } from '../AssociateWithTokenLink';
+import {
+  CREATURE_ROUTE,
+  FACTION_ROUTE,
+  MAGIC_ITEM_ROUTE
+} from '../../app';
+import { generatePath } from 'react-router-dom';
+import { IPin } from '../../types/models';
 import { Modal } from '../Modal';
 
 interface IPinViewModalProps {
@@ -39,7 +45,7 @@ const PinViewModal = ({
 
           return (
             <AssociateWithTokenLink
-              associationUrl={`/factions/${id}`}  
+              associationUrl={generatePath(FACTION_ROUTE, { id })}  
               imageAltText={`${name} token`}
               imageUrl={imageUrl}  
               linkText={name}
@@ -58,7 +64,7 @@ const PinViewModal = ({
 
           return (
             <AssociateWithTokenLink
-              associationUrl={`/creatures/${id}`}  
+              associationUrl={generatePath(CREATURE_ROUTE, { id })}  
               imageAltText={`${name} token`}
               imageUrl={imageUrl}  
               linkText={name}
@@ -77,7 +83,7 @@ const PinViewModal = ({
 
           return (
             <AssociateWithTokenLink
-              associationUrl={`/magic_items/${id}`}  
+              associationUrl={generatePath(MAGIC_ITEM_ROUTE, { id })}  
               imageAltText={`${name} token`}
               imageUrl={imageUrl}  
               linkText={name}
