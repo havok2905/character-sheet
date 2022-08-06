@@ -2,7 +2,7 @@
 
 class MagicItemsController < ApplicationController
   def index
-    m = MagicItem.all
+    m = MagicItem.order :name
     magic_items = magic_items_response_model m
     render json: { magicItems: magic_items }
   end

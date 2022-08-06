@@ -2,7 +2,7 @@
 
 class SpellsController < ApplicationController
   def index
-    s = Spell.all
+    s = Spell.order :level, :name
     spells = spells_response_model s
     render json: { spells: }
   end

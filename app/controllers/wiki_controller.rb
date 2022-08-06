@@ -2,7 +2,7 @@
 
 class WikiController < ApplicationController
   def index
-    a = Article.order(:title)
+    a = Article.order :title
     articles = articles_response_model a
     render json: { articles: }
   end

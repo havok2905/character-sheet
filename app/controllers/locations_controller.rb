@@ -2,7 +2,7 @@
 
 class LocationsController < ApplicationController
   def index
-    l = Location.order(:name)
+    l = Location.order :name
     locations = locations_response_model l
     render json: { locations: }
   end

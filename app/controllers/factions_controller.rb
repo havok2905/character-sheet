@@ -2,7 +2,7 @@
 
 class FactionsController < ApplicationController
   def index
-    f = Faction.all
+    f = Faction.order :name
     factions = factions_response_model f
     render json: { factions: }
   end

@@ -2,7 +2,7 @@
 
 class CharactersController < ApplicationController
   def index
-    c = Character.all
+    c = Character.order :name
     characters = characters_response_model c
     render json: { characters: }
   end

@@ -2,7 +2,7 @@
 
 class CreaturesController < ApplicationController
   def index
-    c = Creature.all
+    c = Creature.order :name
     creatures = creatures_response_model c
     render json: { creatures: }
   end
