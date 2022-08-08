@@ -1,6 +1,5 @@
 import React, { ReactElement, useState } from 'react';
 import { TagList } from './TagList';
-import './_tagEditor.scss';
 
 interface ITagEditorProps {
   onChange: (tags: string[]) => void;

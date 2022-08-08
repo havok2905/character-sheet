@@ -1,3 +1,6 @@
+@import '../../globalstyles/variables.scss';
+
 .tag-list {
   display: flex;
+  margin-bottom: $small-spacing;
 }
