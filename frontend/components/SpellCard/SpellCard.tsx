@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-import { Card } from '../Card';
 import { ISpell } from '../../types/models';
 import { NewLineText } from '../NewLineText';
 
@@ -36,7 +35,7 @@ const SpellCard = ({
   };
 
   return (
-    <Card>
+    <>
       <p><strong>Level: </strong>{level}</p>
       <p><strong>School: </strong>{school}</p>
       <p><strong>Components: </strong>{getComponentString()}</p>
@@ -52,7 +51,7 @@ const SpellCard = ({
         <strong>Description at Higher Levels: </strong>
         <NewLineText text={descriptionHigherLevels}/>
       </p>
-    </Card>
+    </>
   );
 };
 

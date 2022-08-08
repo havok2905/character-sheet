@@ -40,10 +40,10 @@ const LocationCreatePage = (): ReactElement => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>New Location</h1>
         <Link to={LOCATIONS_ROUTE}>
           Back
         </Link>
+        <h1>New Location</h1>
         <form onSubmit={handleSubmit}>
           <fieldset>
             <label htmlFor="location-name">
@@ -75,7 +75,7 @@ const LocationCreatePage = (): ReactElement => {
             <MarkdownPreview value={content}/>
           </fieldset>
           <fieldset>
-            <button>
+            <button className="button button-green">
               Create Location
             </button>
           </fieldset>

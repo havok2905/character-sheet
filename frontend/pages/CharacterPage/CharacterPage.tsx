@@ -14,6 +14,7 @@ import { GearIcon } from '../../components/Icons';
 import { generatePath, Link, useParams } from 'react-router-dom';
 import { getCharacter } from '../../utilities/Api/Characters';
 import { ICharacter } from '../../types/models';
+import { NewLineText } from '../../components/NewLineText';
 import { SpellListByLevel } from '../../components/SpellListByLevel';
 import { StatBlock } from '../../components/StatBlock';
 import { ToggleItem } from '../../components/ToggleItem';
@@ -207,10 +208,24 @@ const CharacterPage = (): ReactElement | null => {
                 {getOptionalProperty('Damage Two Dice Roll', damageTwoDiceRoll)}
                 {getOptionalProperty('Damage Two Type', damageTwoType)}
                 {getOptionalProperty('Damage Type', damageType)}
-                {getOptionalProperty('Description', description)}
+                {
+                  description && (
+                    <>
+                      <p><strong>Description:</strong></p>
+                      <NewLineText text={description}/>
+                    </>
+                  )
+                }
                 {getOptionalProperty('Is Saving Throw', isSavingThrow ? 'Yes' : 'No')}
                 {getOptionalProperty('Range', range)}
-                {getOptionalProperty('Saving Throw Description', savingThrowDescription)}
+                {
+                  description && (
+                    <>
+                      <p><strong>Saving Throw Description:</strong></p>
+                      <NewLineText text={savingThrowDescription}/>
+                    </>
+                  )
+                }
                 {getOptionalProperty('Saving Throw Threshold', savingThrowThreshold)}
                 {getOptionalProperty('Saving Throw Type', savingThrowType)}
               </ToggleItem>
@@ -227,7 +242,7 @@ const CharacterPage = (): ReactElement | null => {
     return (
       <Card>
         <h2>Backstory</h2>
-        {backstory}
+        <NewLineText text={backstory} />
       </Card>
     );
   };
@@ -245,7 +260,8 @@ const CharacterPage = (): ReactElement | null => {
             return (
               <ToggleItem heading={name}>
                 <p><strong>Source:</strong> {source}</p>
-                <p><strong>Description:</strong> {description}</p>
+                <p><strong>Description:</strong></p>
+                <NewLineText text={description} />
               </ToggleItem>
             );
           })

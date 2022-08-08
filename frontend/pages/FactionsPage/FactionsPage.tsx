@@ -18,10 +18,12 @@ const FactionsPage = (): ReactElement => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>Factions</h1>
-        <Link to={FACTION_CREATE_ROUTE}>
+        <Link
+          className="button button-blue"
+          to={FACTION_CREATE_ROUTE}>
           Create
         </Link>
+        <h1>Factions</h1>
         <ul className="bulletless-list">
           {
             factions.map(faction => {

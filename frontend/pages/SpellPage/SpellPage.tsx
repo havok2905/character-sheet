@@ -1,4 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
+import { Card } from '../../components/Card';
 import { GearIcon } from '../../components/Icons/GearIcon';
 import { generatePath, Link, useParams } from 'react-router-dom';
 import { getSpell } from '../../utilities/Api/Spells';
@@ -34,7 +35,9 @@ const SpellPage = (): ReactElement | null => {
       </div>
       <div className="full">
         <h1>{name}</h1>
-        <SpellCard spell={spell} />
+        <Card>
+          <SpellCard spell={spell} />
+        </Card>
       </div>
     </div>
   );

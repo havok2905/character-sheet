@@ -83,7 +83,9 @@ const AssociatedSpellsForm = ({
           </select>
         </fieldset>
       </form>
-      <button onClick={() => handleSubmit(updatedSpellIds)}>
+      <button
+        className="button button-green"
+        onClick={() => handleSubmit(updatedSpellIds)}>
         {buttonLabel}
       </button>
       <table>

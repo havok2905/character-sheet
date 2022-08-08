@@ -52,10 +52,12 @@ const AssociatedInventoryForm = ({
           value={total}/>
         {
           isNewField ? (
-            <button onClick={e => {
-              e.preventDefault();
-              setNewItems(newItems.filter((_item, i) => i !== index ))
-            }}>
+            <button
+              className="button button-red"
+              onClick={e => {
+                e.preventDefault();
+                setNewItems(newItems.filter((_item, i) => i !== index ))
+              }}>
               Remove
             </button>
           ) : (
@@ -79,19 +81,25 @@ const AssociatedInventoryForm = ({
         e.preventDefault();
         handleSubmit([...updatedItems, ...newItems])
       }}>
-        <button type="submit">
-          {buttonLabel}
-        </button>
         <h2>Inventory</h2>
         {updatedItems.map((item, index) => getItem(item, index, false))}
         <hr/>
-        <button onClick={e => {
-          e.preventDefault()
-          setNewItems([...newItems, { name: '', total: 0 }])
-        }}>
+        <button
+          className="button"
+          onClick={e => {
+            e.preventDefault()
+            setNewItems([...newItems, { name: '', total: 0 }])
+          }}>
           Add
         </button>
         {newItems.map((item, index) => getItem(item, index, true))}
+        <fieldset>
+          <button
+            className="button button-green"
+            type="submit">
+            {buttonLabel}
+          </button>
+        </fieldset>
       </form>
     </>
   );

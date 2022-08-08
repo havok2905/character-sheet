@@ -204,10 +204,10 @@ const LocationEditPage = (): ReactElement | null => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>Edit Location</h1>
         <Link to={generatePath(LOCATION_ROUTE, { id })}>
           Back
         </Link>
+        <h1>Edit Location</h1>
         <DeleteButton
           buttonText="Delete Location"
           handleDelete={handleDelete}/>
@@ -222,7 +222,7 @@ const LocationEditPage = (): ReactElement | null => {
               id="location-map"
               ref={mapFileUploadRef}
               type="file" />
-            <button>
+            <button className="button button-green">
               Update Map Image
             </button>
           </fieldset>
@@ -250,7 +250,7 @@ const LocationEditPage = (): ReactElement | null => {
               id="location-hero-image"
               ref={heroImageFileUploadRef}
               type="file" />
-            <button>
+            <button className="button button-green">
               Update Hero Image
             </button>
           </fieldset>
@@ -267,7 +267,7 @@ const LocationEditPage = (): ReactElement | null => {
               id="location-sigil"
               ref={sigilFileUploadRef}
               type="file" />
-            <button>
+            <button className="button button-green">
               Update Sigil
             </button>
           </fieldset>
@@ -303,12 +303,14 @@ const LocationEditPage = (): ReactElement | null => {
               onChange={(e) => {setContentField(e.target.value)}}
               value={contentField}
             />
-            <MarkdownPreview value={contentField}/>
           </fieldset>
           <fieldset>
-            <button>
+            <button className="button button-green">
               Update Location
             </button>
+          </fieldset>
+          <fieldset>
+            <MarkdownPreview value={contentField}/>
           </fieldset>
         </form>
       </div>

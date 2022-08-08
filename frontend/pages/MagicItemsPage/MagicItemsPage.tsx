@@ -15,10 +15,12 @@ const MagicItemsPage = (): ReactElement => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>Magic Items</h1>
-        <Link to={LOCATION_CREATE_ROUTE}>
+        <Link
+          className="button button-blue"
+          to={LOCATION_CREATE_ROUTE}>
           Create
         </Link>
+        <h1>Magic Items</h1>
         <MagicItemsTable magicItems={magicItems}/>
       </div>
     </div>

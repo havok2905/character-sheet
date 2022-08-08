@@ -9,7 +9,6 @@ import { AssociatedMagicItemsForm } from '../../components/AssociatedMagicItemsF
 import { AssociatedSpellsForm } from '../../components/AssociatedSpellsForm';
 import {
   CHARACTER_ROUTE,
-  CHARACTER_EDIT_ROUTE,
   CHARACTERS_ROUTE
 } from '../../app';
 import { DeleteButton } from '../../components/DeleteButton';
@@ -273,10 +272,10 @@ const CharacterEditPage = (): ReactElement | null => {
           <Link to={generatePath(CHARACTER_ROUTE, { id })}>
             Back
           </Link>
+          <h1>Character Settings - {name}</h1>
           <DeleteButton
             buttonText="Delete Character"
             handleDelete={handleDelete}/>
-          <h1>Character Settings - {name}</h1>
           <h2>Character Image</h2>
           <ImageForm
             buttonLabel="Upload Image"
@@ -284,15 +283,16 @@ const CharacterEditPage = (): ReactElement | null => {
             inputName="character-image-file-upload"
             handleSubmit={handleImageUpload}
           />
+          <h2>Character Associations</h2>
           <div>
-            <button onClick={() => setAttacksModalOpen(true)}>Attacks</button>
-            <button onClick={() => setFeaturesModalOpen(true)}>Features</button>
-            <button onClick={() => setFeatureResourcesModalOpen(true)}>Feature Resources</button>
-            <button onClick={() => setInventoryModalOpen(true)}>Inventory</button>
-            <button onClick={() => setCreaturesModalOpen(true)}>Creatures</button>
-            <button onClick={() => setSpellsModalOpen(true)}>Spells</button>
-            <button onClick={() => setMagicItemsModalOpen(true)}>Magic Items</button>
-            <button onClick={() => setFactionsModalOpen(true)}>Factions</button>
+            <button className="button" onClick={() => setAttacksModalOpen(true)}>Attacks</button>
+            <button className="button" onClick={() => setFeaturesModalOpen(true)}>Features</button>
+            <button className="button" onClick={() => setFeatureResourcesModalOpen(true)}>Feature Resources</button>
+            <button className="button" onClick={() => setInventoryModalOpen(true)}>Inventory</button>
+            <button className="button" onClick={() => setCreaturesModalOpen(true)}>Creatures</button>
+            <button className="button" onClick={() => setSpellsModalOpen(true)}>Spells</button>
+            <button className="button" onClick={() => setMagicItemsModalOpen(true)}>Magic Items</button>
+            <button className="button" onClick={() => setFactionsModalOpen(true)}>Factions</button>
           </div>
           <CharacterForm
             character={character}

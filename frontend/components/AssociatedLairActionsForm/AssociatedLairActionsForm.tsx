@@ -62,10 +62,12 @@ const AssociatedLairActionsForm = ({
           onChange={e => handleNewFieldsChange(index, 'description', e.target.value)}
           value={description}>  
         </textarea>
-        <button onClick={e => {
-          e.preventDefault();
-          setNewLairActions(newLairActions.filter((_action, i) => i !== index ))
-        }}>
+        <button
+          className="button button-red"
+          onClick={e => {
+            e.preventDefault();
+            setNewLairActions(newLairActions.filter((_action, i) => i !== index ))
+          }}>
           Remove
         </button>
       </fieldset>
@@ -78,9 +80,6 @@ const AssociatedLairActionsForm = ({
         e.preventDefault();
         handleSubmit(lairActionsText, [...updatedLairActions, ...newLairActions])
       }}>
-        <button type="submit">
-          {buttonLabel}
-        </button>
         <h2>Lair Actions Text</h2>
         <fieldset>
           <label>Lair Actions Text</label>
@@ -92,13 +91,22 @@ const AssociatedLairActionsForm = ({
         <h2>Lair Actions</h2>
         {updatedLairActions.map(getLairAction)}
         <hr/>
-        <button onClick={e => {
-          e.preventDefault()
-          setNewLairActions([...newLairActions, { description: '' }])
-        }}>
+        <button
+          className="button"
+          onClick={e => {
+            e.preventDefault()
+            setNewLairActions([...newLairActions, { description: '' }])
+          }}>
           Add
         </button>
         {newLairActions.map(getNewLairAction)}
+        <fieldset>
+          <button
+            className="button button-green"
+            type="submit">
+            {buttonLabel}
+          </button>
+        </fieldset>
       </form>
     </>
   );

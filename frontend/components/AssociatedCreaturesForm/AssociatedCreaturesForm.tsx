@@ -52,7 +52,9 @@ const AssociatedCreaturesForm = ({
           <input onChange={handleNameFilterOnChange} type="text"/>
         </fieldset>
       </form>
-      <button onClick={() => handleSubmit(updatedCreatureIds)}>
+      <button
+        className="button button-green"
+        onClick={() => handleSubmit(updatedCreatureIds)}>
         {buttonLabel}
       </button>
       <table>

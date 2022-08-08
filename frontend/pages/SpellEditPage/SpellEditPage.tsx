@@ -56,10 +56,10 @@ const SpellEditPage = (): ReactElement | null => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>Edit Spell</h1>
         <Link to={generatePath(SPELL_ROUTE, { id })}>
           Back
         </Link>
+        <h1>Edit Spell</h1>
         <SpellForm
           handleSubmit={handleSubmit}
           handleSubmitButtonLabel="Update Spell"

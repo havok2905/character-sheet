@@ -121,10 +121,12 @@ const AssociatedAttacksForm = ({
           value={description}></textarea>
         {
           isNewField ? (
-            <button onClick={e => {
-              e.preventDefault();
-              setNewAttacks(newAttacks.filter((_attack, i) => i !== index ))
-            }}>
+            <button
+              className="button button-red"
+              onClick={e => {
+                e.preventDefault();
+                setNewAttacks(newAttacks.filter((_attack, i) => i !== index ))
+              }}>
               Remove
             </button>
           ) : (
@@ -148,33 +150,39 @@ const AssociatedAttacksForm = ({
         e.preventDefault();
         handleSubmit([...updatedAttacks, ...newAttacks])
       }}>
-        <button type="submit">
-          {buttonLabel}
-        </button>
         <h2>Attacks</h2>
         {updatedAttacks.map((attack, index) => getAttack(attack, index, false))}
         <hr/>
-        <button onClick={e => {
-          e.preventDefault()
-          setNewAttacks([...newAttacks, {
-            attackBonus: 0,
-            critRange: 20,
-            damageDiceRoll: '',
-            damageTwoDiceRoll: '',
-            damageTwoType: '',
-            damageType: '',
-            description: '',
-            isSavingThrow: false,
-            name: '',
-            range: '',
-            savingThrowDescription: '',
-            savingThrowThreshold: '',
-            savingThrowType: ''
-          }])
-        }}>
+        <button
+          className="button"
+          onClick={e => {
+            e.preventDefault()
+            setNewAttacks([...newAttacks, {
+              attackBonus: 0,
+              critRange: 20,
+              damageDiceRoll: '',
+              damageTwoDiceRoll: '',
+              damageTwoType: '',
+              damageType: '',
+              description: '',
+              isSavingThrow: false,
+              name: '',
+              range: '',
+              savingThrowDescription: '',
+              savingThrowThreshold: '',
+              savingThrowType: ''
+            }])
+          }}>
           Add
         </button>
         {newAttacks.map((attack, index) => getAttack(attack, index, true))}
+        <fieldset>
+          <button
+            className="button button-green"
+            type="submit">
+            {buttonLabel}
+          </button>
+        </fieldset>
       </form>
     </>
   );

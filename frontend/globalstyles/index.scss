@@ -1,6 +1,63 @@
 @import './variables';
 @import './actiontext';
 
+.button {
+  background: transparent;
+  border: solid 2px $faded-white;
+  border-radius: $border-radius;
+  color: $faded-white;
+  cursor: pointer;
+  padding: $small-spacing;
+  text-decoration: none;
+
+  & + & {
+    margin-left: $small-spacing;
+  }
+
+  &:active,
+  &:focus,
+  &:hover {
+    background-color: $faded-white;
+    color: $light-black;
+  }
+
+  &.button-blue {
+    border: solid 2px $blue;
+    color: $blue;
+
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: $blue;
+      color: $faded-white;
+    }
+  }
+
+  &.button-green {
+    border: solid 2px $green;
+    color: $green;
+
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: $green;
+      color: $faded-white;
+    }
+  }
+
+  &.button-red {
+    border: solid 2px $red;
+    color: $red;
+
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: $red;
+      color: $faded-white;
+    }
+  }
+}
+
 .column {
   width: $column-width;
 }
@@ -61,19 +118,19 @@ html, body {
 }
 
 a {
-  color: $true-white;
+  color: $faded-white;
 }
 
 h1 {
-  color: $true-white;
+  color: $faded-white;
 }
 
 h2 {
-  color: $true-white;
+  color: $faded-white;
 }
 
 h3 {
-  color: $true-white;
+  color: $faded-white;
 }
 
 fieldset {
@@ -95,6 +152,10 @@ footer {
   position: fixed;
   width: 100%;
   z-index: 10;
+
+  > * {
+    margin-right: $small-spacing;
+  }
 }
 
 /* stylelint-disable-next-line string-quotes */
@@ -102,13 +163,13 @@ input[type="number"], input[type="text"], select, textarea {
   background-color: $dark-black;
   border: solid $dark-black 1px;
   box-shadow: $box-shadow-field;
-  color: $true-white;
+  color: $faded-white;
   margin-bottom: $small-spacing;
   padding: $small-spacing;
 }
 
 strong {
-  color: $true-white;
+  color: $faded-white;
 }
 
 table {
@@ -121,7 +182,7 @@ table {
 
   th {
     border-bottom: $border-standard;
-    color: $true-white;
+    color: $faded-white;
     padding: $small-spacing;
     text-align: left;
     text-transform: uppercase;
@@ -168,6 +229,6 @@ nav ul li {
 }
 
 nav ul li a {
-  color: $true-white;
+  color: $faded-white;
   text-decoration: none;
 }

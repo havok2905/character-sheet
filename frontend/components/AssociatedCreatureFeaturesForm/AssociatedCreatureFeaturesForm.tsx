@@ -71,10 +71,12 @@ const AssociatedCreatureFeaturesForm = ({
           onChange={e => handleNewFieldsChange(index, 'description', e.target.value)}
           value={description}>  
         </textarea>
-        <button onClick={e => {
-          e.preventDefault();
-          setNewFeatures(newFeatures.filter((_feature, i) => i !== index ))
-        }}>
+        <button
+          className="button button-red"
+          onClick={e => {
+            e.preventDefault();
+            setNewFeatures(newFeatures.filter((_feature, i) => i !== index ))
+          }}>
           Remove
         </button>
       </fieldset>
@@ -87,19 +89,25 @@ const AssociatedCreatureFeaturesForm = ({
         e.preventDefault();
         handleSubmit([...updatedFeatures, ...newFeatures])
       }}>
-        <button type="submit">
-          {buttonLabel}
-        </button>
         <h2>Features</h2>
         {updatedFeatures.map(getFeature)}
         <hr/>
-        <button onClick={e => {
-          e.preventDefault()
-          setNewFeatures([...newFeatures, { description: '', name: '' }])
-        }}>
+        <button
+          className="button"
+          onClick={e => {
+            e.preventDefault()
+            setNewFeatures([...newFeatures, { description: '', name: '' }])
+          }}>
           Add
         </button>
         {newFeatures.map(getNewFeature)}
+        <fieldset>
+          <button
+            className="button button-green"
+            type="submit">
+            {buttonLabel}
+          </button>
+        </fieldset>
       </form>
     </>
   );

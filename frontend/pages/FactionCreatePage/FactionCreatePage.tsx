@@ -30,10 +30,10 @@ const FactionCreatePage = (): ReactElement => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>New Faction</h1>
         <Link to={FACTIONS_ROUTE}>
           Back
         </Link>
+        <h1>New Faction</h1>
         <FactionForm
           handleSubmit={handleSubmit}
           handleSubmitButtonLabel="Create Faction"/>

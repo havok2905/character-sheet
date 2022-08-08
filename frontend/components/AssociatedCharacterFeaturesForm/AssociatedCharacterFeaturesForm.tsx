@@ -57,10 +57,12 @@ const AssociatedCharacterFeaturesForm = ({
         </textarea>
         {
           isNewField ? (
-            <button onClick={e => {
-              e.preventDefault();
-              setNewFeatures(newFeatures.filter((_feature, i) => i !== index ))
-            }}>
+            <button
+              className="button button-red"
+              onClick={e => {
+                e.preventDefault();
+                setNewFeatures(newFeatures.filter((_feature, i) => i !== index ))
+              }}>
               Remove
             </button>
           ) : (
@@ -84,19 +86,25 @@ const AssociatedCharacterFeaturesForm = ({
         e.preventDefault();
         handleSubmit([...updatedFeatures, ...newFeatures])
       }}>
-        <button type="submit">
-          {buttonLabel}
-        </button>
         <h2>Features</h2>
         {updatedFeatures.map((feature, index) => getFeature(feature, index, false))}
         <hr/>
-        <button onClick={e => {
-          e.preventDefault()
-          setNewFeatures([...newFeatures, { description: '', name: '', source: '' }])
-        }}>
+        <button
+          className="button"
+          onClick={e => {
+            e.preventDefault()
+            setNewFeatures([...newFeatures, { description: '', name: '', source: '' }])
+          }}>
           Add
         </button>
         {newFeatures.map((feature, index) => getFeature(feature, index, true))}
+        <fieldset>
+          <button
+            className="button button-green"
+            type="submit">
+            {buttonLabel}
+          </button>
+        </fieldset>
       </form>
     </>
   );

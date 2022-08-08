@@ -44,7 +44,7 @@ const SpellsTable = ({
   }
 
   const handleLevelFilterOnChange = e => {
-    setLevelFilter(e.target.value);
+    setLevelFilter(parseInt(e.target.value));
   }
 
   const handleSchoolFilterOnChange = e => {

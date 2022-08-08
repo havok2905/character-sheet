@@ -52,7 +52,9 @@ const AssociatedMagicItemsForm = ({
           <input onChange={handleNameFilterOnChange} type="text"/>
         </fieldset>
       </form>
-      <button onClick={() => handleSubmit(updatedMagicItemIds)}>
+      <button
+        className="button button-green"
+        onClick={() => handleSubmit(updatedMagicItemIds)}>
         {buttonLabel}
       </button>
       <table>

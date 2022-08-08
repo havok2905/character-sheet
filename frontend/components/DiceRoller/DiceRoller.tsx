@@ -19,11 +19,9 @@ const DiceRoller = (): ReactElement => {
     <div className='dice-roller-component'>
       <form
         autocomplete="off"
-        className="dice-roller-component-form"
         onSubmit={onSubmit}>
         <fieldset>
           <input
-            className="dice-roller-component-input"
             onChange={e => setInput(e.target.value)}
             ref={diceRollerInput}
             type="text"
@@ -31,7 +29,7 @@ const DiceRoller = (): ReactElement => {
           <p>
             Roll:
             {' '}
-            <span className="dice-roller-component-roll">
+            <span>
               {roll}
             </span>
           </p>

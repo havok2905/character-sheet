@@ -15,10 +15,12 @@ const SpellsPage = (): ReactElement => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>Spells</h1>
-        <Link to={SPELL_CREATE_ROUTE}>
+        <Link
+          className="button button-blue"
+          to={SPELL_CREATE_ROUTE}>
           Create
         </Link>
+        <h1>Spells</h1>
         <SpellsTable spells={spells}/>
       </div>
     </div>

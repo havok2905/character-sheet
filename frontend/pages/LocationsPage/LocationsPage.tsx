@@ -28,10 +28,12 @@ const LocationsPage = (): ReactElement => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>Locations</h1>
-        <Link to={LOCATION_CREATE_ROUTE}>
+        <Link
+          className="button button-blue"
+          to={LOCATION_CREATE_ROUTE}>
           Create
         </Link>
+        <h1>Locations</h1>
         <table>
           <thead>
             <tr>

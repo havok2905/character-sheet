@@ -401,19 +401,27 @@ const MapWithPinsEditor = ({
                   <td>{x}</td>
                   <td>{y}</td>
                   <td>
-                    <button onClick={() => {
-                      if (id) handleViewModalOpen(id);
-                    }}>
+                    <button
+                      className="button"
+                      onClick={() => {
+                        if (id) handleViewModalOpen(id);
+                      }}>
                       View
                     </button>
-                    <button onClick={() => {
-                      if (id) handleEditModalOpen(id);
-                    }}>
+                    <button
+                      className="button"
+                      onClick={() => {
+                        if (id) handleEditModalOpen(id);
+                      }}>
                       Edit
                     </button>
-                    <button onClick={() => {
-                      if (id) handleRemovePin(id);
-                    }}>Delete</button>
+                    <button
+                      className="button button-red"
+                      onClick={() => {
+                        if (id) handleRemovePin(id);
+                      }}>
+                      Delete
+                    </button>
                   </td>
                 </tr>
               );

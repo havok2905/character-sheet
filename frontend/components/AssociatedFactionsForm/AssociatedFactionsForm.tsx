@@ -52,7 +52,9 @@ const AssociatedFactionsForm = ({
           <input onChange={handleNameFilterOnChange} type="text"/>
         </fieldset>
       </form>
-      <button onClick={() => handleSubmit(updatedFactionIds)}>
+      <button
+        className="button button-green"
+        onClick={() => handleSubmit(updatedFactionIds)}>
         {buttonLabel}
       </button>
       <table>

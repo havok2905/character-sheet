@@ -6,7 +6,7 @@ const DmScreen = (): ReactElement => {
 
   if (!isOpen) {
     return (
-      <button onClick={() => setIsOpen(true)}>
+      <button className="button" onClick={() => setIsOpen(true)}>
         Dm Screen
       </button>
     );

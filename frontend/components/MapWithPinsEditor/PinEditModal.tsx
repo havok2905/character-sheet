@@ -127,7 +127,10 @@ const PinEditModal = ({
       onCloseModalOverlay={onCloseModalOverlay}>
       <h2>Edit Map - {name}, {id}</h2>
       <form>
-        <button onClick={handleEditModalSave} type="button">
+        <button
+          className="button button-green"
+          onClick={handleEditModalSave}
+          type="button">
           Save
         </button>
         <fieldset>

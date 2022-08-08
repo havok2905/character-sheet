@@ -1,5 +1,6 @@
 import { createPortal } from 'react-dom'
 import React, { ReactElement, useEffect } from 'react';
+import { CloseIcon } from '../Icons';
 import './_modal.scss';
 
 const Modal = ({
@@ -33,10 +34,14 @@ const Modal = ({
 
   const getModal = () => {
     return (
-      <div className='modal' onClick={handleOnCloseModalOverlay}>
-        <div className='modal-content'>
-          <button onClick={handleOnCloseModal}>Close</button>
-          <div>
+      <div className="modal" onClick={handleOnCloseModalOverlay}>
+        <div className="modal-container">
+          <div className="modal-header">
+            <div className="modal-close-button" onClick={handleOnCloseModal}>
+              <CloseIcon/>
+            </div>
+          </div>
+          <div className="modal-content">
             {children}
           </div>
         </div>

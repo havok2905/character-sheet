@@ -50,10 +50,12 @@ const WikiPage = (): ReactElement => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>Wiki</h1>
-        <Link to={WIKI_CREATE_ROUTE}>
+        <Link
+          className="button button-blue"
+          to={WIKI_CREATE_ROUTE}>
           Create
         </Link>
+        <h1>Wiki</h1>
         <form>
           <fieldset>
             <label>Tag</label>

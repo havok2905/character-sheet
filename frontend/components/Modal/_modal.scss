@@ -10,16 +10,40 @@
   z-index: 100;
 }
 
-.modal-content {
+.modal-close-button {
+  cursor: pointer;
+  height: 24px;
+  position: absolute;
+  right: $small-spacing;
+  top: $small-spacing;
+  width: 24px;
+}
+
+.modal-container {
   background-color: $dark-black;
   border-radius: $border-radius;
   box-shadow: $box-shadow-light;
   box-sizing: border-box;
   left: calc(50% - 1200px / 2);
-  max-height: 800px;
-  overflow-y: scroll;
-  padding: $standard-spacing;
   position: absolute;
   top: 100px;
   width: 1200px;
+}
+
+.modal-content {
+  max-height: 700px;
+  padding: $standard-spacing;
+  overflow-y: scroll;
+
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  /* Hide scrollbar for IE, Edge and Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.modal-header {
+  padding: $standard-spacing;
+  position: relative;
 }

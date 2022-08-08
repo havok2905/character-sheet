@@ -15,10 +15,12 @@ const CreaturesPage = (): ReactElement => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>Creatures</h1>
-        <Link to={CREATURE_CREATE_ROUTE}>
+        <Link
+          className="button button-blue"
+          to={CREATURE_CREATE_ROUTE}>
           Create
         </Link>
+        <h1>Creatures</h1>
         <CreaturesTable creatures={creatures}/>
       </div>
     </div>

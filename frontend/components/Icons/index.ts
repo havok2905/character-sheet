@@ -1,2 +1,7 @@
+import { CloseIcon } from './CloseIcon';
 import { GearIcon } from './GearIcon';
-export { GearIcon };
+
+export {
+  CloseIcon,
+  GearIcon
+};

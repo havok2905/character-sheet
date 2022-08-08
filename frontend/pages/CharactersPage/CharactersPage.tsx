@@ -15,10 +15,12 @@ const CharactersPage = (): ReactElement => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>Characters</h1>
-        <Link to={CHARACTER_CREATE_ROUTE}>
+        <Link
+          className="button button-blue"
+          to={CHARACTER_CREATE_ROUTE}>
           Create
         </Link>
+        <h1>Characters</h1>
         <CharactersTable characters={characters}/>
       </div>
     </div>

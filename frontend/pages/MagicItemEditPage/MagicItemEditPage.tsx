@@ -78,10 +78,10 @@ const MagicItemEditPage = (): ReactElement | null => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>Edit Magic Item</h1>
         <Link to={generatePath(MAGIC_ITEM_ROUTE, { id })}>
           Back
         </Link>
+        <h1>Edit Magic Item</h1>
         <ImageForm
           buttonLabel="Upload Image"
           imageUrl={imageUrl}

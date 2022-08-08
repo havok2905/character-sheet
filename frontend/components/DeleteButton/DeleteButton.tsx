@@ -15,7 +15,7 @@ const DeleteButton = ({
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)}>
+      <button className="button button-red" onClick={() => setIsOpen(true)}>
         {buttonText}
       </button>
       {
@@ -24,8 +24,8 @@ const DeleteButton = ({
             onCloseModal={() => setIsOpen(false)}
             onCloseModalOverlay={() => setIsOpen(false)}>
             <h1>Delete this item?</h1>
-            <button onClick={handleDelete}>Yes</button>
-            <button onClick={() => setIsOpen(false)}>No</button>
+            <button className="button button-red" onClick={handleDelete}>Confirm</button>
+            <button className="button" onClick={() => setIsOpen(false)}>Cancel</button>
           </Modal>
         )
       }

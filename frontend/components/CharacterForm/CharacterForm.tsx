@@ -834,7 +834,7 @@ const CharacterForm = ({
             <input onChange={e => handleFormChange('languages', e.target.value)} type="text" value={languages}/>
           </fieldset>
           <fieldset>
-            <button>
+            <button className="button button-green">
               {handleSubmitButtonLabel}
             </button>
           </fieldset>

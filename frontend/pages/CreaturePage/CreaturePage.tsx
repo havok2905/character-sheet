@@ -184,7 +184,14 @@ const CreaturePage = (): ReactElement | null => {
                 {getOptionalProperty('Damage Two', damageTwoDiceRoll && damageTwoType ? `${damageTwoDiceRoll} ${damageTwoType}` : '')}
                 {getOptionalProperty('Range', range)}
                 {getOptionalProperty('Save DC', savingThrowDc && savingThrowType ? `DC${savingThrowDc} ${savingThrowType}` : '')}
-                {getOptionalProperty('Description', description)}
+                {
+                  description && (
+                    <>
+                      <p><strong>Description:</strong></p>
+                      <NewLineText text={description}/>
+                    </>
+                  )
+                }
               </ToggleItem>
             );
           })
@@ -199,7 +206,7 @@ const CreaturePage = (): ReactElement | null => {
     return (
       <Card>
         <h2>Backstory</h2>
-        {backstory}
+        <NewLineText text={backstory} />
       </Card>
     );
   };
@@ -232,8 +239,12 @@ const CreaturePage = (): ReactElement | null => {
       <Card>
         <h2>Lair Actions</h2>
         <p>{lairActionsText}</p>
-        <ul className="bulletless-list">
-          {creatureLairActions.map(action => <li>{action.description}</li>)}
+        <ul>
+          {creatureLairActions.map(action => (
+            <li>
+              <NewLineText text={action.description}/>
+            </li>
+          ))}
         </ul>
       </Card>
     );
@@ -252,7 +263,7 @@ const CreaturePage = (): ReactElement | null => {
 
             return (
               <ToggleItem heading={name}>
-                {description}
+                <NewLineText text={description} />
               </ToggleItem>
             );
           })
@@ -275,7 +286,7 @@ const CreaturePage = (): ReactElement | null => {
         <tbody>
           <tr>
             <td>{cr}</td>
-            <td>{ac}, ( {armor} )</td>
+            <td>{ac} {armor && ` ( ${armor} )`}</td>
             <td>{hp}</td>
             <td>{speed}</td>
           </tr>
@@ -291,8 +302,12 @@ const CreaturePage = (): ReactElement | null => {
       <Card>
         <h2>Regional Effects</h2>
         <p>{regionalEffectsText}</p>
-        <ul className="bulletless-list">
-          {creatureRegionalEffects.map(effect => <li>{effect.description}</li>)}
+        <ul>
+          {creatureRegionalEffects.map(effect => (
+            <li>
+              <NewLineText text={effect.description}/>
+            </li>
+          ))}
         </ul>
       </Card>
     );

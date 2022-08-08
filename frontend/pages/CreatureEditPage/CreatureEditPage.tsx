@@ -275,10 +275,10 @@ const CreatureEditPage = (): ReactElement | null => {
           <Link to={generatePath(CREATURE_ROUTE, { id })}>
             Back
           </Link>
+          <h1>Creature Settings - {name}</h1>
           <DeleteButton
             buttonText="Delete Creature"
             handleDelete={handleDelete}/>
-          <h1>Creature Settings - {name}</h1>
           <h2>Creature Image</h2>
           <ImageForm
             buttonLabel="Upload Image"
@@ -286,15 +286,16 @@ const CreatureEditPage = (): ReactElement | null => {
             inputName="creature-image-file-upload"
             handleSubmit={handleImageUpload}
           />
+          <h2>Associations</h2>
           <div>
-            <button onClick={() => setActionsModalOpen(true)}>Manage Actions</button>
-            <button onClick={() => setFeaturesModalOpen(true)}>Manage Features</button>
-            <button onClick={() => setLegendaryActionsModalOpen(true)}>Manage Legendary Actions</button>
-            <button onClick={() => setLairActionsModalOpen(true)}>Manage Lair Actions</button>
-            <button onClick={() => setRegionalEffectsModalOpen(true)}>Manage Regional Effects</button>
-            <button onClick={() => setSpellsModalOpen(true)}>Manage Spells</button>
-            <button onClick={() => setMagicItemsModalOpen(true)}>Manage Magic Items</button>
-            <button onClick={() => setFactionsModalOpen(true)}>Manage Factions</button>
+            <button className="button" onClick={() => setActionsModalOpen(true)}>Actions</button>
+            <button className="button" onClick={() => setFeaturesModalOpen(true)}>Features</button>
+            <button className="button" onClick={() => setLegendaryActionsModalOpen(true)}>Legendary Actions</button>
+            <button className="button" onClick={() => setLairActionsModalOpen(true)}>Lair Actions</button>
+            <button className="button" onClick={() => setRegionalEffectsModalOpen(true)}>Regional Effects</button>
+            <button className="button" onClick={() => setSpellsModalOpen(true)}>Spells</button>
+            <button className="button" onClick={() => setMagicItemsModalOpen(true)}>Magic Items</button>
+            <button className="button" onClick={() => setFactionsModalOpen(true)}>Factions</button>
           </div>
           <CreatureForm
             creature={creature}

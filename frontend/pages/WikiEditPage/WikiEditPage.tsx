@@ -84,10 +84,10 @@ const WikiEditPage = (): ReactElement | null => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>Edit Wiki Article</h1>
         <Link to={generatePath(WIKI_ITEM_ROUTE, { id })}>
           Back
         </Link>
+        <h1>Edit Wiki Article</h1>
         <DeleteButton
           buttonText="Delete Wiki Article"
           handleDelete={handleDelete}/>

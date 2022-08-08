@@ -27,10 +27,10 @@ const MagicItemCreatePage = (): ReactElement => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>New Magic Item</h1>
         <Link to={MAGIC_ITEMS_ROUTE}>
           Back
         </Link>
+        <h1>New Magic Item</h1>
         <MagicItemForm
           handleSubmit={handleSubmit}
           handleSubmitButtonLabel="Create Magic Item"/>

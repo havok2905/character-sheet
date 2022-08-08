@@ -72,10 +72,12 @@ const AssociatedLegendaryActionsForm = ({
           onChange={e => handleNewFieldsChange(index, 'description', e.target.value)}
           value={description}>  
         </textarea>
-        <button onClick={e => {
-          e.preventDefault();
-          setNewLegendaryActions(newLegendaryActions.filter((_action, i) => i !== index ))
-        }}>
+        <button
+          className="button button-red"
+          onClick={e => {
+            e.preventDefault();
+            setNewLegendaryActions(newLegendaryActions.filter((_action, i) => i !== index ))
+          }}>
           Remove
         </button>
       </fieldset>
@@ -88,9 +90,6 @@ const AssociatedLegendaryActionsForm = ({
         e.preventDefault();
         handleSubmit(legendaryActionsText, [...updatedLegendaryActions, ...newLegendaryActions])
       }}>
-        <button type="submit">
-          {buttonLabel}
-        </button>
         <h2>Legendary Actions Text</h2>
         <fieldset>
           <label>Legendary Actions Text</label>
@@ -102,13 +101,22 @@ const AssociatedLegendaryActionsForm = ({
         <h2>Legendary Actions</h2>
         {updatedLegendaryActions.map(getLegendaryAction)}
         <hr/>
-        <button onClick={e => {
-          e.preventDefault()
-          setNewLegendaryActions([...newLegendaryActions, { description: '', name: '' }])
-        }}>
+        <button
+          className="button"
+          onClick={e => {
+            e.preventDefault()
+            setNewLegendaryActions([...newLegendaryActions, { description: '', name: '' }])
+          }}>
           Add
         </button>
         {newLegendaryActions.map(getNewLegendaryAction)}
+        <fieldset>
+          <button
+            className="button button-green"
+            type="submit">
+            {buttonLabel}
+          </button>
+        </fieldset>
       </form>
     </>
   );

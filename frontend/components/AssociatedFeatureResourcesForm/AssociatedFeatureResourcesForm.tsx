@@ -52,10 +52,12 @@ const AssociatedFeatureResourcesForm = ({
           value={total}/>
         {
           isNewField ? (
-            <button onClick={e => {
-              e.preventDefault();
-              setNewFeatureResources(newFeatureResources.filter((_featureResource, i) => i !== index ))
-            }}>
+            <button
+              className="button button-red"
+              onClick={e => {
+                e.preventDefault();
+                setNewFeatureResources(newFeatureResources.filter((_featureResource, i) => i !== index ))
+              }}>
               Remove
             </button>
           ) : (
@@ -79,19 +81,25 @@ const AssociatedFeatureResourcesForm = ({
         e.preventDefault();
         handleSubmit([...updatedFeatureResources, ...newFeatureResources])
       }}>
-        <button type="submit">
-          {buttonLabel}
-        </button>
         <h2>Feature Resources</h2>
         {updatedFeatureResources.map((featureResource, index) => getFeatureResource(featureResource, index, false))}
         <hr/>
-        <button onClick={e => {
-          e.preventDefault()
-          setNewFeatureResources([...newFeatureResources, { name: '', total: 0 }])
-        }}>
+        <button
+          className="button"
+          onClick={e => {
+            e.preventDefault()
+            setNewFeatureResources([...newFeatureResources, { name: '', total: 0 }])
+          }}>
           Add
         </button>
         {newFeatureResources.map((featureResource, index) => getFeatureResource(featureResource, index, true))}
+        <fieldset>
+          <button
+            className="button button-green"
+            type="submit">
+            {buttonLabel}
+          </button>
+        </fieldset>
       </form>
     </>
   );

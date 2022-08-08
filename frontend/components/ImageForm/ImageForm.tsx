@@ -38,7 +38,7 @@ const ImageForm = ({
           ref={imageFormRef}
           type="file" />
       </div>
-      <button>
+      <button className="button button-green">
         {buttonLabel}
       </button>
     </form>

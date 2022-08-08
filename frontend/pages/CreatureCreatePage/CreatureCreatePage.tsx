@@ -30,10 +30,10 @@ const CreatureCreatePage = (): ReactElement => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>New Creature</h1>
         <Link to={CREATURES_ROUTE}>
           Back
         </Link>
+        <h1>New Creature</h1>
         <CreatureForm
           handleSubmit={handleSubmit}
           handleSubmitButtonLabel="Create Creature"

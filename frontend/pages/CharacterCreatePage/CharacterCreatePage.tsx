@@ -30,10 +30,10 @@ const CharacterCreatePage = (): ReactElement => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>New Character</h1>
         <Link to={CHARACTERS_ROUTE}>
           Back
         </Link>
+        <h1>New Character</h1>
         <CharacterForm
           handleSubmit={handleSubmit}
           handleSubmitButtonLabel="Create Character"

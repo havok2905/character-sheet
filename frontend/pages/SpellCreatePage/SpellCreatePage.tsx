@@ -27,10 +27,10 @@ const SpellCreatePage = (): ReactElement => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>New Spell</h1>
         <Link to={SPELLS_ROUTE}>
           Back
         </Link>
+        <h1>New Spell</h1>
         <SpellForm
           handleSubmit={handleSubmit}
           handleSubmitButtonLabel="Create Spell"/>

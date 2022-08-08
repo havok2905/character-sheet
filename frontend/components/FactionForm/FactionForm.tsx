@@ -137,7 +137,7 @@ const FactionForm = ({
         </textarea>
       </fieldset>
       <fieldset>
-        <button>
+        <button className="button button-green">
           {handleSubmitButtonLabel}
         </button>
       </fieldset>

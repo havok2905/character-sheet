@@ -121,10 +121,12 @@ const AssociatedActionsForm = ({
         </textarea>
         {
           isNewField ? (
-            <button onClick={e => {
-              e.preventDefault();
-              setNewActions(newActions.filter((_action, i) => i !== index ))
-            }}>
+            <button
+              className="button button-red"
+              onClick={e => {
+                e.preventDefault();
+                setNewActions(newActions.filter((_action, i) => i !== index ))
+              }}>
               Remove
             </button>
           ) : (
@@ -148,32 +150,36 @@ const AssociatedActionsForm = ({
         e.preventDefault();
         handleSubmit([...updatedActions, ...newActions])
       }}>
-        <button type="submit">
-          {buttonLabel}
-        </button>
         <h2>Actions</h2>
         {updatedActions.map((action, index) => getAction(action, index, false))}
         <hr/>
-        <button onClick={e => {
-          e.preventDefault()
-          setNewActions([...newActions, {
-            actionType: '',
-            actionCombatType: '',
-            attackBonus: 0,
-            damageDiceRoll: '',
-            damageType: '',
-            damageTwoDiceRoll: '',
-            damageTwoType: '',
-            description: '',
-            name: '',
-            range: '',
-            savingThrowDc: 0,
-            savingThrowType: ''
-          }])
-        }}>
+        <button
+          className="button"
+          onClick={e => {
+            e.preventDefault()
+            setNewActions([...newActions, {
+              actionType: '',
+              actionCombatType: '',
+              attackBonus: 0,
+              damageDiceRoll: '',
+              damageType: '',
+              damageTwoDiceRoll: '',
+              damageTwoType: '',
+              description: '',
+              name: '',
+              range: '',
+              savingThrowDc: 0,
+              savingThrowType: ''
+            }])
+          }}>
           Add
         </button>
         {newActions.map((action, index) => getAction(action, index, true))}
+        <fieldset>
+          <button className="button button-green" type="submit">
+            {buttonLabel}
+          </button>
+        </fieldset>
       </form>
     </>
   );

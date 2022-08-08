@@ -27,10 +27,10 @@ const WikiCreatePage = (): ReactElement => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>New Wiki Article</h1>
         <Link to={WIKI_ROUTE}>
           Back
         </Link>
+        <h1>New Wiki Article</h1>
         <WikiForm
           handleSubmit={handleSubmit}
           handleSubmitButtonLabel="Create Wiki Article" />

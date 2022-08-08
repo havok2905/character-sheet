@@ -62,10 +62,12 @@ const AssociatedRegionalEffectsForm = ({
           onChange={e => handleNewFieldsChange(index, 'description', e.target.value)}
           value={description}>  
         </textarea>
-        <button onClick={e => {
-          e.preventDefault();
-          setNewRegionalEffects(newRegionalEffects.filter((_effect, i) => i !== index ))
-        }}>
+        <button
+          className="button button-red"
+          onClick={e => {
+            e.preventDefault();
+            setNewRegionalEffects(newRegionalEffects.filter((_effect, i) => i !== index ))
+          }}>
           Remove
         </button>
       </fieldset>
@@ -78,9 +80,6 @@ const AssociatedRegionalEffectsForm = ({
         e.preventDefault();
         handleSubmit(regionalEffectsText, [...updatedRegionalEffects, ...newRegionalEffects])
       }}>
-        <button type="submit">
-          {buttonLabel}
-        </button>
         <h2>Regional Effects Text</h2>
         <fieldset>
           <label>Regional Effects Text</label>
@@ -92,13 +91,22 @@ const AssociatedRegionalEffectsForm = ({
         <h2>Regional Effects</h2>
         {updatedRegionalEffects.map(getRegionalEffect)}
         <hr/>
-        <button onClick={e => {
-          e.preventDefault()
-          setNewRegionalEffects([...newRegionalEffects, { description: '' }])
-        }}>
+        <button
+          className="button"
+          onClick={e => {
+            e.preventDefault()
+            setNewRegionalEffects([...newRegionalEffects, { description: '' }])
+          }}>
           Add
         </button>
         {newRegionalEffects.map(getNewRegionalEffect)}
+        <fieldset>
+          <button
+            className="button button-green"
+            type="submit">
+            {buttonLabel}
+          </button>
+        </fieldset>
       </form>
     </>
   );

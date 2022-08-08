@@ -75,7 +75,7 @@ const WikiForm = ({
           <MarkdownPreview value={contentField}/>
         </fieldset>
         <fieldset>
-          <button>
+          <button className="button button-green">
             {handleSubmitButtonLabel}
           </button>
         </fieldset>
