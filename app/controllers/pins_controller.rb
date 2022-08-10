@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PinsController < ApplicationController
+class PinsController < ApiController
   def create
     p = Pin.create create_pin_params
     pin = pin_response_model p

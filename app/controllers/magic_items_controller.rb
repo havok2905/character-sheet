@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MagicItemsController < ApplicationController
+class MagicItemsController < ApiController
   def index
     m = MagicItem.order :name
     magic_items = magic_items_response_model m

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class WikiController < ApplicationController
+class WikiController < ApiController
   def index
     a = Article.order :title
     articles = articles_response_model a

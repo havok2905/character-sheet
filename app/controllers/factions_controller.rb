@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FactionsController < ApplicationController
+class FactionsController < ApiController
   def index
     f = Faction.order :name
     factions = factions_response_model f

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CharactersController < ApplicationController
+class CharactersController < ApiController
   def index
     c = Character.order :name
     characters = characters_response_model c

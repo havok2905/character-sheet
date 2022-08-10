@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SpellsController < ApplicationController
+class SpellsController < ApiController
   def index
     s = Spell.order :level, :name
     spells = spells_response_model s

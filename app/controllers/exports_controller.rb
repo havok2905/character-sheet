@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ExportsController < ApplicationController
+class ExportsController < ApiController
   def json
     response = export_response(required_data)
     render json: response

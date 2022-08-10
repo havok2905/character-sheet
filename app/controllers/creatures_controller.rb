@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreaturesController < ApplicationController
+class CreaturesController < ApiController
   def index
     c = Creature.order :name
     creatures = creatures_response_model c

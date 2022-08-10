@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LocationsController < ApplicationController
+class LocationsController < ApiController
   def index
     l = Location.order :name
     locations = locations_response_model l
