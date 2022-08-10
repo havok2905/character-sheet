@@ -35,13 +35,6 @@ Rails.application.routes.draw do
     post '/wiki/:id/upload_hero_image', to: 'wiki#upload_hero_image', as: 'wiki_upload_hero_image'
   end
 
-  devise_for :users, :skip => [:registrations]
-  resources :users, only: [:create, :destroy, :edit, :index]
-  patch '/users/:id/update_email', to: 'users#update_email', as: 'user_update_email'
-  patch '/users/:id/update_role', to: 'users#update_role', as: 'user_update_role'
-  patch '/users/:id/update_password', to: 'users#update_password', as: 'user_update_password'
-  patch '/users/:id/update_username', to: 'users#update_username', as: 'user_update_username'
-
   root 'react#index'
   get '*path', to: 'react#index', constraints: lambda { |req|
     req.path.exclude? 'rails/active_storage'
