@@ -104,10 +104,14 @@ const SpellsTable = ({
                   <td>{concentration ? 'C' : ''}</td>
                   <td>{ritual ? 'R' : ''}</td>
                   <td>
-                    <Link to={generatePath(SPELL_ROUTE, { id })}>
+                    <Link
+                      className="button"
+                      to={generatePath(SPELL_ROUTE, { id })}>
                       View
                     </Link>
-                    <Link to={generatePath(SPELL_EDIT_ROUTE, { id })}>
+                    <Link
+                      className="button"
+                      to={generatePath(SPELL_EDIT_ROUTE, { id })}>
                       Edit
                     </Link>
                   </td>

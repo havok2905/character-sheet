@@ -71,6 +71,7 @@ const LocationPage = (): ReactElement | null => {
               </Link>
             </div>
           </div>
+          <h1>{name}</h1>
           {
             imageUrl && (
               <>
@@ -93,7 +94,6 @@ const LocationPage = (): ReactElement | null => {
               </>
             )
           }
-          <h1>{name}</h1>
           {
             sigilUrl && (
               <>
