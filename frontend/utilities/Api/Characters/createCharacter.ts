@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { ICharacter } from '../../../types/models';
 
 type ICreateCharacterRequest = {
@@ -9,11 +10,11 @@ type ICreateCharacterResponse = {
 };
 
 const createCharacter = (data: ICreateCharacterRequest): Promise<ICreateCharacterResponse> => {
-  return fetch('/api/characters', {
+  return authenticatedFetch('/api/characters', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-  }).then(response => response.json());
+  });
 };
 
 export { createCharacter };

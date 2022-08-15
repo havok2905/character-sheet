@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { IFaction } from '../../../types/models';
 
 type IGetFactionsResponse = {
@@ -5,10 +6,10 @@ type IGetFactionsResponse = {
 };
 
 const getFactions = (): Promise<IGetFactionsResponse> => {
-  return fetch('/api/factions', {
+  return authenticatedFetch('/api/factions', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
-  }).then(response => response.json());
+  });
 };
 
 export { getFactions };

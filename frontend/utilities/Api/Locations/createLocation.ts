@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { ILocation } from '../../../types/models';
 
 type ICreateLocationRequest = {
@@ -13,11 +14,11 @@ type ICreateLocationResponse = {
 };
 
 const createLocation = (data: ICreateLocationRequest): Promise<ICreateLocationResponse> => {
-  return fetch('/api/locations', {
+  return authenticatedFetch('/api/locations', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-  }).then(response => response.json());
+  });
 };
 
 export {

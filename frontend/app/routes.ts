@@ -30,6 +30,8 @@ export const SPELL_CREATE_ROUTE = '/spells/new';
 export const SPELL_EDIT_ROUTE = '/spells/:id/edit';
 export const SPELLS_ROUTE = '/spells';
 
+export const USERS_ROUTE = '/users';
+
 export const WIKI_ITEM_ROUTE = '/wiki/:id';
 export const WIKI_CREATE_ROUTE = '/wiki/new';
 export const WIKI_EDIT_ROUTE = '/wiki/:id/edit';

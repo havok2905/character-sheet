@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { ISpell } from '../../../types/models';
 
 type IGetSpellResponse = {
@@ -5,10 +6,10 @@ type IGetSpellResponse = {
 };
 
 const getSpell = (id: string): Promise<IGetSpellResponse> => {
-  return fetch(`/api/spells/${id}`, {
+  return authenticatedFetch(`/api/spells/${id}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
-  }).then(response => response.json());
+  });
 };
 
 export { getSpell };

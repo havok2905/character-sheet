@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { ILocation } from '../../../types/models';
 
 type IUploadLocationHeroImageResponse = {
@@ -5,10 +6,10 @@ type IUploadLocationHeroImageResponse = {
 };
 
 const uploadLocationHeroImage = (id: string, data: FormData): Promise<IUploadLocationHeroImageResponse> => {
-  return fetch(`/api/locations/${id}/upload_hero_image`, {
+  return authenticatedFetch(`/api/locations/${id}/upload_hero_image`, {
     body: data,
     method: 'POST'
-  }).then(response => response.json())
+  })
 };
 
 export { uploadLocationHeroImage };

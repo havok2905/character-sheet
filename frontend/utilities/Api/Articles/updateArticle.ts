@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { IArticle } from '../../../types/models';
 
 type IUpdateArticleRequest = {
@@ -15,11 +16,11 @@ type IUpdateArticleResponse = {
 };
 
 const updateArticle = (id: string, data: IUpdateArticleRequest): Promise<IUpdateArticleResponse> => {
-  return fetch(`/api/wiki/${id}`, {
+  return authenticatedFetch(`/api/wiki/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-  }).then(response => response.json());
+  });
 };
 
 export { updateArticle };

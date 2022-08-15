@@ -67,6 +67,7 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
     ast (2.4.2)
+    bcrypt (3.1.18)
     bindex (0.8.1)
     bootsnap (1.11.1)
       msgpack (~> 1.2)
@@ -97,6 +98,7 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jwt (2.4.1)
     loofah (2.16.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -208,11 +210,13 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  bcrypt (~> 3.1.8)
   bootsnap
   debug
   dotenv-rails (~> 2.1, >= 2.1.1)
   image_processing (~> 1.2)
   jbuilder
+  jwt
   mysql2 (~> 0.5.3)
   pry (~> 0.13.1)
   pry-rails (~> 0.3.9)

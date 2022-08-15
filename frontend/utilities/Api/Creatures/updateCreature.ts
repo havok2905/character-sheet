@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { ICreature } from '../../../types/models';
 
 type IUpdateCreatureRequest = {
@@ -9,11 +10,11 @@ type IUpdateCreatureResponse = {
 };
 
 const updateCreature = (id: string, data: IUpdateCreatureRequest): Promise<IUpdateCreatureResponse> => {
-  return fetch(`/api/creatures/${id}`, {
+  return authenticatedFetch(`/api/creatures/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-  }).then(response => response.json());
+  });
 };
 
 export { updateCreature };

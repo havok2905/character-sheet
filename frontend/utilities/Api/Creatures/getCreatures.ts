@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { ICreature } from '../../../types/models';
 
 type IGetCreaturesResponse = {
@@ -5,10 +6,10 @@ type IGetCreaturesResponse = {
 };
 
 const getCreatures = (): Promise<IGetCreaturesResponse> => {
-  return fetch('/api/creatures', {
+  return authenticatedFetch('/api/creatures', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
-  }).then(response => response.json());
+  });
 };
 
 export { getCreatures };

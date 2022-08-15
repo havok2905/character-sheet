@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { IMagicItem } from '../../../types/models';
 
 type IGetMagicItemResponse = {
@@ -5,10 +6,10 @@ type IGetMagicItemResponse = {
 };
 
 const getMagicItem = (id: string): Promise<IGetMagicItemResponse> => {
-  return fetch(`/api/magic_items/${id}`, {
+  return authenticatedFetch(`/api/magic_items/${id}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
-  }).then(response => response.json());
+  });
 };
 
 export { getMagicItem };

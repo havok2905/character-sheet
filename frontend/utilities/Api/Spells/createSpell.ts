@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { ISpell } from '../../../types/models';
 
 type ICreateSpellRequest = {
@@ -10,11 +11,11 @@ type ICreateSpellResponse = {
 };
 
 const createSpell = (data: ICreateSpellRequest): Promise<ICreateSpellResponse> => {
-  return fetch('/api/spells', {
+  return authenticatedFetch('/api/spells', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-  }).then(response => response.json());
+  });
 };
 
 export { createSpell };

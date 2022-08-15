@@ -378,6 +378,13 @@ interface IFaction {
   rivals: string;
 }
 
+interface IUser {
+  id?: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+}
+
 export {
   IArticle,
   ICharacter,
@@ -396,5 +403,6 @@ export {
   IMagicItem,
   IMap,
   IPin,
-  ISpell
+  ISpell,
+  IUser
 };

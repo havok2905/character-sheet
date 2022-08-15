@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { ILocation } from '../../../types/models';
 
 type IUploadLocationSigilResponse = {
@@ -5,10 +6,10 @@ type IUploadLocationSigilResponse = {
 };
 
 const uploadLocationSigil = (id: string, data: FormData): Promise<IUploadLocationSigilResponse> => {
-  return fetch(`/api/locations/${id}/upload_sigil`, {
+  return authenticatedFetch(`/api/locations/${id}/upload_sigil`, {
     body: data,
     method: 'POST'
-  }).then(response => response.json())
+  })
 };
 
 export { uploadLocationSigil };

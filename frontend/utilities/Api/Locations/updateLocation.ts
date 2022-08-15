@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { ILocation } from '../../../types/models';
 
 type IUpdateLocationRequest = {
@@ -15,11 +16,11 @@ type IUpdateLocationsResponse = {
 };
 
 const updateLocation = (id: string, data: IUpdateLocationRequest): Promise<IUpdateLocationsResponse> => {
-  return fetch(`/api/locations/${id}`, {
+  return authenticatedFetch(`/api/locations/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-  }).then(response => response.json());
+  });
 };
 
 export { updateLocation };

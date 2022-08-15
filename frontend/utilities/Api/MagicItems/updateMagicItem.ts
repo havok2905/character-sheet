@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { IMagicItem } from '../../../types/models';
 
 type IUpdateMagicItemRequest = {
@@ -9,11 +10,11 @@ type IUpdateMagicItemResponse = {
 };
 
 const updateMagicItem = (id: string, data: IUpdateMagicItemRequest): Promise<IUpdateMagicItemResponse> => {
-  return fetch(`/api/magic_items/${id}`, {
+  return authenticatedFetch(`/api/magic_items/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-  }).then(response => response.json());
+  });
 };
 
 export { updateMagicItem };

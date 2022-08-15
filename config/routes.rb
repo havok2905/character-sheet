@@ -31,10 +31,13 @@ Rails.application.routes.draw do
 
     resources :spells, only: [:index, :create, :destroy, :show, :update]
 
+    resources :users, only: [:index]
+
     resources :wiki, only: [:index, :create, :destroy, :show, :update]
     post '/wiki/:id/upload_hero_image', to: 'wiki#upload_hero_image', as: 'wiki_upload_hero_image'
   end
 
+  post 'auth/login', to: 'authentication#login'
   root 'react#index'
   get '*path', to: 'react#index', constraints: lambda { |req|
     req.path.exclude? 'rails/active_storage'

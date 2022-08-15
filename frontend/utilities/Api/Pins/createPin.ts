@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { IPin } from '../../../types/models';
 
 type ICreatePinRequest = {
@@ -9,11 +10,11 @@ type ICreatePinResponse = {
 };
 
 const createPin = (data: ICreatePinRequest): Promise<ICreatePinResponse> => {
-  return fetch('/api/pins', {
+  return authenticatedFetch('/api/pins', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-  }).then(response => response.json());
+  });
 };
 
 export { createPin };

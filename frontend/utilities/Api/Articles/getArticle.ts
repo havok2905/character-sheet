@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { IArticle } from '../../../types/models';
 
 type IGetArticleResponse = {
@@ -5,10 +6,10 @@ type IGetArticleResponse = {
 };
 
 const getArticle = (id: string): Promise<IGetArticleResponse> => {
-  return fetch(`/api/wiki/${id}`, {
+  return authenticatedFetch(`/api/wiki/${id}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
-  }).then(response => response.json());
+  });
 };
 
 export { getArticle };

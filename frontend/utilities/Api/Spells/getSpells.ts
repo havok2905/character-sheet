@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { ISpell } from '../../../types/models';
 
 type IGetSpellsResponse = {
@@ -5,10 +6,10 @@ type IGetSpellsResponse = {
 };
 
 const getSpells = (): Promise<IGetSpellsResponse> => {
-  return fetch('/api/spells', {
+  return authenticatedFetch('/api/spells', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
-  }).then(response => response.json());
+  });
 };
 
 export { getSpells };

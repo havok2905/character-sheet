@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { ILocation } from '../../../types/models';
 
 type IGetLocationResponse = {
@@ -5,10 +6,10 @@ type IGetLocationResponse = {
 };
 
 const getLocation = (id: string): Promise<IGetLocationResponse> => {
-  return fetch(`/api/locations/${id}`, {
+  return authenticatedFetch(`/api/locations/${id}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
-  }).then(response => response.json());
+  });
 };
 
 export { getLocation };

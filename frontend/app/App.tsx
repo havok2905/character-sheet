@@ -26,6 +26,7 @@ import {
   SPELL_CREATE_ROUTE,
   SPELL_EDIT_ROUTE,
   SPELLS_ROUTE,
+  USERS_ROUTE,
   WIKI_ITEM_ROUTE,
   WIKI_CREATE_ROUTE,
   WIKI_EDIT_ROUTE,
@@ -35,20 +36,24 @@ import { CharacterPage } from '../pages/CharacterPage';
 import { CharacterCreatePage } from '../pages/CharacterCreatePage';
 import { CharacterEditPage } from '../pages/CharacterEditPage';
 import { CharactersPage } from '../pages/CharactersPage';
+import { clearToken, getToken, setToken } from '../utilities/Auth';
 import { CreaturePage } from '../pages/CreaturePage';
 import { CreatureCreatePage } from '../pages/CreatureCreatePage';
 import { CreatureEditPage } from '../pages/CreatureEditPage';
 import { CreaturesPage } from '../pages/CreaturesPage';
+import { DiceRoller } from '../components/DiceRoller';
+import { DmScreen } from '../components/DmScreen';
 import { FactionPage } from '../pages/FactionPage';
 import { FactionCreatePage } from '../pages/FactionCreatePage';
 import { FactionEditPage } from '../pages/FactionEditPage';
 import { FactionsPage } from '../pages/FactionsPage';
 import { HomePage } from '../pages/HomePage';
-import { Layout } from '../layouts/Layout';
+import { Link } from 'react-router-dom';
 import { LocationPage } from '../pages/LocationPage';
 import { LocationCreatePage } from '../pages/LocationCreatePage';
 import { LocationEditPage } from '../pages/LocationEditPage';
 import { LocationsPage } from '../pages/LocationsPage';
+import { LoginPage } from '../pages/LoginPage';
 import { MagicItemPage } from '../pages/MagicItemPage';
 import { MagicItemCreatePage } from '../pages/MagicItemCreatePage';
 import { MagicItemEditPage } from '../pages/MagicItemEditPage';
@@ -57,15 +62,41 @@ import { SpellPage } from '../pages/SpellPage';
 import { SpellCreatePage } from '../pages/SpellCreatePage';
 import { SpellEditPage } from '../pages/SpellEditPage';
 import { SpellsPage } from '../pages/SpellsPage';
+import { UsersPage } from '../pages/UsersPage';
 import { WikiArticlePage } from '../pages/WikiArticlePage';
 import { WikiCreatePage } from '../pages/WikiCreatePage';
 import { WikiEditPage } from '../pages/WikiEditPage';
 import { WikiPage } from '../pages/WikiPage';
 
 const App = (): ReactElement => {
+  const clearAppToken = () => {
+    clearToken();
+    location.reload();
+  };
+
+  if (!getToken()) return <LoginPage />;
+
   return (
-    <BrowserRouter>
-      <Layout>
+    <>
+      <BrowserRouter>
+        <nav>
+          <ul className="bulletless-list">
+            <li><Link to={`${ROOT_ROUTE}`}>Home</Link></li>
+            <li><Link to={`${CHARACTERS_ROUTE}`}>Characters</Link></li>
+            <li><Link to={`${CREATURES_ROUTE}`}>Creatures</Link></li>
+            <li><Link to={`${FACTIONS_ROUTE}`}>Factions</Link></li>
+            <li><Link to={`${MAGIC_ITEMS_ROUTE}`}>Magic Items</Link></li>
+            <li><Link to={`${LOCATIONS_ROUTE}`}>Locations</Link></li>
+            <li><Link to={`${SPELLS_ROUTE}`}>Spells</Link></li>
+            <li><Link to={`${WIKI_ROUTE}`}>Wiki</Link></li>
+            <li><Link to={`${USERS_ROUTE}`}>Users</Link></li>
+          </ul>
+          <button
+            className="button button-red"
+            onClick={clearAppToken}>
+            Log out
+          </button>
+        </nav>
         <Routes>
           <Route path={ROOT_ROUTE} element={<HomePage/>} />
           <Route path={CHARACTER_ROUTE} element={<CharacterPage/>} />
@@ -92,13 +123,20 @@ const App = (): ReactElement => {
           <Route path={SPELL_CREATE_ROUTE} element={<SpellCreatePage/>} />
           <Route path={SPELL_EDIT_ROUTE} element={<SpellEditPage/>} />
           <Route path={SPELLS_ROUTE} element={<SpellsPage/>} />
+          <Route path={USERS_ROUTE} element={<UsersPage/>} />
           <Route path={WIKI_ITEM_ROUTE} element={<WikiArticlePage/>} />
           <Route path={WIKI_CREATE_ROUTE} element={<WikiCreatePage/>} />
           <Route path={WIKI_EDIT_ROUTE} element={<WikiEditPage/>} />
           <Route path={WIKI_ROUTE} element={<WikiPage/>} />
         </Routes>
-      </Layout>
-    </BrowserRouter>
+      </BrowserRouter>
+      <footer>
+        <DmScreen/>
+        <DiceRoller/>
+      </footer>
+      <div id="modal-root"></div>
+      <div id="toast-collection-root"></div>
+    </>
   );
 };
 

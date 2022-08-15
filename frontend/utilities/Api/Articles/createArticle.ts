@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { IArticle } from '../../../types/models';
 
 type ICreateArticleRequest = {
@@ -13,11 +14,11 @@ type ICreateArticleResponse = {
 };
 
 const createArticle = (data: ICreateArticleRequest): Promise<ICreateArticleResponse> => {
-  return fetch('/api/wiki', {
+  return authenticatedFetch('/api/wiki', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-  }).then(response => response.json());
+  });
 };
 
 export {

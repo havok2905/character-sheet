@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { IMagicItem } from '../../../types/models';
 
 type ICreateMagicItemRequest = {
@@ -9,11 +10,11 @@ type ICreateMagicItemResponse = {
 };
 
 const createMagicItem = (data: ICreateMagicItemRequest): Promise<ICreateMagicItemResponse> => {
-  return fetch('/api/magic_items', {
+  return authenticatedFetch('/api/magic_items', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-  }).then(response => response.json());
+  });
 };
 
 export { createMagicItem };

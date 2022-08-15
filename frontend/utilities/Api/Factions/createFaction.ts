@@ -1,3 +1,4 @@
+import { authenticatedFetch } from '../authenticatedFetch';
 import { IFaction } from '../../../types/models';
 
 type ICreateFactionRequest = {
@@ -9,11 +10,11 @@ type ICreateFactionResponse = {
 };
 
 const createFaction = (data: ICreateFactionRequest): Promise<ICreateFactionResponse> => {
-  return fetch('/api/factions', {
+  return authenticatedFetch('/api/factions', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-  }).then(response => response.json());
+  });
 };
 
 export { createFaction };
