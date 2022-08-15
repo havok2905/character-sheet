@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # froznen_string_literal: true
 
 class User < ApplicationRecord

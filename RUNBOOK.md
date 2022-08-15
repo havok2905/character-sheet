@@ -15,12 +15,19 @@
 2. `bundle install`
 3. `rake db:create`
 4. `rake db:migrate`
-5. `rake db:seed`
+5. Populate .env file
+6. Create a first user through `rails c`
 6. `rails s`
 7. `cd ./frontend`
 8. `npm i`
 9. `npx webpack --watch`
 
+## Creating a first user
+
+```ruby
+u = User.new({ first_name: 'Chris', last_name: 'McLean', password: 'password', password_confirmation: 'password', username: 'havok' })
+u.save!
+```
 ## Run in production
 - `NODE_ENV=production npx webpack`
 - `RAILS_ENV=production rails s`
@@ -28,12 +35,6 @@
 ### Run in local production
 - `NODE_ENV=production npx webpack`
 - `RAILS_LOG_TO_STDOUT=true RAILS_ENV=production rails s`
-
-## Rich Content
-
-Image Attachments for `Action Text` involves installing `libvips`
-
-- sudo apt-get install -y libvips
 
 ## Image Uploads
 
@@ -44,10 +45,6 @@ These directories with app permissions to write are required for image uploads t
 
 ## Routine Operations
 
-### Automated Tests
-
-`bundle exec rspec`
-
 ### Linting
 
 #### Ruby
@@ -57,14 +54,17 @@ These directories with app permissions to write are required for image uploads t
 
 #### Frontend
 
+- `cd frontend`
 - `npm run lint`
 
 ##### Typescript
 
+- `cd frontend`
 - `npm run eslint`
 
 ##### Sass
 
+- `cd frontend`
 - `npm run stylelint`
 
 ### Secrets
@@ -73,6 +73,7 @@ These directories with app permissions to write are required for image uploads t
 
 ```
 SECRET_KEY_BASE=
+MYSQLAPP_DATABASE_PASSWORD=
 ```
 
 ### Image Dumps and Backups

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApiController < ActionController::API
   before_action :authenticate_request
 
@@ -6,7 +8,7 @@ class ApiController < ActionController::API
   def authenticate_request
     json_web_token = Auth::JsonWebToken.new
     token = request.headers['Authorization']
-    token = token.split(' ').last if header
+    token = token.split.last if header
 
     if token.empty?
       render json: { error: 'unauthorized' }, status: :unauthorized

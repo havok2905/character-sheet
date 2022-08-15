@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# u = User.new({ first_name: 'Chris', last_name: 'McLean', password: 'password', password_confirmation: 'password', username: 'havok' })
-# u.save!
-
 class UsersController < ApiController
   def index
     u = User.all

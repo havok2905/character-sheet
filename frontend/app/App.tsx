@@ -36,7 +36,7 @@ import { CharacterPage } from '../pages/CharacterPage';
 import { CharacterCreatePage } from '../pages/CharacterCreatePage';
 import { CharacterEditPage } from '../pages/CharacterEditPage';
 import { CharactersPage } from '../pages/CharactersPage';
-import { clearToken, getToken, setToken } from '../utilities/Auth';
+import { clearToken, getToken } from '../utilities/Auth';
 import { CreaturePage } from '../pages/CreaturePage';
 import { CreatureCreatePage } from '../pages/CreatureCreatePage';
 import { CreatureEditPage } from '../pages/CreatureEditPage';
