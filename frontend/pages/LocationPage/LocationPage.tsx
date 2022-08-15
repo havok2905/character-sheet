@@ -102,7 +102,7 @@ const LocationPage = (): ReactElement | null => {
               </>
             )
           }
-          {heroImageUrl && <img src={heroImageUrl} alt={`${name} hero image`}/>}
+          {heroImageUrl && <img src={heroImageUrl} alt={`${name} hero image`} width="1000px"/>}
           {
             description && (
               <Card>

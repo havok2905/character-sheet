@@ -1,9 +1,10 @@
 // COLORS
 
-$dark-black: #0c0c0d;
-$light-black: #151518;
+$card-background: #020814;
+$back-background: #121b2c;
+
 $true-black: #000000;
-$faded-white: #cacaca;
+$faded-white: #ccdaff;
 $true-white: #ffffff;
 $blue: #4da1c0;
 $green: #00a59a;
@@ -12,7 +13,7 @@ $yellow: #e5820e;
 
 // BORDERS
 
-$border-standard: 1px $light-black solid;
+$border-standard: 1px $back-background solid;
 $border-light: 1px $true-white solid;
 
 // BOX SHADOWS

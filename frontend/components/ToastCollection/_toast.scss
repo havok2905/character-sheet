@@ -5,7 +5,7 @@
   border-radius: 5px;
   box-shadow: $box-shadow-heavy;
   box-sizing: border-box;
-  color: $dark-black;
+  color: $card-background;
   font-weight: 900;
   height: 100px;
   margin: $standard-spacing;
@@ -15,15 +15,15 @@
 
 .toast-error {
   background-color: $red;
-  color: $dark-black;
+  color: $card-background;
 }
 
 .toast-info {
   background-color: $green;
-  color: $dark-black;
+  color: $card-background;
 }
 
 .toast-warn {
   background-color: $yellow;
-  color: $dark-black;
+  color: $card-background;
 }

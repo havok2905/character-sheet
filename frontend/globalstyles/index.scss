@@ -18,7 +18,7 @@
   &:focus,
   &:hover {
     background-color: $faded-white;
-    color: $light-black;
+    color: $back-background;
   }
 
   &.button-blue {
@@ -110,7 +110,7 @@ html {
 }
 
 html, body {
-  background-color: $light-black;
+  background-color: $back-background;
   color: $faded-white;
   font-family: Roboto, sans-serif;
   font-size: $body-text-size;
@@ -142,7 +142,7 @@ fieldset {
 
 footer {
   align-items: center;
-  background-color: $dark-black;
+  background-color: $card-background;
   bottom: 0;
   box-sizing: border-box;
   box-shadow: $box-shadow-light;
@@ -159,9 +159,9 @@ footer {
 }
 
 /* stylelint-disable-next-line string-quotes */
-input[type="number"], input[type="text"], select, textarea {
-  background-color: $dark-black;
-  border: solid $dark-black 1px;
+input[type="number"], input[type="password"], input[type="text"], select, textarea {
+  background-color: $card-background;
+  border: solid $card-background 1px;
   box-shadow: $box-shadow-field;
   color: $faded-white;
   margin-bottom: $small-spacing;
@@ -173,20 +173,12 @@ strong {
 }
 
 table {
-  background-color: $dark-black;
+  background-color: $card-background;
   border-collapse: collapse;
   border-radius: $border-radius;
   box-shadow: $box-shadow-light;
   margin: $standard-spacing 0;
   width: 100%;
-
-  th {
-    border-bottom: $border-standard;
-    color: $faded-white;
-    padding: $small-spacing;
-    text-align: left;
-    text-transform: uppercase;
-  }
 
   td {
     border-bottom: $border-standard;
@@ -197,6 +189,14 @@ table {
     }
   }
 
+  th {
+    border-bottom: $border-standard;
+    color: $faded-white;
+    padding: $small-spacing;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
   tr:last-of-type td {
     border: none;
   }
@@ -204,7 +204,7 @@ table {
 
 nav {
   align-items: center;
-  background-color: $dark-black;
+  background-color: $card-background;
   box-sizing: border-box;
   box-shadow: $box-shadow-light;
   display: flex;
@@ -215,20 +215,20 @@ nav {
   top: 0;
   width: 100%;
   z-index: 10;
-}
 
-nav ul {
-  align-items: center;
-  box-sizing: border-box;
-  display: flex;
-  height: 60px;
-}
+  a {
+    color: $faded-white;
+    text-decoration: none;
+  }
 
-nav ul li {
-  margin-right: $standard-spacing;
-}
+  ul {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    height: 60px;
 
-nav ul li a {
-  color: $faded-white;
-  text-decoration: none;
+    li {
+      margin-right: $standard-spacing;
+    }
+  }
 }
