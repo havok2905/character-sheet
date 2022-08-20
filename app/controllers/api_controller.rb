@@ -8,7 +8,7 @@ class ApiController < ActionController::API
   def authenticate_request
     json_web_token = Auth::JsonWebToken.new
     token = request.headers['Authorization']
-    token = token.split.last if header
+    token = token.split.last if token
 
     if token.empty?
       render json: { error: 'unauthorized' }, status: :unauthorized
