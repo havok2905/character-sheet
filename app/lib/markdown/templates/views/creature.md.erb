@@ -1,0 +1,186 @@
+# <%= @creature.name %>
+
+<%= @creature.size %> <%= @creature.creature_category %>, <%= @creature.alignment %>
+
+![image](./assets/tokens/token.png)
+
+___
+
+**CR:**: <%= @creature.cr %>
+
+**Armor Class** <%= @creature.ac %> (<%= @creature.armor %>)
+
+**Hit Points** <%= @creature.hp %>
+
+**Speed** <%= @creature.speed %>
+<% if @creature.senses.present? -%>
+
+**Senses:** <%= @creature.senses %>
+<% end -%>
+<% if @creature.languages.present? -%>
+
+**Languages:** <%= @creature.languages %>
+<% end -%>
+<% if @creature.condition_immunities.present? -%>
+
+**Condition Immunities:** <%= @creature.condition_immunities %>
+<% end -%>
+<% if @creature.condition_resistances.present? -%>
+
+**Condition Resistances:** <%= @creature.condition_resistances %>
+<% end -%>
+<% if @creature.condition_vulnerabilities.present? -%>
+
+**Condition Vulnerabilities:** <%= @creature.condition_vulnerabilities %>
+<% end -%>
+<% if @creature.damage_immunities.present? -%>
+
+**Damage Immunities:** <%= @creature.damage_immunities %>
+<% end -%>
+<% if @creature.damage_resistances.present? -%>
+
+**Damage Resistences:** <%= @creature.damage_resistances %>
+<% end -%>
+<% if @creature.damage_vulnerabilities.present? -%>
+
+**Damage Vulnerabilities:** <%= @creature.damage_vulnerabilities %>
+<% end -%>
+
+___
+
+|   |   STR   |   DEX   |   CON   |   INT   |   WIS   |   CHA   |
+| - | ------- | ------- | ------- | ------- | ------- | ------- |
+| **Score** | <%= @creature.strength_score %> | <%= @creature.dexterity_score %> | <%= @creature.constitution_score %> | <%= @creature.intelligence_score %> | <%= @creature.wisdom_score %> | <%= @creature.charisma_score %> |
+| **Mod** | <%= @creature.strength_mod %> | <%= @creature.dexterity_mod %> | <%= @creature.constitution_mod %> | <%= @creature.intelligence_mod %> | <%= @creature.wisdom_mod %> | <%= @creature.charisma_mod %> |
+| **Save** | <%= @creature.strength_save %> | <%= @creature.dexterity_save %> | <%= @creature.constitution_save %> | <%= @creature.intelligence_save %> | <%= @creature.wisdom_save %> | <%= @creature.charisma_save %> |
+
+___
+
+**Skills:** <%= @creature.skills %>
+
+## Spellcasting
+
+**Spellcasting.** The creature is a <%= @creature.spellcasting_level %>-level spellcaster. Its spellcasting ability is <%= @creature.spellcasting_ability %> (spell save DC <%= @creature.spellcasting_save_dc %>, <%= @creature.spellcasting_modifier %> to hit with spell attacks). The creature has the following spells prepared:
+<% if @creature.spells.any? -%>
+
+- **Cantrip (at will):** <%= @creature.spells.filter_map { |spell| spell.name if spell.level == 0 }.join(', ') %>
+- **1st Level (<%= @creature.spell_slots_first %> slots):** <%= @creature.spells.filter_map { |spell| spell.name if spell.level == 1 }.join(', ') %>
+- **2nd Level (<%= @creature.spell_slots_second %> slots):** <%= @creature.spells.filter_map { |spell| spell.name if spell.level == 2 }.join(', ') %>
+- **3rd Level (<%= @creature.spell_slots_third %> slots):** <%= @creature.spells.filter_map { |spell| spell.name if spell.level == 3 }.join(', ') %>
+- **4th Level (<%= @creature.spell_slots_fourth %> slots):** <%= @creature.spells.filter_map { |spell| spell.name if spell.level == 4 }.join(', ') %>
+- **5th Level (<%= @creature.spell_slots_fifth %> slots):** <%= @creature.spells.filter_map { |spell| spell.name if spell.level == 5 }.join(', ') %>
+- **6th level (<%= @creature.spell_slots_sixth %> slots):** <%= @creature.spells.filter_map { |spell| spell.name if spell.level == 6 }.join(', ') %>
+- **7th level (<%= @creature.spell_slots_seventh %> slots):** <%= @creature.spells.filter_map { |spell| spell.name if spell.level == 7 }.join(', ') %>
+- **8th level (<%= @creature.spell_slots_eighth %> slots):** <%= @creature.spells.filter_map { |spell| spell.name if spell.level == 8 }.join(', ') %>
+- **9th level (<%= @creature.spell_slots_ninth %> slots):** <%= @creature.spells.filter_map { |spell| spell.name if spell.level == 9 }.join(', ') %>
+- **10th level**: <%= @creature.spells.filter_map { |spell| spell.name if spell.level == 10 }.join(', ') %>
+<% end -%>
+<% if @creature.creature_features.any? -%>
+
+## Features
+<% @creature.creature_features.each do |feature| -%>
+
+### <%= feature.name %>
+
+<%= feature.description %>
+<% end -%>
+<% end -%>
+<% if @creature.creature_actions.any? -%>
+
+## Actions
+<% @creature.creature_actions.each do |action| -%>
+
+### <%= action.name %>
+<% if action.action_type.present? -%>
+
+*<%= action.action_type %>*
+<% end -%>
+<% if action.action_combat_type.present? -%>
+
+*<%= action.action_combat_type %>*
+<% end -%>
+<% if action.range.present? -%>
+
+**Range:** <%= action.range %>
+<% end -%>
+<% if action.attack_bonus.present? -%>
+
+**To Hit:** <%= action.attack_bonus %>
+<% end -%>
+<% if action.saving_throw_dc.present? && action.saving_throw_type.present? -%>
+
+**Save DC:** DC<%= action.saving_throw_dc %> <%= action.saving_throw_type %>
+<% end -%>
+<% if action.damage_dice_roll.present? && action.damage_type.present? -%>
+
+<%= action.damage_dice_roll %> <%= action.damage_type %> Damage
+<% end -%>
+<% if action.damage_two_dice_roll.present? && action.damage_two_type.present? -%>
+
+<%= action.damage_two_dice_roll %> <%= action.damage_two_type %> Damage
+<% end -%>
+<% if action.description.present? -%>
+
+<%= action.description %>
+<% end -%>
+<% end -%>
+<% end -%>
+<% if @creature.creature_legendary_actions.any? -%>
+
+## Legendary Actions
+
+<%= @creature.legendary_actions_text %>
+
+<% @creature.creature_legendary_actions.each do |legendary_action| -%>
+
+**<%= legendary_action.name %>:** <%= legendary_action.description %>
+<% end -%>
+<% end -%>
+<% if @creature.creature_lair_actions.any? -%>
+
+## Lair Actions
+
+<%= @creature.lair_actions_text %>
+
+<% @creature.creature_lair_actions.each do |lair_action| -%>
+- <%= lair_action.description %>
+<% end -%>
+<% end -%>
+<% if @creature.creature_regional_effects.any? -%>
+
+## Regional Effects
+
+<%= @creature.regional_effects_text %>
+
+<% @creature.creature_regional_effects.each do |regional_effect| -%>
+- <%= regional_effect.description %>
+<% end -%>
+<% end -%>
+<% if @creature.personality_traits.present? || @creature.ideals.present? || @creature.bonds.present? || @creature.flaws.present? || @creature.description.present? || @creature.backstory.present? -%>
+
+## About <%= @creature.name %>
+<% if @creature.personality_traits.present? -%>
+
+**Personality Traits:** <%= @creature.personality_traits %>
+<% end -%>
+<% if @creature.ideals.present? -%>
+
+**Ideals:** <%= @creature.ideals %>
+<% end -%>
+<% if @creature.bonds.present? -%>
+
+**Bonds:** <%= @creature.bonds %>
+<% end -%>
+<% if @creature.flaws.present? -%>
+
+**Flaws:** <%= @creature.flaws %>
+<% end -%>
+<% if @creature.description.present? -%>
+
+<%= @creature.description %>
+<% end -%>
+<% if @creature.backstory.present? -%>
+
+<%= @creature.backstory %>
+<% end -%>
+<% end -%>

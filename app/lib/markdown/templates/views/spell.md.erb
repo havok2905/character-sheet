@@ -1,0 +1,23 @@
+# <%= @spell.name %>
+
+**Level:** <%= @spell.level %>
+
+**School:** <%= @spell.school %>
+
+**Components:** (<%= @spell.ritual ? 'R' : '' %><%= @spell.material_components ? 'M' : '' %><%= @spell.somatic_components ? 'S' : '' %><%= @spell.verbal_components ? 'V' : '' %><%= @spell.concentration ? 'C' : '' %>) <%= @spell.components %>
+
+**Cating Time:** <%= @spell.casting_time %>
+
+**Duration:** <%= @spell.duration %>
+
+**Range:** <%= @spell.range %>
+
+**Target:** <%= @spell.target %>
+
+**Description:**
+
+<%= @spell.description %>
+
+**Description at Higher Levels:**
+
+<%= @spell.description_higher_levels %>

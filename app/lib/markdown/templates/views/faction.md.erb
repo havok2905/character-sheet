@@ -1,0 +1,27 @@
+# <%= @faction.name %>
+
+**Alignment:** <%= @faction.alignment %>
+
+**Goals:**  <%= @faction.goals %>
+
+**Ideals:**  <%= @faction.ideals %>
+
+**Allies:**  <%= @faction.allies %>
+
+**Rivals:**  <%= @faction.rivals %>
+
+**Description:**
+
+<%= @faction.description %>
+
+## Member NPCS
+
+<% @faction.creatures.each do |creature| -%>
+- <%= creature.name %>
+<% end -%>
+
+## Member Characters
+
+<% @faction.characters.each do |character| -%>
+- <%= character.name %>
+<% end -%>

@@ -219,7 +219,7 @@ const CharacterPage = (): ReactElement | null => {
                 {getOptionalProperty('Is Saving Throw', isSavingThrow ? 'Yes' : 'No')}
                 {getOptionalProperty('Range', range)}
                 {
-                  description && (
+                  savingThrowDescription && (
                     <>
                       <p><strong>Saving Throw Description:</strong></p>
                       <NewLineText text={savingThrowDescription}/>
