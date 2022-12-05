@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 const GearIcon = (): ReactElement => {
   return (
     <svg
-      fill="currentColor"
+      fill="black"
       height="16" 
       viewBox="0 0 16 16"
       width="16"  

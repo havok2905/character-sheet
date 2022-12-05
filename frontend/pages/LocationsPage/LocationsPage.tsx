@@ -50,12 +50,10 @@ const LocationsPage = (): ReactElement => {
                     <td>{name}</td>
                     <td>
                       <Link
-                        className="button"
                         to={generatePath(LOCATION_ROUTE, { id })}>
                         View
                       </Link>
                       <Link
-                        className="button"
                         to={generatePath(LOCATION_EDIT_ROUTE, { id })}>
                         Edit
                       </Link>

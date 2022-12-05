@@ -47,7 +47,9 @@ const WikiArticlePage = (): ReactElement | null => {
         <h1>{title}</h1>
         <TagList tags={tags}/>
         {heroImageUrl && <img src={heroImageUrl} alt={`${title} hero image`} width="1000px"/>}
-        <MarkdownPreview value={content}/>
+        <div className="article">
+          <MarkdownPreview value={content}/>
+        </div>
       </div>
     </div>
   );

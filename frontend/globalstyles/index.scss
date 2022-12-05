@@ -75,6 +75,12 @@
   width: $layout-width;
 }
 
+.article {
+  background: $card-background;
+  box-sizing: border-box;
+  padding: $standard-spacing;
+}
+
 .page-header {
   display: flex;
   position: relative;
@@ -106,11 +112,14 @@ body {
 }
 
 html {
+  background-attachment: fixed;
+  background-size: cover;
+  background-image: url("/images/background.jpg");
+  background-repeat: no-repeat;
   margin: 0;
 }
 
 html, body {
-  background-color: $back-background;
   color: $faded-white;
   font-family: Roboto, sans-serif;
   font-size: $body-text-size;
@@ -123,6 +132,7 @@ a {
 
 h1 {
   color: $faded-white;
+  text-shadow: 0 0 10px black;
 }
 
 h2 {
