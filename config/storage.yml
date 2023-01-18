@@ -4,11 +4,11 @@ test:
 
 local_development:
   service: Disk
-  root: <%= '/srv/character-sheet/development/img' %>
+  root: <%= ENV["ACTIVE_STORAGE_DEVELOPMENT_PATH"] %>
 
 local_production:
   service: Disk
-  root: <%= '/srv/character-sheet/production/img' %>
+  root: <%= ENV["ACTIVE_STORAGE_PRODUCTION_PATH"] %>
 
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:

@@ -38,11 +38,7 @@ u.save!
 
 ## Image Uploads
 
-- `/srv/character-sheet/development/img/`
-- `/srv/character-sheet/production/img/`
-
-These directories with app permissions to write are required for image uploads to run in develop.
-
+Image uploading depends on a directory existing on disk to write to. This will be configured in .env below.
 ## Routine Operations
 
 ### Linting
@@ -72,6 +68,8 @@ These directories with app permissions to write are required for image uploads t
 #### Dotenv File
 
 ```
+ACTIVE_STORAGE_DEVELOPMENT_PATH=
+ACTIVE_STORAGE_PRODUCTION_PATH=
 SECRET_KEY_BASE=
 MYSQLAPP_DATABASE_PASSWORD=
 ```
@@ -90,10 +88,3 @@ Your specified user will need extra permissions set up to perform a mysqldump op
 - SHOW VIEW
 - TRIGGER
 - LOCK TABLES
-
-**Require Directories**
-
-- `/var/character-sheet/development/backups/mysql/`
-- `/var/character-sheet/production/backups/mysql/`
-
-`mysqldump -u <USER> -p --all-databases --single-transaction --quick --lock-tables=false | gzip > /var/character-sheet/development/backups/mysql/full-backup-$(date +"%Y_%m_%d_%I_%M_%p").sql.gz`
