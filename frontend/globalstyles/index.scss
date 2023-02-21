@@ -1,5 +1,4 @@
 @import './variables';
-@import './actiontext';
 
 .button {
   background: transparent;
@@ -73,12 +72,6 @@
   justify-content: space-between;
   margin: 0 auto;
   width: $layout-width;
-}
-
-.article {
-  background: $card-background;
-  box-sizing: border-box;
-  padding: $standard-spacing;
 }
 
 .page-header {

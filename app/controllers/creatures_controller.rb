@@ -197,7 +197,6 @@ class CreaturesController < ApiController
       creatureLairActions: %i[_destroy description id],
       creatureLegendaryActions: %i[_destroy description id name],
       creatureRegionalEffects: %i[_destroy description id],
-      factionIds: [],
       magicItemIds: [],
       spellIds: []
     )

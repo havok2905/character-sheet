@@ -6,22 +6,12 @@ module DataMappers
       def run(creature)
         creature_entity = DataMappers::Responses::Entities::CreatureEntity.new
         response = creature_entity.run creature
-        response[:factions] = factions_response creature
         response[:magic_items] = magic_items_response creature
         response[:spells] = spells_response creature
         response
       end
 
       private
-
-      def factions_response(creature)
-        factions = creature.factions || []
-
-        factions.map do |faction|
-          faction_entity = DataMappers::Responses::Entities::FactionEntity.new
-          faction_entity.run faction
-        end
-      end
 
       def magic_items_response(creature)
         magic_items = creature.magic_items || []

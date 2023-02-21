@@ -317,7 +317,6 @@ class CharactersController < ApiController
       characterFeatureResources: %i[_destroy name id total],
       characterItems: %i[_destroy name id total],
       creatureIds: [],
-      factionIds: [],
       magicItemIds: [],
       spellIds: []
     )

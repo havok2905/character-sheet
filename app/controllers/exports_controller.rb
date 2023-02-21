@@ -14,27 +14,14 @@ class ExportsController < ApiController
   private
 
   def required_data
-    articles = Article.all
     characters = Character.all
     creatures = Creature.all
-    factions = Faction.all
-    locations = Location.all
     magic_items = MagicItem.all
     spells = Spell.all
 
-    locations_hash = locations.map do |location|
-      {
-        location:,
-        map: Map.where(location_id: location.id).first
-      }
-    end
-
     {
-      articles:,
       characters:,
       creatures:,
-      factions:,
-      locations_hash:,
       magic_items:,
       spells:
     }

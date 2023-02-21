@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { AssociatedActionsForm } from '../../components/AssociatedActionsForm';
-import { AssociatedFactionsForm } from '../../components/AssociatedFactionsForm';
 import { AssociatedCreatureFeaturesForm } from '../../components/AssociatedCreatureFeaturesForm';
 import { AssociatedLairActionsForm } from '../../components/AssociatedLairActionsForm';
 import { AssociatedLegendaryActionsForm } from '../../components/AssociatedLegendaryActionsForm';
@@ -25,7 +24,6 @@ import {
   useNavigate,
   useParams
 } from 'react-router-dom';
-import { getFactions } from '../../utilities/Api/Factions';
 import { getMagicItems } from '../../utilities/Api/MagicItems';
 import { getSpells } from '../../utilities/Api/Spells';
 import {
@@ -35,7 +33,6 @@ import {
   ICreatureLairAction,
   ICreatureLegendaryAction,
   ICreatureRegionalEffect,
-  IFaction,
   IMagicItem,
   ISpell
 } from '../../types/models';
@@ -44,14 +41,12 @@ import { Modal } from '../../components/Modal';
 
 interface ICreatureEditPageContentState {
   creature: ICreature | null,
-  factions: IFaction[],
   magicItems: IMagicItem[],
   spells: ISpell[]
 }
 
 const CreatureEditPage = (): ReactElement | null => {
   const [actionsModalOpen, setActionsModalOpen] = useState(false);
-  const [factionsModalOpen, setFactionsModalOpen] = useState(false);
   const [featuresModalOpen, setFeaturesModalOpen] = useState(false);
   const [lairActionsModalOpen, setLairActionsModalOpen] = useState(false);
   const [legendaryActionsModalOpen, setLegendaryActionsModalOpen] = useState(false);
@@ -60,7 +55,6 @@ const CreatureEditPage = (): ReactElement | null => {
   const [spellsModalOpen, setSpellsModalOpen] = useState(false);
   const [state, setState] = useState<ICreatureEditPageContentState>({
     creature: null,
-    factions: [] as IFaction[],
     magicItems: [] as IMagicItem[],
     spells: [] as ISpell[]
   });
@@ -72,18 +66,15 @@ const CreatureEditPage = (): ReactElement | null => {
     if (params.id) {
       Promise.all([
         getCreature(params.id),
-        getFactions(),
         getMagicItems(),
         getSpells()
       ]).then(([
         creatureData,
-        factionData,
         magicItemsData,
         spellsData
       ]) => {
         setState({
           creature: creatureData.creature,
-          factions: factionData.factions,
           magicItems: magicItemsData.magicItems,
           spells: spellsData.spells
         });
@@ -91,7 +82,7 @@ const CreatureEditPage = (): ReactElement | null => {
     }
   }, []);
 
-  const { creature, factions, magicItems, spells } = state;
+  const { creature, magicItems, spells } = state;
 
   if (!creature) return null;
 
@@ -148,22 +139,6 @@ const CreatureEditPage = (): ReactElement | null => {
           handleSubmit={(creatureActions: ICreatureAction[]) => {
             handleSubmit({ ...creature, creatureActions });
           }}/>
-      </Modal>
-    );
-  };
-
-  const getFactionsModal = (): ReactElement | null => {
-    if (!factionsModalOpen || !creature) return null;
-
-    return (
-      <Modal
-        onCloseModal={() => setFactionsModalOpen(false)}
-        onCloseModalOverlay={() => setFactionsModalOpen(false)}>
-        <AssociatedFactionsForm
-          buttonLabel="Update Factions"
-          factionIds={(creature.factions || []).map(faction => String(faction.id))}
-          factions={factions}
-          handleSubmit={(factionIds: string[]) => handleSubmit({ ...creature, factionIds })}/>
       </Modal>
     );
   };
@@ -295,7 +270,6 @@ const CreatureEditPage = (): ReactElement | null => {
             <button className="button" onClick={() => setRegionalEffectsModalOpen(true)}>Regional Effects</button>
             <button className="button" onClick={() => setSpellsModalOpen(true)}>Spells</button>
             <button className="button" onClick={() => setMagicItemsModalOpen(true)}>Magic Items</button>
-            <button className="button" onClick={() => setFactionsModalOpen(true)}>Factions</button>
           </div>
           <CreatureForm
             creature={creature}
@@ -305,7 +279,6 @@ const CreatureEditPage = (): ReactElement | null => {
         </div>
       </div>
       {getActionsModal()}
-      {getFactionsModal()}
       {getFeaturesModal()}
       {getLairActionsModal()}
       {getLegendaryActionsModal()}
