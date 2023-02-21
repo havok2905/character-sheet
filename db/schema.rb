@@ -10,17 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_15_072400) do
-  create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "body", size: :long
-    t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
-  end
-
+ActiveRecord::Schema[7.0].define(version: 2023_02_21_204712) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -47,20 +37,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_15_072400) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-  end
-
-  create_table "articles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.text "content"
-    t.string "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "articles_tags", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "article_id", null: false
-    t.bigint "tag_id", null: false
-    t.index ["article_id"], name: "index_articles_tags_on_article_id"
-    t.index ["tag_id"], name: "index_articles_tags_on_tag_id"
   end
 
   create_table "character_attacks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -241,13 +217,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_15_072400) do
     t.index ["creature_id"], name: "index_characters_creatures_on_creature_id"
   end
 
-  create_table "characters_factions", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "character_id", null: false
-    t.bigint "faction_id", null: false
-    t.index ["character_id"], name: "index_characters_factions_on_character_id"
-    t.index ["faction_id"], name: "index_characters_factions_on_faction_id"
-  end
-
   create_table "characters_magic_items", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "character_id", null: false
     t.bigint "magic_item_id", null: false
@@ -379,13 +348,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_15_072400) do
     t.text "backstory"
   end
 
-  create_table "creatures_factions", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "creature_id", null: false
-    t.bigint "faction_id", null: false
-    t.index ["creature_id"], name: "index_creatures_factions_on_creature_id"
-    t.index ["faction_id"], name: "index_creatures_factions_on_faction_id"
-  end
-
   create_table "creatures_magic_items", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "creature_id", null: false
     t.bigint "magic_item_id", null: false
@@ -393,45 +355,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_15_072400) do
     t.index ["magic_item_id"], name: "index_creatures_magic_items_on_magic_item_id"
   end
 
-  create_table "creatures_pins", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "pin_id", null: false
-    t.bigint "creature_id", null: false
-    t.index ["creature_id"], name: "index_creatures_pins_on_creature_id"
-    t.index ["pin_id"], name: "index_creatures_pins_on_pin_id"
-  end
-
   create_table "creatures_spells", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "creature_id", null: false
     t.bigint "spell_id", null: false
     t.index ["creature_id"], name: "index_creatures_spells_on_creature_id"
     t.index ["spell_id"], name: "index_creatures_spells_on_spell_id"
-  end
-
-  create_table "factions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "alignment"
-    t.text "allies"
-    t.text "description"
-    t.text "goals"
-    t.text "ideals"
-    t.string "name"
-    t.text "rivals"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "factions_pins", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "pin_id", null: false
-    t.bigint "faction_id", null: false
-    t.index ["faction_id"], name: "index_factions_pins_on_faction_id"
-    t.index ["pin_id"], name: "index_factions_pins_on_pin_id"
-  end
-
-  create_table "locations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.text "description"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "content"
   end
 
   create_table "magic_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -443,30 +371,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_15_072400) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "magic_items_pins", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "pin_id", null: false
-    t.bigint "magic_item_id", null: false
-    t.index ["magic_item_id"], name: "index_magic_items_pins_on_magic_item_id"
-    t.index ["pin_id"], name: "index_magic_items_pins_on_pin_id"
-  end
-
-  create_table "maps", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "location_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["location_id"], name: "index_maps_on_location_id"
-  end
-
-  create_table "pins", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "map_id"
-    t.integer "x"
-    t.integer "y"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "name"
-    t.index ["map_id"], name: "index_pins_on_map_id"
   end
 
   create_table "spells", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -493,12 +397,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_15_072400) do
     t.index ["creature_id"], name: "index_spells_on_creature_id"
   end
 
-  create_table "tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -519,8 +417,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_15_072400) do
   add_foreign_key "creature_lair_actions", "creatures"
   add_foreign_key "creature_legendary_actions", "creatures"
   add_foreign_key "creature_regional_effects", "creatures"
-  add_foreign_key "maps", "locations"
-  add_foreign_key "pins", "maps"
   add_foreign_key "spells", "characters"
   add_foreign_key "spells", "creatures"
 end

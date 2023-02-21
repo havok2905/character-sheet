@@ -10,11 +10,6 @@ const getFormCopy = (formModel: ICharacter) => {
         return { ...creature }
       })
     ],
-    factions: [
-      ...(formModel.factions || []).map(faction => {
-        return { ...faction }
-      })
-    ],
     magicItems: [
       ...(formModel.magicItems || []).map(magicItem => {
         return { ...magicItem }

@@ -5,11 +5,6 @@ import { ICreature } from '../../types/models';
 const getFormCopy = (formModel: ICreature) => {
   return {
     ...formModel,
-    factions: [
-      ...(formModel.factions || []).map(faction => {
-        return { ...faction }
-      })
-    ],
     magicItems: [
       ...(formModel.magicItems || []).map(magicItem => {
         return { ...magicItem }
@@ -59,7 +54,6 @@ const CreatureForm = ({
     dexterityMod: 0,
     dexteritySave: 0,
     dexterityScore: 0,
-    factions: [],
     flaws: '',
     hp: 0,
     ideals: '',

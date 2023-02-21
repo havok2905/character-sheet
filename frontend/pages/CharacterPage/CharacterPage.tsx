@@ -5,7 +5,6 @@ import { Card } from '../../components/Card';
 import {
   CHARACTER_EDIT_ROUTE,
   CREATURE_ROUTE,
-  FACTION_ROUTE,
   MAGIC_ITEM_ROUTE
 } from '../../app';
 import { characterClassRow } from '../../utilities/UiHelpers/characterClassRow';
@@ -56,7 +55,6 @@ const CharacterPage = (): ReactElement | null => {
     damageVulnerabilities,
     electrumPieces,
     eyes,
-    factions = [],
     flaws,
     goldPieces,
     hair,
@@ -113,30 +111,6 @@ const CharacterPage = (): ReactElement | null => {
             return (
               <AssociateWithTokenLink
                 associationUrl={generatePath(CREATURE_ROUTE, { id })}
-                imageAltText={`${name} token`}
-                imageUrl={imageUrl}
-                linkText={name}
-              />
-            )
-          })
-        }
-      </Card>
-    );
-  };
-
-  const getAssociatedFactionsCard = (): ReactElement | null => {
-    if (!factions?.length) return null;
-
-    return (
-      <Card>
-        <h2>Factions</h2>
-        {
-          factions.map(faction => {
-            const { id, imageUrl, name } = faction;
-
-            return (
-              <AssociateWithTokenLink
-                associationUrl={generatePath(FACTION_ROUTE, { id })}
                 imageAltText={`${name} token`}
                 imageUrl={imageUrl}
                 linkText={name}
@@ -421,7 +395,6 @@ const CharacterPage = (): ReactElement | null => {
       </div>
       <div className="column">
         {getAssociatedCreaturesCard()}
-        {getAssociatedFactionsCard()}
         {getCharacterResources()}
         {getCharacterAttacks()}
         {getCharacterFeatures()}
@@ -456,7 +429,7 @@ const CharacterPage = (): ReactElement | null => {
                 <SpellListByLevel label="5th Level" spellLevel={5} spellSlots={spellSlotsFifth} spells={spells} />
                 <SpellListByLevel label="6th Level" spellLevel={6} spellSlots={spellSlotsSixth} spells={spells} />
                 <SpellListByLevel label="7th Level" spellLevel={7} spellSlots={spellSlotsSeventh} spells={spells} />
-                <SpellListByLevel label="8th Level" spellLevel={9} spellSlots={spellSlotsEighth} spells={spells} />
+                <SpellListByLevel label="8th Level" spellLevel={8} spellSlots={spellSlotsEighth} spells={spells} />
                 <SpellListByLevel label="9th Level" spellLevel={9} spellSlots={spellSlotsNinth} spells={spells} />
                 <SpellListByLevel label="10th Level" spellLevel={10} spellSlots={0} spells={spells} />
               </>

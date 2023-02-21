@@ -7,7 +7,6 @@ module DataMappers
         character_entity = DataMappers::Responses::Entities::CharacterEntity.new
         response = character_entity.run character
         response[:creatures] = creatures_response character
-        response[:factions] = factions_response character
         response[:magic_items] = magic_items_response character
         response[:spells] = spells_response character
         response
@@ -21,15 +20,6 @@ module DataMappers
         creatures.map do |creature|
           creature_entity = DataMappers::Responses::Entities::CreatureEntity.new
           creature_entity.run creature
-        end
-      end
-
-      def factions_response(character)
-        factions = character.factions || []
-
-        factions.map do |faction|
-          faction_entity = DataMappers::Responses::Entities::FactionEntity.new
-          faction_entity.run faction
         end
       end
 

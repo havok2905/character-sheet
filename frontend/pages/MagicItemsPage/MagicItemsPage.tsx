@@ -3,7 +3,7 @@ import { getMagicItems } from '../../utilities/Api/MagicItems';
 import { IMagicItem } from '../../types/models';
 import { Link } from 'react-router-dom';
 import { MagicItemsTable } from '../../components/MagicItemsTable';
-import { LOCATION_CREATE_ROUTE } from '../../app';
+import { MAGIC_ITEM_CREATE_ROUTE } from '../../app';
 
 const MagicItemsPage = (): ReactElement => {
   const [magicItems, setMagicItems] = useState<IMagicItem[]>([]);
@@ -17,7 +17,7 @@ const MagicItemsPage = (): ReactElement => {
       <div className="full">
         <Link
           className="button button-blue"
-          to={LOCATION_CREATE_ROUTE}>
+          to={MAGIC_ITEM_CREATE_ROUTE}>
           Create
         </Link>
         <h1>Magic Items</h1>

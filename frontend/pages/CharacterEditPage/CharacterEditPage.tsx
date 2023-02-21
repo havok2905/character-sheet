@@ -2,7 +2,6 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { AssociatedAttacksForm } from '../../components/AssociatedAttacksForm';
 import { AssociatedCharacterFeaturesForm } from '../../components/AssociatedCharacterFeaturesForm';
 import { AssociatedCreaturesForm } from '../../components/AssociatedCreaturesForm';
-import { AssociatedFactionsForm } from '../../components/AssociatedFactionsForm';
 import { AssociatedFeatureResourcesForm } from '../../components/AssociatedFeatureResourcesForm';
 import { AssociatedInventoryForm } from '../../components/AssociatedInventoryForm';
 import { AssociatedMagicItemsForm } from '../../components/AssociatedMagicItemsForm';
@@ -25,7 +24,6 @@ import {
   useParams
 } from 'react-router-dom';
 import { getCreatures } from '../../utilities/Api/Creatures';
-import { getFactions } from '../../utilities/Api/Factions';
 import { getMagicItems } from '../../utilities/Api/MagicItems';
 import { getSpells } from '../../utilities/Api/Spells';
 import { CharacterForm } from '../../components/CharacterForm/';
@@ -36,7 +34,6 @@ import {
   ICharacterFeatureResource,
   ICharacterItem,
   ICreature,
-  IFaction,
   IMagicItem,
   ISpell
 } from '../../types/models';
@@ -46,7 +43,6 @@ import { Modal } from '../../components/Modal';
 interface ICharacterEditPageContentState {
   character: ICharacter | null;
   creatures: ICreature[];
-  factions: IFaction[];
   magicItems: IMagicItem[];
   spells: ISpell[];
 }
@@ -54,7 +50,6 @@ interface ICharacterEditPageContentState {
 const CharacterEditPage = (): ReactElement | null => {
   const [attacksModalOpen, setAttacksModalOpen] = useState(false);
   const [creaturesModalOpen, setCreaturesModalOpen] = useState(false);
-  const [factionsModalOpen, setFactionsModalOpen] = useState(false);
   const [featuresModalOpen, setFeaturesModalOpen] = useState(false);
   const [featureResourcesModalOpen, setFeatureResourcesModalOpen] = useState(false);
   const [inventoryModalOpen, setInventoryModalOpen] = useState(false);
@@ -63,7 +58,6 @@ const CharacterEditPage = (): ReactElement | null => {
   const [state, setState] = useState<ICharacterEditPageContentState>({
     character: null,
     creatures: [] as ICreature[],
-    factions: [] as IFaction[],
     magicItems: [] as IMagicItem[],
     spells: [] as ISpell[]
   });
@@ -76,20 +70,17 @@ const CharacterEditPage = (): ReactElement | null => {
       Promise.all([
         getCharacter(params.id),
         getCreatures(),
-        getFactions(),
         getMagicItems(),
         getSpells()
       ]).then(([
         characterData,
         creatureData,
-        factionData,
         magicItemsData,
         spellsData
       ]) => {
         setState({
           character: characterData.character,
           creatures: creatureData.creatures,
-          factions: factionData.factions,
           magicItems: magicItemsData.magicItems,
           spells: spellsData.spells
         });
@@ -97,7 +88,7 @@ const CharacterEditPage = (): ReactElement | null => {
     }
   }, []);
 
-  const { character, creatures, factions, magicItems, spells } = state;
+  const { character, creatures, magicItems, spells } = state;
 
   if (!character) return null;
 
@@ -168,22 +159,6 @@ const CharacterEditPage = (): ReactElement | null => {
           creatures={creatures}
           creatureIds={(character.creatures || []).map(creature => String(creature.id))}
           handleSubmit={(creatureIds: string[]) => handleSubmit({ ...character, creatureIds })}/>
-      </Modal>
-    );
-  };
-
-  const getFactionsModal = (): ReactElement | null => {
-    if (!factionsModalOpen || !character) return null;
-
-    return (
-      <Modal
-        onCloseModal={() => setFactionsModalOpen(false)}
-        onCloseModalOverlay={() => setFactionsModalOpen(false)}>
-        <AssociatedFactionsForm
-          buttonLabel="Update Factions"
-          factionIds={(character.factions || []).map(faction => String(faction.id))}
-          factions={factions}
-          handleSubmit={(factionIds: string[]) => handleSubmit({ ...character, factionIds })}/>
       </Modal>
     );
   };
@@ -292,7 +267,6 @@ const CharacterEditPage = (): ReactElement | null => {
             <button className="button" onClick={() => setCreaturesModalOpen(true)}>Creatures</button>
             <button className="button" onClick={() => setSpellsModalOpen(true)}>Spells</button>
             <button className="button" onClick={() => setMagicItemsModalOpen(true)}>Magic Items</button>
-            <button className="button" onClick={() => setFactionsModalOpen(true)}>Factions</button>
           </div>
           <CharacterForm
             character={character}
@@ -303,7 +277,6 @@ const CharacterEditPage = (): ReactElement | null => {
       </div>
       {getAttacksModal()}
       {getCreaturesModal()}
-      {getFactionsModal()}
       {getFeaturesModal()}
       {getFeatureResourcesModal()}
       {getInventoryModal()}

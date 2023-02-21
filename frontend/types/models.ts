@@ -6,41 +6,6 @@ import {
   SpellSchoolsTypes
 } from './rules';
 
-interface IArticle {
-  content: string;
-  heroImageUrl?: string;
-  id?: string;
-  tags: string[];
-  title: string;
-}
-
-interface IPin {
-  creatures?: ICreature[];
-  factions?: IFaction[];
-  id?: string;
-  magicItems?: IMagicItem[];
-  mapId: string;
-  name: string;
-  x: number;
-  y: number;
-}
-
-interface IMap {
-  id?: string;
-  imageUrl: string;
-  pins: IPin[];
-}
-
-interface ILocation {
-  content: string;
-  description: string;
-  heroImageUrl: string;
-  id?: string;
-  map: IMap;
-  name: string;
-  sigilUrl: string;
-}
-
 interface IMagicItem {
   attunement: boolean;
   category: ItemCategoryTypes;
@@ -160,8 +125,6 @@ interface ICharacter {
   dexterityScore: number;
   electrumPieces: number;
   eyes: string;
-  factions?: IFaction[];
-  factionIds?: string[];
   flaws: string;
   goldPieces: number;
   hair: string;
@@ -319,8 +282,6 @@ interface ICreature {
   dexterityMod: number;
   dexteritySave: number;
   dexterityScore: number;
-  factions?: IFaction[];
-  factionIds?: string[];
   flaws: string;
   hp: number;
   id?: string;
@@ -364,20 +325,6 @@ interface ICreature {
   wisdomScore: number;
 }
 
-interface IFaction {
-  alignment: string;
-  allies: string;
-  characters?: ICharacter[];
-  creatures?: ICreature[];
-  description: string;
-  goals: string;
-  id?: string;
-  ideals: string;
-  imageUrl?: string;
-  name: string;
-  rivals: string;
-}
-
 interface IUser {
   id?: string;
   firstName: string;
@@ -386,7 +333,6 @@ interface IUser {
 }
 
 export {
-  IArticle,
   ICharacter,
   ICharacterAttack,
   ICharacterFeature,
@@ -398,11 +344,7 @@ export {
   ICreatureLairAction,
   ICreatureLegendaryAction,
   ICreatureRegionalEffect,
-  IFaction,
-  ILocation,
   IMagicItem,
-  IMap,
-  IPin,
   ISpell,
   IUser
 };
