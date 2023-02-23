@@ -5,6 +5,7 @@ import { generatePath, Link, useParams } from 'react-router-dom';
 import { getMagicItem } from '../../utilities/Api/MagicItems';
 import { IMagicItem } from '../../types/models';
 import { MAGIC_ITEM_EDIT_ROUTE } from '../../app';
+import { NewLineText } from '../../components/NewLineText';
 import { Token } from '../../components/Token';
 
 const MagicItemPage = (): ReactElement | null => {
@@ -52,7 +53,7 @@ const MagicItemPage = (): ReactElement | null => {
           <p><strong>Rarity: </strong>{rarity}</p>
           <p>
             <strong>Description: </strong>
-            {description}
+            <NewLineText text={description} />
           </p>
         </Card>
       </div>
