@@ -28,6 +28,7 @@ import {
  WIS
 } from '../../utilities/GameSystem/constants';
 import { calculateSkillModifier } from '../../utilities/GameSystem/calculateSkillModifier';
+import { CheckIcon, DoubleCheckIcon } from '../Icons';
 import { ICharacter, ICreature } from '../../types/models';
 import { ProficiencyType } from '../../utilities/GameSystem/types';
 import './_abilitySkills.scss';
@@ -81,8 +82,16 @@ const AbilitySkills = ({
     return profs.includes(prof) ? 'ability-skills-proficient' : undefined
   };
 
-  const getProfString = (prof: ProficiencyType): string => {
-    return profs.includes(prof) ? prof : '';
+  const getProfIcon = (prof: ProficiencyType) => {
+    if (prof === PROF) {
+      return <CheckIcon/>;
+    }
+    
+    if (prof === EXP) {
+      return <DoubleCheckIcon/>;
+    }
+
+    return null;
   };
 
   const skills = [
@@ -220,7 +229,9 @@ const AbilitySkills = ({
 
             return (
               <tr>
-                <td>{getProfString(proficiency)}</td>
+                <td className={getProficientClass(proficiency)}>
+                  {getProfIcon(proficiency)}
+                </td>
                 <td>{ability}</td>
                 <td>{skill}</td>
                 <td className={getProficientClass(proficiency)}>
