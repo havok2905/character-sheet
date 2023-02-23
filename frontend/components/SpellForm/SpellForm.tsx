@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { ISpell } from '../../types/models';
-import { SpellSchoolsTypes } from '../../types/rules';
+import { SpellSchoolsTypes } from '../../utilities/GameSystem/enums';
 
 interface ISpellFormProps {
   handleSubmit: (spell: ISpell) => any;

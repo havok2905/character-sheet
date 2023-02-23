@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from 'react';
-import { ActionTypes } from '../../types/rules';
+import { ActionTypes } from '../../utilities/GameSystem/enums';
 import { ICreature, ICreatureAction } from '../../types/models';
 
 interface IAssociatedActionsFormProps {

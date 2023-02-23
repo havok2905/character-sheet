@@ -1,10 +1,4 @@
-enum ActionTypes {
-  ACTION = 'Action',
-  BONUS_ACTION = 'Bonus Action',
-  REACTION = 'Reaction'
-}
-
-enum AlignmentTypes {
+export enum AlignmentTypes {
   CHAOTIC_GOOD = 'Chaotic Good',
   NEUTRAL_GOOD = 'Neutral Good',
   LAWFUL_GOOD = 'Lawful Good',
@@ -17,50 +11,19 @@ enum AlignmentTypes {
   UNALIGNED = 'Unaligned'
 }
 
-const CR_LIST = [
-  '0',
-  '1/8',
-  '1/4',
-  '1/2',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  '10',
-  '11',
-  '12',
-  '13',
-  '14',
-  '15',
-  '16',
-  '17',
-  '18',
-  '19',
-  '20',
-  '21',
-  '22',
-  '23',
-  '24',
-  '25',
-  '26',
-  '27',
-  '28',
-  '29',
-  '30'
-]
+export enum ActionTypes {
+  ACTION = 'Action',
+  BONUS_ACTION = 'Bonus Action',
+  REACTION = 'Reaction'
+}
 
-enum CreatureCategoryTypes {
+export enum CreatureCategoryTypes {
   NPC = 'NPC',
   MONSTER = 'Monster',
   UNKNOWN = ''
 }
 
-enum ItemCategoryTypes {
+export enum ItemCategoryTypes {
   ARMOR = 'Armor',
   POTION = 'Potion',
   RING = 'Ring',
@@ -72,7 +35,7 @@ enum ItemCategoryTypes {
   WONDEROUS_ITEM = 'Wonderous Item'
 }
 
-enum ItemRarityTypes {
+export enum ItemRarityTypes {
   COMMON = 'Common',
   UNCOMMON = 'Uncommon',
   RARE = 'Rare',
@@ -81,7 +44,7 @@ enum ItemRarityTypes {
   ARTIFACT = 'Artifact'
 }
 
-enum SpellSchoolsTypes {
+export enum SpellSchoolsTypes {
   ABJURATION = 'Abjuration',
   CONJURATION = 'Conjuration',
   DIVINATION = 'Divination',
@@ -91,13 +54,3 @@ enum SpellSchoolsTypes {
   NECROMANCY = 'Necromancy',
   TRANSMUTATION = 'Transmutation'
 }
-
-export {
-  ActionTypes,
-  AlignmentTypes,
-  CR_LIST,
-  CreatureCategoryTypes,
-  ItemCategoryTypes,
-  ItemRarityTypes,
-  SpellSchoolsTypes
-};

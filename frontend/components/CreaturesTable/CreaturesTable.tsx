@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 import { CREATURE_ROUTE } from '../../app';
-import { CreatureCategoryTypes } from '../../types/rules';
+import { CreatureCategoryTypes } from '../../utilities/GameSystem/enums';
 import { creatureRow } from '../../utilities/UiHelpers/creatureRow';
 import { generatePath } from 'react-router-dom';
 import { ICreature } from '../../types/models';

@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import { ISpell } from '../../types/models';
 import { SPELL_EDIT_ROUTE, SPELL_ROUTE } from '../../app';
-import { SpellSchoolsTypes } from '../../types/rules';
+import { SpellSchoolsTypes } from '../../utilities/GameSystem/enums';
 
 interface ISpellsTableProps {
   spells: ISpell[];

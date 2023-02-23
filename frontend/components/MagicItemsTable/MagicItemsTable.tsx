@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react';
 import { generatePath } from 'react-router-dom';
 import { IMagicItem } from '../../types/models';
-import { ItemCategoryTypes, ItemRarityTypes } from '../../types/rules';
+import { ItemCategoryTypes, ItemRarityTypes } from '../../utilities/GameSystem/enums';
 import { ItemWithToken } from '../../components/ItemWithToken';
 import { MAGIC_ITEM_ROUTE } from '../../app';
 interface IMagicItemsTableProps {

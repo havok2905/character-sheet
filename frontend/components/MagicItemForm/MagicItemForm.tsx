@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { IMagicItem } from '../../types/models';
-import { ItemCategoryTypes, ItemRarityTypes } from '../../types/rules';
+import { ItemCategoryTypes, ItemRarityTypes } from '../../utilities/GameSystem/enums';
 
 interface IMagicItemFormProps {
   handleSubmit: (magicItem: IMagicItem) => void;

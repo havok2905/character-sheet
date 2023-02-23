@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
-import { AlignmentTypes, CreatureCategoryTypes, CR_LIST } from '../../types/rules';
+import { AlignmentTypes, CreatureCategoryTypes } from '../../utilities/GameSystem/enums';
+import { CR_LIST, EXP, NONE, PROF } from '../../utilities/GameSystem/constants';
 import { ICreature } from '../../types/models';
 
 const getFormCopy = (formModel: ICreature) => {
@@ -31,18 +32,20 @@ const CreatureForm = ({
 }: ICreatureFormProps): ReactElement => {
   const [form, setForm] = useState<ICreature>({
     ac: 0,
+    acrobaticsProf: '',
     alignment: AlignmentTypes.CHAOTIC_GOOD,
+    animalHandlingProf: '',
+    arcanaProf: '',
+    athleticsProf: '',
     armor: '',
     backstory: '',
     bonds: '',
-    charismaMod: 0,
-    charismaSave: 0,
+    charismaProf: '',
     charismaScore: 0,
     conditionImmunities: '',
     conditionResistances: '',
     conditionVulnerabilities: '',
-    constitutionMod: 0,
-    constitutionSave: 0,
+    constitutionProf: '',
     constitutionScore: 0,
     cr: '',
     creatureCategory: CreatureCategoryTypes.UNKNOWN,
@@ -50,23 +53,33 @@ const CreatureForm = ({
     damageImmunities: '',
     damageResistances: '',
     damageVulnerabilities: '',
+    deceptionProf: '',
     description: '',
-    dexterityMod: 0,
-    dexteritySave: 0,
+    dexterityProf: '',
     dexterityScore: 0,
     flaws: '',
+    historyProf: '',
     hp: 0,
     ideals: '',
-    intelligenceMod: 0,
-    intelligenceSave: 0,
+    insightProf: '',
+    intelligenceProf: '',
     intelligenceScore: 0,
+    intimidationProf: '',
+    investigationProf: '',
+    jackOfAllTrades: false,
     languages: '',
     magicItems: [],
+    medicineProf: '',
     name: '',
+    natureProf: '',
+    perceptionProf: '',
+    performanceProf: '',
     personalityTraits: '',
+    persuasionProf: '',
+    religionProf: '',
     senses: '',
     size: '',
-    skills: '',
+    sleightOfHandProf: '',
     speed: '',
     spells: [],
     spellSlotsFirst: 0,
@@ -80,13 +93,11 @@ const CreatureForm = ({
     spellSlotsNinth: 0,
     spellcastingAbility: '',
     spellcastingLevel: 0,
-    spellcastingModifier: 0,
-    spellcastingSaveDc: 0,
-    strengthMod: 0,
-    strengthSave: 0,
+    stealthProf: '',
+    strengthProf: '',
     strengthScore: 0,
-    wisdomMod: 0,
-    wisdomSave: 0,
+    survivalProf: '',
+    wisdomProf: '',
     wisdomScore: 0
   });
 
@@ -96,18 +107,20 @@ const CreatureForm = ({
 
   const {
     ac,
+    acrobaticsProf,
     alignment,
+    animalHandlingProf,
+    arcanaProf,
     armor,
+    athleticsProf,
     backstory,
     bonds,
-    charismaMod,
-    charismaSave,
+    charismaProf,
     charismaScore,
     conditionImmunities,
     conditionResistances,
     conditionVulnerabilities,
-    constitutionMod,
-    constitutionSave,
+    constitutionProf,
     constitutionScore,
     cr,
     creatureCategory,
@@ -115,22 +128,32 @@ const CreatureForm = ({
     damageImmunities,
     damageResistances,
     damageVulnerabilities,
+    deceptionProf,
     description,
-    dexterityMod,
-    dexteritySave,
+    dexterityProf,
     dexterityScore,
     flaws,
+    historyProf,
     hp,
     ideals,
-    intelligenceMod,
-    intelligenceSave,
+    insightProf,
+    intelligenceProf,
     intelligenceScore,
+    intimidationProf,
+    investigationProf,
+    jackOfAllTrades,
     languages,
+    medicineProf,
     name,
+    natureProf,
+    perceptionProf,
+    performanceProf,
     personalityTraits,
+    persuasionProf,
+    religionProf,
     senses,
     size,
-    skills,
+    sleightOfHandProf,
     speed,
     spellSlotsFirst,
     spellSlotsSecond,
@@ -143,13 +166,11 @@ const CreatureForm = ({
     spellSlotsNinth,
     spellcastingAbility,
     spellcastingLevel,
-    spellcastingModifier,
-    spellcastingSaveDc,
-    strengthMod,
-    strengthSave,
+    stealthProf,
+    strengthProf,
     strengthScore,
-    wisdomMod,
-    wisdomSave,
+    survivalProf,
+    wisdomProf,
     wisdomScore
   } = form;
 
@@ -212,16 +233,17 @@ const CreatureForm = ({
         <input onChange={e => handleFormChange('hp', parseInt(e.target.value))} type="number" value={hp}/>
         <label>Speed</label>
         <input onChange={e => handleFormChange('speed', e.target.value)} type="text" value={speed}/>
+        <label>Jack of all Trades</label>
+        <input onChange={(e => handleFormChange('jackOfAllTrades', e.target.checked))} type="checkbox" checked={jackOfAllTrades}/>
       </fieldset>
-      <h2>Character Stats</h2>
+      <h2>Ability Stats</h2>
       <fieldset>
         <table>
           <thead>
             <tr>
               <th>Ability</th>
               <th>Score</th>
-              <th>Mod</th>
-              <th>Save</th>
+              <th>Prof</th>
             </tr>
           </thead>
           <tbody>
@@ -231,10 +253,11 @@ const CreatureForm = ({
                 <input onChange={e => handleFormChange('strengthScore', parseInt(e.target.value))} type="number" value={strengthScore}/>
               </td>
               <td>
-                <input onChange={e => handleFormChange('strengthMod', parseInt(e.target.value))} type="number" value={strengthMod}/>
-              </td>
-              <td>
-                <input onChange={e => handleFormChange('strengthSave', parseInt(e.target.value))} type="number" value={strengthSave}/>
+                <select onChange={e => handleFormChange('strengthProf', e.target.value)} value={strengthProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
               </td>
             </tr>
             <tr>
@@ -243,10 +266,11 @@ const CreatureForm = ({
                 <input onChange={e => handleFormChange('dexterityScore', parseInt(e.target.value))} type="number" value={dexterityScore}/>
               </td>
               <td>
-                <input onChange={e => handleFormChange('dexterityMod', parseInt(e.target.value))} type="number" value={dexterityMod}/>
-              </td>
-              <td>
-                <input onChange={e => handleFormChange('dexteritySave', parseInt(e.target.value))} type="number" value={dexteritySave}/>
+                <select onChange={e => handleFormChange('dexterityProf', e.target.value)} value={dexterityProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
               </td>
             </tr>
             <tr>
@@ -255,10 +279,11 @@ const CreatureForm = ({
                 <input onChange={e => handleFormChange('constitutionScore', parseInt(e.target.value))} type="number" value={constitutionScore}/>
               </td>
               <td>
-                <input onChange={e => handleFormChange('constitutionMod', parseInt(e.target.value))} type="number" value={constitutionMod}/>
-              </td>
-              <td>
-                <input onChange={e => handleFormChange('constitutionSave', parseInt(e.target.value))} type="number" value={constitutionSave}/>
+                <select onChange={e => handleFormChange('constitutionProf', e.target.value)} value={constitutionProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
               </td>
             </tr>
             <tr>
@@ -267,10 +292,11 @@ const CreatureForm = ({
                 <input onChange={e => handleFormChange('intelligenceScore', parseInt(e.target.value))} type="number" value={intelligenceScore}/>
               </td>
               <td>
-                <input onChange={e => handleFormChange('intelligenceMod', parseInt(e.target.value))} type="number" value={intelligenceMod}/>
-              </td>
-              <td>
-                <input onChange={e => handleFormChange('intelligenceSave', parseInt(e.target.value))} type="number" value={intelligenceSave}/>
+                <select onChange={e => handleFormChange('intelligenceProf', e.target.value)} value={intelligenceProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
               </td>
             </tr>
             <tr>
@@ -279,10 +305,11 @@ const CreatureForm = ({
                 <input onChange={e => handleFormChange('wisdomScore', parseInt(e.target.value))} type="number" value={wisdomScore}/>
               </td>
               <td>
-                <input onChange={e => handleFormChange('wisdomMod', parseInt(e.target.value))} type="number" value={wisdomMod}/>
-              </td>
-              <td>
-                <input onChange={e => handleFormChange('wisdomSave', parseInt(e.target.value))} type="number" value={wisdomSave}/>
+                <select onChange={e => handleFormChange('wisdomProf', e.target.value)} value={wisdomProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
               </td>
             </tr>
             <tr>
@@ -291,18 +318,208 @@ const CreatureForm = ({
                 <input onChange={e => handleFormChange('charismaScore', parseInt(e.target.value))} type="number" value={charismaScore}/>
               </td>
               <td>
-                <input onChange={e => handleFormChange('charismaMod', parseInt(e.target.value))} type="number" value={charismaMod}/>
-              </td>
-              <td>
-                <input onChange={e => handleFormChange('charismaSave', parseInt(e.target.value))} type="number" value={charismaSave}/>
+                <select onChange={e => handleFormChange('charismaProf', e.target.value)} value={charismaProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
               </td>
             </tr>
           </tbody>
         </table>
       </fieldset>
+      <h2>Skill Stats</h2>
       <fieldset>
-        <label>Skills</label>
-        <input onChange={e => handleFormChange('skills', e.target.value)} type="text" value={skills}/>
+        <table>
+          <thead>
+            <tr>
+              <th>Ability</th>
+              <th>Prof</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Acrobatics</td>
+              <td>
+                <select onChange={e => handleFormChange('acrobaticsProf', e.target.value)} value={acrobaticsProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Animal Handling</td>
+              <td>
+                <select onChange={e => handleFormChange('animalHandlingProf', e.target.value)} value={animalHandlingProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Arcana</td>
+              <td>
+                <select onChange={e => handleFormChange('arcanaProf', e.target.value)} value={arcanaProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Athletics</td>
+              <td>
+                <select onChange={e => handleFormChange('athleticsProf', e.target.value)} value={athleticsProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Deception</td>
+              <td>
+                <select onChange={e => handleFormChange('deceptionProf', e.target.value)} value={deceptionProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>History</td>
+              <td>
+                <select onChange={e => handleFormChange('historyProf', e.target.value)} value={historyProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Insight</td>
+              <td>
+                <select onChange={e => handleFormChange('insightProf', e.target.value)} value={insightProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Intimidation</td>
+              <td>
+                <select onChange={e => handleFormChange('intimidationProf', e.target.value)} value={intimidationProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Investigation</td>
+              <td>
+                <select onChange={e => handleFormChange('investigationProf', e.target.value)} value={investigationProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Medicine</td>
+              <td>
+                <select onChange={e => handleFormChange('medicineProf', e.target.value)} value={medicineProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Nature</td>
+              <td>
+                <select onChange={e => handleFormChange('natureProf', e.target.value)} value={natureProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Perception</td>
+              <td>
+                <select onChange={e => handleFormChange('perceptionProf', e.target.value)} value={perceptionProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Performance</td>
+              <td>
+                <select onChange={e => handleFormChange('performanceProf', e.target.value)} value={performanceProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Persuasion</td>
+              <td>
+                <select onChange={e => handleFormChange('persuasionProf', e.target.value)} value={persuasionProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Religion</td>
+              <td>
+                <select onChange={e => handleFormChange('religionProf', e.target.value)} value={religionProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Sleight of Hand</td>
+              <td>
+                <select onChange={e => handleFormChange('sleightOfHandProf', e.target.value)} value={sleightOfHandProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Stealth</td>
+              <td>
+                <select onChange={e => handleFormChange('stealthProf', e.target.value)} value={stealthProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Survival</td>
+              <td>
+                <select onChange={e => handleFormChange('survivalProf', e.target.value)} value={survivalProf}>
+                  <option value={NONE}>None</option>
+                  <option value={PROF}>Proficient</option>
+                  <option value={EXP}>Expertise</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </fieldset>
       <h2>Creature Proficiencies</h2>
       <fieldset>
@@ -329,10 +546,6 @@ const CreatureForm = ({
         <input onChange={e => handleFormChange('spellcastingLevel', parseInt(e.target.value))} type="number" value={spellcastingLevel}/>
         <label>Spellcasting Ability</label>
         <input onChange={e => handleFormChange('spellcastingAbility', e.target.value)} type="text" value={spellcastingAbility}/>
-        <label>Spellcasting Modifier</label>
-        <input onChange={e => handleFormChange('spellcastingModifier', parseInt(e.target.value))} type="number" value={spellcastingModifier}/>
-        <label>Spellcasting Save DC</label>
-        <input onChange={e => handleFormChange('spellcastingSaveDc', parseInt(e.target.value))} type="number" value={spellcastingSaveDc}/>
       </fieldset>
       <fieldset>
         <label>1st Level Spell Slots</label>

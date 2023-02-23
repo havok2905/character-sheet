@@ -1,5 +1,9 @@
 import React, { ReactElement } from 'react';
+import { calculateAbilityModifier } from '../../utilities/GameSystem/calculateAbilityModifier';
+import { calculateSavingThrowModifier } from '../../utilities/GameSystem/calculateSavingThrowModifier';
+import { EXP, PROF, PROFICIENCY_BONUS_BY_LEVEL } from '../../utilities/GameSystem/constants';
 import { ICreature, ICharacter } from '../../types/models';
+import { ProficiencyType } from '../../utilities/GameSystem/types';
 import './_statBlock.scss';
 
 interface IStatBlockProps {
@@ -11,29 +15,17 @@ const StatBlock = ({
 }: IStatBlockProps): ReactElement | null => {
   if (!entity) return null;
 
-  const getProficientClass = (prof: string): string | undefined => {
-    const profs = ['exp', 'prof'];
+  const getProficientClass = (prof: ProficiencyType): string | undefined => {
+    const profs: ProficiencyType[] = [EXP, PROF];
     return profs.includes(prof) ? 'stat-block-proficient': undefined
   };
 
   const {
-    charismaMod,
-    charismaSave,
     charismaScore,
-    constitutionMod,
-    constitutionSave,
     constitutionScore,
-    dexterityMod,
-    dexteritySave,
     dexterityScore,
-    intelligenceMod,
-    intelligenceSave,
     intelligenceScore,
-    strengthMod,
-    strengthSave,
     strengthScore,
-    wisdomMod,
-    wisdomSave,
     wisdomScore
   } = entity;
 
@@ -44,6 +36,15 @@ const StatBlock = ({
   const wisdomProf = ('wisdomProf' in entity) ? entity.wisdomProf : ''
   const charismaProf = ('charismaProf' in entity) ? entity.charismaProf : '';
 
+  const cr = ('cr' in entity) ? entity.cr : '';
+  const characterClassLevel = ('characterClassLevel' in entity) ? entity.characterClassLevel : 0;
+  const multiclassClassLevel = ('multiclassClassLevel' in entity) ? entity.multiclassClassLevel : 0;
+  
+  const totalLevel = characterClassLevel + multiclassClassLevel;
+  const pbKey = cr || (totalLevel).toString();
+
+  const proficiencyBonus = PROFICIENCY_BONUS_BY_LEVEL[pbKey] ?? 0;
+  
   return (
     <table className='stat-block'>
       <thead>
@@ -69,21 +70,117 @@ const StatBlock = ({
         </tr>
         <tr>
           <td>Mod</td>
-          <td>{strengthMod}</td>
-          <td>{dexterityMod}</td>
-          <td>{constitutionMod}</td>
-          <td>{intelligenceMod}</td>
-          <td>{wisdomMod}</td>
-          <td>{charismaMod}</td>
+          <td>
+            {
+              calculateAbilityModifier({
+                abilityScore: strengthScore,
+                bonus: 0
+              })
+            }
+          </td>
+          <td>
+            {
+              calculateAbilityModifier({
+                abilityScore: dexterityScore,
+                bonus: 0
+              })
+            }
+          </td>
+          <td>
+            {
+              calculateAbilityModifier({
+                abilityScore: constitutionScore,
+                bonus: 0
+              })
+            }
+          </td>
+          <td>
+            {
+              calculateAbilityModifier({
+                abilityScore: intelligenceScore,
+                bonus: 0
+              })
+            }
+          </td>
+          <td>
+            {
+              calculateAbilityModifier({
+                abilityScore: wisdomScore,
+                bonus: 0
+              })
+            }
+          </td>
+          <td>
+            {
+              calculateAbilityModifier({
+                abilityScore: charismaScore,
+                bonus: 0
+              })
+            }
+          </td>
         </tr>
         <tr>
           <td>Save</td>
-          <td className={getProficientClass(strengthProf)}>{strengthSave}</td>
-          <td className={getProficientClass(dexterityProf)}>{dexteritySave}</td>
-          <td className={getProficientClass(constitutionProf)}>{constitutionSave}</td>
-          <td className={getProficientClass(intelligenceProf)}>{intelligenceSave}</td>
-          <td className={getProficientClass(wisdomProf)}>{wisdomSave}</td>
-          <td className={getProficientClass(charismaProf)}>{charismaSave}</td>
+          <td className={getProficientClass(strengthProf)}>
+            {
+              calculateSavingThrowModifier({
+                abilityScore: strengthScore,
+                bonus: 0,
+                proficiency: strengthProf,
+                proficiencyBonus,
+              })
+            }
+          </td>
+          <td className={getProficientClass(dexterityProf)}>
+            {
+              calculateSavingThrowModifier({
+                abilityScore: dexterityScore,
+                bonus: 0,
+                proficiency: dexterityProf,
+                proficiencyBonus,
+              })
+            }
+          </td>
+          <td className={getProficientClass(constitutionProf)}>
+            {
+              calculateSavingThrowModifier({
+                abilityScore: constitutionScore,
+                bonus: 0,
+                proficiency: constitutionProf,
+                proficiencyBonus,
+              })
+            }
+          </td>
+          <td className={getProficientClass(intelligenceProf)}>
+            {
+              calculateSavingThrowModifier({
+                abilityScore: intelligenceScore,
+                bonus: 0,
+                proficiency: intelligenceProf,
+                proficiencyBonus,
+              })
+            }
+          </td>
+          <td className={getProficientClass(wisdomProf)}>
+            {
+              calculateSavingThrowModifier({
+                abilityScore: wisdomScore,
+                bonus: 0,
+                proficiency: wisdomProf,
+                proficiencyBonus,
+              })
+            }
+          </td>
+          <td className={getProficientClass(charismaProf)}>
+            {
+              calculateSavingThrowModifier({
+                abilityScore: charismaScore,
+                bonus: 0,
+                proficiency: charismaProf,
+                proficiencyBonus,
+              })
+            }
+          </td>
         </tr>
       </tbody>
     </table>

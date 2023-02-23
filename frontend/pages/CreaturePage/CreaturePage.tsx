@@ -1,5 +1,9 @@
 import React, { ReactElement, useEffect, useState } from 'react';
+import { AbilitySkills } from '../../components/AbilitySkills';
 import { AssociateWithTokenLink } from '../../components/AssociateWithTokenLink';
+import { calculateAbilityModifier } from '../../utilities/GameSystem/calculateAbilityModifier';
+import { calculateSpellcastingModifier } from '../../utilities/GameSystem/calculateSpellcastingModifier';
+import { calculateSpellcastingSaveDc } from '../../utilities/GameSystem/calculateSpellcastingSaveDc';
 import { Card } from '../../components/Card';
 import {
   CREATURE_EDIT_ROUTE,
@@ -10,6 +14,7 @@ import { generatePath, Link, useParams } from 'react-router-dom';
 import { getCreature } from '../../utilities/Api/Creatures';
 import { ICreature } from '../../types/models';
 import { NewLineText } from '../../components/NewLineText';
+import { PROFICIENCY_BONUS_BY_LEVEL } from '../../utilities/GameSystem/constants';
 import { SpellListByLevel } from '../../components/SpellListByLevel';
 import { StatBlock } from '../../components/StatBlock';
 import { ToggleItem } from '../../components/ToggleItem';
@@ -34,9 +39,11 @@ const CreaturePage = (): ReactElement | null => {
     armor,
     backstory,
     bonds,
+    charismaScore,
     conditionImmunities,
     conditionResistances,
     conditionVulnerabilities,
+    constitutionScore,
     cr,
     creatureActions,
     creatureFeatures,
@@ -48,11 +55,13 @@ const CreaturePage = (): ReactElement | null => {
     damageResistances,
     damageVulnerabilities,
     description,
+    dexterityScore,
     flaws,
     hp,
     id,
     ideals,
     imageUrl,
+    intelligenceScore,
     lairActionsText,
     languages,
     legendaryActionsText,
@@ -62,12 +71,9 @@ const CreaturePage = (): ReactElement | null => {
     regionalEffectsText,
     senses,
     size,
-    skills,
     speed,
     spellcastingAbility,
     spellcastingLevel,
-    spellcastingModifier,
-    spellcastingSaveDc,
     spells,
     spellSlotsEighth,
     spellSlotsFifth,
@@ -78,6 +84,8 @@ const CreaturePage = (): ReactElement | null => {
     spellSlotsSeventh,
     spellSlotsSixth,
     spellSlotsThird,
+    strengthScore,
+    wisdomScore
   } = creature;
   const getOptionalProperty = (label: string, value: string | number): ReactElement | null => {
     if (value === null || value === undefined || value === '') return null;
@@ -298,14 +306,46 @@ const CreaturePage = (): ReactElement | null => {
     );
   };
 
-  const getCreatureSkills = () => {
-    if (!skills) return null;
-    
+  const getSpellbook = () => {
+    if (!spellcastingAbility) return null;
+
+    let abilityScore = 0;
+
+    if (spellcastingAbility === 'Strength') abilityScore = strengthScore;
+    if (spellcastingAbility === 'Dexterity') abilityScore = dexterityScore;
+    if (spellcastingAbility === 'Constitution') abilityScore = constitutionScore;
+    if (spellcastingAbility === 'Intelligence') abilityScore = intelligenceScore;
+    if (spellcastingAbility === 'Wisdom') abilityScore = wisdomScore;
+    if (spellcastingAbility === 'Charisma') abilityScore = charismaScore;
+
+    const abilityMod = calculateAbilityModifier({abilityScore, bonus: 0});
+    const proficiencyBonus = PROFICIENCY_BONUS_BY_LEVEL[cr] ?? 0;
+
     return (
-      <>
-        <h2>Skills</h2>
-        {skills}
-      </>
+      <Card>
+        <h2>Spellbook</h2>
+        {getOptionalProperty('Level', spellcastingLevel)}
+        {getOptionalProperty('Ability', spellcastingAbility)}
+        {getOptionalProperty('Bonus', calculateSpellcastingModifier(abilityMod, proficiencyBonus))}
+        {getOptionalProperty('Save DC', calculateSpellcastingSaveDc(abilityMod, proficiencyBonus))}
+        {
+          !!spells?.length && (
+            <>
+              <SpellListByLevel label="Cantrips" spellLevel={0} spellSlots={0} spells={spells} />
+              <SpellListByLevel label="1st Level" spellLevel={1} spellSlots={spellSlotsFirst} spells={spells} />
+              <SpellListByLevel label="2nd Level" spellLevel={2} spellSlots={spellSlotsSecond} spells={spells} />
+              <SpellListByLevel label="3rd Level" spellLevel={3} spellSlots={spellSlotsThird} spells={spells} />
+              <SpellListByLevel label="4th Level" spellLevel={4} spellSlots={spellSlotsFourth} spells={spells} />
+              <SpellListByLevel label="5th Level" spellLevel={5} spellSlots={spellSlotsFifth} spells={spells} />
+              <SpellListByLevel label="6th Level" spellLevel={6} spellSlots={spellSlotsSixth} spells={spells} />
+              <SpellListByLevel label="7th Level" spellLevel={7} spellSlots={spellSlotsSeventh} spells={spells} />
+              <SpellListByLevel label="8th Level" spellLevel={8} spellSlots={spellSlotsEighth} spells={spells} />
+              <SpellListByLevel label="9th Level" spellLevel={9} spellSlots={spellSlotsNinth} spells={spells} />
+              <SpellListByLevel label="10th Level" spellLevel={10} spellSlots={0} spells={spells} />
+            </>
+          )
+        }
+      </Card>
     );
   };
 
@@ -328,8 +368,8 @@ const CreaturePage = (): ReactElement | null => {
       <div className="column">
         {getCreatureMiscStats()}
         <StatBlock entity={creature} />
+        <AbilitySkills entity={creature}/>
         <Card>
-          {getCreatureSkills()}
           {getCreatureSenses()}
           <h2>Proficiencies</h2>
           {getOptionalProperty('Condition Immunities', conditionImmunities)}
@@ -350,30 +390,7 @@ const CreaturePage = (): ReactElement | null => {
         {getCreatureActions()}
         {getCreatureLegendaryActions()}
         {getAssociatedMagicItemsCard()} 
-        <Card>
-          <h2>Spellbook</h2>
-          {getOptionalProperty('Level', spellcastingLevel)}
-          {getOptionalProperty('Ability', spellcastingAbility)}
-          {getOptionalProperty('Bonus', spellcastingModifier)}
-          {getOptionalProperty('Save DC', spellcastingSaveDc)}
-          {
-            !!spells?.length && (
-              <>
-                <SpellListByLevel label="Cantrips" spellLevel={0} spellSlots={0} spells={spells} />
-                <SpellListByLevel label="1st Level" spellLevel={1} spellSlots={spellSlotsFirst} spells={spells} />
-                <SpellListByLevel label="2nd Level" spellLevel={2} spellSlots={spellSlotsSecond} spells={spells} />
-                <SpellListByLevel label="3rd Level" spellLevel={3} spellSlots={spellSlotsThird} spells={spells} />
-                <SpellListByLevel label="4th Level" spellLevel={4} spellSlots={spellSlotsFourth} spells={spells} />
-                <SpellListByLevel label="5th Level" spellLevel={5} spellSlots={spellSlotsFifth} spells={spells} />
-                <SpellListByLevel label="6th Level" spellLevel={6} spellSlots={spellSlotsSixth} spells={spells} />
-                <SpellListByLevel label="7th Level" spellLevel={7} spellSlots={spellSlotsSeventh} spells={spells} />
-                <SpellListByLevel label="8th Level" spellLevel={8} spellSlots={spellSlotsEighth} spells={spells} />
-                <SpellListByLevel label="9th Level" spellLevel={9} spellSlots={spellSlotsNinth} spells={spells} />
-                <SpellListByLevel label="10th Level" spellLevel={10} spellSlots={0} spells={spells} />
-              </>
-            )
-          }
-        </Card>
+        {getSpellbook()}
       </div>
     </div>
   );

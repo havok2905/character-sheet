@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react';
-import { AlignmentTypes } from '../../types/rules';
+import { AlignmentTypes } from '../../utilities/GameSystem/enums';
 import { ICharacter } from '../../types/models';
+import { EXP, NONE, PROF } from '../../utilities/GameSystem/constants';
 
 const getFormCopy = (formModel: ICharacter) => {
   return {
@@ -36,15 +37,11 @@ const CharacterForm = ({
 }: ICharacterFormProps): ReactElement => {
   const [form, setForm] = useState<ICharacter>({
     ac: 0,
-    acrobaticsMod: 0,
     acrobaticsProf: '',
     age: 0,
     alignment: '',
-    animalHandlingMod: 0,
     animalHandlingProf: '',
-    arcanaMod: 0,
     arcanaProf: '',
-    athleticsMod: 0,
     athleticsProf: '',
     armorProficiencies: '',
     background: '',
@@ -54,26 +51,19 @@ const CharacterForm = ({
     characterClassHitDice: 0,
     characterClassLevel: 0,
     characterSubClass: '',
-    charismaMod: 0,
     charismaProf: '',
-    charismaSave: 0,
     charismaScore: 0,
     conditionImmunities: '',
     conditionResistances: '',
     conditionVulnerabilities: '',
-    constitutionMod: 0,
     constitutionProf: '',
-    constitutionSave: 0,
     constitutionScore: 0,
     copperPieces: 0,
     damageImmunities: '',
     damageResistances: '',
     damageVulnerabilities: '',
-    deceptionMod: 0,
     deceptionProf: '',
-    dexterityMod: 0,
     dexterityProf: '',
-    dexteritySave: 0,
     dexterityScore: 0,
     electrumPieces: 0,
     eyes: '',
@@ -81,48 +71,35 @@ const CharacterForm = ({
     goldPieces: 0,
     hair: '',
     height: '',
-    historyMod: 0,
     historyProf: '',
     hp: 0,
     ideals: '',
     initiative: 0,
-    insightMod: 0,
     insightProf: '',
-    intelligenceMod: 0,
     intelligenceProf: '',
-    intelligenceSave: 0,
     intelligenceScore: 0,
-    intimidationMod: 0,
     intimidationProf: '',
-    investigationMod: 0,
     investigationProf: '',
+    jackOfAllTrades: false,
     languages: '',
-    medicineMod: 0,
     medicineProf: '',
     multiclassClass: '',
     multiclassClassHitDice: 0,
     multiclassClassLevel: 0,
     multiclassSubClass: '',
     name: '',
-    natureMod: 0,
     natureProf: '',
     passivePerception: 0,
-    perceptionMod: 0,
     perceptionProf: '',
-    performanceMod: 0,
     performanceProf: '',
     personalityTraits: '',
-    persuasionMod: 0,
     persuasionProf: '',
     platinumPieces: 0,
-    proficiencyBonus: 0,
     race: '',
-    religionMod: 0,
     religionProf: '',
     senses: '',
     silverPieces: 0,
     skin: '',
-    sleightOfHandMod: 0,
     sleightOfHandProf: '',
     speed: 0,
     spellSlotsEighth: 0,
@@ -135,23 +112,15 @@ const CharacterForm = ({
     spellSlotsSixth: 0,
     spellSlotsThird: 0,
     spellcastingAbility: '',
-    spellcastingModifier: 0,
-    spellcastingSaveDc: 0,
-    stealthMod: 0,
     stealthProf: '',
-    strengthMod: 0,
     strengthProf: '',
-    strengthSave: 0,
     strengthScore: 0,
     subRace: '',
-    survivalMod: 0,
     survivalProf: '',
     toolProficiencies: '',
     weaponProficiencies: '',
     weight: '',
-    wisdomMod: 0,
     wisdomProf: '',
-    wisdomSave: 0,
     wisdomScore: 0,
   });
 
@@ -161,15 +130,11 @@ const CharacterForm = ({
 
   const {
     ac,
-    acrobaticsMod,
     acrobaticsProf,
     age,
     alignment,
-    animalHandlingMod,
     animalHandlingProf,
-    arcanaMod,
     arcanaProf,
-    athleticsMod,
     athleticsProf,
     armorProficiencies,
     background,
@@ -179,26 +144,19 @@ const CharacterForm = ({
     characterClassHitDice,
     characterClassLevel,
     characterSubClass,
-    charismaMod,
     charismaProf,
-    charismaSave,
     charismaScore,
     conditionImmunities,
     conditionResistances,
     conditionVulnerabilities,
-    constitutionMod,
     constitutionProf,
-    constitutionSave,
     constitutionScore,
     copperPieces,
     damageImmunities,
     damageResistances,
     damageVulnerabilities,
-    deceptionMod,
     deceptionProf,
-    dexterityMod,
     dexterityProf,
-    dexteritySave,
     dexterityScore,
     electrumPieces,
     eyes,
@@ -206,48 +164,35 @@ const CharacterForm = ({
     goldPieces,
     hair,
     height,
-    historyMod,
     historyProf,
     hp,
     ideals,
     initiative,
-    insightMod,
     insightProf,
-    intelligenceMod,
     intelligenceProf,
-    intelligenceSave,
     intelligenceScore,
-    intimidationMod,
     intimidationProf,
-    investigationMod,
     investigationProf,
+    jackOfAllTrades,
     languages,
-    medicineMod,
     medicineProf,
     multiclassClass,
     multiclassClassHitDice,
     multiclassClassLevel,
     multiclassSubClass,
     name,
-    natureMod,
     natureProf,
     passivePerception,
     platinumPieces,
-    perceptionMod,
     perceptionProf,
-    performanceMod,
     performanceProf,
     personalityTraits,
-    persuasionMod,
     persuasionProf,
-    proficiencyBonus,
     race,
-    religionMod,
     religionProf,
     senses,
     silverPieces,
     skin,
-    sleightOfHandMod,
     sleightOfHandProf,
     speed,
     spellSlotsFirst,
@@ -260,23 +205,15 @@ const CharacterForm = ({
     spellSlotsEighth,
     spellSlotsNinth,
     spellcastingAbility,
-    spellcastingModifier,
-    spellcastingSaveDc,
-    stealthMod,
     stealthProf,
-    strengthMod,
     strengthProf,
-    strengthSave,
     strengthScore,
     subRace,
-    survivalMod,
     survivalProf,
     toolProficiencies,
     weaponProficiencies,
     weight,
-    wisdomMod,
     wisdomProf,
-    wisdomSave,
     wisdomScore
   } = form;
 
@@ -318,6 +255,8 @@ const CharacterForm = ({
             <input onChange={e => handleFormChange('race', e.target.value)} type="text" value={race}/>
             <label>Sub Race</label>
             <input onChange={e => handleFormChange('subRace', e.target.value)} type="text" value={subRace}/>
+            <label>Jack of all Trades</label>
+            <input onChange={(e => handleFormChange('jackOfAllTrades', e.target.checked))} type="checkbox" checked={jackOfAllTrades}/>
           </fieldset>
         </div>
         <div className="column">
@@ -348,7 +287,7 @@ const CharacterForm = ({
         </div>
       </div>
       <div className="full">
-        <h2>Character Stats</h2>
+        <h2>Ability Stats</h2>
         <fieldset>
           <label>HP</label>
           <input onChange={e => handleFormChange('hp', e.target.value)} type="number" value={hp}/>
@@ -358,8 +297,6 @@ const CharacterForm = ({
           <input onChange={e => handleFormChange('initiative', e.target.value)} type="number" value={initiative}/>
           <label>Speed</label>
           <input onChange={e => handleFormChange('speed', e.target.value)} type="number" value={speed}/>
-          <label>Proficiency Bonus</label>
-          <input onChange={e => handleFormChange('proficiencyBonus', e.target.value)} type="number" value={proficiencyBonus}/>
         </fieldset>
         <fieldset>
           <table>
@@ -367,8 +304,6 @@ const CharacterForm = ({
               <tr>
                 <th>Ability</th>
                 <th>Score</th>
-                <th>Mod</th>
-                <th>Save</th>
                 <th>Prof</th>
               </tr>
             </thead>
@@ -379,16 +314,10 @@ const CharacterForm = ({
                   <input onChange={e => handleFormChange('strengthScore', parseInt(e.target.value))} type="number" value={strengthScore}/>
                 </td>
                 <td>
-                  <input onChange={e => handleFormChange('strengthMod', parseInt(e.target.value))} type="number" value={strengthMod}/>
-                </td>
-                <td>
-                  <input onChange={e => handleFormChange('strengthSave', parseInt(e.target.value))} type="number" value={strengthSave}/>
-                </td>
-                <td>
                   <select onChange={e => handleFormChange('strengthProf', e.target.value)} value={strengthProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
@@ -398,16 +327,10 @@ const CharacterForm = ({
                   <input onChange={e => handleFormChange('dexterityScore', parseInt(e.target.value))} type="number" value={dexterityScore}/>
                 </td>
                 <td>
-                  <input onChange={e => handleFormChange('dexterityMod', parseInt(e.target.value))} type="number" value={dexterityMod}/>
-                </td>
-                <td>
-                  <input onChange={e => handleFormChange('dexteritySave', parseInt(e.target.value))} type="number" value={dexteritySave}/>
-                </td>
-                <td>
                   <select onChange={e => handleFormChange('dexterityProf', e.target.value)} value={dexterityProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
@@ -417,16 +340,10 @@ const CharacterForm = ({
                   <input onChange={e => handleFormChange('constitutionScore', parseInt(e.target.value))} type="number" value={constitutionScore}/>
                 </td>
                 <td>
-                  <input onChange={e => handleFormChange('constitutionMod', parseInt(e.target.value))} type="number" value={constitutionMod}/>
-                </td>
-                <td>
-                  <input onChange={e => handleFormChange('constitutionSave', parseInt(e.target.value))} type="number" value={constitutionSave}/>
-                </td>
-                <td>
                   <select onChange={e => handleFormChange('constitutionProf', e.target.value)} value={constitutionProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
@@ -436,16 +353,10 @@ const CharacterForm = ({
                   <input onChange={e => handleFormChange('intelligenceScore', parseInt(e.target.value))} type="number" value={intelligenceScore}/>
                 </td>
                 <td>
-                  <input onChange={e => handleFormChange('intelligenceMod', parseInt(e.target.value))} type="number" value={intelligenceMod}/>
-                </td>
-                <td>
-                  <input onChange={e => handleFormChange('intelligenceSave', parseInt(e.target.value))} type="number" value={intelligenceSave}/>
-                </td>
-                <td>
                   <select onChange={e => handleFormChange('intelligenceProf', e.target.value)} value={intelligenceProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
@@ -455,16 +366,10 @@ const CharacterForm = ({
                   <input onChange={e => handleFormChange('wisdomScore', parseInt(e.target.value))} type="number" value={wisdomScore}/>
                 </td>
                 <td>
-                  <input onChange={e => handleFormChange('wisdomMod', parseInt(e.target.value))} type="number" value={wisdomMod}/>
-                </td>
-                <td>
-                  <input onChange={e => handleFormChange('wisdomSave', parseInt(e.target.value))} type="number" value={wisdomSave}/>
-                </td>
-                <td>
                   <select onChange={e => handleFormChange('wisdomProf', e.target.value)} value={wisdomProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
@@ -474,228 +379,203 @@ const CharacterForm = ({
                   <input onChange={e => handleFormChange('charismaScore', parseInt(e.target.value))} type="number" value={charismaScore}/>
                 </td>
                 <td>
-                  <input onChange={e => handleFormChange('charismaMod', parseInt(e.target.value))} type="number" value={charismaMod}/>
-                </td>
-                <td>
-                  <input onChange={e => handleFormChange('charismaSave', parseInt(e.target.value))} type="number" value={charismaSave}/>
-                </td>
-                <td>
                   <select onChange={e => handleFormChange('charismaProf', e.target.value)} value={charismaProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
             </tbody>
           </table>
         </fieldset>
-        <h2>Character Stats</h2>
+        <h2>Skill Stats</h2>
         <fieldset>
           <table>
             <thead>
               <tr>
                 <th>Ability</th>
-                <th>Mod</th>
                 <th>Prof</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>Acrobatics</td>
-                <td><input onChange={e => handleFormChange('acrobaticsMod', e.target.value)} type="number" value={acrobaticsMod}/></td>
                 <td>
                   <select onChange={e => handleFormChange('acrobaticsProf', e.target.value)} value={acrobaticsProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
               <tr>
                 <td>Animal Handling</td>
-                <td><input onChange={e => handleFormChange('animalHandlingMod', e.target.value)} type="number" value={animalHandlingMod}/></td>
                 <td>
                   <select onChange={e => handleFormChange('animalHandlingProf', e.target.value)} value={animalHandlingProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
               <tr>
                 <td>Arcana</td>
-                <td><input onChange={e => handleFormChange('arcanaMod', e.target.value)} type="number" value={arcanaMod}/></td>
                 <td>
                   <select onChange={e => handleFormChange('arcanaProf', e.target.value)} value={arcanaProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
               <tr>
                 <td>Athletics</td>
-                <td><input onChange={e => handleFormChange('athleticsMod', e.target.value)} type="number" value={athleticsMod}/></td>
                 <td>
                   <select onChange={e => handleFormChange('athleticsProf', e.target.value)} value={athleticsProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
               <tr>
                 <td>Deception</td>
-                <td><input onChange={e => handleFormChange('deceptionMod', e.target.value)} type="number" value={deceptionMod}/></td>
                 <td>
                   <select onChange={e => handleFormChange('deceptionProf', e.target.value)} value={deceptionProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
               <tr>
                 <td>History</td>
-                <td><input onChange={e => handleFormChange('historyMod', e.target.value)} type="number" value={historyMod}/></td>
                 <td>
                   <select onChange={e => handleFormChange('historyProf', e.target.value)} value={historyProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
               <tr>
                 <td>Insight</td>
-                <td><input onChange={e => handleFormChange('insightMod', e.target.value)} type="number" value={insightMod}/></td>
                 <td>
                   <select onChange={e => handleFormChange('insightProf', e.target.value)} value={insightProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
               <tr>
                 <td>Intimidation</td>
-                <td><input onChange={e => handleFormChange('intimidationMod', e.target.value)} type="number" value={intimidationMod}/></td>
                 <td>
                   <select onChange={e => handleFormChange('intimidationProf', e.target.value)} value={intimidationProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
               <tr>
                 <td>Investigation</td>
-                <td><input onChange={e => handleFormChange('investigationMod', e.target.value)} type="number" value={investigationMod}/></td>
                 <td>
                   <select onChange={e => handleFormChange('investigationProf', e.target.value)} value={investigationProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
               <tr>
                 <td>Medicine</td>
-                <td><input onChange={e => handleFormChange('medicineMod', e.target.value)} type="number" value={medicineMod}/></td>
                 <td>
                   <select onChange={e => handleFormChange('medicineProf', e.target.value)} value={medicineProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
               <tr>
                 <td>Nature</td>
-                <td><input onChange={e => handleFormChange('natureMod', e.target.value)} type="number" value={natureMod}/></td>
                 <td>
                   <select onChange={e => handleFormChange('natureProf', e.target.value)} value={natureProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
               <tr>
                 <td>Perception</td>
-                <td><input onChange={e => handleFormChange('perceptionMod', e.target.value)} type="number" value={perceptionMod}/></td>
                 <td>
                   <select onChange={e => handleFormChange('perceptionProf', e.target.value)} value={perceptionProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
               <tr>
                 <td>Performance</td>
-                <td><input onChange={e => handleFormChange('performanceMod', e.target.value)} type="number" value={performanceMod}/></td>
                 <td>
                   <select onChange={e => handleFormChange('performanceProf', e.target.value)} value={performanceProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
               <tr>
                 <td>Persuasion</td>
-                <td><input onChange={e => handleFormChange('persuasionMod', e.target.value)} type="number" value={persuasionMod}/></td>
                 <td>
                   <select onChange={e => handleFormChange('persuasionProf', e.target.value)} value={persuasionProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
               <tr>
                 <td>Religion</td>
-                <td><input onChange={e => handleFormChange('religionMod', e.target.value)} type="number" value={religionMod}/></td>
                 <td>
                   <select onChange={e => handleFormChange('religionProf', e.target.value)} value={religionProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
               <tr>
                 <td>Sleight of Hand</td>
-                <td><input onChange={e => handleFormChange('sleightOfHandMod', e.target.value)} type="number" value={sleightOfHandMod}/></td>
                 <td>
                   <select onChange={e => handleFormChange('sleightOfHandProf', e.target.value)} value={sleightOfHandProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
               <tr>
                 <td>Stealth</td>
-                <td><input onChange={e => handleFormChange('stealthMod', e.target.value)} type="number" value={stealthMod}/></td>
                 <td>
                   <select onChange={e => handleFormChange('stealthProf', e.target.value)} value={stealthProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
               <tr>
                 <td>Survival</td>
-                <td><input onChange={e => handleFormChange('survivalMod', e.target.value)} type="number" value={survivalMod}/></td>
                 <td>
                   <select onChange={e => handleFormChange('survivalProf', e.target.value)} value={survivalProf}>
-                    <option value="none">None</option>
-                    <option value="prof">Proficient</option>
-                    <option value="exp">Expertise</option>
+                    <option value={NONE}>None</option>
+                    <option value={PROF}>Proficient</option>
+                    <option value={EXP}>Expertise</option>
                   </select>
                 </td>
               </tr>
@@ -711,10 +591,6 @@ const CharacterForm = ({
         <fieldset>
           <label>Spellcasting Ability</label>
           <input onChange={e => handleFormChange('spellcastingAbility', e.target.value)} type="text" value={spellcastingAbility}/>
-          <label>Spellcasting Modifier</label>
-          <input onChange={e => handleFormChange('spellcastingModifier', parseInt(e.target.value))} type="number" value={spellcastingModifier}/>
-          <label>Spellcasting Save DC</label>
-          <input onChange={e => handleFormChange('spellcastingSaveDc', parseInt(e.target.value))} type="number" value={spellcastingSaveDc}/>
         </fieldset>
         <fieldset>
           <label>1st Level Spell Slots</label>
