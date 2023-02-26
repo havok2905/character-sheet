@@ -9,7 +9,6 @@ class Creature < ApplicationRecord
   has_and_belongs_to_many :characters
   has_and_belongs_to_many :magic_items
   has_and_belongs_to_many :spells
-  has_one_attached :image
   accepts_nested_attributes_for :creature_actions,
                                 :creature_features,
                                 :creature_lair_actions,
