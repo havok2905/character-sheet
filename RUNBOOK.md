@@ -8,6 +8,7 @@
 - **MySQL:** 8.0.29
 - **NPM:** 8.8.0
 - **Node:** 18.0.0
+- **S3 compatible bucket**
 
 ## Setup
 
@@ -68,17 +69,17 @@ Image uploading depends on a directory existing on disk to write to. This will b
 #### Dotenv File
 
 ```
-ACTIVE_STORAGE_DEVELOPMENT_PATH=
-ACTIVE_STORAGE_PRODUCTION_PATH=
-SECRET_KEY_BASE=
+IMAGE_PATH_BASE=
 MYSQLAPP_DATABASE_PASSWORD=
+S3_ACCESS_KEY_ID=
+S3_BUCKET=
+S3_ENDPOINT=
+S3_HTTP_CONTINUE_TIMEOUT=
+S3_HOST_BASE=
+S3_SECRET_ACCESS_KEY=
+S3_REGION=
+SECRET_KEY_BASE=
 ```
-
-### Image Dumps and Backups
-
-There may be a time to move off of ActiveStorage in favor of a CDN. When that time comes, there will be a need to pull down images for that transfer.
-
-[TBD]
 
 ### MySQL Backups
 

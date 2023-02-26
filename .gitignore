@@ -42,3 +42,4 @@ build/
 /public/javascripts/
 /public/styles/
 /public/images/
+/server/node_modules

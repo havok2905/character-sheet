@@ -4,11 +4,11 @@ test:
 
 local_development:
   service: Disk
-  root: <%= ENV["ACTIVE_STORAGE_DEVELOPMENT_PATH"] %>
+  root: <%= Rails.root.join("tmp/storage") %>
 
 local_production:
   service: Disk
-  root: <%= ENV["ACTIVE_STORAGE_PRODUCTION_PATH"] %>
+  root: <%= Rails.root.join("tmp/storage") %>
 
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:

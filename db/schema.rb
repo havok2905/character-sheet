@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_23_071217) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_23_185553) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -176,6 +176,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_071217) do
     t.datetime "updated_at", null: false
     t.text "backstory"
     t.boolean "jack_of_all_trades"
+    t.string "image_path"
   end
 
   create_table "characters_creatures", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -324,6 +325,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_071217) do
     t.string "stealth_prof"
     t.string "survival_prof"
     t.boolean "jack_of_all_trades"
+    t.string "image_path"
   end
 
   create_table "creatures_magic_items", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -349,6 +351,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_071217) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_path"
   end
 
   create_table "spells", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

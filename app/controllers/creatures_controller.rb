@@ -28,8 +28,18 @@ class CreaturesController < ApiController
 
   def upload_image
     c = Creature.find params[:id]
-    c.image = params['creature-image-file-upload']
+    s3_client = S3::S3Client.new
+
+    acl = 'public-read'
+    bucket = ENV['S3_BUCKET']
+    body = params['creature-image-file-upload']
+    key = s3_client.generate_object_key_from_file body
+
+    s3_client.put_object acl, bucket, body, key
+    
+    c.image_path = key
     c.save!
+
     creature = creature_response_model c
     render json: { creature: }
   end

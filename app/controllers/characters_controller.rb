@@ -28,8 +28,18 @@ class CharactersController < ApiController
 
   def upload_image
     c = Character.find params[:id]
-    c.image = params['character-image-file-upload']
+    s3_client = S3::S3Client.new
+    
+    acl = 'public-read'
+    bucket = ENV['S3_BUCKET']
+    body = params['character-image-file-upload']
+    key = s3_client.generate_object_key_from_file body
+
+    s3_client.put_object acl, bucket, body, key
+    
+    c.image_path = key
     c.save!
+    
     character = character_response_model c
     render json: { character: }
   end

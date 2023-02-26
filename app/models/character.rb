@@ -16,4 +16,9 @@ class Character < ApplicationRecord
                                 :creatures,
                                 :spells,
                                 allow_destroy: true
+
+  def public_image_path
+    return nil unless image_path.present?
+    "#{ENV['IMAGE_PATH_BASE']}#{image_path}"
+  end
 end

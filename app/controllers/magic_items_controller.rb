@@ -28,8 +28,18 @@ class MagicItemsController < ApiController
 
   def upload_image
     m = MagicItem.find params[:id]
-    m.image = params['magic-item-image-file-upload']
+    s3_client = S3::S3Client.new
+
+    acl = 'public-read'
+    bucket = ENV['S3_BUCKET']
+    body = params['magic-item-image-file-upload']
+    key = s3_client.generate_object_key_from_file body
+    
+    s3_client.put_object acl, bucket, body, key
+
+    m.image_path = key
     m.save!
+    
     magic_item = magic_item_response_model m
     render json: { magicItem: magic_item }
   end

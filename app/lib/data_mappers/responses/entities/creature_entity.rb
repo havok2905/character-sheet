@@ -5,7 +5,7 @@ module DataMappers
     module Entities
       class CreatureEntity < DataMappers::Responses::Entities::BaseEntity
         def run(creature)
-          image_url = get_image_url creature, :image
+          image_url = creature.public_image_path
 
           {
             ac: creature.ac,

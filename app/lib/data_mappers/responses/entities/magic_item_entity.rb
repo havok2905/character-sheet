@@ -5,7 +5,7 @@ module DataMappers
     module Entities
       class MagicItemEntity < DataMappers::Responses::Entities::BaseEntity
         def run(magic_item)
-          image_url = get_image_url magic_item, :image
+          image_url = magic_item.public_image_path
 
           {
             attunement: magic_item.attunement,

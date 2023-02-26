@@ -5,7 +5,7 @@ module DataMappers
     module Entities
       class CharacterEntity < DataMappers::Responses::Entities::BaseEntity
         def run(character)
-          image_url = get_image_url character, :image
+          image_url = character.public_image_path
 
           {
             ac: character.ac,
