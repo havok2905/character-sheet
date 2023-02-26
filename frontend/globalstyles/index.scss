@@ -163,8 +163,8 @@ footer {
 
 /* stylelint-disable-next-line string-quotes */
 input[type="number"], input[type="password"], input[type="text"], select, textarea {
-  background-color: $card-background;
-  border: solid $card-background 1px;
+  background-color: $back-background;
+  border: solid $back-background 1px;
   box-shadow: $box-shadow-field;
   color: $faded-white;
   margin-bottom: $small-spacing;
