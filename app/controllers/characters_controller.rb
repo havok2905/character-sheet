@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CharactersController < ApiController
+  skip_before_action :authenticate_request, only: [:index, :show]
+
   def index
     c = Character.order :name
     characters = characters_response_model c

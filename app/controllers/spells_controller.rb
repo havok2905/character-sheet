@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SpellsController < ApiController
+  skip_before_action :authenticate_request, only: [:index, :show]
+
   def index
     s = Spell.order :level, :name
     spells = spells_response_model s

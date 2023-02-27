@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CreaturesController < ApiController
+  skip_before_action :authenticate_request, only: [:index, :show]
+
   def index
     c = Creature.order :name
     creatures = creatures_response_model c

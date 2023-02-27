@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from 'react';
-import { auth } from '../../utilities/Api/Auth';
+import { login } from '../../utilities/Api/Auth';
 import { setToken } from '../../utilities/Auth';
 
 const LoginPage = (): ReactElement => {
@@ -18,7 +18,7 @@ const LoginPage = (): ReactElement => {
   const onSubmit = e => {
     e.preventDefault();
     
-    auth({
+    login({
       username,
       password
     }).then(response => {

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     resources :users, only: [:index]
   end
 
+  post 'auth/auth', to: 'authentication#auth'
   post 'auth/login', to: 'authentication#login'
   root 'react#index'
   get '*path', to: 'react#index', constraints: lambda { |req|

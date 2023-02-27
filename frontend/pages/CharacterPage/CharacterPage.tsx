@@ -16,16 +16,20 @@ import { GearIcon } from '../../components/Icons';
 import { generatePath, Link, useParams } from 'react-router-dom';
 import { getCharacter } from '../../utilities/Api/Characters';
 import { ICharacter } from '../../types/models';
+import { Navbar } from '../../components/Navbar/Navbar';
 import { NewLineText } from '../../components/NewLineText';
 import { PROFICIENCY_BONUS_BY_LEVEL } from '../../utilities/GameSystem/constants';
 import { SpellListByLevel } from '../../components/SpellListByLevel';
 import { StatBlock } from '../../components/StatBlock';
 import { ToggleItem } from '../../components/ToggleItem';
 import { Token } from '../../components/Token';
+import { useAuth } from '../hooks/useAuth';
 
 const CharacterPage = (): ReactElement | null => {
   const [character, setCharacter] = useState<ICharacter | null>(null);
   const params = useParams();
+
+  const {authenticated} = useAuth(() => {});
 
   useEffect(() => {
     if (params.id) {
@@ -120,7 +124,7 @@ const CharacterPage = (): ReactElement | null => {
 
             return (
               <AssociateWithTokenLink
-                associationUrl={generatePath(CREATURE_ROUTE, { id })}
+                associationUrl={generatePath(CREATURE_ROUTE, { id: id as string })}
                 imageAltText={`${name} token`}
                 imageUrl={imageUrl}
                 linkText={name}
@@ -148,7 +152,7 @@ const CharacterPage = (): ReactElement | null => {
             
             return (
               <AssociateWithTokenLink
-                associationUrl={generatePath(MAGIC_ITEM_ROUTE, { id })}
+                associationUrl={generatePath(MAGIC_ITEM_ROUTE, { id: id as string })}
                 imageAltText={`${name} token`}
                 imageUrl={imageUrl}
                 linkText={name}
@@ -406,67 +410,74 @@ const CharacterPage = (): ReactElement | null => {
   };
 
   return (
-    <div className="layout">
-      <div className="full">
-        <div className="page-header">
-          <div className="page-header-settings">
-            <Link to={generatePath(CHARACTER_EDIT_ROUTE, { id })}>
-              <GearIcon/>
-            </Link>
-          </div>
-          <Token imageAltText="character portrait" imageUrl={imageUrl}/>
-          <div>
-            <h1>{name}</h1>
-            <p>{characterClassRow(character)}</p>
-            {multiclassClass && <p>{characterMulticlassRow(character)}</p>}
-            <p>{race} ( {subRace} ), {background}, {alignment}</p>
+    <>
+      <Navbar authenticated={authenticated}/>
+      <div className="layout">
+        <div className="full">
+          <div className="page-header">
+            <div className="page-header-settings">
+              {
+                authenticated && (
+                  <Link to={generatePath(CHARACTER_EDIT_ROUTE, { id: id as string })}>
+                    <GearIcon/>
+                  </Link>
+                )
+              }
+            </div>
+            <Token imageAltText="character portrait" imageUrl={imageUrl}/>
+            <div>
+              <h1>{name}</h1>
+              <p>{characterClassRow(character)}</p>
+              {multiclassClass && <p>{characterMulticlassRow(character)}</p>}
+              <p>{race} ( {subRace} ), {background}, {alignment}</p>
+            </div>
           </div>
         </div>
+        <div className="column">
+          {getCharacterMiscStats()}
+          <StatBlock entity={character} />
+          <AbilitySkills entity={character} />
+          {getAssociatedMagicItemsCard()}
+          {getCharacterInventory()}
+          <Card>
+            <h2>Biography</h2>
+            {getOptionalProperty('Age', age)}
+            {getOptionalProperty('Height', height)}
+            {getOptionalProperty('Weight', weight)}
+            {getOptionalProperty('Hair', hair)}
+            {getOptionalProperty('Skin', skin)}
+            {getOptionalProperty('Eyes', eyes)}
+            {getOptionalProperty('Personality Traits', personalityTraits)}
+            {getOptionalProperty('Ideals', ideals)}
+            {getOptionalProperty('Bonds', bonds)}
+            {getOptionalProperty('Flaws', flaws)}
+          </Card>
+          {getCharacterBackstory()}
+        </div>
+        <div className="column">
+          {getAssociatedCreaturesCard()}
+          {getCharacterResources()}
+          {getCharacterAttacks()}
+          {getCharacterFeatures()}
+          <Card>
+            {getCharacterSenses()}
+            {getOptionalProperty('Passive Perception', passivePerception)}
+            <h2>Proficinencies</h2>
+            {getOptionalProperty('Armor Proficiencies', armorProficiencies)}
+            {getOptionalProperty('Condition Immunities', conditionImmunities)}
+            {getOptionalProperty('Condition Resistences', conditionResistances)}
+            {getOptionalProperty('Condition Vulnerabilities', conditionVulnerabilities)}
+            {getOptionalProperty('Damage Immunities', damageImmunities)}
+            {getOptionalProperty('Damage Resistences', damageResistances)}
+            {getOptionalProperty('Damage Vulnerabilities', damageVulnerabilities)}
+            {getOptionalProperty('Languages', languages)}
+            {getOptionalProperty('Tool Proficiencies', toolProficiencies)}
+            {getOptionalProperty('Weapon Proficiencies', weaponProficiencies)}
+          </Card>
+          {getSpellbook()}
+        </div>
       </div>
-      <div className="column">
-        {getCharacterMiscStats()}
-        <StatBlock entity={character} />
-        <AbilitySkills entity={character} />
-        {getAssociatedMagicItemsCard()}
-        {getCharacterInventory()}
-        <Card>
-          <h2>Biography</h2>
-          {getOptionalProperty('Age', age)}
-          {getOptionalProperty('Height', height)}
-          {getOptionalProperty('Weight', weight)}
-          {getOptionalProperty('Hair', hair)}
-          {getOptionalProperty('Skin', skin)}
-          {getOptionalProperty('Eyes', eyes)}
-          {getOptionalProperty('Personality Traits', personalityTraits)}
-          {getOptionalProperty('Ideals', ideals)}
-          {getOptionalProperty('Bonds', bonds)}
-          {getOptionalProperty('Flaws', flaws)}
-        </Card>
-        {getCharacterBackstory()}
-      </div>
-      <div className="column">
-        {getAssociatedCreaturesCard()}
-        {getCharacterResources()}
-        {getCharacterAttacks()}
-        {getCharacterFeatures()}
-        <Card>
-          {getCharacterSenses()}
-          {getOptionalProperty('Passive Perception', passivePerception)}
-          <h2>Proficinencies</h2>
-          {getOptionalProperty('Armor Proficiencies', armorProficiencies)}
-          {getOptionalProperty('Condition Immunities', conditionImmunities)}
-          {getOptionalProperty('Condition Resistences', conditionResistances)}
-          {getOptionalProperty('Condition Vulnerabilities', conditionVulnerabilities)}
-          {getOptionalProperty('Damage Immunities', damageImmunities)}
-          {getOptionalProperty('Damage Resistences', damageResistances)}
-          {getOptionalProperty('Damage Vulnerabilities', damageVulnerabilities)}
-          {getOptionalProperty('Languages', languages)}
-          {getOptionalProperty('Tool Proficiencies', toolProficiencies)}
-          {getOptionalProperty('Weapon Proficiencies', weaponProficiencies)}
-        </Card>
-        {getSpellbook()}
-      </div>
-    </div>
+    </>
   );
 };
 

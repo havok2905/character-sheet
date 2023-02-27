@@ -115,7 +115,7 @@ const MagicItemsTable = ({
                     heading={name}
                     imageAltText={`${name} token`}
                     imageUrl={imageUrl}
-                    itemPath={generatePath(MAGIC_ITEM_ROUTE, { id })}
+                    itemPath={generatePath(MAGIC_ITEM_ROUTE, { id: id as string })}
                   />
                 }
               </li>

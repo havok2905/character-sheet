@@ -1,2 +1,3 @@
 import { auth } from './auth';
-export { auth };
+import { login } from './login';
+export { auth, login };

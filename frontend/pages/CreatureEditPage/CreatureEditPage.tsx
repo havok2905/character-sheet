@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { AssociatedActionsForm } from '../../components/AssociatedActionsForm';
 import { AssociatedCreatureFeaturesForm } from '../../components/AssociatedCreatureFeaturesForm';
 import { AssociatedLairActionsForm } from '../../components/AssociatedLairActionsForm';
@@ -8,7 +8,8 @@ import { AssociatedRegionalEffectsForm } from '../../components/AssociatedRegion
 import { AssociatedSpellsForm } from '../../components/AssociatedSpellsForm';
 import {
   CREATURE_ROUTE,
-  CREATURES_ROUTE
+  CREATURES_ROUTE,
+  LOGIN_ROUTE
 } from '../../app';
 import { CreatureForm } from '../../components/CreatureForm/CreatureForm';
 import { DeleteButton } from '../../components/DeleteButton';
@@ -21,6 +22,7 @@ import {
 import {
   generatePath,
   Link,
+  Navigate,
   useNavigate,
   useParams
 } from 'react-router-dom';
@@ -38,6 +40,8 @@ import {
 } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
 import { Modal } from '../../components/Modal';
+import { Navbar } from '../../components/Navbar/Navbar';
+import { useAuth } from '../hooks/useAuth';
 
 interface ICreatureEditPageContentState {
   creature: ICreature | null,
@@ -59,10 +63,7 @@ const CreatureEditPage = (): ReactElement | null => {
     spells: [] as ISpell[]
   });
 
-  const navigate = useNavigate();
-  const params = useParams();
-
-  useEffect(() => {
+  const {authenticated, loading} = useAuth(() => {
     if (params.id) {
       Promise.all([
         getCreature(params.id),
@@ -80,10 +81,15 @@ const CreatureEditPage = (): ReactElement | null => {
         });
       });
     }
-  }, []);
+  });
+
+  const navigate = useNavigate();
+  const params = useParams();
 
   const { creature, magicItems, spells } = state;
 
+  if (loading) return null;
+  if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />;
   if (!creature) return null;
 
   const { id, imageUrl, name } = creature;
@@ -245,9 +251,10 @@ const CreatureEditPage = (): ReactElement | null => {
 
   return (
     <>
+      <Navbar authenticated={authenticated}/>
       <div className="layout">
         <div className="full">
-          <Link to={generatePath(CREATURE_ROUTE, { id })}>
+          <Link to={generatePath(CREATURE_ROUTE, { id: id as string })}>
             Back
           </Link>
           <h1>Creature Settings - {name}</h1>

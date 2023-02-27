@@ -8,6 +8,8 @@ export const CREATURE_CREATE_ROUTE = '/creatures/new';
 export const CREATURE_EDIT_ROUTE = '/creatures/:id/edit';
 export const CREATURES_ROUTE = '/creatures';
 
+export const LOGIN_ROUTE = '/login';
+
 export const MAGIC_ITEM_ROUTE = '/magicItems/:id';
 export const MAGIC_ITEM_CREATE_ROUTE = '/magicItems/new';
 export const MAGIC_ITEM_EDIT_ROUTE = '/magicItems/:id/edit';

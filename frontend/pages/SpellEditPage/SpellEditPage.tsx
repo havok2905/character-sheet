@@ -1,28 +1,32 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { DeleteButton } from '../../components/DeleteButton';
 import { destroySpell, getSpell, updateSpell } from '../../utilities/Api/Spells';
 import {
   generatePath,
   Link,
+  Navigate,
   useNavigate,
   useParams
 } from 'react-router-dom';
 import { ISpell } from '../../types/models';
+import { LOGIN_ROUTE, SPELL_ROUTE, SPELLS_ROUTE } from '../../app';
+import { Navbar } from '../../components/Navbar/Navbar';
 import { SpellForm } from '../../components/SpellForm/SpellForm';
-import { SPELL_ROUTE, SPELLS_ROUTE } from '../../app';
+import { useAuth } from '../hooks/useAuth';
 
 const SpellEditPage = (): ReactElement | null => {
   const [spell, setSpell] = useState<ISpell | null>(null);
-  
-  const navigate = useNavigate();
   const params = useParams();
-
-  useEffect(() => {
+  const navigate = useNavigate();
+  
+  const {authenticated, loading} = useAuth(() => {
     if (params.id) {
       getSpell(params.id).then(data => setSpell(data.spell));
     }
-  }, []);
+  });
 
+  if (loading) return null;
+  if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />;
   if (!spell) return null;
 
   const { id } = spell;
@@ -54,21 +58,24 @@ const SpellEditPage = (): ReactElement | null => {
   };
 
   return (
-    <div className="layout">
-      <div className="full">
-        <Link to={generatePath(SPELL_ROUTE, { id })}>
-          Back
-        </Link>
-        <h1>Edit Spell</h1>
-        <SpellForm
-          handleSubmit={handleSubmit}
-          handleSubmitButtonLabel="Update Spell"
-          spell={spell} />
-        <DeleteButton
-          buttonText="Delete Spell"
-          handleDelete={handleDelete}/>
+    <>
+      <Navbar authenticated={authenticated}/>
+      <div className="layout">
+        <div className="full">
+          <Link to={generatePath(SPELL_ROUTE, { id: id as string })}>
+            Back
+          </Link>
+          <h1>Edit Spell</h1>
+          <SpellForm
+            handleSubmit={handleSubmit}
+            handleSubmitButtonLabel="Update Spell"
+            spell={spell} />
+          <DeleteButton
+            buttonText="Delete Spell"
+            handleDelete={handleDelete}/>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

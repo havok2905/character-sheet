@@ -9,9 +9,13 @@ import {
 import CharactersImage from './home-page-characters-tile.png';
 import CreaturesImage from './home-page-creatures-tile.png';
 import MagicItemsImage from './home-page-magic-items-tile.png';
+import { Navbar } from '../../components/Navbar/Navbar';
 import SpellsImage from './home-page-spells-tile.png';
+import { useAuth } from '../hooks/useAuth';
 
 const HomePage = (): ReactElement => {
+  const {authenticated} = useAuth(() => {});
+
   const panels = [
     {
       imagePath: CharactersImage,
@@ -36,12 +40,15 @@ const HomePage = (): ReactElement => {
   ];
 
   return (
-    <div className="layout">
-      <div className="full">
-        <h1>The D&D Compendium</h1>
-        <ImagePanelGrid panels={panels} />
+    <>
+      <Navbar authenticated={authenticated}/>
+      <div className="layout">
+        <div className="full">
+          <h1>The D&D Compendium</h1>
+          <ImagePanelGrid panels={panels} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -13,17 +13,21 @@ import { GearIcon } from '../../components/Icons';
 import { generatePath, Link, useParams } from 'react-router-dom';
 import { getCreature } from '../../utilities/Api/Creatures';
 import { ICreature } from '../../types/models';
+import { Navbar } from '../../components/Navbar/Navbar';
 import { NewLineText } from '../../components/NewLineText';
 import { PROFICIENCY_BONUS_BY_LEVEL } from '../../utilities/GameSystem/constants';
 import { SpellListByLevel } from '../../components/SpellListByLevel';
 import { StatBlock } from '../../components/StatBlock';
 import { ToggleItem } from '../../components/ToggleItem';
 import { Token } from '../../components/Token';
+import { useAuth } from '../hooks/useAuth';
 
 const CreaturePage = (): ReactElement | null => {
   const [creature, setCreature] = useState<ICreature | null>(null);
 
   const params = useParams();
+
+  const {authenticated} = useAuth(() => {});
 
   useEffect(() => {
     if (params.id) {
@@ -108,7 +112,7 @@ const CreaturePage = (): ReactElement | null => {
             
             return (
               <AssociateWithTokenLink
-                associationUrl={generatePath(MAGIC_ITEM_ROUTE, { id })}
+                associationUrl={generatePath(MAGIC_ITEM_ROUTE, { id: id as string })}
                 imageAltText={`${name} token`}
                 imageUrl={imageUrl}
                 linkText={name}
@@ -350,49 +354,56 @@ const CreaturePage = (): ReactElement | null => {
   };
 
   return (
-    <div className="layout">
-      <div className="full">
-        <div className="page-header">
-          <div className="page-header-settings">
-            <Link to={generatePath(CREATURE_EDIT_ROUTE, { id })}>
-              <GearIcon/>
-            </Link>
-          </div>
-          <Token imageAltText="creature portrait" imageUrl={imageUrl}/>
-          <div>
-            <h1>{name}</h1>
-            <p>{size} {creatureType}, {alignment}</p>
+    <>
+      <Navbar authenticated={authenticated}/>
+      <div className="layout">
+        <div className="full">
+          <div className="page-header">
+            <div className="page-header-settings">
+              {
+                authenticated && (
+                  <Link to={generatePath(CREATURE_EDIT_ROUTE, { id: id as string })}>
+                    <GearIcon/>
+                  </Link>
+                )
+              }
+            </div>
+            <Token imageAltText="creature portrait" imageUrl={imageUrl}/>
+            <div>
+              <h1>{name}</h1>
+              <p>{size} {creatureType}, {alignment}</p>
+            </div>
           </div>
         </div>
+        <div className="column">
+          {getCreatureMiscStats()}
+          <StatBlock entity={creature} />
+          <AbilitySkills entity={creature}/>
+          <Card>
+            {getCreatureSenses()}
+            <h2>Proficiencies</h2>
+            {getOptionalProperty('Condition Immunities', conditionImmunities)}
+            {getOptionalProperty('Condition Resistences', conditionResistances)}
+            {getOptionalProperty('Condition Vulnerabilities', conditionVulnerabilities)}
+            {getOptionalProperty('Damage Immunities', damageImmunities)}
+            {getOptionalProperty('Damage Resistences', damageResistances)}
+            {getOptionalProperty('Damage Vulnerabilities', damageVulnerabilities)}
+            {getOptionalProperty('Languages', languages)}
+          </Card>
+          {getCreatureAbout()}
+          {getCreatureBackstory()}
+          {getCreatureLairActions()}
+          {getCreatureRegionalEffects()}
+        </div>
+        <div className="column">
+          {getCreatureFeatures()}
+          {getCreatureActions()}
+          {getCreatureLegendaryActions()}
+          {getAssociatedMagicItemsCard()} 
+          {getSpellbook()}
+        </div>
       </div>
-      <div className="column">
-        {getCreatureMiscStats()}
-        <StatBlock entity={creature} />
-        <AbilitySkills entity={creature}/>
-        <Card>
-          {getCreatureSenses()}
-          <h2>Proficiencies</h2>
-          {getOptionalProperty('Condition Immunities', conditionImmunities)}
-          {getOptionalProperty('Condition Resistences', conditionResistances)}
-          {getOptionalProperty('Condition Vulnerabilities', conditionVulnerabilities)}
-          {getOptionalProperty('Damage Immunities', damageImmunities)}
-          {getOptionalProperty('Damage Resistences', damageResistances)}
-          {getOptionalProperty('Damage Vulnerabilities', damageVulnerabilities)}
-          {getOptionalProperty('Languages', languages)}
-        </Card>
-        {getCreatureAbout()}
-        {getCreatureBackstory()}
-        {getCreatureLairActions()}
-        {getCreatureRegionalEffects()}
-      </div>
-      <div className="column">
-        {getCreatureFeatures()}
-        {getCreatureActions()}
-        {getCreatureLegendaryActions()}
-        {getAssociatedMagicItemsCard()} 
-        {getSpellbook()}
-      </div>
-    </div>
+    </>
   );
 };
 

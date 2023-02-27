@@ -5,10 +5,12 @@ import { SPELL_EDIT_ROUTE, SPELL_ROUTE } from '../../app';
 import { SpellSchoolsTypes } from '../../utilities/GameSystem/enums';
 
 interface ISpellsTableProps {
+  authenticated: boolean;
   spells: ISpell[];
 }
 
 const SpellsTable = ({
+  authenticated,
   spells
 }: ISpellsTableProps): ReactElement => {
   const [nameFilter, setNameFilter] = useState('');
@@ -105,13 +107,17 @@ const SpellsTable = ({
                   <td>{ritual ? 'R' : ''}</td>
                   <td>
                     <Link
-                      to={generatePath(SPELL_ROUTE, { id })}>
+                      to={generatePath(SPELL_ROUTE, { id: id as string })}>
                       View
                     </Link>
-                    <Link
-                      to={generatePath(SPELL_EDIT_ROUTE, { id })}>
-                      Edit
-                    </Link>
+                    {
+                      authenticated && (
+                        <Link
+                          to={generatePath(SPELL_EDIT_ROUTE, { id: id as string })}>
+                          Edit
+                        </Link>
+                      )
+                    }
                   </td>
                 </tr>
               );

@@ -9,6 +9,7 @@ import {
   CREATURE_CREATE_ROUTE,
   CREATURE_EDIT_ROUTE,
   CREATURES_ROUTE,
+  LOGIN_ROUTE,
   MAGIC_ITEM_ROUTE,
   MAGIC_ITEM_CREATE_ROUTE,
   MAGIC_ITEM_EDIT_ROUTE,
@@ -24,7 +25,6 @@ import { CharacterPage } from '../pages/CharacterPage';
 import { CharacterCreatePage } from '../pages/CharacterCreatePage';
 import { CharacterEditPage } from '../pages/CharacterEditPage';
 import { CharactersPage } from '../pages/CharactersPage';
-import { clearToken, getToken } from '../utilities/Auth';
 import { CreaturePage } from '../pages/CreaturePage';
 import { CreatureCreatePage } from '../pages/CreatureCreatePage';
 import { CreatureEditPage } from '../pages/CreatureEditPage';
@@ -32,7 +32,6 @@ import { CreaturesPage } from '../pages/CreaturesPage';
 import { DiceRoller } from '../components/DiceRoller';
 import { DmScreen } from '../components/DmScreen';
 import { HomePage } from '../pages/HomePage';
-import { Link } from 'react-router-dom';
 import { LoginPage } from '../pages/LoginPage';
 import { MagicItemPage } from '../pages/MagicItemPage';
 import { MagicItemCreatePage } from '../pages/MagicItemCreatePage';
@@ -45,33 +44,12 @@ import { SpellsPage } from '../pages/SpellsPage';
 import { UsersPage } from '../pages/UsersPage';
 
 const App = (): ReactElement => {
-  const clearAppToken = () => {
-    clearToken();
-    location.reload();
-  };
-
-  if (!getToken()) return <LoginPage />;
-
   return (
     <>
       <BrowserRouter>
-        <nav>
-          <ul className="bulletless-list">
-            <li><Link to={`${ROOT_ROUTE}`}>Home</Link></li>
-            <li><Link to={`${CHARACTERS_ROUTE}`}>Characters</Link></li>
-            <li><Link to={`${CREATURES_ROUTE}`}>Creatures</Link></li>
-            <li><Link to={`${MAGIC_ITEMS_ROUTE}`}>Magic Items</Link></li>
-            <li><Link to={`${SPELLS_ROUTE}`}>Spells</Link></li>
-            <li><Link to={`${USERS_ROUTE}`}>Users</Link></li>
-          </ul>
-          <button
-            className="button button-red"
-            onClick={clearAppToken}>
-            Log out
-          </button>
-        </nav>
         <Routes>
           <Route path={ROOT_ROUTE} element={<HomePage/>} />
+          <Route path={LOGIN_ROUTE} element={<LoginPage/>} />
           <Route path={CHARACTER_ROUTE} element={<CharacterPage/>} />
           <Route path={CHARACTER_CREATE_ROUTE} element={<CharacterCreatePage/>} />
           <Route path={CHARACTER_EDIT_ROUTE} element={<CharacterEditPage/>} />

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class MagicItemsController < ApiController
+  skip_before_action :authenticate_request, only: [:index, :show]
+
   def index
     m = MagicItem.order :name
     magic_items = magic_items_response_model m

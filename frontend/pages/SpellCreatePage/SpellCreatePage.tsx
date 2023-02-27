@@ -3,19 +3,27 @@ import { createSpell } from '../../utilities/Api/Spells';
 import {
   generatePath,
   Link,
+  Navigate,
   useNavigate
 } from 'react-router-dom';
 import { ISpell } from '../../types/models';
+import { LOGIN_ROUTE, SPELL_ROUTE, SPELLS_ROUTE } from '../../app';
+import { Navbar } from '../../components/Navbar/Navbar';
 import { SpellForm } from '../../components/SpellForm/SpellForm';
-import { SPELL_ROUTE, SPELLS_ROUTE } from '../../app';
+import { useAuth } from '../hooks/useAuth';
 
-const SpellCreatePage = (): ReactElement => {
+const SpellCreatePage = (): ReactElement | null => {
   const navigate = useNavigate();
+
+  const {authenticated, loading} = useAuth(() => {});
+
+  if (loading) return null;
+  if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />;
 
   const handleSubmit = (spell: ISpell) => {
     createSpell({ spell })
       .then(data => {
-        const id = data.spell.id;
+        const id: string = data.spell.id as string;
         navigate(generatePath(SPELL_ROUTE, { id }));
       })
       .catch((error) => {
@@ -25,17 +33,20 @@ const SpellCreatePage = (): ReactElement => {
   };
 
   return (
-    <div className="layout">
-      <div className="full">
-        <Link to={SPELLS_ROUTE}>
-          Back
-        </Link>
-        <h1>New Spell</h1>
-        <SpellForm
-          handleSubmit={handleSubmit}
-          handleSubmitButtonLabel="Create Spell"/>
+    <>
+      <Navbar authenticated={authenticated}/>
+      <div className="layout">
+        <div className="full">
+          <Link to={SPELLS_ROUTE}>
+            Back
+          </Link>
+          <h1>New Spell</h1>
+          <SpellForm
+            handleSubmit={handleSubmit}
+            handleSubmitButtonLabel="Create Spell"/>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

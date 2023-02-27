@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { AssociatedAttacksForm } from '../../components/AssociatedAttacksForm';
 import { AssociatedCharacterFeaturesForm } from '../../components/AssociatedCharacterFeaturesForm';
 import { AssociatedCreaturesForm } from '../../components/AssociatedCreaturesForm';
@@ -8,7 +8,8 @@ import { AssociatedMagicItemsForm } from '../../components/AssociatedMagicItemsF
 import { AssociatedSpellsForm } from '../../components/AssociatedSpellsForm';
 import {
   CHARACTER_ROUTE,
-  CHARACTERS_ROUTE
+  CHARACTERS_ROUTE,
+  LOGIN_ROUTE
 } from '../../app';
 import { DeleteButton } from '../../components/DeleteButton';
 import {
@@ -20,6 +21,7 @@ import {
 import {
   generatePath,
   Link,
+  Navigate,
   useNavigate,
   useParams
 } from 'react-router-dom';
@@ -39,6 +41,8 @@ import {
 } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
 import { Modal } from '../../components/Modal';
+import { Navbar } from '../../components/Navbar/Navbar';
+import { useAuth } from '../hooks/useAuth';
 
 interface ICharacterEditPageContentState {
   character: ICharacter | null;
@@ -62,10 +66,10 @@ const CharacterEditPage = (): ReactElement | null => {
     spells: [] as ISpell[]
   });
 
-  const navigate = useNavigate();
   const params = useParams();
-
-  useEffect(() => {
+  const navigate = useNavigate();
+  
+  const {authenticated, loading} = useAuth(() => {
     if (params.id) {
       Promise.all([
         getCharacter(params.id),
@@ -86,10 +90,12 @@ const CharacterEditPage = (): ReactElement | null => {
         });
       });
     }
-  }, []);
+  });
 
   const { character, creatures, magicItems, spells } = state;
 
+  if (loading) return null;
+  if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />;
   if (!character) return null;
 
   const { id, imageUrl, name } = character;
@@ -242,9 +248,10 @@ const CharacterEditPage = (): ReactElement | null => {
 
   return (
     <>
+      <Navbar authenticated={authenticated}/>
       <div className="layout">
         <div className="full">
-          <Link to={generatePath(CHARACTER_ROUTE, { id })}>
+          <Link to={generatePath(CHARACTER_ROUTE, { id: id as string })}>
             Back
           </Link>
           <h1>Character Settings - {name}</h1>
