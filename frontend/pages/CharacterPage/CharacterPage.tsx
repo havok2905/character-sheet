@@ -15,6 +15,7 @@ import { characterMulticlassRow } from '../../utilities/UiHelpers/characterMulti
 import { GearIcon } from '../../components/Icons';
 import { generatePath, Link, useParams } from 'react-router-dom';
 import { getCharacter } from '../../utilities/Api/Characters';
+import { calculateSpellslots } from '../../utilities/GameSystem/calculateSpellslots';
 import { ICharacter } from '../../types/models';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { NewLineText } from '../../components/NewLineText';
@@ -47,8 +48,10 @@ const CharacterPage = (): ReactElement | null => {
     background,
     backstory,
     bonds,
+    characterClass,
     characterClassHitDice,
     characterClassLevel = 0,
+    characterSubClass,
     characterAttacks = [],
     characterFeatures = [],
     characterFeatureResources = [],
@@ -81,6 +84,7 @@ const CharacterPage = (): ReactElement | null => {
     multiclassClass,
     multiclassClassHitDice,
     multiclassClassLevel = 0,
+    multiclassSubClass,
     name,
     passivePerception,
     personalityTraits,
@@ -91,15 +95,6 @@ const CharacterPage = (): ReactElement | null => {
     skin,
     speed,
     spells = [],
-    spellSlotsEighth,
-    spellSlotsFifth,
-    spellSlotsFirst,
-    spellSlotsFourth,
-    spellSlotsNinth,
-    spellSlotsSecond,
-    spellSlotsSeventh,
-    spellSlotsSixth,
-    spellSlotsThird,
     spellcastingAbility,
     strengthScore,
     subRace,
@@ -382,6 +377,19 @@ const CharacterPage = (): ReactElement | null => {
 
     const abilityMod = calculateAbilityModifier({abilityScore, bonus: 0});
 
+    const spellslots = calculateSpellslots([
+      {
+        classLevel: characterClassLevel,
+        className: characterClass,
+        subclassName: characterSubClass
+      },
+      {
+        classLevel: multiclassClassLevel,
+        className: multiclassClass,
+        subclassName: multiclassSubClass
+      }
+    ]);
+
     return (
       <Card>
         <h2>Spellbook</h2>
@@ -392,15 +400,15 @@ const CharacterPage = (): ReactElement | null => {
           !!spells?.length && (
             <>
               <SpellListByLevel label="Cantrips" spellLevel={0} spellSlots={0} spells={spells} />
-              <SpellListByLevel label="1st Level" spellLevel={1} spellSlots={spellSlotsFirst} spells={spells} />
-              <SpellListByLevel label="2nd Level" spellLevel={2} spellSlots={spellSlotsSecond} spells={spells} />
-              <SpellListByLevel label="3rd Level" spellLevel={3} spellSlots={spellSlotsThird} spells={spells} />
-              <SpellListByLevel label="4th Level" spellLevel={4} spellSlots={spellSlotsFourth} spells={spells} />
-              <SpellListByLevel label="5th Level" spellLevel={5} spellSlots={spellSlotsFifth} spells={spells} />
-              <SpellListByLevel label="6th Level" spellLevel={6} spellSlots={spellSlotsSixth} spells={spells} />
-              <SpellListByLevel label="7th Level" spellLevel={7} spellSlots={spellSlotsSeventh} spells={spells} />
-              <SpellListByLevel label="8th Level" spellLevel={8} spellSlots={spellSlotsEighth} spells={spells} />
-              <SpellListByLevel label="9th Level" spellLevel={9} spellSlots={spellSlotsNinth} spells={spells} />
+              <SpellListByLevel label="1st Level" spellLevel={1} spellSlots={spellslots[0] ?? 0} spells={spells} />
+              <SpellListByLevel label="2nd Level" spellLevel={2} spellSlots={spellslots[1] ?? 0} spells={spells} />
+              <SpellListByLevel label="3rd Level" spellLevel={3} spellSlots={spellslots[2] ?? 0} spells={spells} />
+              <SpellListByLevel label="4th Level" spellLevel={4} spellSlots={spellslots[3] ?? 0} spells={spells} />
+              <SpellListByLevel label="5th Level" spellLevel={5} spellSlots={spellslots[4] ?? 0} spells={spells} />
+              <SpellListByLevel label="6th Level" spellLevel={6} spellSlots={spellslots[5] ?? 0} spells={spells} />
+              <SpellListByLevel label="7th Level" spellLevel={7} spellSlots={spellslots[6] ?? 0} spells={spells} />
+              <SpellListByLevel label="8th Level" spellLevel={8} spellSlots={spellslots[7] ?? 0} spells={spells} />
+              <SpellListByLevel label="9th Level" spellLevel={9} spellSlots={spellslots[8] ?? 0} spells={spells} />
               <SpellListByLevel label="10th Level" spellLevel={10} spellSlots={0} spells={spells} />
             </>
           )

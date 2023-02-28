@@ -82,15 +82,6 @@ const CreatureForm = ({
     sleightOfHandProf: '',
     speed: '',
     spells: [],
-    spellSlotsFirst: 0,
-    spellSlotsSecond: 0,
-    spellSlotsThird: 0,
-    spellSlotsFourth: 0,
-    spellSlotsFifth: 0,
-    spellSlotsSixth: 0,
-    spellSlotsSeventh: 0,
-    spellSlotsEighth: 0,
-    spellSlotsNinth: 0,
     spellcastingAbility: '',
     spellcastingLevel: 0,
     stealthProf: '',
@@ -155,15 +146,6 @@ const CreatureForm = ({
     size,
     sleightOfHandProf,
     speed,
-    spellSlotsFirst,
-    spellSlotsSecond,
-    spellSlotsThird,
-    spellSlotsFourth,
-    spellSlotsFifth,
-    spellSlotsSixth,
-    spellSlotsSeventh,
-    spellSlotsEighth,
-    spellSlotsNinth,
     spellcastingAbility,
     spellcastingLevel,
     stealthProf,
@@ -546,26 +528,6 @@ const CreatureForm = ({
         <input onChange={e => handleFormChange('spellcastingLevel', parseInt(e.target.value))} type="number" value={spellcastingLevel}/>
         <label>Spellcasting Ability</label>
         <input onChange={e => handleFormChange('spellcastingAbility', e.target.value)} type="text" value={spellcastingAbility}/>
-      </fieldset>
-      <fieldset>
-        <label>1st Level Spell Slots</label>
-        <input onChange={e => handleFormChange('spellSlotsFirst', parseInt(e.target.value))} type="number" value={spellSlotsFirst}/>
-        <label>2nd Level Spell Slots</label>
-        <input onChange={e => handleFormChange('spellSlotsSecond', parseInt(e.target.value))} type="number" value={spellSlotsSecond}/>
-        <label>3rd Level Spell Slots</label>
-        <input onChange={e => handleFormChange('spellSlotsThird', parseInt(e.target.value))} type="number" value={spellSlotsThird}/>
-        <label>4th Level Spell Slots</label>
-        <input onChange={e => handleFormChange('spellSlotsFourth', parseInt(e.target.value))} type="number" value={spellSlotsFourth}/>
-        <label>5th Level Spell Slots</label>
-        <input onChange={e => handleFormChange('spellSlotsFifth', parseInt(e.target.value))} type="number" value={spellSlotsFifth}/>
-        <label>6th Level Spell Slots</label>
-        <input onChange={e => handleFormChange('spellSlotsSixth', parseInt(e.target.value))} type="number" value={spellSlotsSixth}/>
-        <label>7th Level Spell Slots</label>
-        <input onChange={e => handleFormChange('spellSlotsSeventh', parseInt(e.target.value))} type="number" value={spellSlotsSeventh}/>
-        <label>8th Level Spell Slots</label>
-        <input onChange={e => handleFormChange('spellSlotsEighth', parseInt(e.target.value))} type="number" value={spellSlotsEighth}/>
-        <label>9th Level Spell Slots</label>
-        <input onChange={e => handleFormChange('spellSlotsNinth', parseInt(e.target.value))} type="number" value={spellSlotsNinth}/>
       </fieldset>
       <h2>About</h2>
       <fieldset>

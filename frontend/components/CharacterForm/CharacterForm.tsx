@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { AlignmentTypes } from '../../utilities/GameSystem/enums';
+import { CLASSES } from '../../utilities/GameSystem/constants';
 import { ICharacter } from '../../types/models';
 import { EXP, NONE, PROF } from '../../utilities/GameSystem/constants';
 
@@ -102,15 +103,6 @@ const CharacterForm = ({
     skin: '',
     sleightOfHandProf: '',
     speed: 0,
-    spellSlotsEighth: 0,
-    spellSlotsFifth: 0,
-    spellSlotsFirst: 0,
-    spellSlotsFourth: 0,
-    spellSlotsNinth: 0,
-    spellSlotsSecond: 0,
-    spellSlotsSeventh: 0,
-    spellSlotsSixth: 0,
-    spellSlotsThird: 0,
     spellcastingAbility: '',
     stealthProf: '',
     strengthProf: '',
@@ -195,15 +187,6 @@ const CharacterForm = ({
     skin,
     sleightOfHandProf,
     speed,
-    spellSlotsFirst,
-    spellSlotsSecond,
-    spellSlotsThird,
-    spellSlotsFourth,
-    spellSlotsFifth,
-    spellSlotsSixth,
-    spellSlotsSeventh,
-    spellSlotsEighth,
-    spellSlotsNinth,
     spellcastingAbility,
     stealthProf,
     strengthProf,
@@ -263,7 +246,18 @@ const CharacterForm = ({
           <h2>Character Class</h2>
           <fieldset>
             <label>Class</label>
-            <input onChange={e => handleFormChange('characterClass', e.target.value)} type="text" value={characterClass}/>
+            <select onChange={e => handleFormChange('characterClass', e.target.value)} value={characterClass}>
+              <option value=""></option>
+              {
+                CLASSES.map(classItem => {
+                  return (
+                    <option value={classItem}>
+                      {classItem}
+                    </option>
+                  )
+                })
+              }
+            </select>
             <label>Sub Class</label>
             <input onChange={e => handleFormChange('characterSubClass', e.target.value)} type="text" value={characterSubClass}/>
             <label>Hit Dice</label>
@@ -276,7 +270,18 @@ const CharacterForm = ({
           <h2>Character Multiclass</h2>
           <fieldset>
             <label>Multiclass</label>
-            <input onChange={e => handleFormChange('multiclassClass', e.target.value)} type="text" value={multiclassClass}/>
+            <select onChange={e => handleFormChange('multiclassClass', e.target.value)} value={multiclassClass}>
+              <option value=""></option>
+              {
+                CLASSES.map(classItem => {
+                  return (
+                    <option value={classItem}>
+                      {classItem}
+                    </option>
+                  )
+                })
+              }
+            </select>
             <label>Sub Class</label>
             <input onChange={e => handleFormChange('multiclassSubClass', e.target.value)} type="text" value={multiclassSubClass}/>
             <label>Hit Dice</label>
@@ -591,26 +596,6 @@ const CharacterForm = ({
         <fieldset>
           <label>Spellcasting Ability</label>
           <input onChange={e => handleFormChange('spellcastingAbility', e.target.value)} type="text" value={spellcastingAbility}/>
-        </fieldset>
-        <fieldset>
-          <label>1st Level Spell Slots</label>
-          <input onChange={e => handleFormChange('spellSlotsFirst', parseInt(e.target.value))} type="number" value={spellSlotsFirst}/>
-          <label>2nd Level Spell Slots</label>
-          <input onChange={e => handleFormChange('spellSlotsSecond', parseInt(e.target.value))} type="number" value={spellSlotsSecond}/>
-          <label>3rd Level Spell Slots</label>
-          <input onChange={e => handleFormChange('spellSlotsThird', parseInt(e.target.value))} type="number" value={spellSlotsThird}/>
-          <label>4th Level Spell Slots</label>
-          <input onChange={e => handleFormChange('spellSlotsFourth', parseInt(e.target.value))} type="number" value={spellSlotsFourth}/>
-          <label>5th Level Spell Slots</label>
-          <input onChange={e => handleFormChange('spellSlotsFifth', parseInt(e.target.value))} type="number" value={spellSlotsFifth}/>
-          <label>6th Level Spell Slots</label>
-          <input onChange={e => handleFormChange('spellSlotsSixth', parseInt(e.target.value))} type="number" value={spellSlotsSixth}/>
-          <label>7th Level Spell Slots</label>
-          <input onChange={e => handleFormChange('spellSlotsSeventh', parseInt(e.target.value))} type="number" value={spellSlotsSeventh}/>
-          <label>8th Level Spell Slots</label>
-          <input onChange={e => handleFormChange('spellSlotsEighth', parseInt(e.target.value))} type="number" value={spellSlotsEighth}/>
-          <label>9th Level Spell Slots</label>
-          <input onChange={e => handleFormChange('spellSlotsNinth', parseInt(e.target.value))} type="number" value={spellSlotsNinth}/>
         </fieldset>
       </div>
       <div className="layout">

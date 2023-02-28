@@ -15,7 +15,10 @@ import { getCreature } from '../../utilities/Api/Creatures';
 import { ICreature } from '../../types/models';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { NewLineText } from '../../components/NewLineText';
-import { PROFICIENCY_BONUS_BY_LEVEL } from '../../utilities/GameSystem/constants';
+import {
+  PROFICIENCY_BONUS_BY_LEVEL,
+  FULL_CASTER_TABLE
+} from '../../utilities/GameSystem/constants';
 import { SpellListByLevel } from '../../components/SpellListByLevel';
 import { StatBlock } from '../../components/StatBlock';
 import { ToggleItem } from '../../components/ToggleItem';
@@ -79,15 +82,6 @@ const CreaturePage = (): ReactElement | null => {
     spellcastingAbility,
     spellcastingLevel,
     spells,
-    spellSlotsEighth,
-    spellSlotsFifth,
-    spellSlotsFirst,
-    spellSlotsFourth,
-    spellSlotsNinth,
-    spellSlotsSecond,
-    spellSlotsSeventh,
-    spellSlotsSixth,
-    spellSlotsThird,
     strengthScore,
     wisdomScore
   } = creature;
@@ -325,6 +319,8 @@ const CreaturePage = (): ReactElement | null => {
     const abilityMod = calculateAbilityModifier({abilityScore, bonus: 0});
     const proficiencyBonus = PROFICIENCY_BONUS_BY_LEVEL[cr] ?? 0;
 
+    const spellslots = FULL_CASTER_TABLE[spellcastingLevel];
+
     return (
       <Card>
         <h2>Spellbook</h2>
@@ -336,15 +332,15 @@ const CreaturePage = (): ReactElement | null => {
           !!spells?.length && (
             <>
               <SpellListByLevel label="Cantrips" spellLevel={0} spellSlots={0} spells={spells} />
-              <SpellListByLevel label="1st Level" spellLevel={1} spellSlots={spellSlotsFirst} spells={spells} />
-              <SpellListByLevel label="2nd Level" spellLevel={2} spellSlots={spellSlotsSecond} spells={spells} />
-              <SpellListByLevel label="3rd Level" spellLevel={3} spellSlots={spellSlotsThird} spells={spells} />
-              <SpellListByLevel label="4th Level" spellLevel={4} spellSlots={spellSlotsFourth} spells={spells} />
-              <SpellListByLevel label="5th Level" spellLevel={5} spellSlots={spellSlotsFifth} spells={spells} />
-              <SpellListByLevel label="6th Level" spellLevel={6} spellSlots={spellSlotsSixth} spells={spells} />
-              <SpellListByLevel label="7th Level" spellLevel={7} spellSlots={spellSlotsSeventh} spells={spells} />
-              <SpellListByLevel label="8th Level" spellLevel={8} spellSlots={spellSlotsEighth} spells={spells} />
-              <SpellListByLevel label="9th Level" spellLevel={9} spellSlots={spellSlotsNinth} spells={spells} />
+              <SpellListByLevel label="1st Level" spellLevel={1} spellSlots={spellslots[0]} spells={spells} />
+              <SpellListByLevel label="2nd Level" spellLevel={2} spellSlots={spellslots[1]} spells={spells} />
+              <SpellListByLevel label="3rd Level" spellLevel={3} spellSlots={spellslots[2]} spells={spells} />
+              <SpellListByLevel label="4th Level" spellLevel={4} spellSlots={spellslots[3]} spells={spells} />
+              <SpellListByLevel label="5th Level" spellLevel={5} spellSlots={spellslots[4]} spells={spells} />
+              <SpellListByLevel label="6th Level" spellLevel={6} spellSlots={spellslots[5]} spells={spells} />
+              <SpellListByLevel label="7th Level" spellLevel={7} spellSlots={spellslots[6]} spells={spells} />
+              <SpellListByLevel label="8th Level" spellLevel={8} spellSlots={spellslots[7]} spells={spells} />
+              <SpellListByLevel label="9th Level" spellLevel={9} spellSlots={spellslots[8]} spells={spells} />
               <SpellListByLevel label="10th Level" spellLevel={10} spellSlots={0} spells={spells} />
             </>
           )

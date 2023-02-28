@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_23_185553) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_27_160234) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -151,15 +151,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_185553) do
     t.integer "silver_pieces"
     t.string "skin"
     t.string "sleight_of_hand_prof"
-    t.integer "spell_slots_eighth"
-    t.integer "spell_slots_fifth"
-    t.integer "spell_slots_first"
-    t.integer "spell_slots_fourth"
-    t.integer "spell_slots_ninth"
-    t.integer "spell_slots_second"
-    t.integer "spell_slots_seventh"
-    t.integer "spell_slots_sixth"
-    t.integer "spell_slots_third"
     t.string "spellcasting_ability"
     t.string "stealth_prof"
     t.string "strength_prof"
@@ -284,15 +275,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_185553) do
     t.text "senses"
     t.string "size"
     t.string "speed"
-    t.integer "spell_slots_first"
-    t.integer "spell_slots_second"
-    t.integer "spell_slots_third"
-    t.integer "spell_slots_fourth"
-    t.integer "spell_slots_fifth"
-    t.integer "spell_slots_sixth"
-    t.integer "spell_slots_seventh"
-    t.integer "spell_slots_eighth"
-    t.integer "spell_slots_ninth"
     t.string "spellcasting_ability"
     t.integer "spellcasting_level"
     t.integer "strength_score"
