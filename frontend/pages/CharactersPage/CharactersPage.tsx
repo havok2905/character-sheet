@@ -1,4 +1,5 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement } from 'react';
+import { Card } from '../../components/Card';
 import { CHARACTER_CREATE_ROUTE } from '../../app';
 import { CharactersTable } from '../../components/CharactersTable';
 import { getCharacters } from '../../utilities/Api/Characters';
@@ -6,15 +7,23 @@ import { ICharacter } from '../../types/models';
 import { Link } from 'react-router-dom';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
+import { useQuery } from '@tanstack/react-query';
 
 const CharactersPage = (): ReactElement => {
-  const [characters, setCharacters] = useState<ICharacter[]>([]);
-
   const {authenticated} = useAuth(() => {});
 
-  useEffect(() => {
-    getCharacters().then(data => setCharacters(data.characters));
-  }, []);
+  const {
+    data, 
+    isError,
+    isLoading,
+    isSuccess
+  } = useQuery<{characters: ICharacter[]}>({
+    queryKey: ['characters'],
+    queryFn: getCharacters,
+    retry: 3
+  });
+
+  const characters = data?.characters ?? [];
 
   return (
     <>
@@ -31,7 +40,9 @@ const CharactersPage = (): ReactElement => {
             )
           }
           <h1>Characters</h1>
-          <CharactersTable characters={characters}/>
+          {isError && <Card>Error</Card>}
+          {isLoading && <Card>Loading</Card>}
+          {isSuccess && <CharactersTable characters={characters}/>}
         </div>
       </div>
     </>

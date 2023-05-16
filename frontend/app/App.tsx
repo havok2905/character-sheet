@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import {
   CHARACTER_ROUTE,
   CHARACTER_CREATE_ROUTE,
@@ -44,8 +45,10 @@ import { SpellsPage } from '../pages/SpellsPage';
 import { UsersPage } from '../pages/UsersPage';
 
 const App = (): ReactElement => {
+  const queryClient = new QueryClient();
+
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
           <Route path={ROOT_ROUTE} element={<HomePage/>} />
@@ -74,7 +77,7 @@ const App = (): ReactElement => {
         <DiceRoller/>
       </footer>
       <div id="modal-root"></div>
-    </>
+    </QueryClientProvider>
   );
 };
 
