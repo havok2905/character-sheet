@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { AbilitySkills } from '../../components/AbilitySkills';
 import { AssociateWithTokenLink } from '../../components/AssociateWithTokenLink';
 import { calculateAbilityModifier } from '../../utilities/GameSystem/calculateAbilityModifier';
@@ -25,20 +25,30 @@ import { StatBlock } from '../../components/StatBlock';
 import { ToggleItem } from '../../components/ToggleItem';
 import { Token } from '../../components/Token';
 import { useAuth } from '../hooks/useAuth';
+import { useQuery } from '@tanstack/react-query';
 
-const CharacterPage = (): ReactElement | null => {
-  const [character, setCharacter] = useState<ICharacter | null>(null);
+const CharacterPage = (): ReactNode => {
   const params = useParams();
 
   const {authenticated} = useAuth(() => {});
 
-  useEffect(() => {
-    if (params.id) {
-      getCharacter(params.id).then(data => setCharacter(data.character));
-    }
-  }, []);
+  console.log(params);
 
-  if (!character) return null;
+  const {
+    data, 
+    isError,
+    isLoading
+  } = useQuery<{character: ICharacter}>({
+    queryKey: ['character'],
+    queryFn: async () => getCharacter(params.id ?? ''),
+    retry: 3
+  });
+
+  const character = data?.character;
+
+  if(isLoading || isError || !character) {
+    return null;
+  }
 
   const {
     ac,
@@ -107,7 +117,7 @@ const CharacterPage = (): ReactElement | null => {
   const totalLevel = characterClassLevel + multiclassClassLevel;
   const proficiencyBonus = PROFICIENCY_BONUS_BY_LEVEL[totalLevel] ?? 0;
 
-  const getAssociatedCreaturesCard = (): ReactElement | null => {
+  const getAssociatedCreaturesCard = (): ReactNode => {
     if (!creatures?.length) return null;
 
     return (
@@ -131,7 +141,7 @@ const CharacterPage = (): ReactElement | null => {
     );
   };
 
-  const getAssociatedMagicItemsCard = (): ReactElement | null => {
+  const getAssociatedMagicItemsCard = (): ReactNode => {
     if (!magicItems?.length) return null;
 
     return (
@@ -159,7 +169,7 @@ const CharacterPage = (): ReactElement | null => {
     );
   };
 
-  const getCharacterAttacks = (): ReactElement | null => {
+  const getCharacterAttacks = (): ReactNode => {
     if (!characterAttacks?.length) return null;
 
     return (
@@ -219,7 +229,7 @@ const CharacterPage = (): ReactElement | null => {
     )
   };
 
-  const getCharacterBackstory = (): ReactElement | null => {
+  const getCharacterBackstory = (): ReactNode => {
     if (!backstory) return null;
 
     return (
@@ -230,7 +240,7 @@ const CharacterPage = (): ReactElement | null => {
     );
   };
 
-  const getCharacterFeatures = (): ReactElement | null => {
+  const getCharacterFeatures = (): ReactNode => {
     if (!characterFeatures?.length) return null;
 
     return (
@@ -253,7 +263,7 @@ const CharacterPage = (): ReactElement | null => {
     )
   };
 
-  const getCharacterInventory = (): ReactElement => {
+  const getCharacterInventory = (): ReactNode => {
     return (
       <>
         {
@@ -302,7 +312,7 @@ const CharacterPage = (): ReactElement | null => {
     );
   };
 
-  const getCharacterMiscStats = (): ReactElement => {
+  const getCharacterMiscStats = (): ReactNode => {
     return (
       <table>
         <thead>
@@ -331,7 +341,7 @@ const CharacterPage = (): ReactElement | null => {
     );
   };
 
-  const getCharacterResources = (): ReactElement | null => {
+  const getCharacterResources = (): ReactNode => {
     if (!characterFeatureResources?.length) return null;
 
     return (
@@ -358,7 +368,7 @@ const CharacterPage = (): ReactElement | null => {
     );
   };
 
-  const getOptionalProperty = (label: string, value: string | number): ReactElement | null => {
+  const getOptionalProperty = (label: string, value: string | number): ReactNode => {
     if (value === null || value === undefined || value === '') return null;
     return <p><strong>{label}</strong> {value}</p>;
   };

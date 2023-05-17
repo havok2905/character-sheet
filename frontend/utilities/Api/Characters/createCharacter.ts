@@ -1,19 +1,19 @@
-import { authenticatedFetch } from '../authenticatedFetch';
+import { authenticatedFetch2 } from '../authenticatedFetch2';
 import { ICharacter } from '../../../types/models';
 
-type ICreateCharacterRequest = {
+interface ICreateCharacterRequest {
   character: ICharacter;
 };
 
-type ICreateCharacterResponse = {
+interface ICreateCharacterResponse {
   character: ICharacter;
 };
 
 const createCharacter = (data: ICreateCharacterRequest): Promise<ICreateCharacterResponse> => {
-  return authenticatedFetch('/api/characters', {
-    method: 'POST',
+  return authenticatedFetch2('/api/characters', {
+    body: JSON.stringify(data),
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+    method: 'POST'
   });
 };
 

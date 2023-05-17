@@ -1,14 +1,16 @@
-import { authenticatedFetch } from '../authenticatedFetch';
+import { authenticatedFetch2 } from '../authenticatedFetch2';
 import { ICharacter } from '../../../types/models';
 
-type IGetCharacterResponse = {
+interface IGetCharacterResponse {
   character: ICharacter;
 };
 
-const getCharacter = (id: string): Promise<IGetCharacterResponse> => {
-  return authenticatedFetch(`/api/characters/${id}`, {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' }
+const getCharacter = async (id: string): Promise<IGetCharacterResponse> => {
+  return authenticatedFetch2(`/api/characters/${id}`, {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'GET'
   });
 };
 

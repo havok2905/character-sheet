@@ -1,19 +1,19 @@
-import { authenticatedFetch } from '../authenticatedFetch';
+import { authenticatedFetch2 } from '../authenticatedFetch2';
 import { ICharacter } from '../../../types/models';
 
-type IUpdateCharacterRequest = {
+interface IUpdateCharacterRequest {
   character: ICharacter;
 };
 
-type IUpdateCharacterResponse = {
+interface IUpdateCharacterResponse {
   character: ICharacter;
 };
 
-const updateCharacter = (id: string, data: IUpdateCharacterRequest): Promise<IUpdateCharacterResponse> => {
-  return authenticatedFetch(`/api/characters/${id}`, {
-    method: 'PUT',
+const updateCharacter = async (id: string, data: IUpdateCharacterRequest): Promise<IUpdateCharacterResponse> => {
+  return authenticatedFetch2(`/api/characters/${id}`, {
+    body: JSON.stringify(data),
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+    method: 'PUT'
   });
 };
 

@@ -1,12 +1,12 @@
-import { authenticatedFetch } from '../authenticatedFetch';
+import { authenticatedFetch2 } from '../authenticatedFetch2';
 import { IUser } from '../../../types/models';
 
-type IGetUsersResponse = {
+interface IGetUsersResponse {
   users: IUser[];
 };
 
-const getUsers = (): Promise<IGetUsersResponse> => {
-  return authenticatedFetch('/api/users', {
+const getUsers = async (): Promise<IGetUsersResponse> => {
+  return authenticatedFetch2('/api/users', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
   });

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactNode } from 'react';
 import {
   CHARACTER_ROUTE,
   CHARACTERS_ROUTE,
@@ -15,26 +15,28 @@ import {
 import { ICharacter } from '../../types/models';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
+import { useMutation } from '@tanstack/react-query';
 
-const CharacterCreatePage = (): ReactElement | null => {
+const CharacterCreatePage = (): ReactNode => {
   const navigate = useNavigate();
 
-  const {authenticated, loading} = useAuth(() => {});
+  const {authenticated} = useAuth(() => {});
 
-  if (loading) return null;
+  const characterCreateMutation = useMutation({
+    mutationFn: async (character: ICharacter) => createCharacter({ character }),
+    onError: (error) => {
+      console.error('Error:', error);
+      location.reload();
+    },
+    onSuccess: (data) => {
+     const id = data.character.id ?? '';
+     navigate(generatePath(CHARACTER_ROUTE, { id }));
+    }
+  });
+
   if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />;
 
-  const handleSubmit = (character: ICharacter) => {
-    createCharacter({ character })
-      .then(data => {
-        const id = data.character.id;
-        navigate(generatePath(CHARACTER_ROUTE, { id: id as string }));
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        location.reload();
-      });
-  };
+  const handleSubmit = (character: ICharacter) => characterCreateMutation.mutate(character);
 
   return (
     <>

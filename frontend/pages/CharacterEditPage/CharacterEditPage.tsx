@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { AssociatedAttacksForm } from '../../components/AssociatedAttacksForm';
 import { AssociatedCharacterFeaturesForm } from '../../components/AssociatedCharacterFeaturesForm';
 import { AssociatedCreaturesForm } from '../../components/AssociatedCreaturesForm';
@@ -35,23 +35,14 @@ import {
   ICharacterFeature,
   ICharacterFeatureResource,
   ICharacterItem,
-  ICreature,
-  IMagicItem,
-  ISpell
 } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
 import { Modal } from '../../components/Modal';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
+import { useMutation, useQueries } from '@tanstack/react-query';
 
-interface ICharacterEditPageContentState {
-  character: ICharacter | null;
-  creatures: ICreature[];
-  magicItems: IMagicItem[];
-  spells: ISpell[];
-}
-
-const CharacterEditPage = (): ReactElement | null => {
+const CharacterEditPage = (): ReactNode => {
   const [attacksModalOpen, setAttacksModalOpen] = useState(false);
   const [creaturesModalOpen, setCreaturesModalOpen] = useState(false);
   const [featuresModalOpen, setFeaturesModalOpen] = useState(false);
@@ -59,86 +50,116 @@ const CharacterEditPage = (): ReactElement | null => {
   const [inventoryModalOpen, setInventoryModalOpen] = useState(false);
   const [magicItemsModalOpen, setMagicItemsModalOpen] = useState(false);
   const [spellsModalOpen, setSpellsModalOpen] = useState(false);
-  const [state, setState] = useState<ICharacterEditPageContentState>({
-    character: null,
-    creatures: [] as ICreature[],
-    magicItems: [] as IMagicItem[],
-    spells: [] as ISpell[]
-  });
-
+  
   const params = useParams();
   const navigate = useNavigate();
   
-  const {authenticated, loading} = useAuth(() => {
-    if (params.id) {
-      Promise.all([
-        getCharacter(params.id),
-        getCreatures(),
-        getMagicItems(),
-        getSpells()
-      ]).then(([
-        characterData,
-        creatureData,
-        magicItemsData,
-        spellsData
-      ]) => {
-        setState({
-          character: characterData.character,
-          creatures: creatureData.creatures,
-          magicItems: magicItemsData.magicItems,
-          spells: spellsData.spells
-        });
-      });
+  const {authenticated} = useAuth(() => {});
+
+  const results = useQueries({
+    queries: [
+      {
+        queryKey: ['character'],
+        queryFn: async ()=> getCharacter(params.id ?? '')
+      },
+      {
+        queryKey: ['creatures'],
+        queryFn: async ()=> getCreatures()
+      },
+      {
+        queryKey: ['magic-items'],
+        queryFn: async ()=> getMagicItems()
+      },
+      {
+        queryKey: ['spells'],
+        queryFn: async ()=> getSpells()
+      }
+    ]
+  });
+
+  const destroyCharacterMutation = useMutation({
+    mutationFn: async (id: string) => destroyCharacter(id),
+    onError: (error) => {
+      console.error('Error:', error);
+      location.reload();
+    },
+    onSuccess: () => {
+      navigate(CHARACTERS_ROUTE);
     }
   });
 
-  const { character, creatures, magicItems, spells } = state;
+  interface UpdateCharacterMutationRequest {
+    character: ICharacter;
+    id: string;
+  }
 
-  if (loading) return null;
+  const updateCharacterMutation = useMutation({
+    mutationFn: async ({character, id}: UpdateCharacterMutationRequest) => updateCharacter(id, { character }),
+    onError: (error) => {
+      console.error('Error:', error);
+      navigate(generatePath(CHARACTER_ROUTE, { id: params.id ?? '' }));
+    },
+    onSuccess: () => {
+      navigate(generatePath(CHARACTER_ROUTE, { id: params.id ?? '' }));
+    }
+  });
+
+  interface UploadCharacterImageMutationRequest {
+    data: FormData;
+    id: string;
+  }
+
+  const uploadCharacterImageMutation = useMutation({
+    mutationFn: async({data, id}: UploadCharacterImageMutationRequest) => uploadCharacterImage(id, data),
+    onError(error) {
+      console.error('Error:', error);
+    },
+    onSuccess: () => {
+      location.reload();
+    }
+  });
+
+  const [
+    characterResults,
+    creaturesResults,
+    magicItemsResults,
+    spellsResults
+  ] = results;
+
+  if (
+    characterResults.isLoading || characterResults.isError ||
+    creaturesResults.isLoading || creaturesResults.isError ||
+    magicItemsResults.isLoading || magicItemsResults.isError ||
+    spellsResults.isLoading || spellsResults.isError
+  ) return null;
+
+  const character = characterResults.data?.character;
+  const creatures = creaturesResults.data?.creatures ?? [];
+  const magicItems = magicItemsResults.data?.magicItems ?? [];
+  const spells = spellsResults.data?.spells ?? [];
+
   if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />;
+
   if (!character) return null;
 
   const { id, imageUrl, name } = character;
 
   const handleDelete = () => {
     if (!id) return;
-
-    destroyCharacter(id)
-      .then(() => {
-        navigate(CHARACTERS_ROUTE);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        location.reload();
-      });
-  };
+    destroyCharacterMutation.mutate(id);
+  }
 
   const handleSubmit = (character: ICharacter) => {
     if (!id) return;
-
-    updateCharacter(id, { character })
-      .then(() => {
-        navigate(generatePath(CHARACTER_ROUTE, { id }));
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        navigate(generatePath(CHARACTER_ROUTE, { id }));
-      });
-  };
+    updateCharacterMutation.mutate({ character, id });
+  }
 
   const handleImageUpload = (data: FormData | undefined) => {
     if (!data || !id) return;
-              
-    uploadCharacterImage(id, data)
-      .then(() => {
-        location.reload();
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+    uploadCharacterImageMutation.mutate({ data, id });
   };
 
-  const getAttacksModal = (): ReactElement | null => {
+  const getAttacksModal = (): ReactNode => {
     if (!attacksModalOpen || !character) return null;
 
     return (
@@ -153,7 +174,7 @@ const CharacterEditPage = (): ReactElement | null => {
     );
   };
 
-  const getCreaturesModal = (): ReactElement | null => {
+  const getCreaturesModal = (): ReactNode => {
     if (!creaturesModalOpen || !character) return null;
 
     return (
@@ -169,7 +190,7 @@ const CharacterEditPage = (): ReactElement | null => {
     );
   };
 
-  const getFeaturesModal = (): ReactElement | null => {
+  const getFeaturesModal = (): ReactNode => {
     if (!featuresModalOpen || !character) return null;
 
     return (
@@ -184,7 +205,7 @@ const CharacterEditPage = (): ReactElement | null => {
     );
   };
 
-  const getFeatureResourcesModal = (): ReactElement | null => {
+  const getFeatureResourcesModal = (): ReactNode => {
     if (!featureResourcesModalOpen || !character) return null;
 
     return (
@@ -199,7 +220,7 @@ const CharacterEditPage = (): ReactElement | null => {
     );
   };
 
-  const getInventoryModal = (): ReactElement | null => {
+  const getInventoryModal = (): ReactNode => {
     if (!inventoryModalOpen || !character) return null;
 
     return (
@@ -214,7 +235,7 @@ const CharacterEditPage = (): ReactElement | null => {
     );
   };
 
-  const getMagicItemsModal = (): ReactElement | null => {
+  const getMagicItemsModal = (): ReactNode => {
     if (!magicItemsModalOpen || !character) return null;
 
     return (
@@ -230,7 +251,7 @@ const CharacterEditPage = (): ReactElement | null => {
     );
   };
 
-  const getSpellsModal = (): ReactElement | null => {
+  const getSpellsModal = (): ReactNode => {
     if (!spellsModalOpen || !character) return null;
 
     return (

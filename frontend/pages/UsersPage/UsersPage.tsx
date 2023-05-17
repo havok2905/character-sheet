@@ -1,20 +1,28 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { getUsers } from '../../utilities/Api/Users';
-import { IUser } from '../../types/models';
 import { LOGIN_ROUTE } from '../../app';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { Navigate } from "react-router-dom";
 import { useAuth } from '../hooks/useAuth';
+import { useQuery } from '@tanstack/react-query';
 
-const UsersPage = (): ReactElement | null=> {
-  const [users, setUsers] = useState<IUser[]>([]);
+const UsersPage = (): ReactNode => {
+  const {authenticated} = useAuth(() => {});
 
-  const {authenticated, loading} = useAuth(() => {
-    getUsers().then(data => setUsers(data.users))
+  const {
+    data,
+    isError,
+    isLoading
+  } = useQuery({
+    queryFn: getUsers,
+    queryKey: ['users']
   });
 
-  if (loading) return null;
+  if (isError || isLoading) return null;
+
   if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />
+
+  const users = data.users ?? [];
 
   return (
     <>

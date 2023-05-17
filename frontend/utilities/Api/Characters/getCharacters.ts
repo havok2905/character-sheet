@@ -1,7 +1,7 @@
 import { authenticatedFetch2 } from '../authenticatedFetch2';
 import { ICharacter } from '../../../types/models';
 
-type IGetCharactersResponse = {
+interface IGetCharactersResponse {
   characters: ICharacter[];
 };
 

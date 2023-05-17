@@ -1,5 +1,4 @@
-import React, { ReactElement } from 'react';
-import { Card } from '../../components/Card';
+import React, { ReactNode } from 'react';
 import { CHARACTER_CREATE_ROUTE } from '../../app';
 import { CharactersTable } from '../../components/CharactersTable';
 import { getCharacters } from '../../utilities/Api/Characters';
@@ -9,14 +8,13 @@ import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 
-const CharactersPage = (): ReactElement => {
+const CharactersPage = (): ReactNode => {
   const {authenticated} = useAuth(() => {});
 
   const {
     data, 
     isError,
-    isLoading,
-    isSuccess
+    isLoading
   } = useQuery<{characters: ICharacter[]}>({
     queryKey: ['characters'],
     queryFn: getCharacters,
@@ -24,6 +22,10 @@ const CharactersPage = (): ReactElement => {
   });
 
   const characters = data?.characters ?? [];
+
+  if(isLoading || isError || !characters.length) {
+    return null;
+  }
 
   return (
     <>
@@ -40,9 +42,7 @@ const CharactersPage = (): ReactElement => {
             )
           }
           <h1>Characters</h1>
-          {isError && <Card>Error</Card>}
-          {isLoading && <Card>Loading</Card>}
-          {isSuccess && <CharactersTable characters={characters}/>}
+          <CharactersTable characters={characters}/>
         </div>
       </div>
     </>
