@@ -1,29 +1,32 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { Card } from '../../components/Card';
 import { GearIcon } from '../../components/Icons/GearIcon';
 import { generatePath, Link, useParams } from 'react-router-dom';
 import { getMagicItem } from '../../utilities/Api/MagicItems';
-import { IMagicItem } from '../../types/models';
 import { MAGIC_ITEM_EDIT_ROUTE } from '../../app';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { NewLineText } from '../../components/NewLineText';
 import { Token } from '../../components/Token';
 import { useAuth } from '../hooks/useAuth';
+import { useQuery } from '@tanstack/react-query';
 
-const MagicItemPage = (): ReactElement | null => {
-  const [magicItem, setMagicItem] = useState<IMagicItem | null>(null);
-
+const MagicItemPage = (): ReactNode => {
   const params = useParams();
 
   const {authenticated} = useAuth(() => {});
 
-  useEffect(() => {
-    if (params.id) {
-      getMagicItem(params.id).then(data => setMagicItem(data.magicItem));
-    }
-  }, []);
+  const {
+    data,
+    isError,
+    isLoading
+  } = useQuery({
+    queryFn: async () => getMagicItem(params.id ?? ''),
+    queryKey: ['magic-item']
+  });
 
-  if (!magicItem) return null;
+  if (isLoading || isError) return null;
+
+  const magicItem = data.magicItem;
 
   const {
     attunement,

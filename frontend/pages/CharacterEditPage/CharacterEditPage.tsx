@@ -68,11 +68,11 @@ const CharacterEditPage = (): ReactNode => {
       },
       {
         queryKey: ['magic-items'],
-        queryFn: async ()=> getMagicItems()
+        queryFn: getMagicItems
       },
       {
         queryKey: ['spells'],
-        queryFn: async ()=> getSpells()
+        queryFn: getSpells
       }
     ]
   });

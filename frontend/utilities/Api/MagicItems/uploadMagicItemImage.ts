@@ -1,12 +1,12 @@
-import { authenticatedFetch } from '../authenticatedFetch';
+import { authenticatedFetch2 } from '../authenticatedFetch2';
 import { IMagicItem } from '../../../types/models';
 
-type IUploadMagicItemImageResponse = {
+interface IUploadMagicItemImageResponse {
   magicItem: IMagicItem;
 };
 
-const uploadMagicItemImage = (id: string, data: FormData): Promise<IUploadMagicItemImageResponse> => {
-  return authenticatedFetch(`/api/magic_items/${id}/upload_image`, {
+const uploadMagicItemImage = async (id: string, data: FormData): Promise<IUploadMagicItemImageResponse> => {
+  return authenticatedFetch2(`/api/magic_items/${id}/upload_image`, {
     body: data,
     method: 'POST'
   })

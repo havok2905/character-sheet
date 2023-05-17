@@ -1,20 +1,21 @@
-import { authenticatedFetch } from '../authenticatedFetch';
+import { authenticatedFetch2 } from '../authenticatedFetch2';
 import { ISpell } from '../../../types/models';
 
-type ICreateSpellRequest = {
+interface ICreateSpellRequest {
   spell: ISpell;
 };
 
-
-type ICreateSpellResponse = {
+interface ICreateSpellResponse {
   spell: ISpell;
 };
 
-const createSpell = (data: ICreateSpellRequest): Promise<ICreateSpellResponse> => {
-  return authenticatedFetch('/api/spells', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+const createSpell = async (data: ICreateSpellRequest): Promise<ICreateSpellResponse> => {
+  return authenticatedFetch2('/api/spells', {
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'POST'
   });
 };
 

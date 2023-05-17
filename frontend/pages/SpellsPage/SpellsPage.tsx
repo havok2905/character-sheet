@@ -1,20 +1,28 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { getSpells } from '../../utilities/Api/Spells';
-import { ISpell } from '../../types/models';
 import { Link } from 'react-router-dom';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { SpellsTable } from '../../components/SpellsTable';
 import { SPELL_CREATE_ROUTE } from '../../app';
 import { useAuth } from '../hooks/useAuth';
+import { useQuery } from '@tanstack/react-query';
 
-const SpellsPage = (): ReactElement => {
-  const [spells, setSpells] = useState<ISpell[]>([]);
+const SpellsPage = (): ReactNode => {
 
   const {authenticated} = useAuth(() => {});
 
-  useEffect(() => {
-    getSpells().then(data => setSpells(data.spells));
-  }, []);
+  const {
+    data,
+    isError,
+    isLoading
+  } = useQuery({
+    queryFn: getSpells,
+    queryKey: ['spells']
+  });
+
+  if (isLoading || isError) return null;
+
+  const spells = data.spells;
 
   return (
     <>

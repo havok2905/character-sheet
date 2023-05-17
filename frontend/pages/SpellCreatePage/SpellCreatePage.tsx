@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactNode } from 'react';
 import { createSpell } from '../../utilities/Api/Spells';
 import {
   generatePath,
@@ -11,26 +11,30 @@ import { LOGIN_ROUTE, SPELL_ROUTE, SPELLS_ROUTE } from '../../app';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { SpellForm } from '../../components/SpellForm/SpellForm';
 import { useAuth } from '../hooks/useAuth';
+import { useMutation } from '@tanstack/react-query';
 
-const SpellCreatePage = (): ReactElement | null => {
+const SpellCreatePage = (): ReactNode => {
   const navigate = useNavigate();
 
   const {authenticated, loading} = useAuth(() => {});
+  
+  const spellCreateMutation = useMutation({
+    mutationFn: async (spell: ISpell) => createSpell({ spell }),
+    onError: (error) => {
+      console.error('Error:', error);
+      location.reload();
+    },
+    onSuccess: (data) => {
+     const id = data.spell.id ?? '';
+     navigate(generatePath(SPELL_ROUTE, { id }));
+    }
+  });
 
   if (loading) return null;
+  
   if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />;
 
-  const handleSubmit = (spell: ISpell) => {
-    createSpell({ spell })
-      .then(data => {
-        const id: string = data.spell.id as string;
-        navigate(generatePath(SPELL_ROUTE, { id }));
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        location.reload();
-      });
-  };
+  const handleSubmit = (spell: ISpell) => spellCreateMutation.mutate(spell);
 
   return (
     <>

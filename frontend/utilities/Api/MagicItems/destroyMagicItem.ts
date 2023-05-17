@@ -1,9 +1,11 @@
-import { authenticatedFetch } from '../authenticatedFetch';
+import { authenticatedFetch2 } from '../authenticatedFetch2';
 
-const destroyMagicItem = (id: string): Promise<Record<string, never>> => {
-  return authenticatedFetch(`/api/magic_items/${id}`, {
-    method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' }
+const destroyMagicItem = async (id: string): Promise<Record<string, never>> => {
+  return authenticatedFetch2(`/api/magic_items/${id}`, {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'DELETE'
   });
 };
 

@@ -1,14 +1,16 @@
-import { authenticatedFetch } from '../authenticatedFetch';
+import { authenticatedFetch2 } from '../authenticatedFetch2';
 import { IMagicItem } from '../../../types/models';
 
-type IGetMagicItemsResponse = {
+interface IGetMagicItemsResponse {
   magicItems: IMagicItem[];
 };
 
-const getMagicItems = (): Promise<IGetMagicItemsResponse> => {
-  return authenticatedFetch('/api/magic_items', {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' }
+const getMagicItems = async (): Promise<IGetMagicItemsResponse> => {
+  return authenticatedFetch2('/api/magic_items', {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'GET'
   });
 };
 

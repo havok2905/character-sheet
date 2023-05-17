@@ -1,26 +1,31 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { Card } from '../../components/Card';
 import { GearIcon } from '../../components/Icons/GearIcon';
 import { generatePath, Link, useParams } from 'react-router-dom';
 import { getSpell } from '../../utilities/Api/Spells';
-import { ISpell } from '../../types/models';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { SpellCard } from '../../components/SpellCard/SpellCard';
 import { SPELL_EDIT_ROUTE } from '../../app';
 import { useAuth } from '../hooks/useAuth';
+import { useQuery } from '@tanstack/react-query';
 
-const SpellPage = (): ReactElement | null => {
-  const [spell, setSpell] = useState<ISpell | null>(null);
-  
+const SpellPage = (): ReactNode => {
   const params = useParams();
 
   const {authenticated} = useAuth(() => {});
   
-  useEffect(() => {
-    if (params.id) {
-      getSpell(params.id).then(data => setSpell(data.spell));
-    }
-  }, []);
+  const {
+    data,
+    isError,
+    isLoading
+  } = useQuery({
+    queryFn: async () => getSpell(params?.id ?? ''),
+    queryKey: ['spell']
+  });
+
+  if (isLoading || isError) return null;
+
+  const spell = data.spell;
 
   if (!spell) return null;
 

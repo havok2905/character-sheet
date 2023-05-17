@@ -1,19 +1,21 @@
-import { authenticatedFetch } from '../authenticatedFetch';
+import { authenticatedFetch2 } from '../authenticatedFetch2';
 import { IMagicItem } from '../../../types/models';
 
-type ICreateMagicItemRequest = {
+interface ICreateMagicItemRequest {
   magicItem: IMagicItem;
 };
 
-type ICreateMagicItemResponse = {
+interface ICreateMagicItemResponse {
   magicItem: IMagicItem;
 };
 
-const createMagicItem = (data: ICreateMagicItemRequest): Promise<ICreateMagicItemResponse> => {
-  return authenticatedFetch('/api/magic_items', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+const createMagicItem = async (data: ICreateMagicItemRequest): Promise<ICreateMagicItemResponse> => {
+  return authenticatedFetch2('/api/magic_items', {
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'POST'
   });
 };
 

@@ -1,21 +1,28 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactNode} from 'react';
 import { getMagicItems } from '../../utilities/Api/MagicItems';
-import { IMagicItem } from '../../types/models';
 import { Link } from 'react-router-dom';
 import { MagicItemsTable } from '../../components/MagicItemsTable';
 import { MAGIC_ITEM_CREATE_ROUTE } from '../../app';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
+import { useQuery } from '@tanstack/react-query';
 
-const MagicItemsPage = (): ReactElement => {
-  const [magicItems, setMagicItems] = useState<IMagicItem[]>([]);
-  
+const MagicItemsPage = (): ReactNode => {
   const {authenticated} = useAuth(() => {});
 
-  useEffect(() => {
-    getMagicItems().then(data => setMagicItems(data.magicItems))
-  }, []);
+  const {
+    data,
+    isError,
+    isLoading
+  } = useQuery({
+    queryFn: getMagicItems,
+    queryKey: ['magic-items']
+  });
 
+  if (isError || isLoading) return null;
+
+  const magicItems = data.magicItems;
+  
   return (
     <>
       <Navbar authenticated={authenticated}/>

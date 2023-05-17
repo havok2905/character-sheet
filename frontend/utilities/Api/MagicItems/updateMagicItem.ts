@@ -1,19 +1,21 @@
-import { authenticatedFetch } from '../authenticatedFetch';
+import { authenticatedFetch2 } from '../authenticatedFetch2';
 import { IMagicItem } from '../../../types/models';
 
-type IUpdateMagicItemRequest = {
+interface IUpdateMagicItemRequest {
   magicItem: IMagicItem;
 };
 
-type IUpdateMagicItemResponse = {
+interface IUpdateMagicItemResponse {
   magicItem: IMagicItem;
 };
 
-const updateMagicItem = (id: string, data: IUpdateMagicItemRequest): Promise<IUpdateMagicItemResponse> => {
-  return authenticatedFetch(`/api/magic_items/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+const updateMagicItem = async (id: string, data: IUpdateMagicItemRequest): Promise<IUpdateMagicItemResponse> => {
+  return authenticatedFetch2(`/api/magic_items/${id}`, {
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'PUT'
   });
 };
 

@@ -1,20 +1,21 @@
-import { authenticatedFetch } from '../authenticatedFetch';
+import { authenticatedFetch2 } from '../authenticatedFetch2';
 import { ISpell } from '../../../types/models';
 
-type IUpdateSpellRequest = {
+interface IUpdateSpellRequest {
   spell: ISpell;
 };
 
-
-type IUpdateSpellResponse = {
+interface IUpdateSpellResponse {
   spell: ISpell;
 };
 
-const updateSpell = (id: string, data: IUpdateSpellRequest): Promise<IUpdateSpellResponse> => {
-  return authenticatedFetch(`/api/spells/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+const updateSpell = async (id: string, data: IUpdateSpellRequest): Promise<IUpdateSpellResponse> => {
+  return authenticatedFetch2(`/api/spells/${id}`, {
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'PUT'
   });
 };
 

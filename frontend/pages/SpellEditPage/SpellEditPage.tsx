@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { DeleteButton } from '../../components/DeleteButton';
 import { destroySpell, getSpell, updateSpell } from '../../utilities/Api/Spells';
 import {
@@ -13,48 +13,70 @@ import { LOGIN_ROUTE, SPELL_ROUTE, SPELLS_ROUTE } from '../../app';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { SpellForm } from '../../components/SpellForm/SpellForm';
 import { useAuth } from '../hooks/useAuth';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
-const SpellEditPage = (): ReactElement | null => {
-  const [spell, setSpell] = useState<ISpell | null>(null);
+const SpellEditPage = (): ReactNode => {
   const params = useParams();
   const navigate = useNavigate();
+
+  const {authenticated, loading} = useAuth(() => {});
   
-  const {authenticated, loading} = useAuth(() => {
-    if (params.id) {
-      getSpell(params.id).then(data => setSpell(data.spell));
+  const {
+    data,
+    isError,
+    isLoading
+  } = useQuery({
+    queryFn: async () => getSpell(params.id ?? ''),
+    queryKey: ['spell']
+  });
+
+  const destroySpellMutation = useMutation({
+    mutationFn: async (id: string) => destroySpell(id),
+    onError: (error) => {
+      console.error('Error:', error);
+      location.reload();
+    },
+    onSuccess: () => {
+      navigate(SPELLS_ROUTE);
     }
   });
 
+  interface UpdateSpellMutationRequest {
+    spell: ISpell;
+    id: string;
+  }
+
+  const updateSpellMutation = useMutation({
+    mutationFn: async ({spell, id}: UpdateSpellMutationRequest) => updateSpell(id, { spell }),
+    onError: (error) => {
+      console.error('Error:', error);
+      navigate(generatePath(SPELL_ROUTE, { id: params.id ?? '' }));
+    },
+    onSuccess: () => {
+      navigate(generatePath(SPELL_ROUTE, { id: params.id ?? '' }));
+    }
+  });
+
+  if (isLoading || isError) {
+    return null;
+  }
+
   if (loading) return null;
+
   if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />;
-  if (!spell) return null;
+  
+  const spell = data.spell;
 
   const { id } = spell;
 
   const handleDelete = () => {
     if (!id) return;
-
-    destroySpell(id)
-      .then(() => {
-        navigate(SPELLS_ROUTE);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        location.reload();
-      });
+    destroySpellMutation.mutate(id);
   };
   
   const handleSubmit = (spell: ISpell) => {
     if (!id) return;
-
-    updateSpell(id, { spell })
-      .then(() => {
-        navigate(generatePath(SPELL_ROUTE, { id }));
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        location.reload();
-      });
+    updateSpellMutation.mutate({ id, spell });
   };
 
   return (

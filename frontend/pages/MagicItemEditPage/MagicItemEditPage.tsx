@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { DeleteButton } from '../../components/DeleteButton';
 import {
   destroyMagicItem,
@@ -23,61 +23,90 @@ import {
 import { MagicItemForm } from '../../components/MagicItemForm';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
-const MagicItemEditPage = (): ReactElement | null => {
-  const [magicItem, setMagicItem] = useState<IMagicItem | null>(null);
+const MagicItemEditPage = (): ReactNode => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const {authenticated, loading} = useAuth(() => {
-    if (params.id) {
-      getMagicItem(params.id).then(data => setMagicItem(data.magicItem));
+  const {authenticated, loading} = useAuth(() => {});
+
+  const {
+    data,
+    isError,
+    isLoading
+  } = useQuery({
+    queryFn: async () => getMagicItem(params.id ?? ''),
+    queryKey: ['magic-item']
+  });
+
+  const destroyMagicItemMutation = useMutation({
+    mutationFn: async (id: string) => destroyMagicItem(id),
+    onError: (error) => {
+      console.error('Error:', error);
+      location.reload();
+    },
+    onSuccess: () => {
+      navigate(MAGIC_ITEMS_ROUTE);
     }
   });
 
+  interface UpdateMagicItemMutationRequest {
+    magicItem: IMagicItem;
+    id: string;
+  }
+
+  const updateMagicItemMutation = useMutation({
+    mutationFn: async ({magicItem, id}: UpdateMagicItemMutationRequest) => updateMagicItem(id, { magicItem }),
+    onError: (error) => {
+      console.error('Error:', error);
+      navigate(generatePath(MAGIC_ITEM_ROUTE, { id: params.id ?? '' }));
+    },
+    onSuccess: () => {
+      navigate(generatePath(MAGIC_ITEM_ROUTE, { id: params.id ?? '' }));
+    }
+  });
+
+  interface UploadMagicItemImageMutationRequest {
+    data: FormData;
+    id: string;
+  }
+
+  const uploadMagicItemImageMutation = useMutation({
+    mutationFn: async({data, id}: UploadMagicItemImageMutationRequest) => uploadMagicItemImage(id, data),
+    onError(error) {
+      console.error('Error:', error);
+    },
+    onSuccess: () => {
+      location.reload();
+    }
+  });
+
+  if (isLoading || isError) {
+    return null;
+  }
+
   if (loading) return null;
+  
   if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />;
-  if (!magicItem) return null;
+
+  const magicItem = data.magicItem;
 
   const { id, imageUrl } = magicItem;
 
   const handleDelete = () => {
     if (!id) return;
-
-    destroyMagicItem(id)
-      .then(() => {
-        navigate(MAGIC_ITEMS_ROUTE);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        location.reload();
-      });
+    destroyMagicItemMutation.mutate(id);
   };
   
   const handleSubmit = (magicItem: IMagicItem) => {
     if (!id) return;
-
-    updateMagicItem(id, { magicItem })
-      .then(() => {
-        navigate(generatePath(MAGIC_ITEM_ROUTE, { id }));
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        location.reload();
-      });
+    updateMagicItemMutation.mutate({ id, magicItem });
   };
 
   const handleImageUpload = (data: FormData | undefined) => {
     if (!data || !id) return;
-              
-    uploadMagicItemImage(id, data)
-      .then(() => {
-        navigate(generatePath(MAGIC_ITEM_ROUTE, { id }));
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        location.reload();
-      });
+    uploadMagicItemImageMutation.mutate({ data, id });
   };
 
   return (

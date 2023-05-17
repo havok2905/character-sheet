@@ -1,14 +1,16 @@
-import { authenticatedFetch } from '../authenticatedFetch';
+import { authenticatedFetch2 } from '../authenticatedFetch2';
 import { ISpell } from '../../../types/models';
 
-type IGetSpellsResponse = {
+interface IGetSpellsResponse {
   spells: ISpell[];
 };
 
-const getSpells = (): Promise<IGetSpellsResponse> => {
-  return authenticatedFetch('/api/spells', {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' }
+const getSpells = async (): Promise<IGetSpellsResponse> => {
+  return authenticatedFetch2('/api/spells', {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'GET'
   });
 };
 

@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { AssociatedActionsForm } from '../../components/AssociatedActionsForm';
 import { AssociatedCreatureFeaturesForm } from '../../components/AssociatedCreatureFeaturesForm';
 import { AssociatedLairActionsForm } from '../../components/AssociatedLairActionsForm';
@@ -42,7 +42,7 @@ import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
 import { useMutation, useQueries } from '@tanstack/react-query';
 
-const CreatureEditPage = (): ReactElement | null => {
+const CreatureEditPage = (): ReactNode => {
   const [actionsModalOpen, setActionsModalOpen] = useState(false);
   const [featuresModalOpen, setFeaturesModalOpen] = useState(false);
   const [lairActionsModalOpen, setLairActionsModalOpen] = useState(false);
@@ -64,11 +64,11 @@ const CreatureEditPage = (): ReactElement | null => {
       },
       {
         queryKey: ['magic-items'],
-        queryFn: async ()=> getMagicItems()
+        queryFn: getMagicItems
       },
       {
         queryKey: ['spells'],
-        queryFn: async ()=> getSpells()
+        queryFn: getSpells
       }
     ]
   });
@@ -152,7 +152,7 @@ const CreatureEditPage = (): ReactElement | null => {
     uploadCreatureImageMutation.mutate({ data, id });
   };
 
-  const getActionsModal = (): ReactElement | null => {
+  const getActionsModal = (): ReactNode => {
     if (!actionsModalOpen || !creature) return null;
 
     return (
@@ -169,7 +169,7 @@ const CreatureEditPage = (): ReactElement | null => {
     );
   };
 
-  const getFeaturesModal = (): ReactElement | null => {
+  const getFeaturesModal = (): ReactNode => {
     if (!featuresModalOpen || !creature) return null;
 
     return (
@@ -186,7 +186,7 @@ const CreatureEditPage = (): ReactElement | null => {
     );
   };
 
-  const getLairActionsModal = (): ReactElement | null => {
+  const getLairActionsModal = (): ReactNode => {
     if (!lairActionsModalOpen || !creature) return null;
 
     return (
@@ -203,7 +203,7 @@ const CreatureEditPage = (): ReactElement | null => {
     );
   };
 
-  const getLegendaryActionsModal = (): ReactElement | null => {
+  const getLegendaryActionsModal = (): ReactNode => {
     if (!legendaryActionsModalOpen || !creature) return null;
 
     return (
@@ -220,7 +220,7 @@ const CreatureEditPage = (): ReactElement | null => {
     );
   };
 
-  const getMagicItemsModal = (): ReactElement | null => {
+  const getMagicItemsModal = (): ReactNode => {
     if (!magicItemsModalOpen || !creature) return null;
 
     return (
@@ -236,7 +236,7 @@ const CreatureEditPage = (): ReactElement | null => {
     );
   };
 
-  const getRegionalEffectsModal = (): ReactElement | null => {
+  const getRegionalEffectsModal = (): ReactNode => {
     if (!regionalEffectsModalOpen || !creature) return null;
 
     return (
@@ -253,7 +253,7 @@ const CreatureEditPage = (): ReactElement | null => {
     );
   };
 
-  const getSpellsModal = (): ReactElement | null => {
+  const getSpellsModal = (): ReactNode => {
     if (!spellsModalOpen || !creature) return null;
 
     return (
