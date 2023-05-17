@@ -1,9 +1,11 @@
-import { authenticatedFetch } from '../authenticatedFetch';
+import { authenticatedFetch2 } from '../authenticatedFetch2';
 
-const destroyCreature = (id: string): Promise<Record<string, never>> => {
-  return authenticatedFetch(`/api/creatures/${id}`, {
+const destroyCreature = async (id: string): Promise<Record<string, never>> => {
+  return authenticatedFetch2(`/api/creatures/${id}`, {
+    headers: {
+      'Content-Type': 'application/json'
+    },
     method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' }
   });
 };
 

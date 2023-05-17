@@ -34,20 +34,13 @@ import {
   ICreatureFeature,
   ICreatureLairAction,
   ICreatureLegendaryAction,
-  ICreatureRegionalEffect,
-  IMagicItem,
-  ISpell
+  ICreatureRegionalEffect
 } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
 import { Modal } from '../../components/Modal';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
-
-interface ICreatureEditPageContentState {
-  creature: ICreature | null,
-  magicItems: IMagicItem[],
-  spells: ISpell[]
-}
+import { useMutation, useQueries } from '@tanstack/react-query';
 
 const CreatureEditPage = (): ReactElement | null => {
   const [actionsModalOpen, setActionsModalOpen] = useState(false);
@@ -57,79 +50,106 @@ const CreatureEditPage = (): ReactElement | null => {
   const [magicItemsModalOpen, setMagicItemsModalOpen] = useState(false);
   const [regionalEffectsModalOpen, setRegionalEffectsModalOpen] = useState(false);
   const [spellsModalOpen, setSpellsModalOpen] = useState(false);
-  const [state, setState] = useState<ICreatureEditPageContentState>({
-    creature: null,
-    magicItems: [] as IMagicItem[],
-    spells: [] as ISpell[]
-  });
-
-  const {authenticated, loading} = useAuth(() => {
-    if (params.id) {
-      Promise.all([
-        getCreature(params.id),
-        getMagicItems(),
-        getSpells()
-      ]).then(([
-        creatureData,
-        magicItemsData,
-        spellsData
-      ]) => {
-        setState({
-          creature: creatureData.creature,
-          magicItems: magicItemsData.magicItems,
-          spells: spellsData.spells
-        });
-      });
-    }
-  });
 
   const navigate = useNavigate();
   const params = useParams();
 
-  const { creature, magicItems, spells } = state;
+  const {authenticated} = useAuth(() => {});
 
-  if (loading) return null;
+  const results = useQueries({
+    queries: [
+      {
+        queryKey: ['character'],
+        queryFn: async ()=> getCreature(params.id ?? '')
+      },
+      {
+        queryKey: ['magic-items'],
+        queryFn: async ()=> getMagicItems()
+      },
+      {
+        queryKey: ['spells'],
+        queryFn: async ()=> getSpells()
+      }
+    ]
+  });
+
+  const destroyCreatureMutation = useMutation({
+    mutationFn: async (id: string) => destroyCreature(id),
+    onError: (error) => {
+      console.error('Error:', error);
+      location.reload();
+    },
+    onSuccess: () => {
+      navigate(CREATURES_ROUTE);
+    }
+  });
+
+  interface UpdateCreatureMutationRequest {
+    creature: ICreature;
+    id: string;
+  }
+
+  const updateCreatureMutation = useMutation({
+    mutationFn: async ({creature, id}: UpdateCreatureMutationRequest) => updateCreature(id, { creature }),
+    onError: (error) => {
+      console.error('Error:', error);
+      navigate(generatePath(CREATURE_ROUTE, { id: params.id ?? '' }));
+    },
+    onSuccess: () => {
+      navigate(generatePath(CREATURE_ROUTE, { id: params.id ?? '' }));
+    }
+  });
+
+  interface UploadCreatureImageMutationRequest {
+    data: FormData;
+    id: string;
+  }
+
+  const uploadCreatureImageMutation = useMutation({
+    mutationFn: async({data, id}: UploadCreatureImageMutationRequest) => uploadCreatureImage(id, data),
+    onError(error) {
+      console.error('Error:', error);
+    },
+    onSuccess: () => {
+      location.reload();
+    }
+  });
+
+  const [
+    creatureResults,
+    magicItemsResults,
+    spellsResults
+  ] = results;
+
+  if (
+    creatureResults.isLoading || creatureResults.isError ||
+    magicItemsResults.isLoading || magicItemsResults.isError ||
+    spellsResults.isLoading || spellsResults.isError
+  ) return null;
+
+  const creature = creatureResults.data?.creature;
+  const magicItems = magicItemsResults.data?.magicItems ?? [];
+  const spells = spellsResults.data?.spells ?? [];
+
   if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />;
+
   if (!creature) return null;
 
   const { id, imageUrl, name } = creature;
 
   const handleDelete = () => {
     if (!id) return;
-
-    destroyCreature(id)
-      .then(() => {
-        navigate(CREATURES_ROUTE);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        location.reload();
-      });
+    destroyCreatureMutation.mutate(id);
   };
 
   const handleSubmit = (creature: ICreature) => {
     if (!id) return;
-
-    updateCreature(id, { creature })
-      .then(() => {
-        navigate(generatePath(CREATURE_ROUTE, { id }));
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        navigate(generatePath(CREATURE_ROUTE, { id }));
-      });
+    updateCreatureMutation.mutate({ creature, id });
   };
 
   const handleImageUpload = (data: FormData | undefined) => {
     if (!data || !id) return;
-              
-    uploadCreatureImage(id, data)
-      .then(() => {
-        location.reload();
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+    uploadCreatureImageMutation.mutate({ data, id });
   };
 
   const getActionsModal = (): ReactElement | null => {

@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { AbilitySkills } from '../../components/AbilitySkills';
 import { AssociateWithTokenLink } from '../../components/AssociateWithTokenLink';
 import { calculateAbilityModifier } from '../../utilities/GameSystem/calculateAbilityModifier';
@@ -12,7 +12,6 @@ import {
 import { GearIcon } from '../../components/Icons';
 import { generatePath, Link, useParams } from 'react-router-dom';
 import { getCreature } from '../../utilities/Api/Creatures';
-import { ICreature } from '../../types/models';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { NewLineText } from '../../components/NewLineText';
 import {
@@ -24,21 +23,26 @@ import { StatBlock } from '../../components/StatBlock';
 import { ToggleItem } from '../../components/ToggleItem';
 import { Token } from '../../components/Token';
 import { useAuth } from '../hooks/useAuth';
+import { useQuery } from '@tanstack/react-query';
 
-const CreaturePage = (): ReactElement | null => {
-  const [creature, setCreature] = useState<ICreature | null>(null);
+const CreaturePage = (): ReactNode => {
 
   const params = useParams();
 
   const {authenticated} = useAuth(() => {});
 
-  useEffect(() => {
-    if (params.id) {
-      getCreature(params.id).then(data => setCreature(data.creature));
-    }
-  }, []);
+  const {
+    data,
+    isError,
+    isLoading
+  } = useQuery({
+    queryFn: async () => getCreature(params.id ?? ''),
+    queryKey: ['creature']
+  });
 
-  if (!creature) return null;
+  if (isLoading || isError) return null;
+
+  const creature = data.creature;
 
   const {
     ac,
@@ -85,12 +89,12 @@ const CreaturePage = (): ReactElement | null => {
     strengthScore,
     wisdomScore
   } = creature;
-  const getOptionalProperty = (label: string, value: string | number): ReactElement | null => {
+  const getOptionalProperty = (label: string, value: string | number): ReactNode => {
     if (value === null || value === undefined || value === '') return null;
     return <p><strong>{label}</strong> {value}</p>;
   };
 
-  const getAssociatedMagicItemsCard = (): ReactElement | null => {
+  const getAssociatedMagicItemsCard = (): ReactNode => {
     if (!magicItems?.length) return null;
 
     return (
@@ -118,7 +122,7 @@ const CreaturePage = (): ReactElement | null => {
     );
   };
   
-  const getCreatureAbout = (): ReactElement | null => {
+  const getCreatureAbout = (): ReactNode => {
     if (!personalityTraits && !ideals && !bonds && !flaws && !description) return null;
 
     return (
@@ -133,7 +137,7 @@ const CreaturePage = (): ReactElement | null => {
     );
   };
 
-  const getCreatureActions = (): ReactElement | null => {
+  const getCreatureActions = (): ReactNode => {
     if (!creatureActions?.length) return null;
 
     return (
@@ -180,7 +184,7 @@ const CreaturePage = (): ReactElement | null => {
     );
   };
 
-  const getCreatureBackstory = (): ReactElement | null => {
+  const getCreatureBackstory = (): ReactNode => {
     if (!backstory) return null;
 
     return (
@@ -191,7 +195,7 @@ const CreaturePage = (): ReactElement | null => {
     );
   };
 
-  const getCreatureFeatures = (): ReactElement | null => {
+  const getCreatureFeatures = (): ReactNode => {
     if (!creatureFeatures?.length) return null;
 
     return (
@@ -212,7 +216,7 @@ const CreaturePage = (): ReactElement | null => {
     )
   };
 
-  const getCreatureLairActions = (): ReactElement | null => {
+  const getCreatureLairActions = (): ReactNode => {
     if (!creatureLairActions?.length) return null;
 
     return (
@@ -230,7 +234,7 @@ const CreaturePage = (): ReactElement | null => {
     );
   };
 
-  const getCreatureLegendaryActions = (): ReactElement | null => {
+  const getCreatureLegendaryActions = (): ReactNode => {
     if (!creatureLegendaryActions?.length) return null;
 
     return (
@@ -252,7 +256,7 @@ const CreaturePage = (): ReactElement | null => {
     );
   };
 
-  const getCreatureMiscStats = (): ReactElement => {
+  const getCreatureMiscStats = (): ReactNode => {
     return (
       <table>
         <thead>
@@ -275,7 +279,7 @@ const CreaturePage = (): ReactElement | null => {
     );
   };
 
-  const getCreatureRegionalEffects = (): ReactElement | null => {
+  const getCreatureRegionalEffects = (): ReactNode => {
     if (!creatureRegionalEffects?.length) return null;
 
     return (

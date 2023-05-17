@@ -20,7 +20,7 @@ import { useMutation } from '@tanstack/react-query';
 const CharacterCreatePage = (): ReactNode => {
   const navigate = useNavigate();
 
-  const {authenticated} = useAuth(() => {});
+  const {authenticated, loading} = useAuth(() => {});
 
   const characterCreateMutation = useMutation({
     mutationFn: async (character: ICharacter) => createCharacter({ character }),
@@ -33,6 +33,8 @@ const CharacterCreatePage = (): ReactNode => {
      navigate(generatePath(CHARACTER_ROUTE, { id }));
     }
   });
+
+  if (loading) return null;
 
   if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />;
 

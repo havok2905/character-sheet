@@ -64,7 +64,7 @@ const CharacterEditPage = (): ReactNode => {
       },
       {
         queryKey: ['creatures'],
-        queryFn: async ()=> getCreatures()
+        queryFn: getCreatures
       },
       {
         queryKey: ['magic-items'],

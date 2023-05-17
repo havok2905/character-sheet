@@ -1,19 +1,19 @@
-import { authenticatedFetch } from '../authenticatedFetch';
+import { authenticatedFetch2 } from '../authenticatedFetch2';
 import { ICreature } from '../../../types/models';
 
-type ICreateCreatureRequest = {
+interface ICreateCreatureRequest {
   creature: ICreature;
 };
 
-type ICreateCreatureResponse = {
+interface ICreateCreatureResponse {
   creature: ICreature;
 };
 
-const createCreature = (data: ICreateCreatureRequest): Promise<ICreateCreatureResponse> => {
-  return authenticatedFetch('/api/creatures', {
-    method: 'POST',
+const createCreature = async (data: ICreateCreatureRequest): Promise<ICreateCreatureResponse> => {
+  return authenticatedFetch2('/api/creatures', {
+    body: JSON.stringify(data),
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+    method: 'POST'
   });
 };
 

@@ -1,20 +1,27 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { CreaturesTable } from '../../components/CreaturesTable/CreaturesTable';
 import { getCreatures } from '../../utilities/Api/Creatures';
-import { ICreature } from '../../types/models';
 import { CREATURE_CREATE_ROUTE } from '../../app';
 import { Link } from 'react-router-dom';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
+import { useQuery } from '@tanstack/react-query';
 
-const CreaturesPage = (): ReactElement => {
-  const [creatures, setCreatures] = useState<ICreature[]>([]);
-
+const CreaturesPage = (): ReactNode => {
   const {authenticated} = useAuth(() => {});
 
-  useEffect(() => {
-    getCreatures().then(data => setCreatures(data.creatures));
-  }, []);
+  const {
+    data,
+    isError,
+    isLoading
+  } = useQuery({
+    queryFn: getCreatures,
+    queryKey: ['creatures']
+  });
+
+  if (isLoading || isError) return null;
+
+  const creatures = data.creatures;
 
   return (
     <>

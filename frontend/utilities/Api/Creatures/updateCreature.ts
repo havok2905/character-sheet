@@ -1,19 +1,21 @@
-import { authenticatedFetch } from '../authenticatedFetch';
+import { authenticatedFetch2 } from '../authenticatedFetch2';
 import { ICreature } from '../../../types/models';
 
-type IUpdateCreatureRequest = {
+interface IUpdateCreatureRequest {
   creature: ICreature;
 };
 
-type IUpdateCreatureResponse = {
+interface IUpdateCreatureResponse {
   creature: ICreature;
 };
 
-const updateCreature = (id: string, data: IUpdateCreatureRequest): Promise<IUpdateCreatureResponse> => {
-  return authenticatedFetch(`/api/creatures/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+const updateCreature = async (id: string, data: IUpdateCreatureRequest): Promise<IUpdateCreatureResponse> => {
+  return authenticatedFetch2(`/api/creatures/${id}`, {
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'PUT'
   });
 };
 

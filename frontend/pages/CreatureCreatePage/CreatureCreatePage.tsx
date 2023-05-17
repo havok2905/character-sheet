@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactNode } from 'react';
 import {
   CREATURE_ROUTE,
   CREATURES_ROUTE,
@@ -15,26 +15,30 @@ import {
 import { ICreature } from '../../types/models';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
+import { useMutation } from '@tanstack/react-query';
 
-const CreatureCreatePage = (): ReactElement | null => {
+const CreatureCreatePage = (): ReactNode => {
   const navigate = useNavigate();
 
   const {authenticated, loading} = useAuth(() => {});
 
+  const creatureCreateMutation = useMutation({
+    mutationFn: async (creature: ICreature) => createCreature({ creature }),
+    onError: (error) => {
+      console.error('Error:', error);
+      location.reload();
+    },
+    onSuccess: (data) => {
+     const id = data.creature.id ?? '';
+     navigate(generatePath(CREATURE_ROUTE, { id }));
+    }
+  });
+
   if (loading) return null;
+
   if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />;
 
-  const handleSubmit = (creature: ICreature) => {
-    createCreature({ creature })
-      .then(data => {
-        const id = data.creature.id;
-        navigate(generatePath(CREATURE_ROUTE, { id: id as string }));
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        location.reload();
-      });
-  };
+  const handleSubmit = (creature: ICreature) => creatureCreateMutation.mutate(creature);
 
   return (
     <>
