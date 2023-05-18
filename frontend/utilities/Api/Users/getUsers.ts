@@ -7,8 +7,10 @@ interface IGetUsersResponse {
 
 const getUsers = async (): Promise<IGetUsersResponse> => {
   return authenticatedFetch2('/api/users', {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' }
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'GET'
   });
 };
 

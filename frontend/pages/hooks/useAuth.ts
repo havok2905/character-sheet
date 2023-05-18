@@ -1,27 +1,12 @@
-import {auth} from '../../utilities/Api/Auth';
-import {getToken} from '../../utilities/Auth';
-import {useEffect, useState} from 'react';
+import { auth } from '../../utilities/Api/Auth';
+import { getToken } from '../../utilities/Auth';
+import { useQuery } from '@tanstack/react-query';
 
-export const useAuth = (callback: () => void) => {
-  const [authenticated, setAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    auth({token: getToken()}).then((response) => {
-      if (response.ok) {
-        setAuthenticated(true);
-        if (callback) {
-          callback();
-        }
-      }
-      setLoading(false);
-    }).catch(() => {
-      setLoading(false);
-    });
-  }, []);
-
-  return {
-    authenticated,
-    loading
-  };
+export const useAuth = () => {
+  return useQuery({
+    cacheTime: 0,
+    queryFn: async () => auth({ token: getToken() }),
+    queryKey: ['auth'],
+    retry: false
+  });
 };

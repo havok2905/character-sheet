@@ -20,7 +20,10 @@ import { useMutation } from '@tanstack/react-query';
 const CreatureCreatePage = (): ReactNode => {
   const navigate = useNavigate();
 
-  const {authenticated, loading} = useAuth(() => {});
+  const {
+    isLoading,
+    isSuccess
+  } = useAuth();
 
   const creatureCreateMutation = useMutation({
     mutationFn: async (creature: ICreature) => createCreature({ creature }),
@@ -34,15 +37,15 @@ const CreatureCreatePage = (): ReactNode => {
     }
   });
 
-  if (loading) return null;
+  if (isLoading) return null;
 
-  if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />;
+  if (!isSuccess) return <Navigate replace to={LOGIN_ROUTE} />;
 
   const handleSubmit = (creature: ICreature) => creatureCreateMutation.mutate(creature);
 
   return (
     <>
-      <Navbar authenticated={authenticated}/>
+      <Navbar authenticated={isSuccess}/>
       <div className="layout">
         <div className="full">
           <Link to={CREATURES_ROUTE}>

@@ -8,7 +8,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 
 const CreaturesPage = (): ReactNode => {
-  const {authenticated} = useAuth(() => {});
+  const authQuery = useAuth();
 
   const {
     data,
@@ -25,11 +25,11 @@ const CreaturesPage = (): ReactNode => {
 
   return (
     <>
-      <Navbar authenticated={authenticated}/>
+      <Navbar authenticated={authQuery.isSuccess}/>
       <div className="layout">
         <div className="full">
           {
-            authenticated && (
+            authQuery.isSuccess && (
               <Link
                 className="button button-blue"
                 to={CREATURE_CREATE_ROUTE}>

@@ -7,7 +7,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 
 const UsersPage = (): ReactNode => {
-  const {authenticated} = useAuth(() => {});
+  const authQuery = useAuth();
 
   const {
     data,
@@ -18,15 +18,18 @@ const UsersPage = (): ReactNode => {
     queryKey: ['users']
   });
 
-  if (isError || isLoading) return null;
+  if (
+    authQuery.isLoading ||
+    isError || isLoading
+  ) return null;
 
-  if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />
+  if (!authQuery.isSuccess) return <Navigate replace to={LOGIN_ROUTE} />
 
   const users = data.users ?? [];
 
   return (
     <>
-      <Navbar authenticated={authenticated}/>
+      <Navbar authenticated={authQuery.isSuccess}/>
       <div className="layout">
         <div className="full">
           <h1>Users</h1>

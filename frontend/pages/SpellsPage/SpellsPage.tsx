@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const SpellsPage = (): ReactNode => {
 
-  const {authenticated} = useAuth(() => {});
+  const {isSuccess} = useAuth();
 
   const {
     data,
@@ -26,11 +26,11 @@ const SpellsPage = (): ReactNode => {
 
   return (
     <>
-      <Navbar authenticated={authenticated} />
+      <Navbar authenticated={isSuccess} />
       <div className="layout">
         <div className="full">
           {
-            authenticated && (
+            isSuccess && (
               <Link
                 className="button button-blue"
                 to={SPELL_CREATE_ROUTE}>
@@ -40,7 +40,7 @@ const SpellsPage = (): ReactNode => {
           }
           <h1>Spells</h1>
           <SpellsTable
-            authenticated={authenticated}
+            authenticated={isSuccess}
             spells={spells}/>
         </div>
       </div>

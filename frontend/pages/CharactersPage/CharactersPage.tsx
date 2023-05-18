@@ -9,7 +9,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 
 const CharactersPage = (): ReactNode => {
-  const {authenticated} = useAuth(() => {});
+  const authQuery = useAuth();
 
   const {
     data, 
@@ -21,19 +21,19 @@ const CharactersPage = (): ReactNode => {
     retry: 3
   });
 
-  const characters = data?.characters ?? [];
-
-  if(isLoading || isError || !characters.length) {
+  if(isLoading || isError) {
     return null;
   }
 
+  const characters = data?.characters;
+
   return (
     <>
-      <Navbar authenticated={authenticated}/>
+      <Navbar authenticated={authQuery.isSuccess}/>
       <div className="layout">
         <div className="full">
           {
-            authenticated && (
+            authQuery.isSuccess && (
               <Link
                 className="button button-blue"
                 to={CHARACTER_CREATE_ROUTE}>

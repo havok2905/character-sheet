@@ -16,7 +16,10 @@ import { useMutation } from '@tanstack/react-query';
 const SpellCreatePage = (): ReactNode => {
   const navigate = useNavigate();
 
-  const {authenticated, loading} = useAuth(() => {});
+  const {
+    isLoading,
+    isSuccess
+  } = useAuth();
   
   const spellCreateMutation = useMutation({
     mutationFn: async (spell: ISpell) => createSpell({ spell }),
@@ -30,15 +33,15 @@ const SpellCreatePage = (): ReactNode => {
     }
   });
 
-  if (loading) return null;
+  if (isLoading) return null;
   
-  if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />;
+  if (!isSuccess) return <Navigate replace to={LOGIN_ROUTE} />;
 
   const handleSubmit = (spell: ISpell) => spellCreateMutation.mutate(spell);
 
   return (
     <>
-      <Navbar authenticated={authenticated}/>
+      <Navbar authenticated={isSuccess}/>
       <div className="layout">
         <div className="full">
           <Link to={SPELLS_ROUTE}>

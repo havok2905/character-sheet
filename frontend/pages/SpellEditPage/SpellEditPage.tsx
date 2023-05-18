@@ -19,7 +19,7 @@ const SpellEditPage = (): ReactNode => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const {authenticated, loading} = useAuth(() => {});
+  const authQuery = useAuth();
   
   const {
     data,
@@ -61,9 +61,9 @@ const SpellEditPage = (): ReactNode => {
     return null;
   }
 
-  if (loading) return null;
+  if (authQuery.isLoading) return null;
 
-  if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />;
+  if (!authQuery.isSuccess) return <Navigate replace to={LOGIN_ROUTE} />;
   
   const spell = data.spell;
 
@@ -81,7 +81,7 @@ const SpellEditPage = (): ReactNode => {
 
   return (
     <>
-      <Navbar authenticated={authenticated}/>
+      <Navbar authenticated={authQuery.isSuccess}/>
       <div className="layout">
         <div className="full">
           <Link to={generatePath(SPELL_ROUTE, { id: id as string })}>

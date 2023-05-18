@@ -29,7 +29,7 @@ const MagicItemEditPage = (): ReactNode => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const {authenticated, loading} = useAuth(() => {});
+  const authQuery = useAuth();
 
   const {
     data,
@@ -82,13 +82,12 @@ const MagicItemEditPage = (): ReactNode => {
     }
   });
 
-  if (isLoading || isError) {
-    return null;
-  }
+  if (
+    authQuery.isLoading ||
+    isLoading || isError
+  ) return null;
 
-  if (loading) return null;
-  
-  if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />;
+  if (!authQuery.isSuccess) return <Navigate replace to={LOGIN_ROUTE} />;
 
   const magicItem = data.magicItem;
 
@@ -111,7 +110,7 @@ const MagicItemEditPage = (): ReactNode => {
 
   return (
     <>
-      <Navbar authenticated={authenticated}/>
+      <Navbar authenticated={authQuery.isSuccess}/>
       <div className="layout">
         <div className="full">
           <Link to={generatePath(MAGIC_ITEM_ROUTE, { id: id as string })}>

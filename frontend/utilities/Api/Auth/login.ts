@@ -1,20 +1,26 @@
-type ILoginRequest = {
+interface ILoginRequest {
   username: string;
   password: string;
 };
 
-type ILoginResponse = {
+interface ILoginResponse {
   token: string;
 };
 
-const login = (data: ILoginRequest): Promise<ILoginResponse> => {
-  return fetch('/auth/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  }).then((response) => {
-    return response.json();
+const login = async (data: ILoginRequest): Promise<ILoginResponse> => {
+  const response = await fetch('/auth/login', {
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'POST'
   });
+
+  if (!response.ok) {
+    throw new Error('Network server error');
+  }
+  
+  return response.json();
 };
 
 export { login };

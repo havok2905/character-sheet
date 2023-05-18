@@ -29,7 +29,7 @@ const CreaturePage = (): ReactNode => {
 
   const params = useParams();
 
-  const {authenticated} = useAuth(() => {});
+  const authQuery = useAuth();
 
   const {
     data,
@@ -355,13 +355,13 @@ const CreaturePage = (): ReactNode => {
 
   return (
     <>
-      <Navbar authenticated={authenticated}/>
+      <Navbar authenticated={authQuery.isSuccess}/>
       <div className="layout">
         <div className="full">
           <div className="page-header">
             <div className="page-header-settings">
               {
-                authenticated && (
+                authQuery.isSuccess && (
                   <Link to={generatePath(CREATURE_EDIT_ROUTE, { id: id as string })}>
                     <GearIcon/>
                   </Link>

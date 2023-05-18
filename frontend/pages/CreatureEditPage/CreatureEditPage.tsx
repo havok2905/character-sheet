@@ -54,7 +54,7 @@ const CreatureEditPage = (): ReactNode => {
   const navigate = useNavigate();
   const params = useParams();
 
-  const {authenticated} = useAuth(() => {});
+  const authQuery = useAuth();
 
   const results = useQueries({
     queries: [
@@ -122,6 +122,7 @@ const CreatureEditPage = (): ReactNode => {
   ] = results;
 
   if (
+    authQuery.isLoading ||
     creatureResults.isLoading || creatureResults.isError ||
     magicItemsResults.isLoading || magicItemsResults.isError ||
     spellsResults.isLoading || spellsResults.isError
@@ -131,7 +132,7 @@ const CreatureEditPage = (): ReactNode => {
   const magicItems = magicItemsResults.data?.magicItems ?? [];
   const spells = spellsResults.data?.spells ?? [];
 
-  if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />;
+  if (!authQuery.isSuccess) return <Navigate replace to={LOGIN_ROUTE} />;
 
   if (!creature) return null;
 
@@ -271,7 +272,7 @@ const CreatureEditPage = (): ReactNode => {
 
   return (
     <>
-      <Navbar authenticated={authenticated}/>
+      <Navbar authenticated={authQuery.isSuccess}/>
       <div className="layout">
         <div className="full">
           <Link to={generatePath(CREATURE_ROUTE, { id: id as string })}>

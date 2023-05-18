@@ -8,7 +8,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 
 const MagicItemsPage = (): ReactNode => {
-  const {authenticated} = useAuth(() => {});
+  const {isSuccess} = useAuth();
 
   const {
     data,
@@ -25,11 +25,11 @@ const MagicItemsPage = (): ReactNode => {
   
   return (
     <>
-      <Navbar authenticated={authenticated}/>
+      <Navbar authenticated={isSuccess}/>
       <div className="layout">
         <div className="full">
           {
-            authenticated && (
+            isSuccess && (
               <Link
                 className="button button-blue"
                 to={MAGIC_ITEM_CREATE_ROUTE}>

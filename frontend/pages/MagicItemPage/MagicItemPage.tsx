@@ -13,7 +13,7 @@ import { useQuery } from '@tanstack/react-query';
 const MagicItemPage = (): ReactNode => {
   const params = useParams();
 
-  const {authenticated} = useAuth(() => {});
+  const authQuery = useAuth();
 
   const {
     data,
@@ -41,13 +41,13 @@ const MagicItemPage = (): ReactNode => {
 
   return (
     <>
-      <Navbar authenticated={authenticated}/>
+      <Navbar authenticated={authQuery.isSuccess}/>
       <div className="layout">
         <div className="full">
           <div className="page-header">
             <div className="page-header-settings">
               {
-                authenticated && (
+                authQuery.isSuccess && (
                   <Link to={generatePath(MAGIC_ITEM_EDIT_ROUTE, { id: id as string })}>
                     <GearIcon/>
                   </Link>

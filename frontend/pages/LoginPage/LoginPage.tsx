@@ -1,11 +1,32 @@
 import React, { ReactElement, useState } from 'react';
 import { login } from '../../utilities/Api/Auth';
 import { setToken } from '../../utilities/Auth';
+import { useMutation } from '@tanstack/react-query';
+
+interface loginMutationRequest {
+  password: string;
+  username: string;
+}
 
 const LoginPage = (): ReactElement => {
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const loginMutation = useMutation({
+    mutationFn: async ({ username, password }: loginMutationRequest) => login({ username, password }),
+    onError: () => {
+      setErrorMessages([ 'There was an error' ]);
+    },
+    onSuccess: (data) => {
+      if (data.token) {
+        setToken(data.token);
+        window.location.pathname = '/';
+      } else {
+        setErrorMessages([ 'Incorrect username or password' ]);
+      }
+    }
+  });
 
   const onUsernameChange = e => {
     setUsername(e.target.value);
@@ -17,20 +38,7 @@ const LoginPage = (): ReactElement => {
 
   const onSubmit = e => {
     e.preventDefault();
-    
-    login({
-      username,
-      password
-    }).then(response => {
-      if (response.token) {
-        setToken(response.token);
-        window.location.pathname = '/';
-      } else {
-        setErrorMessages([ 'Incorrect username or password' ]);
-      }
-    }).catch(() => {
-      setErrorMessages([ 'There was an error' ]);
-    });
+    loginMutation.mutate({ password, username });
   }
 
   const getErrorMessages = () => {

@@ -12,7 +12,7 @@ import { useQuery } from '@tanstack/react-query';
 const SpellPage = (): ReactNode => {
   const params = useParams();
 
-  const {authenticated} = useAuth(() => {});
+  const {isSuccess} = useAuth();
   
   const {
     data,
@@ -33,13 +33,13 @@ const SpellPage = (): ReactNode => {
 
   return (
     <>
-      <Navbar authenticated={authenticated}/>
+      <Navbar authenticated={isSuccess}/>
       <div className="layout">
         <div className="full">
           <div className="page-header">
             <div className="page-header-settings">
               {
-                authenticated && (
+                isSuccess && (
                   <Link to={generatePath(SPELL_EDIT_ROUTE, { id: id as string })}>
                     <GearIcon/>
                   </Link>

@@ -14,7 +14,7 @@ import SpellsImage from './home-page-spells-tile.png';
 import { useAuth } from '../hooks/useAuth';
 
 const HomePage = (): ReactElement => {
-  const {authenticated} = useAuth(() => {});
+  const { isSuccess } = useAuth();
 
   const panels = [
     {
@@ -41,7 +41,7 @@ const HomePage = (): ReactElement => {
 
   return (
     <>
-      <Navbar authenticated={authenticated}/>
+      <Navbar authenticated={isSuccess}/>
       <div className="layout">
         <div className="full">
           <h1>The D&D Compendium</h1>

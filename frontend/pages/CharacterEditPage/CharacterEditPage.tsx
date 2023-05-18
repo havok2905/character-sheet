@@ -54,7 +54,7 @@ const CharacterEditPage = (): ReactNode => {
   const params = useParams();
   const navigate = useNavigate();
   
-  const {authenticated} = useAuth(() => {});
+  const authQuery = useAuth();
 
   const results = useQueries({
     queries: [
@@ -127,20 +127,19 @@ const CharacterEditPage = (): ReactNode => {
   ] = results;
 
   if (
+    authQuery.isLoading ||
     characterResults.isLoading || characterResults.isError ||
     creaturesResults.isLoading || creaturesResults.isError ||
     magicItemsResults.isLoading || magicItemsResults.isError ||
     spellsResults.isLoading || spellsResults.isError
   ) return null;
 
-  const character = characterResults.data?.character;
-  const creatures = creaturesResults.data?.creatures ?? [];
-  const magicItems = magicItemsResults.data?.magicItems ?? [];
-  const spells = spellsResults.data?.spells ?? [];
+  const character = characterResults.data.character;
+  const creatures = creaturesResults.data.creatures;
+  const magicItems = magicItemsResults.data.magicItems;
+  const spells = spellsResults.data.spells;
 
-  if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />;
-
-  if (!character) return null;
+  if (!authQuery.isSuccess) return <Navigate replace to={LOGIN_ROUTE} />;
 
   const { id, imageUrl, name } = character;
 
@@ -269,7 +268,7 @@ const CharacterEditPage = (): ReactNode => {
 
   return (
     <>
-      <Navbar authenticated={authenticated}/>
+      <Navbar authenticated={authQuery.isSuccess}/>
       <div className="layout">
         <div className="full">
           <Link to={generatePath(CHARACTER_ROUTE, { id: id as string })}>

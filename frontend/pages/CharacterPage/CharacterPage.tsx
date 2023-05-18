@@ -30,9 +30,7 @@ import { useQuery } from '@tanstack/react-query';
 const CharacterPage = (): ReactNode => {
   const params = useParams();
 
-  const {authenticated} = useAuth(() => {});
-
-  console.log(params);
+  const authQuery = useAuth();
 
   const {
     data, 
@@ -44,11 +42,9 @@ const CharacterPage = (): ReactNode => {
     retry: 3
   });
 
-  const character = data?.character;
+  if(isLoading || isError) return null;
 
-  if(isLoading || isError || !character) {
-    return null;
-  }
+  const character = data.character;
 
   const {
     ac,
@@ -429,13 +425,13 @@ const CharacterPage = (): ReactNode => {
 
   return (
     <>
-      <Navbar authenticated={authenticated}/>
+      <Navbar authenticated={authQuery.isSuccess}/>
       <div className="layout">
         <div className="full">
           <div className="page-header">
             <div className="page-header-settings">
               {
-                authenticated && (
+                authQuery.isSuccess && (
                   <Link to={generatePath(CHARACTER_EDIT_ROUTE, { id: id as string })}>
                     <GearIcon/>
                   </Link>

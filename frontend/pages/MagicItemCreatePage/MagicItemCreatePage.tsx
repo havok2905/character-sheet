@@ -16,7 +16,10 @@ import { useMutation } from '@tanstack/react-query';
 const MagicItemCreatePage = (): ReactNode => {
   const navigate = useNavigate();
 
-  const {authenticated, loading} = useAuth(() => {});
+  const {
+    isLoading,
+    isSuccess
+  } = useAuth();
 
   const magicItemCreateMutation = useMutation({
     mutationFn: async (magicItem: IMagicItem) => createMagicItem({ magicItem }),
@@ -30,15 +33,15 @@ const MagicItemCreatePage = (): ReactNode => {
     }
   });
 
-  if (loading) return null;
+  if (isLoading) return null;
 
-  if (!authenticated) return <Navigate replace to={LOGIN_ROUTE} />;
+  if (!isSuccess) return <Navigate replace to={LOGIN_ROUTE} />;
 
   const handleSubmit = (magicItem: IMagicItem) => magicItemCreateMutation.mutate(magicItem);
 
   return (
     <>
-      <Navbar authenticated={authenticated}/>
+      <Navbar authenticated={isSuccess}/>
       <div className="layout">
         <div className="full">
           <Link to={MAGIC_ITEMS_ROUTE}>
