@@ -26,6 +26,7 @@ import { ToggleItem } from '../../components/ToggleItem';
 import { Token } from '../../components/Token';
 import { useAuth } from '../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
+import './CharacterPage.scss';
 
 const CharacterPage: FC = () => {
   const params = useParams();
@@ -118,7 +119,7 @@ const CharacterPage: FC = () => {
 
     return (
       <Card>
-        <h2>Creatures</h2>
+        <h3>Creatures</h3>
         {
           creatures.map(creature => {
             const { id, imageUrl, name } = creature;
@@ -142,7 +143,7 @@ const CharacterPage: FC = () => {
 
     return (
       <Card>
-        <h2>Magic Items</h2>
+        <h3>Magic Items</h3>
         {
           magicItems.map(item => {
             const {
@@ -170,7 +171,7 @@ const CharacterPage: FC = () => {
 
     return (
       <Card>
-        <h2>Attacks</h2>
+        <h3>Attacks</h3>
         {
           characterAttacks.map(attack => {
             const {
@@ -230,7 +231,7 @@ const CharacterPage: FC = () => {
 
     return (
       <Card>
-        <h2>Backstory</h2>
+        <h3>Backstory</h3>
         <NewLineText text={backstory} />
       </Card>
     );
@@ -241,7 +242,7 @@ const CharacterPage: FC = () => {
 
     return (
       <Card>
-        <h2>Features</h2>
+        <h3>Features</h3>
         {
           characterFeatures.map(feature => {
             const { description, name, source } = feature;
@@ -265,7 +266,7 @@ const CharacterPage: FC = () => {
         {
           !!characterItems?.length && (
             <Card>
-              <h2>Inventory</h2>
+              <h3>Inventory</h3>
               {
                 characterItems.map(item => {
                   const { name, total } = item;
@@ -308,41 +309,12 @@ const CharacterPage: FC = () => {
     );
   };
 
-  const getCharacterMiscStats = () => {
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>AC</th>
-            <th>HP</th>
-            <th>Hit Dice</th>
-            <th>M Hit Dice</th>
-            <th>Initiative</th>
-            <th>Speed</th>
-            <th>Prof Bonus</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{ac}</td>
-            <td>{hp}</td>
-            <td>{characterClassLevel}d{characterClassHitDice}</td>
-            <td>{multiclassClassLevel}d{multiclassClassHitDice}</td>
-            <td>{initiative}</td>
-            <td>{speed}</td>
-            <td>{proficiencyBonus}</td>
-          </tr>
-        </tbody>
-      </table>
-    );
-  };
-
   const getCharacterResources = () => {
     if (!characterFeatureResources?.length) return null;
 
     return (
       <Card>
-        <h2>Resources</h2>
+        <h3>Resources</h3>
         {
           characterFeatureResources.map(resource => {
             const { name, total } = resource;
@@ -358,7 +330,7 @@ const CharacterPage: FC = () => {
     
     return (
       <>
-        <h2>Senses</h2>
+        <h3>Senses</h3>
         {senses}
       </>
     );
@@ -398,7 +370,7 @@ const CharacterPage: FC = () => {
 
     return (
       <Card>
-        <h2>Spellbook</h2>
+        <h3>Spellbook</h3>
         {getOptionalProperty('Ability', spellcastingAbility)}
         {getOptionalProperty('Bonus', calculateSpellcastingModifier(abilityMod, proficiencyBonus))}
         {getOptionalProperty('Save DC', calculateSpellcastingSaveDc(abilityMod, proficiencyBonus))}
@@ -439,22 +411,30 @@ const CharacterPage: FC = () => {
               }
             </div>
             <Token imageAltText="character portrait" imageUrl={imageUrl}/>
-            <div>
-              <h2>{name}</h2>
+          </div>
+        </div>
+        <div className="column">
+          <Card>
+            <h2 className="character-title">{name}</h2>
+            <div className="character-sub-title">
               <p>{characterClassRow(character)}</p>
               {multiclassClass && <p>{characterMulticlassRow(character)}</p>}
               <p>{race} ( {subRace} ), {background}, {alignment}</p>
             </div>
-          </div>
-        </div>
-        <div className="column">
-          {getCharacterMiscStats()}
+            <p><strong>Armor Class: </strong>{ac}</p>
+            <p><strong>Hit Points: </strong>{hp}</p>
+            <p><strong>Hit Dice: </strong>{characterClassLevel}d{characterClassHitDice}</p>
+            <p><strong>Multiclass Hit Dice: </strong>{multiclassClassLevel}d{multiclassClassHitDice}</p>
+            <p><strong>Initiative: </strong>{initiative}</p>
+            <p><strong>Speed: </strong>{speed}</p>
+            <p><strong>Proficiency Bonus: </strong>{proficiencyBonus}</p>
+          </Card>
           <StatBlock entity={character} />
           <AbilitySkills entity={character} />
           {getAssociatedMagicItemsCard()}
           {getCharacterInventory()}
           <Card>
-            <h2>Biography</h2>
+            <h3>Biography</h3>
             {getOptionalProperty('Age', age)}
             {getOptionalProperty('Height', height)}
             {getOptionalProperty('Weight', weight)}
@@ -476,7 +456,7 @@ const CharacterPage: FC = () => {
           <Card>
             {getCharacterSenses()}
             {getOptionalProperty('Passive Perception', passivePerception)}
-            <h2>Proficinencies</h2>
+            <h3>Proficinencies</h3>
             {getOptionalProperty('Armor Proficiencies', armorProficiencies)}
             {getOptionalProperty('Condition Immunities', conditionImmunities)}
             {getOptionalProperty('Condition Resistences', conditionResistances)}

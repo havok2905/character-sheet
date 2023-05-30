@@ -47,7 +47,7 @@ const MagicItemCreatePage: FC = () => {
           <Link to={MAGIC_ITEMS_ROUTE}>
             Back
           </Link>
-          <h1>New Magic Item</h1>
+          <h2>New Magic Item</h2>
           <MagicItemForm
             handleSubmit={handleSubmit}
             handleSubmitButtonLabel="Create Magic Item"/>

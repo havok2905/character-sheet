@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { getUsers } from '../../utilities/Api/Users';
 import { LOGIN_ROUTE } from '../../app';
 import { Navbar } from '../../components/Navbar/Navbar';
-import { Navigate } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 
@@ -32,7 +32,7 @@ const UsersPage: FC = () => {
       <Navbar authenticated={authQuery.isSuccess}/>
       <div className="layout">
         <div className="full">
-          <h1>Users</h1>
+          <h2>Users</h2>
           <table>
             <thead>
               <tr>

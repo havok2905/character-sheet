@@ -51,7 +51,7 @@ const CreatureCreatePage: FC = () => {
           <Link to={CREATURES_ROUTE}>
             Back
           </Link>
-          <h1>New Creature</h1>
+          <h2>New Creature</h2>
           <CreatureForm
             handleSubmit={handleSubmit}
             handleSubmitButtonLabel="Create Creature"

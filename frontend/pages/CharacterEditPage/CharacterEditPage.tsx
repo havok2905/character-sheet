@@ -274,7 +274,7 @@ const CharacterEditPage: FC = () => {
           <Link to={generatePath(CHARACTER_ROUTE, { id: id as string })}>
             Back
           </Link>
-          <h1>Character Settings - {name}</h1>
+          <h2>Character Settings - {name}</h2>
           <DeleteButton
             buttonText="Delete Character"
             handleDelete={handleDelete}/>

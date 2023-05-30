@@ -51,7 +51,7 @@ const CharacterCreatePage: FC = () => {
           <Link to={CHARACTERS_ROUTE}>
             Back
           </Link>
-          <h1>New Character</h1>
+          <h2>New Character</h2>
           <CharacterForm
             handleSubmit={handleSubmit}
             handleSubmitButtonLabel="Create Character"

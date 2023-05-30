@@ -116,7 +116,7 @@ const MagicItemEditPage: FC = () => {
           <Link to={generatePath(MAGIC_ITEM_ROUTE, { id: id as string })}>
             Back
           </Link>
-          <h1>Edit Magic Item</h1>
+          <h2>Edit Magic Item</h2>
           <ImageForm
             buttonLabel="Upload Image"
             imageUrl={imageUrl}

@@ -87,7 +87,7 @@ const SpellEditPage: FC = () => {
           <Link to={generatePath(SPELL_ROUTE, { id: id as string })}>
             Back
           </Link>
-          <h1>Edit Spell</h1>
+          <h2>Edit Spell</h2>
           <SpellForm
             handleSubmit={handleSubmit}
             handleSubmitButtonLabel="Update Spell"

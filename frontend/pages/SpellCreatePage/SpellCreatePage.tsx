@@ -47,7 +47,7 @@ const SpellCreatePage: FC = () => {
           <Link to={SPELLS_ROUTE}>
             Back
           </Link>
-          <h1>New Spell</h1>
+          <h2>New Spell</h2>
           <SpellForm
             handleSubmit={handleSubmit}
             handleSubmitButtonLabel="Create Spell"/>

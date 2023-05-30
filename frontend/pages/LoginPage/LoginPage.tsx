@@ -54,7 +54,7 @@ const LoginPage: FC = () => {
   return (
     <div className="layout">
       <div className="full">
-        <h1>Log in</h1>
+        <h2>Log in</h2>
         <form onSubmit={onSubmit}>
           <fieldset>
             <label>Username</label>

@@ -23,7 +23,7 @@ const DeleteButton: FC<IDeleteButtonProps> = ({
           <Modal
             onCloseModal={() => setIsOpen(false)}
             onCloseModalOverlay={() => setIsOpen(false)}>
-            <h1>Delete this item?</h1>
+            <h2>Delete this item?</h2>
             <button className="button button-red" onClick={handleDelete}>Confirm</button>
             <button className="button" onClick={() => setIsOpen(false)}>Cancel</button>
           </Modal>
