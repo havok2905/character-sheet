@@ -296,11 +296,11 @@ const CharacterPage: FC = () => {
           </thead>
           <tbody>
             <tr>
-              <td>{copperPieces}</td>
-              <td>{silverPieces}</td>
-              <td>{electrumPieces}</td>
-              <td>{goldPieces}</td>
-              <td>{platinumPieces}</td>
+              <td>{copperPieces || 0}</td>
+              <td>{silverPieces || 0}</td>
+              <td>{electrumPieces || 0}</td>
+              <td>{goldPieces || 0}</td>
+              <td>{platinumPieces || 0}</td>
             </tr>
           </tbody>
         </table>
