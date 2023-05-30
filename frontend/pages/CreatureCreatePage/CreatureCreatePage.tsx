@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC } from 'react';
 import {
   CREATURE_ROUTE,
   CREATURES_ROUTE,
@@ -17,7 +17,7 @@ import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
 import { useMutation } from '@tanstack/react-query';
 
-const CreatureCreatePage = (): ReactNode => {
+const CreatureCreatePage: FC = () => {
   const navigate = useNavigate();
 
   const {

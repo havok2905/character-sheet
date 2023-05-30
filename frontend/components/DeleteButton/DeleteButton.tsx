@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { FC, useState } from 'react';
 
 import { Modal } from '../Modal';
 
@@ -7,10 +7,10 @@ interface IDeleteButtonProps {
   handleDelete: () => void;
 }
 
-const DeleteButton = ({
+const DeleteButton: FC<IDeleteButtonProps> = ({
   buttonText,
   handleDelete
-}: IDeleteButtonProps): ReactElement => {
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (

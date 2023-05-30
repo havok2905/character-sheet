@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { AssociatedAttacksForm } from '../../components/AssociatedAttacksForm';
 import { AssociatedCharacterFeaturesForm } from '../../components/AssociatedCharacterFeaturesForm';
 import { AssociatedCreaturesForm } from '../../components/AssociatedCreaturesForm';
@@ -42,7 +42,7 @@ import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
 import { useMutation, useQueries } from '@tanstack/react-query';
 
-const CharacterEditPage = (): ReactNode => {
+const CharacterEditPage: FC = () => {
   const [attacksModalOpen, setAttacksModalOpen] = useState(false);
   const [creaturesModalOpen, setCreaturesModalOpen] = useState(false);
   const [featuresModalOpen, setFeaturesModalOpen] = useState(false);
@@ -158,7 +158,7 @@ const CharacterEditPage = (): ReactNode => {
     uploadCharacterImageMutation.mutate({ data, id });
   };
 
-  const getAttacksModal = (): ReactNode => {
+  const getAttacksModal = () => {
     if (!attacksModalOpen || !character) return null;
 
     return (
@@ -173,7 +173,7 @@ const CharacterEditPage = (): ReactNode => {
     );
   };
 
-  const getCreaturesModal = (): ReactNode => {
+  const getCreaturesModal = () => {
     if (!creaturesModalOpen || !character) return null;
 
     return (
@@ -189,7 +189,7 @@ const CharacterEditPage = (): ReactNode => {
     );
   };
 
-  const getFeaturesModal = (): ReactNode => {
+  const getFeaturesModal = () => {
     if (!featuresModalOpen || !character) return null;
 
     return (
@@ -204,7 +204,7 @@ const CharacterEditPage = (): ReactNode => {
     );
   };
 
-  const getFeatureResourcesModal = (): ReactNode => {
+  const getFeatureResourcesModal = () => {
     if (!featureResourcesModalOpen || !character) return null;
 
     return (
@@ -219,7 +219,7 @@ const CharacterEditPage = (): ReactNode => {
     );
   };
 
-  const getInventoryModal = (): ReactNode => {
+  const getInventoryModal = () => {
     if (!inventoryModalOpen || !character) return null;
 
     return (
@@ -234,7 +234,7 @@ const CharacterEditPage = (): ReactNode => {
     );
   };
 
-  const getMagicItemsModal = (): ReactNode => {
+  const getMagicItemsModal = () => {
     if (!magicItemsModalOpen || !character) return null;
 
     return (
@@ -250,7 +250,7 @@ const CharacterEditPage = (): ReactNode => {
     );
   };
 
-  const getSpellsModal = (): ReactNode => {
+  const getSpellsModal = () => {
     if (!spellsModalOpen || !character) return null;
 
     return (

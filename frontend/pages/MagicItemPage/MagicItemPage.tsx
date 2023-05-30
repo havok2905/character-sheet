@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC } from 'react';
 import { Card } from '../../components/Card';
 import { GearIcon } from '../../components/Icons/GearIcon';
 import { generatePath, Link, useParams } from 'react-router-dom';
@@ -10,7 +10,7 @@ import { Token } from '../../components/Token';
 import { useAuth } from '../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 
-const MagicItemPage = (): ReactNode => {
+const MagicItemPage: FC = () => {
   const params = useParams();
 
   const authQuery = useAuth();
@@ -58,8 +58,8 @@ const MagicItemPage = (): ReactNode => {
         </div>
         <div className="full">
           <Token imageAltText={`${name} - token`} imageUrl={imageUrl}/>
-          <h1>{name}</h1>
           <Card>
+            <h2>{name}</h2>
             <p><strong>Attunement: </strong>{attunement ? 'Has attunement' : ''}</p>
             <p><strong>Category: </strong>{category}</p>
             <p><strong>Sub Category: </strong>{subCategory}</p>

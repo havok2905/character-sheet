@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { ICharacter, ICharacterAttack } from '../../types/models';
 
 interface IAssociatedAttacksFormProps {
@@ -7,11 +7,11 @@ interface IAssociatedAttacksFormProps {
   handleSubmit: (characterFeatures: ICharacterAttack[]) => void;
 }
 
-const AssociatedAttacksForm = ({
+const AssociatedAttacksForm: FC<IAssociatedAttacksFormProps> = ({
   buttonLabel,
   character,
   handleSubmit
-}: IAssociatedAttacksFormProps): ReactElement => {
+}) => {
   const [newAttacks, setNewAttacks] = useState<ICharacterAttack[]>([]);
   const [updatedAttacks, setUpdatedAttacks] = useState<ICharacterAttack[]>(
     (character.characterAttacks || []).map(attack => ({ ...attack }))
@@ -33,7 +33,7 @@ const AssociatedAttacksForm = ({
     attack: ICharacterAttack,
     index: number,
     isNewField: boolean
-  ): ReactElement => {
+  ) => {
     const {
       _destroy,
       attackBonus,

@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from 'react';
+import React, { FC, useRef } from 'react';
 
 interface IImageFormProps {
   buttonLabel: string;
@@ -7,12 +7,12 @@ interface IImageFormProps {
   inputName: string;
 }
 
-const ImageForm = ({
+const ImageForm: FC<IImageFormProps> = ({
   buttonLabel,
   handleSubmit,
   imageUrl,
   inputName
-}: IImageFormProps): ReactElement => {
+}) => {
   const imageFormRef = useRef<HTMLInputElement | null>(null);
 
   const onSubmit = e => {

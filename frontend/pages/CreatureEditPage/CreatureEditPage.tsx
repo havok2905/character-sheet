@@ -1,9 +1,8 @@
-import React, { ReactNode, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { AssociatedActionsForm } from '../../components/AssociatedActionsForm';
 import { AssociatedCreatureFeaturesForm } from '../../components/AssociatedCreatureFeaturesForm';
 import { AssociatedLairActionsForm } from '../../components/AssociatedLairActionsForm';
 import { AssociatedLegendaryActionsForm } from '../../components/AssociatedLegendaryActionsForm';
-import { AssociatedMagicItemsForm } from '../../components/AssociatedMagicItemsForm';
 import { AssociatedRegionalEffectsForm } from '../../components/AssociatedRegionalEffectsForm';
 import { AssociatedSpellsForm } from '../../components/AssociatedSpellsForm';
 import {
@@ -42,12 +41,11 @@ import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
 import { useMutation, useQueries } from '@tanstack/react-query';
 
-const CreatureEditPage = (): ReactNode => {
+const CreatureEditPage: FC = () => {
   const [actionsModalOpen, setActionsModalOpen] = useState(false);
   const [featuresModalOpen, setFeaturesModalOpen] = useState(false);
   const [lairActionsModalOpen, setLairActionsModalOpen] = useState(false);
   const [legendaryActionsModalOpen, setLegendaryActionsModalOpen] = useState(false);
-  const [magicItemsModalOpen, setMagicItemsModalOpen] = useState(false);
   const [regionalEffectsModalOpen, setRegionalEffectsModalOpen] = useState(false);
   const [spellsModalOpen, setSpellsModalOpen] = useState(false);
 
@@ -153,7 +151,7 @@ const CreatureEditPage = (): ReactNode => {
     uploadCreatureImageMutation.mutate({ data, id });
   };
 
-  const getActionsModal = (): ReactNode => {
+  const getActionsModal = () => {
     if (!actionsModalOpen || !creature) return null;
 
     return (
@@ -170,7 +168,7 @@ const CreatureEditPage = (): ReactNode => {
     );
   };
 
-  const getFeaturesModal = (): ReactNode => {
+  const getFeaturesModal = () => {
     if (!featuresModalOpen || !creature) return null;
 
     return (
@@ -187,7 +185,7 @@ const CreatureEditPage = (): ReactNode => {
     );
   };
 
-  const getLairActionsModal = (): ReactNode => {
+  const getLairActionsModal = () => {
     if (!lairActionsModalOpen || !creature) return null;
 
     return (
@@ -204,7 +202,7 @@ const CreatureEditPage = (): ReactNode => {
     );
   };
 
-  const getLegendaryActionsModal = (): ReactNode => {
+  const getLegendaryActionsModal = () => {
     if (!legendaryActionsModalOpen || !creature) return null;
 
     return (
@@ -221,23 +219,7 @@ const CreatureEditPage = (): ReactNode => {
     );
   };
 
-  const getMagicItemsModal = (): ReactNode => {
-    if (!magicItemsModalOpen || !creature) return null;
-
-    return (
-      <Modal
-        onCloseModal={() => setMagicItemsModalOpen(false)}
-        onCloseModalOverlay={() => setMagicItemsModalOpen(false)}>
-        <AssociatedMagicItemsForm
-          buttonLabel="Update Magic Items"
-          handleSubmit={(magicItemIds: string[]) => handleSubmit({ ...creature, magicItemIds })}
-          magicItemIds={(creature.magicItems || []).map(magicItem => String(magicItem.id))}
-          magicItems={magicItems}/>
-      </Modal>
-    );
-  };
-
-  const getRegionalEffectsModal = (): ReactNode => {
+  const getRegionalEffectsModal = () => {
     if (!regionalEffectsModalOpen || !creature) return null;
 
     return (
@@ -254,7 +236,7 @@ const CreatureEditPage = (): ReactNode => {
     );
   };
 
-  const getSpellsModal = (): ReactNode => {
+  const getSpellsModal = () => {
     if (!spellsModalOpen || !creature) return null;
 
     return (
@@ -297,7 +279,6 @@ const CreatureEditPage = (): ReactNode => {
             <button className="button" onClick={() => setLairActionsModalOpen(true)}>Lair Actions</button>
             <button className="button" onClick={() => setRegionalEffectsModalOpen(true)}>Regional Effects</button>
             <button className="button" onClick={() => setSpellsModalOpen(true)}>Spells</button>
-            <button className="button" onClick={() => setMagicItemsModalOpen(true)}>Magic Items</button>
           </div>
           <CreatureForm
             creature={creature}
@@ -310,7 +291,6 @@ const CreatureEditPage = (): ReactNode => {
       {getFeaturesModal()}
       {getLairActionsModal()}
       {getLegendaryActionsModal()}
-      {getMagicItemsModal()}
       {getRegionalEffectsModal()}
       {getSpellsModal()}
     </>

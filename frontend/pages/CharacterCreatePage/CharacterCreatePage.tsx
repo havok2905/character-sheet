@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC } from 'react';
 import {
   CHARACTER_ROUTE,
   CHARACTERS_ROUTE,
@@ -17,7 +17,7 @@ import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
 import { useMutation } from '@tanstack/react-query';
 
-const CharacterCreatePage = (): ReactNode => {
+const CharacterCreatePage: FC = () => {
   const navigate = useNavigate();
 
   const {
@@ -32,8 +32,8 @@ const CharacterCreatePage = (): ReactNode => {
       location.reload();
     },
     onSuccess: (data) => {
-     const id = data.character.id ?? '';
-     navigate(generatePath(CHARACTER_ROUTE, { id }));
+      const id = data.character.id ?? '';
+      navigate(generatePath(CHARACTER_ROUTE, { id }));
     }
   });
 

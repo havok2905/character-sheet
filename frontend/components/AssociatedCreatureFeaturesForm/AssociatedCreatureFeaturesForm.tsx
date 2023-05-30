@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { ICreature, ICreatureFeature } from '../../types/models';
 
 interface IAssociatedCreatureFeaturesFormProps {
@@ -7,11 +7,11 @@ interface IAssociatedCreatureFeaturesFormProps {
   handleSubmit: (creatureFeatures: ICreatureFeature[]) => void;
 }
 
-const AssociatedCreatureFeaturesForm = ({
+const AssociatedCreatureFeaturesForm: FC<IAssociatedCreatureFeaturesFormProps> = ({
   buttonLabel,
   creature,
   handleSubmit
-}: IAssociatedCreatureFeaturesFormProps): ReactElement => {
+}) => {
   const [newFeatures, setNewFeatures] = useState<ICreatureFeature[]>([]);
   const [updatedFeatures, setUpdatedFeatures] = useState<ICreatureFeature[]>(
     (creature.creatureFeatures || []).map(feature => ({ ...feature }))
@@ -29,7 +29,7 @@ const AssociatedCreatureFeaturesForm = ({
     setNewFeatures(updatedForm);
   };
 
-  const getFeature = (feature: ICreatureFeature, index: number): ReactElement => {
+  const getFeature = (feature: ICreatureFeature, index: number) => {
     const { _destroy, description, name } = feature;
 
     return (
@@ -56,7 +56,7 @@ const AssociatedCreatureFeaturesForm = ({
     );
   };
 
-  const getNewFeature = (feature: ICreatureFeature, index: number): ReactElement => {
+  const getNewFeature = (feature: ICreatureFeature, index: number) => {
     const { description, name } = feature;
 
     return (

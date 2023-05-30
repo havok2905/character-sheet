@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { AlignmentTypes, CreatureCategoryTypes } from '../../utilities/GameSystem/enums';
 import { CR_LIST, EXP, NONE, PROF } from '../../utilities/GameSystem/constants';
 import { ICreature } from '../../types/models';
@@ -25,11 +25,11 @@ interface ICreatureFormProps {
   handleSubmitButtonLabel: string;
 }
 
-const CreatureForm = ({
+const CreatureForm: FC<ICreatureFormProps> = ({
   creature,
   handleSubmit,
   handleSubmitButtonLabel
-}: ICreatureFormProps): ReactElement => {
+}) => {
   const [form, setForm] = useState<ICreature>({
     ac: 0,
     acrobaticsProf: '',

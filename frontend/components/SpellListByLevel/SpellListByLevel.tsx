@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { FC } from 'react';
 import { getSpellsByLevel } from '../../utilities/UiHelpers/getSpellsByLevel';
 import { ISpell } from '../../types/models';
 import { SpellCard } from '../../components/SpellCard';
@@ -11,21 +11,19 @@ interface ISpellListByLevelProps {
   spells: ISpell[]
 }
 
-const SpellListByLevel = ({
+const SpellListByLevel: FC<ISpellListByLevelProps> = ({
   label,
   spellLevel,
   spellSlots,
   spells
-}: ISpellListByLevelProps): ReactElement => {
+}) => {
   return (
     <>
-      <p>
-        <strong>
-          {label}
-          {' '}
-          {!!spellSlots && `( ${spellSlots} )`}
-        </strong>
-      </p>
+      <h4>
+        {label}
+        {' '}
+        {!!spellSlots && `( ${spellSlots} )`}
+      </h4>
       {
         getSpellsByLevel(spellLevel, spells).map(spell => {
           const {name} = spell;

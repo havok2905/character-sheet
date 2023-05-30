@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC } from 'react';
 import { CreaturesTable } from '../../components/CreaturesTable/CreaturesTable';
 import { getCreatures } from '../../utilities/Api/Creatures';
 import { CREATURE_CREATE_ROUTE } from '../../app';
@@ -7,7 +7,7 @@ import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 
-const CreaturesPage = (): ReactNode => {
+const CreaturesPage: FC = () => {
   const authQuery = useAuth();
 
   const {
@@ -37,7 +37,7 @@ const CreaturesPage = (): ReactNode => {
               </Link>
             )
           }
-          <h1>Creatures</h1>
+          <h2>Creatures</h2>
           <CreaturesTable creatures={creatures}/>
         </div>
       </div>

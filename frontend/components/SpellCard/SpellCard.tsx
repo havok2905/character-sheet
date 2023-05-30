@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { FC } from 'react';
 import { ISpell } from '../../types/models';
 import { NewLineText } from '../NewLineText';
 
@@ -6,7 +6,7 @@ interface ISpellCardProps {
   spell: ISpell;
 }
 
-const SpellCard = ({
+const SpellCard: FC<ISpellCardProps> = ({
   spell: {
     castingTime,
     components,
@@ -23,7 +23,7 @@ const SpellCard = ({
     target,
     verbalComponents
   } = ({} as ISpell)
-}: ISpellCardProps): ReactElement => {
+}) => {
   const getComponentString = () => {
     const ritualString = ritual ? 'R' : '';
     const materialsString = materialComponents ? 'M' : '';

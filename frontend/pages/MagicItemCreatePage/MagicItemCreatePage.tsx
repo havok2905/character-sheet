@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC } from 'react';
 import { createMagicItem } from '../../utilities/Api/MagicItems';
 import {
   generatePath,
@@ -13,7 +13,7 @@ import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
 import { useMutation } from '@tanstack/react-query';
 
-const MagicItemCreatePage = (): ReactNode => {
+const MagicItemCreatePage: FC = () => {
   const navigate = useNavigate();
 
   const {

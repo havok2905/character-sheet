@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { CREATURE_ROUTE } from '../../app';
 import { generatePath, Link } from 'react-router-dom';
 import { ICreature } from '../../types/models';
@@ -10,12 +10,12 @@ interface IAssociatedCreaturesForm {
   creatures: ICreature[];
 }
 
-const AssociatedCreaturesForm = ({
+const AssociatedCreaturesForm: FC<IAssociatedCreaturesForm> = ({
   buttonLabel,
   creatures,
   creatureIds,
   handleSubmit
-}: IAssociatedCreaturesForm): ReactElement => {
+}) => {
   const [nameFilter, setNameFilter] = useState('');
   const [updatedCreatureIds, setUpdatedCreatureIds] = useState([...creatureIds]);
 

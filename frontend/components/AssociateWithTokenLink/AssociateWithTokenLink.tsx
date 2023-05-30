@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Token } from '../Token';
 import './_associateWithTokenLink.scss';
@@ -10,12 +10,12 @@ interface IAssociateWithTokenLinkProps {
   linkText: string;
 }
 
-const AssociateWithTokenLink = ({
+const AssociateWithTokenLink: FC<IAssociateWithTokenLinkProps> = ({
   associationUrl,
   imageAltText,
   imageUrl,
   linkText
-}: IAssociateWithTokenLinkProps): ReactElement => {
+}) => {
   return (
     <Link className="pet-and-associate-link" to={associationUrl}>
       <div className="pet-and-associate-link-content">

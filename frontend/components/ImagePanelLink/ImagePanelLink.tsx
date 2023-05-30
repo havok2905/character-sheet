@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import './_imagePanelLink.scss';
 
@@ -8,11 +8,11 @@ interface IImagePanelLinkProps {
   title: string;
 }
 
-const ImagePanelLink = ({
+const ImagePanelLink: FC<IImagePanelLinkProps> = ({
   path,
   imagePath,
   title
-}: IImagePanelLinkProps): ReactElement => {
+}) => {
   return (
     <Link className="image-panel" to={path}>
       <img height={200} src={imagePath} />

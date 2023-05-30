@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { ICreature, ICreatureRegionalEffect } from '../../types/models';
 
 interface IAssociatedRegionalEffectsFormProps {
@@ -7,11 +7,11 @@ interface IAssociatedRegionalEffectsFormProps {
   handleSubmit: (regionalEffectsText: string, creatureRegionalEffects: ICreatureRegionalEffect[]) => void;
 }
 
-const AssociatedRegionalEffectsForm = ({
+const AssociatedRegionalEffectsForm: FC<IAssociatedRegionalEffectsFormProps> = ({
   buttonLabel,
   creature,
   handleSubmit
-}: IAssociatedRegionalEffectsFormProps): ReactElement => {
+}) => {
   const [newRegionalEffects, setNewRegionalEffects] = useState<ICreatureRegionalEffect[]>([]);
   const [regionalEffectsText, setRegionalEffectsText] = useState(creature.regionalEffectsText || '');
   const [updatedRegionalEffects, setUpdatedRegionalEffects] = useState<ICreatureRegionalEffect[]>(
@@ -30,7 +30,7 @@ const AssociatedRegionalEffectsForm = ({
     setNewRegionalEffects(updatedForm);
   };
 
-  const getRegionalEffect = (effect: ICreatureRegionalEffect, index: number): ReactElement => {
+  const getRegionalEffect = (effect: ICreatureRegionalEffect, index: number) => {
     const { _destroy, description } = effect;
 
     return (
@@ -52,7 +52,7 @@ const AssociatedRegionalEffectsForm = ({
     );
   };
 
-  const getNewRegionalEffect = (effect: ICreatureRegionalEffect, index: number): ReactElement => {
+  const getNewRegionalEffect = (effect: ICreatureRegionalEffect, index: number) => {
     const { description } = effect;
 
     return (

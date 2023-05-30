@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { FC } from 'react';
 import { ImagePanelGrid } from '../../components/ImagePanelGrid';
 import {
   CHARACTERS_ROUTE,
@@ -13,7 +13,7 @@ import { Navbar } from '../../components/Navbar/Navbar';
 import SpellsImage from './home-page-spells-tile.png';
 import { useAuth } from '../hooks/useAuth';
 
-const HomePage = (): ReactElement => {
+const HomePage: FC = () => {
   const { isSuccess } = useAuth();
 
   const panels = [
@@ -44,7 +44,7 @@ const HomePage = (): ReactElement => {
       <Navbar authenticated={isSuccess}/>
       <div className="layout">
         <div className="full">
-          <h1>The D&D Compendium</h1>
+          <h2>The D&D Compendium</h2>
           <ImagePanelGrid panels={panels} />
         </div>
       </div>

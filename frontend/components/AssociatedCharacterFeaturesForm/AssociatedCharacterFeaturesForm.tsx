@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { ICharacter, ICharacterFeature } from '../../types/models';
 
 interface IAssociatedCharacterFeaturesFormProps {
@@ -7,11 +7,11 @@ interface IAssociatedCharacterFeaturesFormProps {
   handleSubmit: (characterFeatures: ICharacterFeature[]) => void;
 }
 
-const AssociatedCharacterFeaturesForm = ({
+const AssociatedCharacterFeaturesForm: FC<IAssociatedCharacterFeaturesFormProps> = ({
   buttonLabel,
   character,
   handleSubmit
-}: IAssociatedCharacterFeaturesFormProps): ReactElement => {
+}) => {
   const [newFeatures, setNewFeatures] = useState<ICharacterFeature[]>([]);
   const [updatedFeatures, setUpdatedFeatures] = useState<ICharacterFeature[]>(
     (character.characterFeatures || []).map(feature => ({ ...feature }))
@@ -33,7 +33,7 @@ const AssociatedCharacterFeaturesForm = ({
     feature: ICharacterFeature,
     index: number,
     isNewField: boolean
-  ): ReactElement => {
+  ) => {
     const { _destroy, description, name, source } = feature;
 
     const func = isNewField ? handleNewFieldsChange : handleFormChange;

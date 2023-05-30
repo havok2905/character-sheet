@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC } from 'react';
 import { createSpell } from '../../utilities/Api/Spells';
 import {
   generatePath,
@@ -13,7 +13,7 @@ import { SpellForm } from '../../components/SpellForm/SpellForm';
 import { useAuth } from '../hooks/useAuth';
 import { useMutation } from '@tanstack/react-query';
 
-const SpellCreatePage = (): ReactNode => {
+const SpellCreatePage: FC = () => {
   const navigate = useNavigate();
 
   const {

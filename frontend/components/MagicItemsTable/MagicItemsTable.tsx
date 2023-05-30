@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { generatePath } from 'react-router-dom';
 import { IMagicItem } from '../../types/models';
 import { ItemCategoryTypes, ItemRarityTypes } from '../../utilities/GameSystem/enums';
@@ -8,9 +8,9 @@ interface IMagicItemsTableProps {
   magicItems: IMagicItem[];
 }
 
-const MagicItemsTable = ({
+const MagicItemsTable: FC<IMagicItemsTableProps> = ({
   magicItems
-}: IMagicItemsTableProps): ReactElement => {
+}) => {
   const [categorySelection, setCategorySelection] = useState('');
   const [nameFilter, setNameFilter] = useState('');
   const [raritySelection, setRaritySelection] = useState('');

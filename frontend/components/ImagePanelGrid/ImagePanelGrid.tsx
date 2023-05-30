@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { FC } from 'react';
 import { ImagePanelLink } from '../ImagePanelLink';
 import './_imagePanelGrid.scss';
 
@@ -12,9 +12,9 @@ interface IImagePanelGridProps {
   panels: IImagePanelGridItem[];
 }
 
-const ImagePanelGrid = ({
+const ImagePanelGrid: FC<IImagePanelGridProps> = ({
   panels
-}: IImagePanelGridProps): ReactElement | null => {
+}) => {
   if (!panels.length) return null;
 
   return (

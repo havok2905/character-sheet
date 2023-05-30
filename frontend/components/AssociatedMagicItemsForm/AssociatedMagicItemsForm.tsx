@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import { IMagicItem } from '../../types/models';
 import { MAGIC_ITEM_ROUTE } from '../../app';
@@ -10,12 +10,12 @@ interface IAssociatedMagicItemsFormProps {
   magicItems: IMagicItem[];
 }
 
-const AssociatedMagicItemsForm = ({
+const AssociatedMagicItemsForm: FC<IAssociatedMagicItemsFormProps> = ({
   buttonLabel,
   handleSubmit,
   magicItems,
   magicItemIds
-}: IAssociatedMagicItemsFormProps): ReactElement => {
+}) => {
   const [nameFilter, setNameFilter] = useState('');
   const [updatedMagicItemIds, setUpdatedMagicItemIds] = useState([...magicItemIds]);
 

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC } from 'react';
 import { CHARACTER_CREATE_ROUTE } from '../../app';
 import { CharactersTable } from '../../components/CharactersTable';
 import { getCharacters } from '../../utilities/Api/Characters';
@@ -8,7 +8,7 @@ import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 
-const CharactersPage = (): ReactNode => {
+const CharactersPage: FC = () => {
   const authQuery = useAuth();
 
   const {
@@ -41,7 +41,7 @@ const CharactersPage = (): ReactNode => {
               </Link>
             )
           }
-          <h1>Characters</h1>
+          <h2>Characters</h2>
           <CharactersTable characters={characters}/>
         </div>
       </div>

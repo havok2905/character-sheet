@@ -1,5 +1,17 @@
 @import '../../globalstyles/variables.scss';
 
+.toggle-item {
+  padding: $spacing-small 0;
+
+  .toggle-item-title {
+    margin: 0;
+  }
+
+  .toggle-item-title-open {
+    margin-bottom: $spacing-standard;
+  }
+}
+
 .toggle-item:not(:last-of-type) {
   border-bottom: $border-standard;
 }
@@ -8,7 +20,7 @@
   cursor: pointer;
 
   svg {
-    margin-right: $small-spacing;
+    margin-right: $spacing-small;
     vertical-align: middle;
   }
 }

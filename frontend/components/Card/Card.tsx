@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import './_card.scss';
@@ -9,11 +9,11 @@ interface ICardProps {
   path?: string;
 }
 
-const Card = ({
+const Card: FC<ICardProps> = ({
   children,
   hasToken,
   path
-}: ICardProps): ReactElement => {
+}) => {
   const classList = {
     'card': true,
     'card-with-token': hasToken

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC } from 'react';
 import { getUsers } from '../../utilities/Api/Users';
 import { LOGIN_ROUTE } from '../../app';
 import { Navbar } from '../../components/Navbar/Navbar';
@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from '../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 
-const UsersPage = (): ReactNode => {
+const UsersPage: FC = () => {
   const authQuery = useAuth();
 
   const {

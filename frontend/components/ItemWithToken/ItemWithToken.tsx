@@ -1,6 +1,7 @@
-import React, { ReactElement } from 'react';
+import React, { FC } from 'react';
 import { Card } from '../Card';
 import { Token } from '../Token';
+import './ItemWithToken.scss';
 
 interface IItemWithTokenProps {
   description: string;
@@ -11,22 +12,22 @@ interface IItemWithTokenProps {
   subDescription?: string;
 }
 
-const ItemWithToken = ({
+const ItemWithToken: FC<IItemWithTokenProps> = ({
   description,
   heading,
   imageAltText,
   imageUrl,
   itemPath,
   subDescription
-}: IItemWithTokenProps): ReactElement => {
+}) => {
   return (
     <Card hasToken path={itemPath}>
       <Token
         imageAltText={imageAltText}
         imageUrl={imageUrl}
         size="small"/>
-      <div>
-        <h2>{heading}</h2>
+      <div className="item-with-token">
+        <h3>{heading}</h3>
         <p>{description}</p>
         {subDescription && <p>{subDescription}</p>}
       </div>

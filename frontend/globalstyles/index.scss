@@ -2,22 +2,22 @@
 
 .button {
   background: transparent;
-  border: solid 2px $faded-white;
+  border: solid 2px $color-button-border;
   border-radius: $border-radius;
-  color: $faded-white;
+  color: $color-button-text;
   cursor: pointer;
-  padding: $small-spacing;
+  padding: $spacing-small;
   text-decoration: none;
 
   & + & {
-    margin-left: $small-spacing;
+    margin-left: $spacing-small;
   }
 
   &:active,
   &:focus,
   &:hover {
-    background-color: $faded-white;
-    color: $back-background;
+    background-color: $color-button-background-hover;
+    color: $color-back-background;
   }
 
   &.button-blue {
@@ -28,7 +28,7 @@
     &:focus,
     &:hover {
       background-color: $blue;
-      color: $faded-white;
+      color: $color-button-text-hover
     }
   }
 
@@ -40,7 +40,7 @@
     &:focus,
     &:hover {
       background-color: $green;
-      color: $faded-white;
+      color: $color-button-text-hover;
     }
   }
 
@@ -52,13 +52,13 @@
     &:focus,
     &:hover {
       background-color: $red;
-      color: $faded-white;
+      color: $color-button-text-hover;
     }
   }
 }
 
 .column {
-  width: $column-width;
+  width: $sizing-column-width;
 }
 
 .full {
@@ -71,7 +71,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 0 auto;
-  width: $layout-width;
+  width: $sizing-layout-width;
 }
 
 .page-header {
@@ -79,7 +79,7 @@
   position: relative;
 
   img {
-    margin-right: $standard-spacing;
+    margin-right: $spacing-standard;
   }
 }
 
@@ -95,7 +95,11 @@
   padding: 0;
 }
 
-.item:not(:last-of-type) {
+.item {
+  padding: $spacing-small 0;
+}
+
+.item:not(:last-child) {
   border-bottom: $border-standard;
 }
 
@@ -105,93 +109,114 @@ body {
 }
 
 html {
-  background-attachment: fixed;
-  background-size: cover;
-  background-image: url("/background.jpg");
-  background-repeat: no-repeat;
   margin: 0;
 }
 
 html, body {
-  color: $faded-white;
-  font-family: Roboto, sans-serif;
-  font-size: $body-text-size;
+  background-color: $color-back-background;
+  color: $color-text;
+  font-family: $font-family-sans-serif;
+  font-size: $font-size-body-text;
   line-height: 1.5;
 }
 
-a {
-  color: $faded-white;
-}
-
 h1 {
-  color: $faded-white;
-  text-shadow: 0 0 10px black;
+  font-size: $font-size-heading-one;
+  font-family: $font-family-serif;
+  font-weight: normal;
+  line-height: normal;
+  margin: 0;
+  padding: 0;
 }
 
 h2 {
-  color: $faded-white;
+  color: $color-heading;
+  font-family: $font-family-serif;
+  font-size: $font-size-heading-two;
+  font-weight: normal;
+  line-height: normal;
+  margin: $spacing-standard 0;
+  padding: 0;
 }
 
 h3 {
-  color: $faded-white;
+  color: $color-heading;
+  font-family: $font-family-serif;
+  font-size: $font-size-heading-three;
+  font-weight: normal;
+  line-height: normal;
+  margin: $spacing-standard 0;
+  padding: 0;
+}
+
+h4 {
+  color: $color-heading;
+  font-family: $font-family-serif;
+  font-size: $font-size-heading-four;
+  font-weight: normal;
+  line-height: normal;
+  margin: $spacing-standard 0;
+  padding: 0;
+}
+
+a {
+  color: $color-text;
 }
 
 fieldset {
   border: none;
   display: flex;
   flex-direction: column;
-  margin-bottom: $standard-spacing;
+  margin-bottom: $spacing-standard;
 }
 
 footer {
   align-items: center;
-  background-color: $card-background;
+  background-color: $color-footer-background;
   bottom: 0;
   box-sizing: border-box;
-  box-shadow: $box-shadow-light;
+  box-shadow: $shadow-base;
+  color: $color-footer-text;
   display: flex;
   height: 70px;
-  padding: $standard-spacing;
+  padding: $spacing-standard;
   position: fixed;
   width: 100%;
   z-index: 10;
 
   > * {
-    margin-right: $small-spacing;
+    margin-right: $spacing-small;
   }
 }
 
 /* stylelint-disable-next-line string-quotes */
 input[type="number"], input[type="password"], input[type="text"], select, textarea {
-  background-color: $back-background;
-  border: solid $back-background 1px;
-  box-shadow: $box-shadow-field;
-  color: $faded-white;
-  margin-bottom: $small-spacing;
-  padding: $small-spacing;
-}
-
-strong {
-  color: $faded-white;
+  background-color: $color-back-background;
+  border: solid $color-back-background 1px;
+  box-shadow: $shadow-field;
+  margin-bottom: $spacing-small;
+  padding: $spacing-small;
 }
 
 nav {
   align-items: center;
-  background-color: $card-background;
+  background-color: $color-navbar-background;
   box-sizing: border-box;
-  box-shadow: $box-shadow-light;
+  box-shadow: $shadow-base;
+  color: $color-navbar-text;
   display: flex;
+  font-size: 14px;
+  font-family: $font-family-serif;
   justify-content: space-between;
-  margin-bottom: $standard-spacing;
-  padding: 0 $standard-spacing;
+  margin-bottom: $spacing-standard;
+  padding: 0 $spacing-standard;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 10;
 
   a {
-    color: $faded-white;
-    text-decoration: none;
+    color: $color-navbar-text;
   }
 
   ul {
@@ -201,32 +226,39 @@ nav {
     height: 60px;
 
     li {
-      margin-right: $standard-spacing;
+      margin-right: $spacing-standard;
     }
   }
 }
 
+p {
+  margin: 0 0 $spacing-small 0;
+}
+
+p:last-child {
+  margin: 0;
+}
+
 table {
-  background-color: $card-background;
+  background-color: $color-card-background;
   border-collapse: collapse;
   border-radius: $border-radius;
-  box-shadow: $box-shadow-light;
-  margin: $standard-spacing 0;
+  box-shadow: $shadow-base;
+  margin: $spacing-standard 0;
   width: 100%;
 
   td {
     border-bottom: $border-standard;
-    padding: $small-spacing;
+    padding: $spacing-small;
 
     a {
-      margin-right: $small-spacing;
+      margin-right: $spacing-small;
     }
   }
 
   th {
     border-bottom: $border-standard;
-    color: $faded-white;
-    padding: $small-spacing;
+    padding: $spacing-small;
     text-align: left;
     text-transform: uppercase;
   }

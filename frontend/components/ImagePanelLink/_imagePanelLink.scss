@@ -1,16 +1,15 @@
 @import '../../globalstyles/variables.scss';
 
 .image-panel {
-  box-shadow: $box-shadow-light;
+  box-shadow: $shadow-base;
   display: block;
   height: 200px;
   position: relative;
   text-align: center;
-  transition: box-shadow $hover-transition;
   width: 200px;
 
   &:hover {
-    box-shadow: $box-shadow-heavy;
+    box-shadow: $shadow-base;
   }
 
   img {
@@ -33,7 +32,7 @@
     h2 {
       margin: 0;
       position: relative;
-      text-shadow: $box-shadow-heavy;
+      text-shadow: $shadow-base;
       top: 84px;
     }
   }

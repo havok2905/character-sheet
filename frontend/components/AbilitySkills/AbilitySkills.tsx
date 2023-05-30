@@ -1,31 +1,31 @@
-import React, { ReactElement } from 'react';
+import React, { FC } from 'react';
 import {
- ACROBATICS,
- ANIMAL_HANDLING,
- ARCANA,
- ATHLETICS,
- CHA,
- DECEPTION,
- DEX,
- EXP,
- HISTORY,
- INSIGHT,
- INT,
- INTIMIDATION,
- INVESTIGATION,
- MEDICINE,
- NATURE,
- PERCEPTION,
- PERFORMANCE,
- PERSUASION,
- PROF,
- PROFICIENCY_BONUS_BY_LEVEL,
- RELIGION,
- SLEIGHT_OF_HAND,
- STEALTH,
- STR,
- SURVIVAL,
- WIS
+  ACROBATICS,
+  ANIMAL_HANDLING,
+  ARCANA,
+  ATHLETICS,
+  CHA,
+  DECEPTION,
+  DEX,
+  EXP,
+  HISTORY,
+  INSIGHT,
+  INT,
+  INTIMIDATION,
+  INVESTIGATION,
+  MEDICINE,
+  NATURE,
+  PERCEPTION,
+  PERFORMANCE,
+  PERSUASION,
+  PROF,
+  PROFICIENCY_BONUS_BY_LEVEL,
+  RELIGION,
+  SLEIGHT_OF_HAND,
+  STEALTH,
+  STR,
+  SURVIVAL,
+  WIS
 } from '../../utilities/GameSystem/constants';
 import { calculateSkillModifier } from '../../utilities/GameSystem/calculateSkillModifier';
 import { CheckIcon, DoubleCheckIcon } from '../Icons';
@@ -37,9 +37,9 @@ interface IAbilitySkillsProps {
   entity?: ICharacter | ICreature
 }
 
-const AbilitySkills = ({
+const AbilitySkills: FC<IAbilitySkillsProps> = ({
   entity
-}: IAbilitySkillsProps): ReactElement | null => {
+}: IAbilitySkillsProps) => {
   if (!entity) return null;
 
   const {

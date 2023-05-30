@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { FC } from 'react';
 import { calculateAbilityModifier } from '../../utilities/GameSystem/calculateAbilityModifier';
 import { calculateSavingThrowModifier } from '../../utilities/GameSystem/calculateSavingThrowModifier';
 import { EXP, PROF, PROFICIENCY_BONUS_BY_LEVEL } from '../../utilities/GameSystem/constants';
@@ -10,9 +10,9 @@ interface IStatBlockProps {
   entity?: ICharacter | ICreature
 }
 
-const StatBlock = ({
+const StatBlock: FC<IStatBlockProps> = ({
   entity
-}: IStatBlockProps): ReactElement | null => {
+}) => {
   if (!entity) return null;
 
   const getProficientClass = (prof: ProficiencyType): string | undefined => {

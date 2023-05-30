@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { login } from '../../utilities/Api/Auth';
 import { setToken } from '../../utilities/Auth';
 import { useMutation } from '@tanstack/react-query';
@@ -8,7 +8,7 @@ interface loginMutationRequest {
   username: string;
 }
 
-const LoginPage = (): ReactElement => {
+const LoginPage: FC = () => {
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

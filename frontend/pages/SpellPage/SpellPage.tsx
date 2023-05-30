@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC } from 'react';
 import { Card } from '../../components/Card';
 import { GearIcon } from '../../components/Icons/GearIcon';
 import { generatePath, Link, useParams } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { SPELL_EDIT_ROUTE } from '../../app';
 import { useAuth } from '../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 
-const SpellPage = (): ReactNode => {
+const SpellPage: FC = () => {
   const params = useParams();
 
   const {isSuccess} = useAuth();
@@ -49,8 +49,8 @@ const SpellPage = (): ReactNode => {
           </div>
         </div>
         <div className="full">
-          <h1>{name}</h1>
           <Card>
+            <h2>{name}</h2>
             <SpellCard spell={spell} />
           </Card>
         </div>

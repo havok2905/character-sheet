@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { FC } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import {
@@ -30,8 +30,6 @@ import { CreaturePage } from '../pages/CreaturePage';
 import { CreatureCreatePage } from '../pages/CreatureCreatePage';
 import { CreatureEditPage } from '../pages/CreatureEditPage';
 import { CreaturesPage } from '../pages/CreaturesPage';
-import { DiceRoller } from '../components/DiceRoller';
-import { DmScreen } from '../components/DmScreen';
 import { HomePage } from '../pages/HomePage';
 import { LoginPage } from '../pages/LoginPage';
 import { MagicItemPage } from '../pages/MagicItemPage';
@@ -44,7 +42,7 @@ import { SpellEditPage } from '../pages/SpellEditPage';
 import { SpellsPage } from '../pages/SpellsPage';
 import { UsersPage } from '../pages/UsersPage';
 
-const App = (): ReactElement => {
+const App: FC = () => {
   const queryClient = new QueryClient();
 
   return (
@@ -72,10 +70,6 @@ const App = (): ReactElement => {
           <Route path={USERS_ROUTE} element={<UsersPage/>} />
         </Routes>
       </BrowserRouter>
-      <footer>
-        <DmScreen/>
-        <DiceRoller/>
-      </footer>
       <div id="modal-root"></div>
     </QueryClientProvider>
   );

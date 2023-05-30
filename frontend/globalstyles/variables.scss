@@ -1,42 +1,72 @@
+// BORDER RADIUS
+
+$border-radius: 8px;
+$border-radius-circle: 50%;
+
 // COLORS
 
-$card-background: rgba(0, 0, 0, 0.8);
-$back-background: #222222;
-$true-black: #000000;
-$faded-white: #dddddd;
-$true-white: #ffffff;
+$color-back-background: #eeeeee;
+
+$color-button-background-hover: #ffffff;
+$color-button-border: #ffffff;
+$color-button-text: #ffffff;
+$color-button-text-hover: #ffffff;
+
+$color-card-background: #ffffff;
+
+$color-footer-background: #222222;
+$color-footer-text: #ffffff;
+
+$color-heading: #740b0b;
+
+$color-navbar-background: #222222;
+$color-navbar-text: #ffffff;
+
+$color-text: #222222;
+
+// FONT FAMILIES
+
+$font-family-sans-serif: 'Roboto', sans-serif;
+$font-family-serif: 'Cinzel', serif;
+
+// FONT SIZE
+
+$font-size-body-text: 16px;
+$font-size-heading-one: 18px;
+$font-size-heading-two: 36px;
+$font-size-heading-three: 24px;
+$font-size-heading-four: 18px;
+
+// SHADOWS
+
+$shadow-base: 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
+$shadow-field: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
+
+// SIZING
+
+$sizing-column-width: 600px;
+$sizing-layout-width: 1220px;
+
+// SPACING
+
+$spacing-small: 8px;
+$spacing-standard: 20px;
+
+
+
+//OLD
+// COLORS
+
 $blue: #4da1c0;
 $green: #00a59a;
 $red: #bf4d4c;
-$yellow: #e5820e;
 
 // BORDERS
 
-$border-standard: 1px $faded-white solid;
-$border-light: 1px $true-white solid;
-
-// BOX SHADOWS
-
-$box-shadow-heavy: 0 10px 10px $true-black;
-$box-shadow-field: inset 0 0 5px $true-black;
-$box-shadow-light: 0 0 5px $true-black;
-
-// FONT SIZES
-
-$small-text-size: 12px;
-$body-text-size: 16px;
+$border-standard: 1px #dddddd solid;
 
 // SIZES
-
-$small-spacing: 10px;
-$standard-spacing: 20px;
-$border-radius: 5px;
-$border-radius-circle: 50%;
 $token-size-small: 100px;
 $token-size-standard: 200px;
-$column-width: 470px;
-$layout-width: 1000px;
 
-// TRANSITIONS
 
-$hover-transition: 0.3s;

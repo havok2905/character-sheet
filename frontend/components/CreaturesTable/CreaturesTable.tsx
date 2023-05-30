@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { CREATURE_ROUTE } from '../../app';
 import { CreatureCategoryTypes } from '../../utilities/GameSystem/enums';
 import { creatureRow } from '../../utilities/UiHelpers/creatureRow';
@@ -10,9 +10,9 @@ interface ICreaturesTableProps {
   creatures: ICreature[];
 }
 
-const CreaturesTable = ({
+const CreaturesTable: FC<ICreaturesTableProps> = ({
   creatures
-}: ICreaturesTableProps): ReactElement => {
+}) => {
   const [categorySelection, setCategorySelection] = useState<CreatureCategoryTypes>(CreatureCategoryTypes.UNKNOWN);
   const [nameFilter, setNameFilter] = useState('');
   const [crFilter, setCrFilter] = useState('');

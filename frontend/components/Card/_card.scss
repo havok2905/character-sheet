@@ -1,14 +1,13 @@
 @import '../../globalstyles/variables.scss';
 
 .card {
-  background-color: $card-background;
+  background-color: $color-card-background;
   border-radius: $border-radius;
-  box-shadow: $box-shadow-light;
+  box-shadow: $shadow-base;
   box-sizing: border-box;
-  margin: $standard-spacing 0;
-  padding: $standard-spacing;
+  margin: $spacing-standard 0;
+  padding: $spacing-standard;
   position: relative;
-  transition: box-shadow $hover-transition;
 
   &.card-with-token {
     display: flex;
@@ -17,8 +16,4 @@
 
 .card-link {
   text-decoration: none;
-
-  .card:hover {
-    box-shadow: $box-shadow-heavy;
-  }
 }

@@ -1,6 +1,6 @@
-import React, { ReactElement } from 'react';
+import React, { FC } from 'react';
 
-const GearIcon = (): ReactElement => {
+const GearIcon: FC = () => {
   return (
     <svg
       fill="black"

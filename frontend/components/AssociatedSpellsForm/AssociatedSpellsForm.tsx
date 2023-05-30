@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import { ISpell } from '../../types/models';
 import { SPELL_ROUTE } from '../../app';
@@ -11,12 +11,12 @@ interface IAssociatedSpellsFormProps {
   spells: ISpell[];
 }
 
-const AssociatedSpellsForm = ({
+const AssociatedSpellsForm: FC<IAssociatedSpellsFormProps> = ({
   buttonLabel,
   handleSubmit,
   spellIds,
   spells
-}: IAssociatedSpellsFormProps): ReactElement => {
+}) => {
   const [nameFilter, setNameFilter] = useState('');
   const [levelFilter, setLevelFilter] = useState(0);
   const [schoolSelection, setSchoolSelection] = useState('');

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { FC } from 'react';
 import { CHARACTER_ROUTE } from '../../app';
 import { characterClassRow } from '../../utilities/UiHelpers/characterClassRow';
 import { characterMulticlassRow } from '../../utilities/UiHelpers/characterMulticlassRow';
@@ -10,9 +10,9 @@ interface ICharactersTableProps {
   characters: ICharacter[]
 }
 
-const CharactersTable = ({
+const CharactersTable: FC<ICharactersTableProps> = ({
   characters
-}: ICharactersTableProps): ReactElement => {
+}) => {
   return (
     <ul className="bulletless-list">
       {

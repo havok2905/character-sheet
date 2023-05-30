@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { FC } from 'react';
 import classNames from 'classnames';
 import DefaultToken from './token-blank.png';
 import './_token.scss';
@@ -9,11 +9,11 @@ interface ITokenProps {
   size?: 'default' | 'small'
 }
 
-const Token = ({
+const Token: FC<ITokenProps> = ({
   imageAltText,
   imageUrl,
   size = 'default'
-}: ITokenProps): ReactElement | null => {
+}) => {
   const classList = {
     'token': size === 'default',
     'token-small': size === 'small'

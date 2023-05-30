@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { ICreature, ICreatureLairAction } from '../../types/models';
 
 interface IAssociatedLairActionsFormProps {
@@ -7,11 +7,11 @@ interface IAssociatedLairActionsFormProps {
   handleSubmit: (lairActionsText: string, creatureLairActions: ICreatureLairAction[]) => void;
 }
 
-const AssociatedLairActionsForm = ({
+const AssociatedLairActionsForm: FC<IAssociatedLairActionsFormProps> = ({
   buttonLabel,
   creature,
   handleSubmit
-}: IAssociatedLairActionsFormProps): ReactElement => {
+}) => {
   const [newLairActions, setNewLairActions] = useState<ICreatureLairAction[]>([]);
   const [lairActionsText, setLairActionsText] = useState(creature.lairActionsText || '');
   const [updatedLairActions, setUpdatedLairActions] = useState<ICreatureLairAction[]>(
@@ -30,7 +30,7 @@ const AssociatedLairActionsForm = ({
     setNewLairActions(updatedForm);
   };
 
-  const getLairAction = (action: ICreatureLairAction, index: number): ReactElement => {
+  const getLairAction = (action: ICreatureLairAction, index: number) => {
     const { _destroy, description } = action;
 
     return (
@@ -52,7 +52,7 @@ const AssociatedLairActionsForm = ({
     );
   };
 
-  const getNewLairAction = (action: ICreatureLairAction, index: number): ReactElement => {
+  const getNewLairAction = (action: ICreatureLairAction, index: number) => {
     const { description } = action;
 
     return (

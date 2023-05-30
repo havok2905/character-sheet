@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import { ISpell } from '../../types/models';
 import { SPELL_EDIT_ROUTE, SPELL_ROUTE } from '../../app';
@@ -9,10 +9,10 @@ interface ISpellsTableProps {
   spells: ISpell[];
 }
 
-const SpellsTable = ({
+const SpellsTable: FC<ISpellsTableProps> = ({
   authenticated,
   spells
-}: ISpellsTableProps): ReactElement => {
+}) => {
   const [nameFilter, setNameFilter] = useState('');
   const [levelFilter, setLevelFilter] = useState(0);
   const [schoolSelection, setSchoolSelection] = useState('');

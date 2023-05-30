@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { ICharacter, ICharacterItem } from '../../types/models';
 
 interface IAssociatedInventoryFormProps {
@@ -7,11 +7,11 @@ interface IAssociatedInventoryFormProps {
   handleSubmit: (characterItems: ICharacterItem[]) => void;
 }
 
-const AssociatedInventoryForm = ({
+const AssociatedInventoryForm: FC<IAssociatedInventoryFormProps> = ({
   buttonLabel,
   character,
   handleSubmit
-}: IAssociatedInventoryFormProps): ReactElement => {
+}) => {
   const [newItems, setNewItems] = useState<ICharacterItem[]>([]);
   const [updatedItems, setUpdatedItems] = useState<ICharacterItem[]>(
     (character.characterItems || []).map(item => ({ ...item }))
@@ -33,7 +33,7 @@ const AssociatedInventoryForm = ({
     item: ICharacterItem,
     index: number,
     isNewField: boolean
-  ): ReactElement => {
+  ) => {
     const { _destroy, name, total } = item;
 
     const func = isNewField ? handleNewFieldsChange : handleFormChange;

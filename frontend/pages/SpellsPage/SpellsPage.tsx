@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC } from 'react';
 import { getSpells } from '../../utilities/Api/Spells';
 import { Link } from 'react-router-dom';
 import { Navbar } from '../../components/Navbar/Navbar';
@@ -7,7 +7,7 @@ import { SPELL_CREATE_ROUTE } from '../../app';
 import { useAuth } from '../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 
-const SpellsPage = (): ReactNode => {
+const SpellsPage: FC = () => {
 
   const {isSuccess} = useAuth();
 
@@ -38,7 +38,7 @@ const SpellsPage = (): ReactNode => {
               </Link>
             )
           }
-          <h1>Spells</h1>
+          <h2>Spells</h2>
           <SpellsTable
             authenticated={isSuccess}
             spells={spells}/>

@@ -1,13 +1,19 @@
 import { createPortal } from 'react-dom'
-import React, { ReactElement, useEffect } from 'react';
+import React, { FC, ReactNode, useEffect } from 'react';
 import { CloseIcon } from '../Icons';
 import './_modal.scss';
 
-const Modal = ({
+interface IModalProps {
+  children: ReactNode;
+  onCloseModal: () => void;
+  onCloseModalOverlay: () => void;
+}
+
+const Modal: FC<IModalProps> = ({
   children,
   onCloseModal,
   onCloseModalOverlay
-}): ReactElement => {
+}) => {
   useEffect(() => {
     const bodyEl = document.getElementsByTagName('html')[0];
     const htmlEl = document.getElementsByTagName('body')[0];

@@ -1,4 +1,4 @@
-import React, { ReactNode} from 'react';
+import React, { FC} from 'react';
 import { getMagicItems } from '../../utilities/Api/MagicItems';
 import { Link } from 'react-router-dom';
 import { MagicItemsTable } from '../../components/MagicItemsTable';
@@ -7,7 +7,7 @@ import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 
-const MagicItemsPage = (): ReactNode => {
+const MagicItemsPage: FC = () => {
   const {isSuccess} = useAuth();
 
   const {
@@ -37,7 +37,7 @@ const MagicItemsPage = (): ReactNode => {
               </Link>
             )
           }
-          <h1>Magic Items</h1>
+          <h2>Magic Items</h2>
           <MagicItemsTable magicItems={magicItems}/>
         </div>
       </div>

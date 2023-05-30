@@ -27,30 +27,35 @@ const Navbar = ({
   return (
     <nav>
       <ul className="bulletless-list">
-        <li><Link to={`${ROOT_ROUTE}`}>Home</Link></li>
+        <li><h1><Link to={`${ROOT_ROUTE}`}>Compendium</Link></h1></li>
+      </ul>
+      <ul className="bulletless-list">
         <li><Link to={`${CHARACTERS_ROUTE}`}>Characters</Link></li>
         <li><Link to={`${CREATURES_ROUTE}`}>Creatures</Link></li>
         <li><Link to={`${MAGIC_ITEMS_ROUTE}`}>Magic Items</Link></li>
         <li><Link to={`${SPELLS_ROUTE}`}>Spells</Link></li>
         {
-          authenticated && (
-            <li><Link to={`${USERS_ROUTE}`}>Users</Link></li>
+          authenticated ? (
+            <>
+              <li><Link to={`${USERS_ROUTE}`}>Users</Link></li>
+              <li>
+                <button
+                  className="button button-red"
+                  onClick={clearAppToken}>
+                  Log out
+                </button>
+              </li>
+            </>
+            
+          ) : (
+            <li>
+              <Link to={`${LOGIN_ROUTE}`}>
+                Log in
+              </Link>
+            </li>
           )
         }
       </ul>
-      {
-        authenticated ? (
-          <button
-            className="button button-red"
-            onClick={clearAppToken}>
-            Log out
-          </button>
-        ) : (
-          <Link to={`${LOGIN_ROUTE}`}>
-            Log in
-          </Link>
-        )
-      }      
     </nav>
   );
 };

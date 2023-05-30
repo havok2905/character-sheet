@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { ActionTypes } from '../../utilities/GameSystem/enums';
 import { ICreature, ICreatureAction } from '../../types/models';
 
@@ -8,11 +8,11 @@ interface IAssociatedActionsFormProps {
   handleSubmit: (creatureFeatures: ICreatureAction[]) => void;
 }
 
-const AssociatedActionsForm = ({
+const AssociatedActionsForm: FC<IAssociatedActionsFormProps> = ({
   buttonLabel,
   creature,
   handleSubmit
-}: IAssociatedActionsFormProps): ReactElement => {
+}) => {
   const [newActions, setNewActions] = useState<ICreatureAction[]>([]);
   const [updatedActions, setUpdatedActions] = useState<ICreatureAction[]>(
     (creature.creatureActions || []).map(action => ({ ...action }))
@@ -34,7 +34,7 @@ const AssociatedActionsForm = ({
     action: ICreatureAction,
     index: number,
     isNewField: boolean
-  ): ReactElement => {
+  ) => {
     const {
       _destroy,
       actionType,

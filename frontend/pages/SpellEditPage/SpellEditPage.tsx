@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC } from 'react';
 import { DeleteButton } from '../../components/DeleteButton';
 import { destroySpell, getSpell, updateSpell } from '../../utilities/Api/Spells';
 import {
@@ -15,7 +15,7 @@ import { SpellForm } from '../../components/SpellForm/SpellForm';
 import { useAuth } from '../hooks/useAuth';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-const SpellEditPage = (): ReactNode => {
+const SpellEditPage: FC = () => {
   const params = useParams();
   const navigate = useNavigate();
 

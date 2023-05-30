@@ -1,4 +1,5 @@
-import React, { ReactElement, ReactNode, useState } from 'react';
+import React, { FC, ReactNode, useState } from 'react';
+import classNames from 'classnames';
 import { InfoIcon } from '../Icons';
 import './_toggleItem.scss';
 
@@ -7,18 +8,23 @@ interface IToggleItemProps {
   heading: string
 }
 
-const ToggleItem = ({
+const ToggleItem: FC<IToggleItemProps> = ({
   children,
   heading
-}: IToggleItemProps): ReactElement => {
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const onClick = () => setIsOpen(!isOpen);
 
+  const titleClassList = {
+    'toggle-item-title': true,
+    'toggle-item-title-open': isOpen
+  };
+
   return (
     <div className="toggle-item">
       <div className="toggle-header" onClick={onClick}>
-        <p>
+        <p className={classNames(titleClassList)}>
           <strong>
             <InfoIcon/>
             {heading}

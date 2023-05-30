@@ -1,12 +1,12 @@
-import React, { ReactElement } from 'react';
+import React, { FC } from 'react';
 
 interface INewLineTextProps {
   text: string;
 }
 
-const NewLineText = ({
+const NewLineText: FC<INewLineTextProps> = ({
   text
-}: INewLineTextProps): ReactElement => {
+}) => {
   return (
     <>
       {

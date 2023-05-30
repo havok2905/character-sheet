@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { AlignmentTypes } from '../../utilities/GameSystem/enums';
 import { CLASSES } from '../../utilities/GameSystem/constants';
 import { ICharacter } from '../../types/models';
@@ -31,11 +31,11 @@ interface ICharacterFormProps {
   handleSubmitButtonLabel: string,
 }
 
-const CharacterForm = ({
+const CharacterForm: FC<ICharacterFormProps> = ({
   character,
   handleSubmit,
   handleSubmitButtonLabel
-}: ICharacterFormProps): ReactElement => {
+}) => {
   const [form, setForm] = useState<ICharacter>({
     ac: 0,
     acrobaticsProf: '',

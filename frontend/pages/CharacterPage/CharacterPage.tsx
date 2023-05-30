@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC } from 'react';
 import { AbilitySkills } from '../../components/AbilitySkills';
 import { AssociateWithTokenLink } from '../../components/AssociateWithTokenLink';
 import { calculateAbilityModifier } from '../../utilities/GameSystem/calculateAbilityModifier';
@@ -27,7 +27,7 @@ import { Token } from '../../components/Token';
 import { useAuth } from '../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 
-const CharacterPage = (): ReactNode => {
+const CharacterPage: FC = () => {
   const params = useParams();
 
   const authQuery = useAuth();
@@ -113,7 +113,7 @@ const CharacterPage = (): ReactNode => {
   const totalLevel = characterClassLevel + multiclassClassLevel;
   const proficiencyBonus = PROFICIENCY_BONUS_BY_LEVEL[totalLevel] ?? 0;
 
-  const getAssociatedCreaturesCard = (): ReactNode => {
+  const getAssociatedCreaturesCard = () => {
     if (!creatures?.length) return null;
 
     return (
@@ -137,7 +137,7 @@ const CharacterPage = (): ReactNode => {
     );
   };
 
-  const getAssociatedMagicItemsCard = (): ReactNode => {
+  const getAssociatedMagicItemsCard = () => {
     if (!magicItems?.length) return null;
 
     return (
@@ -165,7 +165,7 @@ const CharacterPage = (): ReactNode => {
     );
   };
 
-  const getCharacterAttacks = (): ReactNode => {
+  const getCharacterAttacks = () => {
     if (!characterAttacks?.length) return null;
 
     return (
@@ -225,7 +225,7 @@ const CharacterPage = (): ReactNode => {
     )
   };
 
-  const getCharacterBackstory = (): ReactNode => {
+  const getCharacterBackstory = () => {
     if (!backstory) return null;
 
     return (
@@ -236,7 +236,7 @@ const CharacterPage = (): ReactNode => {
     );
   };
 
-  const getCharacterFeatures = (): ReactNode => {
+  const getCharacterFeatures = () => {
     if (!characterFeatures?.length) return null;
 
     return (
@@ -259,7 +259,7 @@ const CharacterPage = (): ReactNode => {
     )
   };
 
-  const getCharacterInventory = (): ReactNode => {
+  const getCharacterInventory = () => {
     return (
       <>
         {
@@ -308,7 +308,7 @@ const CharacterPage = (): ReactNode => {
     );
   };
 
-  const getCharacterMiscStats = (): ReactNode => {
+  const getCharacterMiscStats = () => {
     return (
       <table>
         <thead>
@@ -337,7 +337,7 @@ const CharacterPage = (): ReactNode => {
     );
   };
 
-  const getCharacterResources = (): ReactNode => {
+  const getCharacterResources = () => {
     if (!characterFeatureResources?.length) return null;
 
     return (
@@ -364,7 +364,7 @@ const CharacterPage = (): ReactNode => {
     );
   };
 
-  const getOptionalProperty = (label: string, value: string | number): ReactNode => {
+  const getOptionalProperty = (label: string, value: string | number) => {
     if (value === null || value === undefined || value === '') return null;
     return <p><strong>{label}</strong> {value}</p>;
   };
@@ -440,7 +440,7 @@ const CharacterPage = (): ReactNode => {
             </div>
             <Token imageAltText="character portrait" imageUrl={imageUrl}/>
             <div>
-              <h1>{name}</h1>
+              <h2>{name}</h2>
               <p>{characterClassRow(character)}</p>
               {multiclassClass && <p>{characterMulticlassRow(character)}</p>}
               <p>{race} ( {subRace} ), {background}, {alignment}</p>

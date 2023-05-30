@@ -1,7 +1,7 @@
 
-import React, { ReactElement } from 'react';
+import React, { FC } from 'react';
 
-const CloseIcon = (): ReactElement => {
+const CloseIcon: FC = () => {
   return (
     <svg
       fill="currentColor"

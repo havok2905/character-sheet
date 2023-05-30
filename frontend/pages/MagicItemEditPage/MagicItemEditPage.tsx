@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC } from 'react';
 import { DeleteButton } from '../../components/DeleteButton';
 import {
   destroyMagicItem,
@@ -25,7 +25,7 @@ import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-const MagicItemEditPage = (): ReactNode => {
+const MagicItemEditPage: FC = () => {
   const params = useParams();
   const navigate = useNavigate();
 

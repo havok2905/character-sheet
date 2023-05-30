@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { IMagicItem } from '../../types/models';
 import { ItemCategoryTypes, ItemRarityTypes } from '../../utilities/GameSystem/enums';
 
@@ -8,11 +8,11 @@ interface IMagicItemFormProps {
   magicItem?: IMagicItem;
 }
 
-const MagicItemForm = ({
+const MagicItemForm: FC<IMagicItemFormProps> = ({
   handleSubmit,
   handleSubmitButtonLabel,
   magicItem
-}: IMagicItemFormProps): ReactElement => {
+}) => {
   const [attunementField, setAttunementField] = useState(false);
   const [categoryField, setCategoryField] = useState<ItemCategoryTypes>(ItemCategoryTypes.ARMOR);
   const [descriptionField, setDescriptionField] = useState('');

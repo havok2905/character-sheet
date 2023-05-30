@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { ICreature, ICreatureLegendaryAction } from '../../types/models';
 
 interface IAssociatedLegendaryActionsFormProps {
@@ -7,11 +7,11 @@ interface IAssociatedLegendaryActionsFormProps {
   handleSubmit: (legendaryActionsText: string, creatureLegendaryActions: ICreatureLegendaryAction[]) => void;
 }
 
-const AssociatedLegendaryActionsForm = ({
+const AssociatedLegendaryActionsForm: FC<IAssociatedLegendaryActionsFormProps> = ({
   buttonLabel,
   creature,
   handleSubmit
-}: IAssociatedLegendaryActionsFormProps): ReactElement => {
+}) => {
   const [newLegendaryActions, setNewLegendaryActions] = useState<ICreatureLegendaryAction[]>([]);
   const [legendaryActionsText, setLegendaryActionsText] = useState(creature.legendaryActionsText || '');
   const [updatedLegendaryActions, setUpdatedLegendaryActions] = useState<ICreatureLegendaryAction[]>(
@@ -30,7 +30,7 @@ const AssociatedLegendaryActionsForm = ({
     setNewLegendaryActions(updatedForm);
   };
 
-  const getLegendaryAction = (action: ICreatureLegendaryAction, index: number): ReactElement => {
+  const getLegendaryAction = (action: ICreatureLegendaryAction, index: number) => {
     const { _destroy, description, name } = action;
 
     return (
@@ -57,7 +57,7 @@ const AssociatedLegendaryActionsForm = ({
     );
   };
 
-  const getNewLegendaryAction = (action: ICreatureLegendaryAction, index: number): ReactElement => {
+  const getNewLegendaryAction = (action: ICreatureLegendaryAction, index: number) => {
     const { description, name } = action;
 
     return (

@@ -1,14 +1,9 @@
-import React, { ReactNode } from 'react';
-import { AbilitySkills } from '../../components/AbilitySkills';
-import { AssociateWithTokenLink } from '../../components/AssociateWithTokenLink';
+import React, { FC } from 'react';
 import { calculateAbilityModifier } from '../../utilities/GameSystem/calculateAbilityModifier';
 import { calculateSpellcastingModifier } from '../../utilities/GameSystem/calculateSpellcastingModifier';
 import { calculateSpellcastingSaveDc } from '../../utilities/GameSystem/calculateSpellcastingSaveDc';
 import { Card } from '../../components/Card';
-import {
-  CREATURE_EDIT_ROUTE,
-  MAGIC_ITEM_ROUTE
-} from '../../app';
+import { CREATURE_EDIT_ROUTE } from '../../app';
 import { GearIcon } from '../../components/Icons';
 import { generatePath, Link, useParams } from 'react-router-dom';
 import { getCreature } from '../../utilities/Api/Creatures';
@@ -25,7 +20,7 @@ import { Token } from '../../components/Token';
 import { useAuth } from '../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 
-const CreaturePage = (): ReactNode => {
+const CreaturePage: FC = () => {
 
   const params = useParams();
 
@@ -89,45 +84,17 @@ const CreaturePage = (): ReactNode => {
     strengthScore,
     wisdomScore
   } = creature;
-  const getOptionalProperty = (label: string, value: string | number): ReactNode => {
+  const getOptionalProperty = (label: string, value: string | number) => {
     if (value === null || value === undefined || value === '') return null;
     return <p><strong>{label}</strong> {value}</p>;
   };
-
-  const getAssociatedMagicItemsCard = (): ReactNode => {
-    if (!magicItems?.length) return null;
-
-    return (
-      <Card>
-        <h2>Magic Items</h2>
-        {
-          magicItems.map(item => {
-            const {
-              id,
-              imageUrl,
-              name
-            } = item;
-            
-            return (
-              <AssociateWithTokenLink
-                associationUrl={generatePath(MAGIC_ITEM_ROUTE, { id: id as string })}
-                imageAltText={`${name} token`}
-                imageUrl={imageUrl}
-                linkText={name}
-              />
-            );
-          })
-        }
-      </Card>
-    );
-  };
   
-  const getCreatureAbout = (): ReactNode => {
+  const getCreatureAbout = () => {
     if (!personalityTraits && !ideals && !bonds && !flaws && !description) return null;
 
     return (
       <Card>
-        <h2>About</h2>
+        <h3>About</h3>
         {getOptionalProperty('Personality Traits', personalityTraits)}
         {getOptionalProperty('Ideals', ideals)}
         {getOptionalProperty('Bonds', bonds)}
@@ -137,12 +104,12 @@ const CreaturePage = (): ReactNode => {
     );
   };
 
-  const getCreatureActions = (): ReactNode => {
+  const getCreatureActions = () => {
     if (!creatureActions?.length) return null;
 
     return (
-      <Card>
-        <h2>Actions</h2>
+      <>
+        <h3>Actions</h3>
         {
           creatureActions.map(action => {
             const {
@@ -180,27 +147,27 @@ const CreaturePage = (): ReactNode => {
             );
           })
         }
-      </Card>
+      </>
     );
   };
 
-  const getCreatureBackstory = (): ReactNode => {
+  const getCreatureBackstory = () => {
     if (!backstory) return null;
 
     return (
       <Card>
-        <h2>Backstory</h2>
+        <h3>Backstory</h3>
         <NewLineText text={backstory} />
       </Card>
     );
   };
 
-  const getCreatureFeatures = (): ReactNode => {
+  const getCreatureFeatures = () => {
     if (!creatureFeatures?.length) return null;
 
     return (
-      <Card>
-        <h2>Features</h2>
+      <>
+        <h3>Features</h3>
         {
           creatureFeatures.map(feature => {
             const { description, name } = feature;
@@ -212,16 +179,16 @@ const CreaturePage = (): ReactNode => {
             );
           })
         }
-      </Card>
+      </>
     )
   };
 
-  const getCreatureLairActions = (): ReactNode => {
+  const getCreatureLairActions = () => {
     if (!creatureLairActions?.length) return null;
 
     return (
-      <Card>
-        <h2>Lair Actions</h2>
+      <>
+        <h3>Lair Actions</h3>
         <p>{lairActionsText}</p>
         <ul>
           {creatureLairActions.map(action => (
@@ -230,16 +197,16 @@ const CreaturePage = (): ReactNode => {
             </li>
           ))}
         </ul>
-      </Card>
+      </>
     );
   };
 
-  const getCreatureLegendaryActions = (): ReactNode => {
+  const getCreatureLegendaryActions = () => {
     if (!creatureLegendaryActions?.length) return null;
 
     return (
-      <Card>
-        <h2>Legendary Actions</h2>
+      <>
+        <h3>Legendary Actions</h3>
         <p>{legendaryActionsText}</p>
         {
           creatureLegendaryActions.map(action => {
@@ -252,39 +219,16 @@ const CreaturePage = (): ReactNode => {
             );
           })
         }
-      </Card>
+      </>
     );
   };
 
-  const getCreatureMiscStats = (): ReactNode => {
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>CR</th>
-            <th>AC</th>
-            <th>HP</th>
-            <th>Speed</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{cr}</td>
-            <td>{ac} {armor && ` ( ${armor} )`}</td>
-            <td>{hp}</td>
-            <td>{speed}</td>
-          </tr>
-        </tbody>
-      </table>
-    );
-  };
-
-  const getCreatureRegionalEffects = (): ReactNode => {
+  const getCreatureRegionalEffects = () => {
     if (!creatureRegionalEffects?.length) return null;
 
     return (
-      <Card>
-        <h2>Regional Effects</h2>
+      <>
+        <h3>Regional Effects</h3>
         <p>{regionalEffectsText}</p>
         <ul>
           {creatureRegionalEffects.map(effect => (
@@ -293,17 +237,6 @@ const CreaturePage = (): ReactNode => {
             </li>
           ))}
         </ul>
-      </Card>
-    );
-  };
-
-  const getCreatureSenses = () => {
-    if (!senses) return null;
-    
-    return (
-      <>
-        <h2>Senses</h2>
-        {senses}
       </>
     );
   };
@@ -327,11 +260,11 @@ const CreaturePage = (): ReactNode => {
 
     return (
       <Card>
-        <h2>Spellbook</h2>
-        {getOptionalProperty('Level', spellcastingLevel)}
-        {getOptionalProperty('Ability', spellcastingAbility)}
-        {getOptionalProperty('Bonus', calculateSpellcastingModifier(abilityMod, proficiencyBonus))}
-        {getOptionalProperty('Save DC', calculateSpellcastingSaveDc(abilityMod, proficiencyBonus))}
+        <h3>Spellbook</h3>
+        {getOptionalProperty('Spellcasting Level: ', spellcastingLevel)}
+        {getOptionalProperty('Spellcasting Ability: ', spellcastingAbility)}
+        {getOptionalProperty('Spellcasting Bonus: ', calculateSpellcastingModifier(abilityMod, proficiencyBonus))}
+        {getOptionalProperty('Spellcasting Save DC: ', calculateSpellcastingSaveDc(abilityMod, proficiencyBonus))}
         {
           !!spells?.length && (
             <>
@@ -369,38 +302,38 @@ const CreaturePage = (): ReactNode => {
               }
             </div>
             <Token imageAltText="creature portrait" imageUrl={imageUrl}/>
-            <div>
-              <h1>{name}</h1>
-              <p>{size} {creatureType}, {alignment}</p>
-            </div>
           </div>
         </div>
         <div className="column">
-          {getCreatureMiscStats()}
-          <StatBlock entity={creature} />
-          <AbilitySkills entity={creature}/>
           <Card>
-            {getCreatureSenses()}
-            <h2>Proficiencies</h2>
+            <h2>{name}</h2>
+            <p>{size} {creatureType}, {alignment}</p>
+            <p><strong>Armor Class: </strong>{ac} {armor && ` ( ${armor} )`}</p>
+            <p><strong>Hit Points: </strong>{hp}</p>
+            <p><strong>Speed: </strong>{speed}</p>
+            <p><strong>Saving Throws: </strong></p>
+            <p><strong>Skills: </strong></p>
             {getOptionalProperty('Condition Immunities', conditionImmunities)}
             {getOptionalProperty('Condition Resistences', conditionResistances)}
             {getOptionalProperty('Condition Vulnerabilities', conditionVulnerabilities)}
             {getOptionalProperty('Damage Immunities', damageImmunities)}
             {getOptionalProperty('Damage Resistences', damageResistances)}
             {getOptionalProperty('Damage Vulnerabilities', damageVulnerabilities)}
+            {getOptionalProperty('Senses', senses)}
             {getOptionalProperty('Languages', languages)}
+            <p><strong>Challenge: </strong>{cr}</p>
+            {getCreatureFeatures()}
+            {getCreatureActions()}
+            {getCreatureLegendaryActions()}
+            {getCreatureLairActions()}
+            {getCreatureRegionalEffects()}
           </Card>
-          {getCreatureAbout()}
-          {getCreatureBackstory()}
-          {getCreatureLairActions()}
-          {getCreatureRegionalEffects()}
+          <StatBlock entity={creature} />
+          {getSpellbook()}
         </div>
         <div className="column">
-          {getCreatureFeatures()}
-          {getCreatureActions()}
-          {getCreatureLegendaryActions()}
-          {getAssociatedMagicItemsCard()} 
-          {getSpellbook()}
+          {getCreatureAbout()}
+          {getCreatureBackstory()}
         </div>
       </div>
     </>

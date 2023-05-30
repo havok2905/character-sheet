@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { ISpell } from '../../types/models';
 import { SpellSchoolsTypes } from '../../utilities/GameSystem/enums';
 
@@ -8,11 +8,11 @@ interface ISpellFormProps {
   spell?: ISpell;
 }
 
-const SpellForm = ({
+const SpellForm: FC<ISpellFormProps> = ({
   handleSubmit,
   handleSubmitButtonLabel,
   spell
-}: ISpellFormProps): ReactElement => {
+}) => {
   const [castingTimeField, setCastingTimeField] = useState('');
   const [componentsField, setComponentsField] = useState('');
   const [concentrationField, setConcentrationField] = useState(false);
