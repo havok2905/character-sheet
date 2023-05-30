@@ -1,52 +1,79 @@
+// COLORS
+
+$color-black-2: #222222;
+
+$color-blue-0: #092f77;
+$color-blue-1: #2252ab;
+$color-blue-2: #5486e3;
+
+$color-green-0: #205d22;
+$color-green-1: #4a914c;
+$color-green-2: #87c589;
+
+$color-grey-0: #666666;
+$color-grey-1: #888888;
+$color-grey-2: #aaaaaa;
+
+$color-red-0: #740b0b;
+$color-red-1: #9e2525;
+$color-red-2: #ca4949;
+
+$color-white-0: #ffffff;
+$color-white-1: #eeeeee;
+$color-white-2: #dddddd;
+$color-white-3: #cccccc;
+
+$color-back-background: $color-white-1;
+
+$color-button-background: $color-grey-1;
+$color-button-background-hover: $color-grey-2;
+$color-button-border: $color-grey-0;
+$color-button-text: $color-white-0;
+$color-button-text-hover: $color-white-0;
+
+$color-button-constructive-background: $color-green-1;
+$color-button-constructive-background-hover: $color-green-2;
+$color-button-constructive-border: $color-green-0;
+$color-button-constructive-text: $color-white-0;
+$color-button-constructive-text-hover: $color-white-0;
+
+$color-button-destructive-background: $color-red-1;
+$color-button-destructive-background-hover: $color-red-2;
+$color-button-destructive-border: $color-red-0;
+$color-button-destructive-text: $color-white-0;
+$color-button-destructive-text-hover: $color-white-0;
+
+$color-button-primary-background: $color-blue-1;
+$color-button-primary-background-hover: $color-blue-2;
+$color-button-primary-border: $color-blue-0;
+$color-button-primary-text: $color-white-0;
+$color-button-primary-text-hover: $color-white-0;
+
+$color-card-background: $color-white-0;
+
+$color-field-background: $color-white-0;
+$color-field-border: $color-white-3;
+
+$color-footer-background: $color-black-2;
+$color-footer-text: $color-white-0;
+
+$color-heading: $color-red-0;
+
+$color-navbar-background: $color-black-2;
+$color-navbar-text: $color-white-0;
+
+$color-proficient: $color-green-2;
+
+$color-text: $color-black-2;
+
 // BORDER
 
-$border-standard: 1px #dddddd solid;
+$border-standard: 1px $color-white-2 solid;
 
 // BORDER RADIUS
 
 $border-radius: 8px;
 $border-radius-circle: 50%;
-
-// COLORS
-
-$color-back-background: #eeeeee;
-
-$color-button-background-hover: #ffffff;
-$color-button-border: #ffffff;
-$color-button-text: #ffffff;
-$color-button-text-hover: #ffffff;
-
-$color-button-constructive-background-hover: #00a59a;
-$color-button-constructive-border: #00a59a;
-$color-button-constructive-text: #00a59a;
-$color-button-constructive-text-hover: #ffffff;
-
-$color-button-destructive-background-hover: #740b0b;
-$color-button-destructive-border: #740b0b;
-$color-button-destructive-text: #740b0b;
-$color-button-destructive-text-hover: #ffffff;
-
-$color-button-primary-background-hover: #4da1c0;
-$color-button-primary-border: #4da1c0;
-$color-button-primary-text: #4da1c0;
-$color-button-primary-text-hover: #ffffff;
-
-$color-card-background: #ffffff;
-
-$color-field-background: #ffffff;
-$color-field-border: #cccccc;
-
-$color-footer-background: #222222;
-$color-footer-text: #ffffff;
-
-$color-heading: #740b0b;
-
-$color-navbar-background: #222222;
-$color-navbar-text: #ffffff;
-
-$color-proficient: #00a59a;
-
-$color-text: #222222;
 
 // FONT FAMILIES
 

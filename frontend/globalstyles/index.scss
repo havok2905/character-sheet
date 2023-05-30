@@ -1,8 +1,8 @@
 @import './variables';
 
 .button {
-  background: transparent;
-  border: solid 2px $color-button-border;
+  background-color: $color-button-background;
+  border: solid 1px $color-button-border;
   border-radius: $border-radius;
   color: $color-button-text;
   cursor: pointer;
@@ -21,7 +21,8 @@
   }
 
   &.button-constructive {
-    border: solid 2px $color-button-constructive-border;
+    background-color: $color-button-constructive-background;
+    border: solid 1px $color-button-constructive-border;
     color: $color-button-constructive-text;
 
     &:active,
@@ -33,7 +34,8 @@
   }
 
   &.button-destructive {
-    border: solid 2px $color-button-destructive-border;
+    background-color: $color-button-destructive-background;
+    border: solid 1px $color-button-destructive-border;
     color: $color-button-destructive-text;
 
     &:active,
@@ -45,7 +47,8 @@
   }
 
   &.button-primary {
-    border: solid 2px $color-button-primary-border;
+    background-color: $color-button-primary-background;
+    border: solid 1px $color-button-primary-border;
     color: $color-button-primary-text;
 
     &:active,
