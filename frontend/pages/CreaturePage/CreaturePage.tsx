@@ -29,6 +29,7 @@ import {
   SURVIVAL,
   WIS
 } from '../../utilities/GameSystem/constants';
+import { Action } from '../../components/Action';
 import { calculateAbilityModifier } from '../../utilities/GameSystem/calculateAbilityModifier';
 import { calculateSkillModifier } from '../../utilities/GameSystem/calculateSkillModifier';
 import { calculateSpellcastingModifier } from '../../utilities/GameSystem/calculateSpellcastingModifier';
@@ -142,16 +143,39 @@ const CreaturePage: FC = () => {
   };
   
   const getCreatureAbout = () => {
-    if (!personalityTraits && !ideals && !bonds && !flaws && !description) return null;
+    const hasTraits = personalityTraits && ideals && bonds && flaws;
+
+    if (!hasTraits && !description && !backstory) return null;
 
     return (
       <Card>
         <h3>About</h3>
-        {getOptionalProperty('Personality Traits', personalityTraits)}
-        {getOptionalProperty('Ideals', ideals)}
-        {getOptionalProperty('Bonds', bonds)}
-        {getOptionalProperty('Flaws', flaws)}
-        {description && <NewLineText text={description}/>}
+        {
+          hasTraits && (
+            <>
+              {getOptionalProperty('Personality Traits', personalityTraits)}
+              {getOptionalProperty('Ideals', ideals)}
+              {getOptionalProperty('Bonds', bonds)}
+              {getOptionalProperty('Flaws', flaws)}
+            </>
+          )
+        }
+        {
+          description && (
+            <>
+              <h4>Description</h4>
+              <NewLineText text={description}/>
+            </>
+          )
+        }
+        {
+          backstory && (
+            <>
+              <h4>Backstory</h4>
+              <NewLineText text={backstory}/>
+            </>
+          )
+        }
       </Card>
     );
   };
@@ -164,53 +188,16 @@ const CreaturePage: FC = () => {
         <h3>Actions</h3>
         {
           creatureActions.map(action => {
-            const {
-              actionCombatType,
-              actionType,
-              attackBonus,
-              damageDiceRoll,
-              damageTwoDiceRoll,
-              damageTwoType,
-              damageType,
-              description,
-              name,
-              range,
-              savingThrowDc,
-              savingThrowType
-            } = action;
+            const { actionType, name } = action;
 
             return (
               <ToggleItem heading={`${name}: ${actionType}`}>
-                {actionCombatType && <p>{actionCombatType}</p>}
-                {getOptionalProperty('To Hit', attackBonus)}
-                {getOptionalProperty('Damage', damageDiceRoll && damageType ? `${damageDiceRoll} ${damageType}` : '')}
-                {getOptionalProperty('Damage Two', damageTwoDiceRoll && damageTwoType ? `${damageTwoDiceRoll} ${damageTwoType}` : '')}
-                {getOptionalProperty('Range', range)}
-                {getOptionalProperty('Save DC', savingThrowDc && savingThrowType ? `DC${savingThrowDc} ${savingThrowType}` : '')}
-                {
-                  description && (
-                    <>
-                      <p><strong>Description:</strong></p>
-                      <NewLineText text={description}/>
-                    </>
-                  )
-                }
+                <Action action={action}/>
               </ToggleItem>
             );
           })
         }
       </>
-    );
-  };
-
-  const getCreatureBackstory = () => {
-    if (!backstory) return null;
-
-    return (
-      <Card>
-        <h3>Backstory</h3>
-        <NewLineText text={backstory} />
-      </Card>
     );
   };
 
@@ -501,7 +488,6 @@ const CreaturePage: FC = () => {
         </div>
         <div className="column">
           {getCreatureAbout()}
-          {getCreatureBackstory()}
         </div>
       </div>
     </>

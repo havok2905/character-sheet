@@ -12,8 +12,8 @@
   }
 }
 
-.toggle-item:not(:last-of-type) {
-  border-bottom: $border-standard;
+.toggle-item + .toggle-item {
+  border-top: $border-standard;
 }
 
 .toggle-header {

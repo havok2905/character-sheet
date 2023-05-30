@@ -99,8 +99,8 @@
   padding: $spacing-small 0;
 }
 
-.item:not(:last-child) {
-  border-bottom: $border-standard;
+.item + .item{
+  border-top: $border-standard;
 }
 
 body {

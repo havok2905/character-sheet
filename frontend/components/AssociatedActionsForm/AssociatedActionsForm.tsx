@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { ActionTypes } from '../../utilities/GameSystem/enums';
+import { ActionCombatTypes, ActionTypes } from '../../utilities/GameSystem/enums';
 import { ICreature, ICreatureAction } from '../../types/models';
 
 interface IAssociatedActionsFormProps {
@@ -70,10 +70,16 @@ const AssociatedActionsForm: FC<IAssociatedActionsFormProps> = ({
           <option value={ActionTypes.REACTION}>{ActionTypes.REACTION}</option>
         </select>
         <label>Action Combat Type</label>
-        <input 
+        <select
           onChange={e => func(index, 'actionCombatType', e.target.value)}
-          type="text"
-          value={actionCombatType}/>
+          value={actionCombatType}>
+          <option></option>
+          <option value={ActionCombatTypes.MELEE_SPELL_ATTACK}>{ActionCombatTypes.MELEE_SPELL_ATTACK}</option>
+          <option value={ActionCombatTypes.MELEE_WEAPON_ATTACK}>{ActionCombatTypes.MELEE_WEAPON_ATTACK}</option>
+          <option value={ActionCombatTypes.RANGED_OR_MELEE_WEAPON_ATTACK}>{ActionCombatTypes.RANGED_OR_MELEE_WEAPON_ATTACK}</option>
+          <option value={ActionCombatTypes.RANGED_SPELL_ATTACK}>{ActionCombatTypes.RANGED_SPELL_ATTACK}</option>
+          <option value={ActionCombatTypes.RANGED_WEAPON_ATTACK}>{ActionCombatTypes.RANGED_WEAPON_ATTACK}</option>
+        </select>
         <label>Range</label>
         <input 
           onChange={e => func(index, 'range', e.target.value)}

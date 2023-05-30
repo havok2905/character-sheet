@@ -1,3 +1,17 @@
+export enum ActionTypes {
+  ACTION = 'Action',
+  BONUS_ACTION = 'Bonus Action',
+  REACTION = 'Reaction'
+}
+
+export enum ActionCombatTypes {
+  MELEE_SPELL_ATTACK = 'Melee Spell Attack',
+  MELEE_WEAPON_ATTACK = 'Melee Weapon Attack',
+  RANGED_OR_MELEE_WEAPON_ATTACK = 'Ranged or Melee Weapon Attack',
+  RANGED_SPELL_ATTACK = 'Ranged Spell Attack',
+  RANGED_WEAPON_ATTACK = 'Ranged Weapon Attack'
+}
+
 export enum AlignmentTypes {
   CHAOTIC_GOOD = 'Chaotic Good',
   NEUTRAL_GOOD = 'Neutral Good',
@@ -9,12 +23,6 @@ export enum AlignmentTypes {
   NEUTRAL_EVIL = 'Neutral Evil',
   LAWFUL_EVIL = 'Lawful Evil',
   UNALIGNED = 'Unaligned'
-}
-
-export enum ActionTypes {
-  ACTION = 'Action',
-  BONUS_ACTION = 'Bonus Action',
-  REACTION = 'Reaction'
 }
 
 export enum CreatureCategoryTypes {

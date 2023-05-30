@@ -1,4 +1,6 @@
 import {
+  ActionCombatTypes,
+  ActionTypes,
   AlignmentTypes,
   CreatureCategoryTypes,
   ItemCategoryTypes,
@@ -171,14 +173,14 @@ interface ICharacter {
 
 interface ICreatureAction {
   _destroy?: boolean;
-  description: string;
-  actionType: string;
-  actionCombatType: string;
+  actionType?: ActionTypes | '';
+  actionCombatType?: ActionCombatTypes | '';
   attackBonus: number;
   damageDiceRoll: string;
   damageTwoDiceRoll: string;
   damageTwoType: string;
   damageType: string;
+  description: string;
   id?: string;
   name: string;
   range: string;
