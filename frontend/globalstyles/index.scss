@@ -20,39 +20,39 @@
     color: $color-back-background;
   }
 
-  &.button-blue {
-    border: solid 2px $blue;
-    color: $blue;
+  &.button-constructive {
+    border: solid 2px $color-button-constructive-border;
+    color: $color-button-constructive-text;
 
     &:active,
     &:focus,
     &:hover {
-      background-color: $blue;
-      color: $color-button-text-hover
+      background-color: $color-button-constructive-background-hover;
+      color: $color-button-constructive-text-hover;
     }
   }
 
-  &.button-green {
-    border: solid 2px $green;
-    color: $green;
+  &.button-destructive {
+    border: solid 2px $color-button-destructive-border;
+    color: $color-button-destructive-text;
 
     &:active,
     &:focus,
     &:hover {
-      background-color: $green;
-      color: $color-button-text-hover;
+      background-color: $color-button-destructive-background-hover;
+      color: $color-button-destructive-text-hover;
     }
   }
 
-  &.button-red {
-    border: solid 2px $red;
-    color: $red;
+  &.button-primary {
+    border: solid 2px $color-button-primary-border;
+    color: $color-button-primary-text;
 
     &:active,
     &:focus,
     &:hover {
-      background-color: $red;
-      color: $color-button-text-hover;
+      background-color: $color-button-primary-background-hover;
+      color: $color-button-primary-text-hover;
     }
   }
 }

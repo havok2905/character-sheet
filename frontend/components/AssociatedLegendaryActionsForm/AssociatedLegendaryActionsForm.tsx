@@ -73,7 +73,7 @@ const AssociatedLegendaryActionsForm: FC<IAssociatedLegendaryActionsFormProps> =
           value={description}>  
         </textarea>
         <button
-          className="button button-red"
+          className="button button-destructive"
           onClick={e => {
             e.preventDefault();
             setNewLegendaryActions(newLegendaryActions.filter((_action, i) => i !== index ))
@@ -112,7 +112,7 @@ const AssociatedLegendaryActionsForm: FC<IAssociatedLegendaryActionsFormProps> =
         {newLegendaryActions.map(getNewLegendaryAction)}
         <fieldset>
           <button
-            className="button button-green"
+            className="button button-constructive"
             type="submit">
             {buttonLabel}
           </button>

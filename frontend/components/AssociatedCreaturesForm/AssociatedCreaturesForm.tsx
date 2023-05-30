@@ -53,7 +53,7 @@ const AssociatedCreaturesForm: FC<IAssociatedCreaturesForm> = ({
         </fieldset>
       </form>
       <button
-        className="button button-green"
+        className="button button-constructive"
         onClick={() => handleSubmit(updatedCreatureIds)}>
         {buttonLabel}
       </button>

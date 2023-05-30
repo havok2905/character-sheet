@@ -122,7 +122,7 @@ const AssociatedAttacksForm: FC<IAssociatedAttacksFormProps> = ({
         {
           isNewField ? (
             <button
-              className="button button-red"
+              className="button button-destructive"
               onClick={e => {
                 e.preventDefault();
                 setNewAttacks(newAttacks.filter((_attack, i) => i !== index ))
@@ -178,7 +178,7 @@ const AssociatedAttacksForm: FC<IAssociatedAttacksFormProps> = ({
         {newAttacks.map((attack, index) => getAttack(attack, index, true))}
         <fieldset>
           <button
-            className="button button-green"
+            className="button button-constructive"
             type="submit">
             {buttonLabel}
           </button>

@@ -31,7 +31,7 @@ const MagicItemsPage: FC = () => {
           {
             isSuccess && (
               <Link
-                className="button button-blue"
+                className="button button-primary"
                 to={MAGIC_ITEM_CREATE_ROUTE}>
                 Create
               </Link>

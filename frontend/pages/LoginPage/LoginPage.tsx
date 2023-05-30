@@ -69,7 +69,7 @@ const LoginPage: FC = () => {
               value={password}/>
           </fieldset>
           <fieldset>
-            <button className="button button-green">
+            <button className="button button-constructive">
               Log in
             </button>
           </fieldset>

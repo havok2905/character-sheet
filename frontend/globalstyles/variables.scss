@@ -16,6 +16,21 @@ $color-button-border: #ffffff;
 $color-button-text: #ffffff;
 $color-button-text-hover: #ffffff;
 
+$color-button-constructive-background-hover: #00a59a;
+$color-button-constructive-border: #00a59a;
+$color-button-constructive-text: #00a59a;
+$color-button-constructive-text-hover: #ffffff;
+
+$color-button-destructive-background-hover: #740b0b;
+$color-button-destructive-border: #740b0b;
+$color-button-destructive-text: #740b0b;
+$color-button-destructive-text-hover: #ffffff;
+
+$color-button-primary-background-hover: #4da1c0;
+$color-button-primary-border: #4da1c0;
+$color-button-primary-text: #4da1c0;
+$color-button-primary-text-hover: #ffffff;
+
 $color-card-background: #ffffff;
 
 $color-field-background: #ffffff;
@@ -28,6 +43,8 @@ $color-heading: #740b0b;
 
 $color-navbar-background: #222222;
 $color-navbar-text: #ffffff;
+
+$color-proficient: #00a59a;
 
 $color-text: #222222;
 
@@ -62,10 +79,3 @@ $spacing-standard: 20px;
 // TOKEN
 $token-size-small: 100px;
 $token-size-standard: 200px;
-
-//OLD
-// COLORS
-
-$blue: #4da1c0;
-$green: #00a59a;
-$red: #bf4d4c;

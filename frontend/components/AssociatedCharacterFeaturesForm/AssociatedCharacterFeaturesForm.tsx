@@ -58,7 +58,7 @@ const AssociatedCharacterFeaturesForm: FC<IAssociatedCharacterFeaturesFormProps>
         {
           isNewField ? (
             <button
-              className="button button-red"
+              className="button button-destructive"
               onClick={e => {
                 e.preventDefault();
                 setNewFeatures(newFeatures.filter((_feature, i) => i !== index ))
@@ -100,7 +100,7 @@ const AssociatedCharacterFeaturesForm: FC<IAssociatedCharacterFeaturesFormProps>
         {newFeatures.map((feature, index) => getFeature(feature, index, true))}
         <fieldset>
           <button
-            className="button button-green"
+            className="button button-constructive"
             type="submit">
             {buttonLabel}
           </button>

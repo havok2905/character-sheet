@@ -53,7 +53,7 @@ const AssociatedMagicItemsForm: FC<IAssociatedMagicItemsFormProps> = ({
         </fieldset>
       </form>
       <button
-        className="button button-green"
+        className="button button-constructive"
         onClick={() => handleSubmit(updatedMagicItemIds)}>
         {buttonLabel}
       </button>

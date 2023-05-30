@@ -84,7 +84,7 @@ const AssociatedSpellsForm: FC<IAssociatedSpellsFormProps> = ({
         </fieldset>
       </form>
       <button
-        className="button button-green"
+        className="button button-constructive"
         onClick={() => handleSubmit(updatedSpellIds)}>
         {buttonLabel}
       </button>

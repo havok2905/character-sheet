@@ -53,7 +53,7 @@ const AssociatedInventoryForm: FC<IAssociatedInventoryFormProps> = ({
         {
           isNewField ? (
             <button
-              className="button button-red"
+              className="button button-destructive"
               onClick={e => {
                 e.preventDefault();
                 setNewItems(newItems.filter((_item, i) => i !== index ))
@@ -95,7 +95,7 @@ const AssociatedInventoryForm: FC<IAssociatedInventoryFormProps> = ({
         {newItems.map((item, index) => getItem(item, index, true))}
         <fieldset>
           <button
-            className="button button-green"
+            className="button button-constructive"
             type="submit">
             {buttonLabel}
           </button>

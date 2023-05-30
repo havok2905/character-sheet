@@ -63,7 +63,7 @@ const AssociatedLairActionsForm: FC<IAssociatedLairActionsFormProps> = ({
           value={description}>  
         </textarea>
         <button
-          className="button button-red"
+          className="button button-destructive"
           onClick={e => {
             e.preventDefault();
             setNewLairActions(newLairActions.filter((_action, i) => i !== index ))
@@ -102,7 +102,7 @@ const AssociatedLairActionsForm: FC<IAssociatedLairActionsFormProps> = ({
         {newLairActions.map(getNewLairAction)}
         <fieldset>
           <button
-            className="button button-green"
+            className="button button-constructive"
             type="submit">
             {buttonLabel}
           </button>

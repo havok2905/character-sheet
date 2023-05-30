@@ -35,7 +35,7 @@ const CharactersPage: FC = () => {
           {
             authQuery.isSuccess && (
               <Link
-                className="button button-blue"
+                className="button button-primary"
                 to={CHARACTER_CREATE_ROUTE}>
                 Create
               </Link>

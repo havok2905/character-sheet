@@ -128,7 +128,7 @@ const AssociatedActionsForm: FC<IAssociatedActionsFormProps> = ({
         {
           isNewField ? (
             <button
-              className="button button-red"
+              className="button button-destructive"
               onClick={e => {
                 e.preventDefault();
                 setNewActions(newActions.filter((_action, i) => i !== index ))
@@ -182,7 +182,7 @@ const AssociatedActionsForm: FC<IAssociatedActionsFormProps> = ({
         </button>
         {newActions.map((action, index) => getAction(action, index, true))}
         <fieldset>
-          <button className="button button-green" type="submit">
+          <button className="button button-constructive" type="submit">
             {buttonLabel}
           </button>
         </fieldset>

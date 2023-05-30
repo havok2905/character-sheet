@@ -690,7 +690,7 @@ const CharacterForm: FC<ICharacterFormProps> = ({
             <input onChange={e => handleFormChange('languages', e.target.value)} type="text" value={languages}/>
           </fieldset>
           <fieldset>
-            <button className="button button-green">
+            <button className="button button-constructive">
               {handleSubmitButtonLabel}
             </button>
           </fieldset>

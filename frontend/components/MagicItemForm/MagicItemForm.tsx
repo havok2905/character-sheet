@@ -131,7 +131,7 @@ const MagicItemForm: FC<IMagicItemFormProps> = ({
         </textarea>
       </fieldset>
       <fieldset>
-        <button className="button button-green">
+        <button className="button button-constructive">
           {handleSubmitButtonLabel}
         </button>
       </fieldset>

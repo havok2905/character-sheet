@@ -32,7 +32,7 @@ const SpellsPage: FC = () => {
           {
             isSuccess && (
               <Link
-                className="button button-blue"
+                className="button button-primary"
                 to={SPELL_CREATE_ROUTE}>
                 Create
               </Link>

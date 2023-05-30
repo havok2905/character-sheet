@@ -15,7 +15,7 @@ const DeleteButton: FC<IDeleteButtonProps> = ({
 
   return (
     <>
-      <button className="button button-red" onClick={() => setIsOpen(true)}>
+      <button className="button button-destructive" onClick={() => setIsOpen(true)}>
         {buttonText}
       </button>
       {
@@ -24,7 +24,7 @@ const DeleteButton: FC<IDeleteButtonProps> = ({
             onCloseModal={() => setIsOpen(false)}
             onCloseModalOverlay={() => setIsOpen(false)}>
             <h2>Delete this item?</h2>
-            <button className="button button-red" onClick={handleDelete}>Confirm</button>
+            <button className="button button-destructive" onClick={handleDelete}>Confirm</button>
             <button className="button" onClick={() => setIsOpen(false)}>Cancel</button>
           </Modal>
         )

@@ -72,7 +72,7 @@ const AssociatedCreatureFeaturesForm: FC<IAssociatedCreatureFeaturesFormProps> =
           value={description}>  
         </textarea>
         <button
-          className="button button-red"
+          className="button button-destructive"
           onClick={e => {
             e.preventDefault();
             setNewFeatures(newFeatures.filter((_feature, i) => i !== index ))
@@ -103,7 +103,7 @@ const AssociatedCreatureFeaturesForm: FC<IAssociatedCreatureFeaturesFormProps> =
         {newFeatures.map(getNewFeature)}
         <fieldset>
           <button
-            className="button button-green"
+            className="button button-constructive"
             type="submit">
             {buttonLabel}
           </button>

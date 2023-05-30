@@ -63,7 +63,7 @@ const AssociatedRegionalEffectsForm: FC<IAssociatedRegionalEffectsFormProps> = (
           value={description}>  
         </textarea>
         <button
-          className="button button-red"
+          className="button button-destructive"
           onClick={e => {
             e.preventDefault();
             setNewRegionalEffects(newRegionalEffects.filter((_effect, i) => i !== index ))
@@ -102,7 +102,7 @@ const AssociatedRegionalEffectsForm: FC<IAssociatedRegionalEffectsFormProps> = (
         {newRegionalEffects.map(getNewRegionalEffect)}
         <fieldset>
           <button
-            className="button button-green"
+            className="button button-constructive"
             type="submit">
             {buttonLabel}
           </button>

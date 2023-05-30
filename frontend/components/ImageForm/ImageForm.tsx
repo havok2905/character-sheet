@@ -38,7 +38,7 @@ const ImageForm: FC<IImageFormProps> = ({
           ref={imageFormRef}
           type="file" />
       </div>
-      <button className="button button-green">
+      <button className="button button-constructive">
         {buttonLabel}
       </button>
     </form>

@@ -40,7 +40,7 @@ const Navbar = ({
               <li><Link to={`${USERS_ROUTE}`}>Users</Link></li>
               <li>
                 <button
-                  className="button button-red"
+                  className="button button-destructive"
                   onClick={clearAppToken}>
                   Log out
                 </button>

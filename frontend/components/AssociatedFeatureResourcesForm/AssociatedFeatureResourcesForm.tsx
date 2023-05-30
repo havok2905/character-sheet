@@ -53,7 +53,7 @@ const AssociatedFeatureResourcesForm: FC<IAssociatedFeatureResourcesFormProps> =
         {
           isNewField ? (
             <button
-              className="button button-red"
+              className="button button-destructive"
               onClick={e => {
                 e.preventDefault();
                 setNewFeatureResources(newFeatureResources.filter((_featureResource, i) => i !== index ))
@@ -95,7 +95,7 @@ const AssociatedFeatureResourcesForm: FC<IAssociatedFeatureResourcesFormProps> =
         {newFeatureResources.map((featureResource, index) => getFeatureResource(featureResource, index, true))}
         <fieldset>
           <button
-            className="button button-green"
+            className="button button-constructive"
             type="submit">
             {buttonLabel}
           </button>

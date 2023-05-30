@@ -31,7 +31,7 @@ const CreaturesPage: FC = () => {
           {
             authQuery.isSuccess && (
               <Link
-                className="button button-blue"
+                className="button button-primary"
                 to={CREATURE_CREATE_ROUTE}>
                 Create
               </Link>
