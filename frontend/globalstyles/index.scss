@@ -167,7 +167,8 @@ fieldset {
   border: none;
   display: flex;
   flex-direction: column;
-  margin-bottom: $spacing-standard;
+  margin: 0 0 $spacing-standard 0;
+  padding: 0;
 }
 
 footer {
@@ -191,11 +192,11 @@ footer {
 
 /* stylelint-disable-next-line string-quotes */
 input[type="number"], input[type="password"], input[type="text"], select, textarea {
-  background-color: $color-back-background;
-  border: solid $color-back-background 1px;
+  background-color: $color-field-background;
+  border: solid $color-field-border 1px;
   box-shadow: $shadow-field;
   margin-bottom: $spacing-small;
-  padding: $spacing-small;
+  padding: $spacing-standard;
 }
 
 nav {
@@ -244,7 +245,7 @@ table {
   border-collapse: collapse;
   border-radius: $border-radius;
   box-shadow: $shadow-base;
-  margin: $spacing-standard 0;
+  margin: 0 0 $spacing-standard 0;
   width: 100%;
 
   td {

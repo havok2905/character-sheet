@@ -1,3 +1,7 @@
+// BORDER
+
+$border-standard: 1px #dddddd solid;
+
 // BORDER RADIUS
 
 $border-radius: 8px;
@@ -13,6 +17,9 @@ $color-button-text: #ffffff;
 $color-button-text-hover: #ffffff;
 
 $color-card-background: #ffffff;
+
+$color-field-background: #ffffff;
+$color-field-border: #cccccc;
 
 $color-footer-background: #222222;
 $color-footer-text: #ffffff;
@@ -40,7 +47,7 @@ $font-size-heading-four: 18px;
 // SHADOWS
 
 $shadow-base: 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
-$shadow-field: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
+$shadow-field: inset 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
 
 // SIZING
 
@@ -52,7 +59,9 @@ $sizing-layout-width: 1220px;
 $spacing-small: 8px;
 $spacing-standard: 20px;
 
-
+// TOKEN
+$token-size-small: 100px;
+$token-size-standard: 200px;
 
 //OLD
 // COLORS
@@ -60,13 +69,3 @@ $spacing-standard: 20px;
 $blue: #4da1c0;
 $green: #00a59a;
 $red: #bf4d4c;
-
-// BORDERS
-
-$border-standard: 1px #dddddd solid;
-
-// SIZES
-$token-size-small: 100px;
-$token-size-standard: 200px;
-
-

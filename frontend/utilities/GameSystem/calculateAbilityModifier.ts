@@ -5,7 +5,7 @@ interface ICalculateAbilityModifierArguments {
 
 const calculateAbilityModifier = ({
   abilityScore,
-  bonus = 0,
+  bonus = 0
 }: ICalculateAbilityModifierArguments): number => {
   const baseMod = Math.floor((abilityScore - 10) / 2);
 

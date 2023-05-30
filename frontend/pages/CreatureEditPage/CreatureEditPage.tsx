@@ -260,18 +260,18 @@ const CreatureEditPage: FC = () => {
           <Link to={generatePath(CREATURE_ROUTE, { id: id as string })}>
             Back
           </Link>
-          <h1>Creature Settings - {name}</h1>
+          <h2>Creature Settings - {name}</h2>
           <DeleteButton
             buttonText="Delete Creature"
             handleDelete={handleDelete}/>
-          <h2>Creature Image</h2>
+          <h3>Creature Image</h3>
           <ImageForm
             buttonLabel="Upload Image"
             imageUrl={imageUrl}
             inputName="creature-image-file-upload"
             handleSubmit={handleImageUpload}
           />
-          <h2>Associations</h2>
+          <h3>Associations</h3>
           <div>
             <button className="button" onClick={() => setActionsModalOpen(true)}>Actions</button>
             <button className="button" onClick={() => setFeaturesModalOpen(true)}>Features</button>

@@ -170,7 +170,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
   return (
     <form onSubmit={onSubmit}>
       <fieldset>
-        <h2>Character Details</h2>
+        <h3>Character Details</h3>
         <label>Category</label>
         <select
           onChange={e => handleFormChange('creatureCategory', e.target.value as CreatureCategoryTypes)}
@@ -218,7 +218,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
         <label>Jack of all Trades</label>
         <input onChange={(e => handleFormChange('jackOfAllTrades', e.target.checked))} type="checkbox" checked={jackOfAllTrades}/>
       </fieldset>
-      <h2>Ability Stats</h2>
+      <h3>Ability Stats</h3>
       <fieldset>
         <table>
           <thead>
@@ -310,7 +310,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
           </tbody>
         </table>
       </fieldset>
-      <h2>Skill Stats</h2>
+      <h3>Skill Stats</h3>
       <fieldset>
         <table>
           <thead>
@@ -503,7 +503,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
           </tbody>
         </table>
       </fieldset>
-      <h2>Creature Proficiencies</h2>
+      <h3>Creature Proficiencies</h3>
       <fieldset>
         <label>Condition Immunities</label>
         <input onChange={e => handleFormChange('conditionImmunities', e.target.value)} type="text" value={conditionImmunities}/>
@@ -522,14 +522,14 @@ const CreatureForm: FC<ICreatureFormProps> = ({
         <label>Languages</label>
         <input onChange={e => handleFormChange('languages', e.target.value)} type="text" value={languages}/>
       </fieldset>
-      <h2>Spellcasting</h2>
+      <h3>Spellcasting</h3>
       <fieldset>
         <label>Spellcasting Level</label>
         <input onChange={e => handleFormChange('spellcastingLevel', parseInt(e.target.value))} type="number" value={spellcastingLevel}/>
         <label>Spellcasting Ability</label>
         <input onChange={e => handleFormChange('spellcastingAbility', e.target.value)} type="text" value={spellcastingAbility}/>
       </fieldset>
-      <h2>About</h2>
+      <h3>About</h3>
       <fieldset>
         <label>Personality Traits</label>
         <textarea onChange={e => handleFormChange('personalityTraits', e.target.value)} value={personalityTraits}>

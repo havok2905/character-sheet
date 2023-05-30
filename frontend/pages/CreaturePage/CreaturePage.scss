@@ -1,0 +1,25 @@
+@import '../../globalstyles/variables.scss';
+
+.creature-stat-block {
+  display: flex;
+  justify-content: space-between;
+  margin: $spacing-standard 0;
+  text-align: center;
+
+  h3 {
+    margin: 0;
+  }
+
+  p {
+    font-family: $font-family-serif;
+  }
+}
+
+.creature-sub-title {
+  font-family: $font-family-serif;
+  margin-bottom: $spacing-standard;
+}
+
+.creature-title {
+  margin-bottom: 0;
+}
