@@ -7,15 +7,20 @@ import {
 } from '../../utilities/GameSystem/enums';
 import { CollectionField } from '../CollectionField';
 import {
+  CHA,
   CHARISMA,
   CONSTITUTION,
   CR_LIST,
+  DEX,
   DEXTERITY,
   EXP,
+  INT,
   INTELLIGENCE,
   NONE,
   PROF,
+  STR,
   STRENGTH,
+  WIS,
   WISDOM
 } from '../../utilities/GameSystem/constants';
 import { ICreature } from '../../types/models';
@@ -375,7 +380,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
               </thead>
               <tbody>
                 <tr>
-                  <td>Acrobatics</td>
+                  <td>Acrobatics ( {DEX} )</td>
                   <td>
                     <select onChange={e => handleFormChange('acrobaticsProf', e.target.value)} value={acrobaticsProf}>
                       <option value={NONE}>None</option>
@@ -385,7 +390,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
                   </td>
                 </tr>
                 <tr>
-                  <td>Animal Handling</td>
+                  <td>Animal Handling ( {WIS} )</td>
                   <td>
                     <select onChange={e => handleFormChange('animalHandlingProf', e.target.value)} value={animalHandlingProf}>
                       <option value={NONE}>None</option>
@@ -395,7 +400,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
                   </td>
                 </tr>
                 <tr>
-                  <td>Arcana</td>
+                  <td>Arcana ( {INT} )</td>
                   <td>
                     <select onChange={e => handleFormChange('arcanaProf', e.target.value)} value={arcanaProf}>
                       <option value={NONE}>None</option>
@@ -405,7 +410,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
                   </td>
                 </tr>
                 <tr>
-                  <td>Athletics</td>
+                  <td>Athletics ( {STR} )</td>
                   <td>
                     <select onChange={e => handleFormChange('athleticsProf', e.target.value)} value={athleticsProf}>
                       <option value={NONE}>None</option>
@@ -415,7 +420,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
                   </td>
                 </tr>
                 <tr>
-                  <td>Deception</td>
+                  <td>Deception  ( {CHA} )</td>
                   <td>
                     <select onChange={e => handleFormChange('deceptionProf', e.target.value)} value={deceptionProf}>
                       <option value={NONE}>None</option>
@@ -425,7 +430,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
                   </td>
                 </tr>
                 <tr>
-                  <td>History</td>
+                  <td>History  ( {INT} )</td>
                   <td>
                     <select onChange={e => handleFormChange('historyProf', e.target.value)} value={historyProf}>
                       <option value={NONE}>None</option>
@@ -435,7 +440,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
                   </td>
                 </tr>
                 <tr>
-                  <td>Insight</td>
+                  <td>Insight ( {WIS} )</td>
                   <td>
                     <select onChange={e => handleFormChange('insightProf', e.target.value)} value={insightProf}>
                       <option value={NONE}>None</option>
@@ -445,7 +450,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
                   </td>
                 </tr>
                 <tr>
-                  <td>Intimidation</td>
+                  <td>Intimidation ( {CHA} )</td>
                   <td>
                     <select onChange={e => handleFormChange('intimidationProf', e.target.value)} value={intimidationProf}>
                       <option value={NONE}>None</option>
@@ -455,7 +460,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
                   </td>
                 </tr>
                 <tr>
-                  <td>Investigation</td>
+                  <td>Investigation ( {INT} )</td>
                   <td>
                     <select onChange={e => handleFormChange('investigationProf', e.target.value)} value={investigationProf}>
                       <option value={NONE}>None</option>
@@ -465,7 +470,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
                   </td>
                 </tr>
                 <tr>
-                  <td>Medicine</td>
+                  <td>Medicine ( {WIS} )</td>
                   <td>
                     <select onChange={e => handleFormChange('medicineProf', e.target.value)} value={medicineProf}>
                       <option value={NONE}>None</option>
@@ -475,7 +480,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
                   </td>
                 </tr>
                 <tr>
-                  <td>Nature</td>
+                  <td>Nature ( {INT} )</td>
                   <td>
                     <select onChange={e => handleFormChange('natureProf', e.target.value)} value={natureProf}>
                       <option value={NONE}>None</option>
@@ -485,7 +490,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
                   </td>
                 </tr>
                 <tr>
-                  <td>Perception</td>
+                  <td>Perception ( {WIS} )</td>
                   <td>
                     <select onChange={e => handleFormChange('perceptionProf', e.target.value)} value={perceptionProf}>
                       <option value={NONE}>None</option>
@@ -495,7 +500,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
                   </td>
                 </tr>
                 <tr>
-                  <td>Performance</td>
+                  <td>Performance ( {CHA} )</td>
                   <td>
                     <select onChange={e => handleFormChange('performanceProf', e.target.value)} value={performanceProf}>
                       <option value={NONE}>None</option>
@@ -505,7 +510,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
                   </td>
                 </tr>
                 <tr>
-                  <td>Persuasion</td>
+                  <td>Persuasion ( {WIS} )</td>
                   <td>
                     <select onChange={e => handleFormChange('persuasionProf', e.target.value)} value={persuasionProf}>
                       <option value={NONE}>None</option>
@@ -515,7 +520,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
                   </td>
                 </tr>
                 <tr>
-                  <td>Religion</td>
+                  <td>Religion ( {INT} )</td>
                   <td>
                     <select onChange={e => handleFormChange('religionProf', e.target.value)} value={religionProf}>
                       <option value={NONE}>None</option>
@@ -525,7 +530,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
                   </td>
                 </tr>
                 <tr>
-                  <td>Sleight of Hand</td>
+                  <td>Sleight of Hand ( {DEX} )</td>
                   <td>
                     <select onChange={e => handleFormChange('sleightOfHandProf', e.target.value)} value={sleightOfHandProf}>
                       <option value={NONE}>None</option>
@@ -535,7 +540,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
                   </td>
                 </tr>
                 <tr>
-                  <td>Stealth</td>
+                  <td>Stealth ( {DEX} )</td>
                   <td>
                     <select onChange={e => handleFormChange('stealthProf', e.target.value)} value={stealthProf}>
                       <option value={NONE}>None</option>
@@ -545,7 +550,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
                   </td>
                 </tr>
                 <tr>
-                  <td>Survival</td>
+                  <td>Survival ( {WIS} )</td>
                   <td>
                     <select onChange={e => handleFormChange('survivalProf', e.target.value)} value={survivalProf}>
                       <option value={NONE}>None</option>
@@ -718,7 +723,15 @@ const CreatureForm: FC<ICreatureFormProps> = ({
             <label>Spellcasting Level</label>
             <input onChange={e => handleFormChange('spellcastingLevel', parseInt(e.target.value))} type="number" value={spellcastingLevel}/>
             <label>Spellcasting Ability</label>
-            <input onChange={e => handleFormChange('spellcastingAbility', e.target.value)} type="text" value={spellcastingAbility}/>
+            <select onChange={e => handleFormChange('spellcastingAbility', e.target.value)} value={spellcastingAbility}>
+              <option></option>
+              <option value={STRENGTH}>{STRENGTH}</option>
+              <option value={DEXTERITY}>{DEXTERITY}</option>
+              <option value={CONSTITUTION}>{CONSTITUTION}</option>
+              <option value={INTELLIGENCE}>{INTELLIGENCE}</option>
+              <option value={WISDOM}>{WISDOM}</option>
+              <option value={CHARISMA}>{CHARISMA}</option>
+            </select>
           </fieldset>
           <h3>Legendary Actions</h3>
           <fieldset>

@@ -30,6 +30,9 @@
     z-index: 2;
 
     h2 {
+      color: $color-tile-text;
+      font-size: $font-size-body-text;
+      line-height: normal;
       margin: 0;
       position: relative;
       text-shadow: $shadow-base;
