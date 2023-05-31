@@ -7,6 +7,8 @@ interface INewLineTextProps {
 const NewLineText: FC<INewLineTextProps> = ({
   text
 }) => {
+  if (!text) return null;
+
   return (
     <>
       {

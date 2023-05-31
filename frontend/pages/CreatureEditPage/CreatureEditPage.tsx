@@ -1,9 +1,6 @@
 import React, { FC, useState } from 'react';
 import { AssociatedActionsForm } from '../../components/AssociatedActionsForm';
 import { AssociatedCreatureFeaturesForm } from '../../components/AssociatedCreatureFeaturesForm';
-import { AssociatedLairActionsForm } from '../../components/AssociatedLairActionsForm';
-import { AssociatedLegendaryActionsForm } from '../../components/AssociatedLegendaryActionsForm';
-import { AssociatedRegionalEffectsForm } from '../../components/AssociatedRegionalEffectsForm';
 import { AssociatedSpellsForm } from '../../components/AssociatedSpellsForm';
 import {
   CREATURE_ROUTE,
@@ -25,28 +22,26 @@ import {
   useNavigate,
   useParams
 } from 'react-router-dom';
-import { getMagicItems } from '../../utilities/Api/MagicItems';
 import { getSpells } from '../../utilities/Api/Spells';
 import {
   ICreature,
   ICreatureAction,
   ICreatureFeature,
-  ICreatureLairAction,
   ICreatureLegendaryAction,
-  ICreatureRegionalEffect
 } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
 import { Modal } from '../../components/Modal';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
-import { useMutation, useQueries } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQueries,
+  useQueryClient
+} from '@tanstack/react-query';
 
 const CreatureEditPage: FC = () => {
   const [actionsModalOpen, setActionsModalOpen] = useState(false);
   const [featuresModalOpen, setFeaturesModalOpen] = useState(false);
-  const [lairActionsModalOpen, setLairActionsModalOpen] = useState(false);
-  const [legendaryActionsModalOpen, setLegendaryActionsModalOpen] = useState(false);
-  const [regionalEffectsModalOpen, setRegionalEffectsModalOpen] = useState(false);
   const [spellsModalOpen, setSpellsModalOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -54,15 +49,13 @@ const CreatureEditPage: FC = () => {
 
   const authQuery = useAuth();
 
+  const queryClient = useQueryClient();
+
   const results = useQueries({
     queries: [
       {
-        queryKey: ['character'],
+        queryKey: ['creature'],
         queryFn: async ()=> getCreature(params.id ?? '')
-      },
-      {
-        queryKey: ['magic-items'],
-        queryFn: getMagicItems
       },
       {
         queryKey: ['spells'],
@@ -78,6 +71,7 @@ const CreatureEditPage: FC = () => {
       location.reload();
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['creature'] })
       navigate(CREATURES_ROUTE);
     }
   });
@@ -115,19 +109,16 @@ const CreatureEditPage: FC = () => {
 
   const [
     creatureResults,
-    magicItemsResults,
     spellsResults
   ] = results;
 
   if (
     authQuery.isLoading ||
     creatureResults.isLoading || creatureResults.isError ||
-    magicItemsResults.isLoading || magicItemsResults.isError ||
     spellsResults.isLoading || spellsResults.isError
   ) return null;
 
   const creature = creatureResults.data?.creature;
-  const magicItems = magicItemsResults.data?.magicItems ?? [];
   const spells = spellsResults.data?.spells ?? [];
 
   if (!authQuery.isSuccess) return <Navigate replace to={LOGIN_ROUTE} />;
@@ -185,57 +176,6 @@ const CreatureEditPage: FC = () => {
     );
   };
 
-  const getLairActionsModal = () => {
-    if (!lairActionsModalOpen || !creature) return null;
-
-    return (
-      <Modal
-        onCloseModal={() => setLairActionsModalOpen(false)}
-        onCloseModalOverlay={() => setLairActionsModalOpen(false)}>
-        <AssociatedLairActionsForm
-          buttonLabel="Update Lair Actions"
-          creature={creature}
-          handleSubmit={(lairActionsText: string, creatureLairActions: ICreatureLairAction[]) => {
-            handleSubmit({ ...creature, creatureLairActions, lairActionsText });
-          }}/>
-      </Modal>
-    );
-  };
-
-  const getLegendaryActionsModal = () => {
-    if (!legendaryActionsModalOpen || !creature) return null;
-
-    return (
-      <Modal
-        onCloseModal={() => setLegendaryActionsModalOpen(false)}
-        onCloseModalOverlay={() => setLegendaryActionsModalOpen(false)}>
-        <AssociatedLegendaryActionsForm
-          buttonLabel="Update Legendary Actions"
-          creature={creature}
-          handleSubmit={(legendaryActionsText: string, creatureLegendaryActions: ICreatureLegendaryAction[]) => {
-            handleSubmit({ ...creature, creatureLegendaryActions, legendaryActionsText });
-          }}/>
-      </Modal>
-    );
-  };
-
-  const getRegionalEffectsModal = () => {
-    if (!regionalEffectsModalOpen || !creature) return null;
-
-    return (
-      <Modal
-        onCloseModal={() => setRegionalEffectsModalOpen(false)}
-        onCloseModalOverlay={() => setRegionalEffectsModalOpen(false)}>
-        <AssociatedRegionalEffectsForm
-          buttonLabel="Update Regional Effects"
-          creature={creature}
-          handleSubmit={(regionalEffectsText: string, creatureRegionalEffects: ICreatureRegionalEffect[]) => {
-            handleSubmit({ ...creature, creatureRegionalEffects, regionalEffectsText });
-          }}/>
-      </Modal>
-    );
-  };
-
   const getSpellsModal = () => {
     if (!spellsModalOpen || !creature) return null;
 
@@ -275,9 +215,6 @@ const CreatureEditPage: FC = () => {
           <div>
             <button className="button" onClick={() => setActionsModalOpen(true)}>Actions</button>
             <button className="button" onClick={() => setFeaturesModalOpen(true)}>Features</button>
-            <button className="button" onClick={() => setLegendaryActionsModalOpen(true)}>Legendary Actions</button>
-            <button className="button" onClick={() => setLairActionsModalOpen(true)}>Lair Actions</button>
-            <button className="button" onClick={() => setRegionalEffectsModalOpen(true)}>Regional Effects</button>
             <button className="button" onClick={() => setSpellsModalOpen(true)}>Spells</button>
           </div>
           <CreatureForm
@@ -289,9 +226,6 @@ const CreatureEditPage: FC = () => {
       </div>
       {getActionsModal()}
       {getFeaturesModal()}
-      {getLairActionsModal()}
-      {getLegendaryActionsModal()}
-      {getRegionalEffectsModal()}
       {getSpellsModal()}
     </>
   );

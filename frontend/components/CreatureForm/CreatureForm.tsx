@@ -1,19 +1,30 @@
 import React, { FC, useEffect, useState } from 'react';
 import { AlignmentTypes, CreatureCategoryTypes } from '../../utilities/GameSystem/enums';
+import { CollectionField } from '../CollectionField';
 import { CR_LIST, EXP, NONE, PROF } from '../../utilities/GameSystem/constants';
 import { ICreature } from '../../types/models';
 
 const getFormCopy = (formModel: ICreature) => {
   return {
     ...formModel,
-    magicItems: [
-      ...(formModel.magicItems || []).map(magicItem => {
-        return { ...magicItem }
+    creatureLairActions: [
+      ...(formModel.creatureLairActions || []).map(action => {
+        return { ...action };
+      })
+    ],
+    creatureLegendaryActions: [
+      ...(formModel.creatureLegendaryActions || []).map(action => {
+        return { ...action };
+      })
+    ],
+    creatureRegionalEffects: [
+      ...(formModel.creatureRegionalEffects || []).map(effect => {
+        return { ...effect };
       })
     ],
     spells: [
       ...(formModel.spells || []).map(spell => {
-        return { ...spell }
+        return { ...spell };
       })
     ]
   };
@@ -49,6 +60,9 @@ const CreatureForm: FC<ICreatureFormProps> = ({
     constitutionScore: 0,
     cr: '',
     creatureCategory: CreatureCategoryTypes.UNKNOWN,
+    creatureLairActions: [],
+    creatureLegendaryActions: [],
+    creatureRegionalEffects: [],
     creatureType: '',
     damageImmunities: '',
     damageResistances: '',
@@ -67,8 +81,9 @@ const CreatureForm: FC<ICreatureFormProps> = ({
     intimidationProf: '',
     investigationProf: '',
     jackOfAllTrades: false,
+    lairActionsText: '',
     languages: '',
-    magicItems: [],
+    legendaryActionsText: '',
     medicineProf: '',
     name: '',
     natureProf: '',
@@ -76,6 +91,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
     performanceProf: '',
     personalityTraits: '',
     persuasionProf: '',
+    regionalEffectsText: '',
     religionProf: '',
     senses: '',
     size: '',
@@ -115,6 +131,9 @@ const CreatureForm: FC<ICreatureFormProps> = ({
     constitutionScore,
     cr,
     creatureCategory,
+    creatureLairActions = [],
+    creatureLegendaryActions = [],
+    creatureRegionalEffects = [],
     creatureType,
     damageImmunities,
     damageResistances,
@@ -133,7 +152,9 @@ const CreatureForm: FC<ICreatureFormProps> = ({
     intimidationProf,
     investigationProf,
     jackOfAllTrades,
+    lairActionsText,
     languages,
+    legendaryActionsText,
     medicineProf,
     name,
     natureProf,
@@ -141,6 +162,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
     performanceProf,
     personalityTraits,
     persuasionProf,
+    regionalEffectsText,
     religionProf,
     senses,
     size,
@@ -550,6 +572,52 @@ const CreatureForm: FC<ICreatureFormProps> = ({
         <textarea onChange={e => handleFormChange('backstory', e.target.value)} value={backstory}>
         </textarea>
       </fieldset>
+      <h3>Legendary Actions</h3>
+      <fieldset>
+        <label>Legendary Actions Text</label>
+        <textarea
+          onChange={e => handleFormChange('legendaryActionsText', e.target.value)}
+          value={legendaryActionsText}>
+        </textarea>
+      </fieldset>
+      <CollectionField
+        collection={creatureLegendaryActions}
+        formModel={[
+          { fieldKey: '_destroy', label: 'Destroy', type: 'destroy' },
+          { fieldKey: 'name', label: 'Name', type: 'text' },
+          { fieldKey: 'description', label: 'Description', type: 'textarea' }
+        ]}
+        onChange={(items) => handleFormChange('creatureLegendaryActions', items)}/>
+      <h3>Lair Actions</h3>
+      <fieldset>
+        <label>Lair Actions Text</label>
+        <textarea
+          onChange={e => handleFormChange('lairActionsText', e.target.value)}
+          value={lairActionsText}>
+        </textarea>
+      </fieldset>
+      <CollectionField
+        collection={creatureLairActions}
+        formModel={[
+          { fieldKey: '_destroy', label: 'Destroy', type: 'destroy' },
+          { fieldKey: 'description', label: 'Description', type: 'textarea' }
+        ]}
+        onChange={(items) => handleFormChange('creatureLairActions', items)}/>
+      <h3>Regional Effects</h3>
+      <fieldset>
+        <label>Regional Effects Text</label>
+        <textarea
+          onChange={e => handleFormChange('regionalEffectsText', e.target.value)}
+          value={regionalEffectsText}>
+        </textarea>
+      </fieldset>
+      <CollectionField
+        collection={creatureRegionalEffects}
+        formModel={[
+          { fieldKey: '_destroy', label: 'Destroy', type: 'destroy' },
+          { fieldKey: 'description', label: 'Description', type: 'textarea' }
+        ]}
+        onChange={(items) => handleFormChange('creatureRegionalEffects', items)}/>
       <fieldset>
         <button className="button button-constructive">
           {handleSubmitButtonLabel}
