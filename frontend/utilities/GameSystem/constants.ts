@@ -5,6 +5,13 @@ export const INT = 'INT';
 export const STR = 'STR';
 export const WIS = 'WIS';
 
+export const CHARISMA = 'Charisma';
+export const CONSTITUTION = 'Constitution';
+export const DEXTERITY = 'Dexterity';
+export const INTELLIGENCE = 'Intelligence';
+export const STRENGTH = 'Strength';
+export const WISDOM = 'Wisdom';
+
 export const ACROBATICS = 'Acrobatics';
 export const ANIMAL_HANDLING = 'Animal Handling';
 export const ARCANA = 'Arcana';
@@ -157,7 +164,7 @@ export const CLASSES = [
 
 export const ARTIFICER_CASTER_TABLE = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, , 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 2, 0, 0, 0, 0, 0, 0, 0],
   [0, 3, 0, 0, 0, 0, 0, 0, 0],
   [0, 3, 0, 0, 0, 0, 0, 0, 0],

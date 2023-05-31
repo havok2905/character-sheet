@@ -9,6 +9,18 @@ interface IDestroyFieldModel extends IBaseFieldModel {
   type: 'destroy';
 }
 
+interface INumberFieldModel extends IBaseFieldModel {
+  type: 'number';
+}
+
+interface ISelectFieldModel extends IBaseFieldModel {
+  options: {
+    label: string;
+    value: string;
+  }[];
+  type: 'select';
+}
+
 interface ITextFieldModel extends IBaseFieldModel {
   type: 'text';
 }
@@ -17,7 +29,7 @@ interface ITextAreaFieldModel extends IBaseFieldModel {
   type: 'textarea';
 }
 
-type IFieldModel = IDestroyFieldModel | ITextFieldModel | ITextAreaFieldModel;
+type IFieldModel = IDestroyFieldModel | INumberFieldModel | ISelectFieldModel | ITextFieldModel | ITextAreaFieldModel;
 
 interface ICollectionFieldProps<T> {
   collection: T[];
@@ -136,6 +148,26 @@ export const CollectionField = <T extends object>({
     );
   };
 
+  const getNumberField = (
+    fieldModel: IFieldModel,
+    item: ICollectionFieldCollectionItem<T>
+  ) => {
+    if (fieldModel.type !== 'number') return null;
+
+    const value = item.collectionItem[fieldModel.fieldKey];
+
+    return (
+      <>
+        <label>{fieldModel.label}</label>
+        <input
+          onChange={e => handleFieldChange(e, fieldModel, item)}
+          type="number"
+          value={value}>
+        </input>
+      </>
+    );
+  };
+
   const getTextField = (
     fieldModel: IFieldModel,
     item: ICollectionFieldCollectionItem<T>
@@ -152,6 +184,34 @@ export const CollectionField = <T extends object>({
           type="text"
           value={value}>
         </input>
+      </>
+    );
+  };
+
+  const getSelectField = (
+    fieldModel: IFieldModel,
+    item: ICollectionFieldCollectionItem<T>
+  ) => {
+    if (fieldModel.type !== 'select') return null;
+
+    const value = item.collectionItem[fieldModel.fieldKey];
+
+    return (
+      <>
+        <label>{fieldModel.label}</label>
+        <select
+          onChange={e => handleFieldChange(e, fieldModel, item)}
+          value={value}>
+          {
+            fieldModel.options.map(optionItem => {
+              return (
+                <option value={optionItem.value}>
+                  {optionItem.label}
+                </option>
+              );
+            })
+          }
+        </select>
       </>
     );
   };
@@ -182,6 +242,8 @@ export const CollectionField = <T extends object>({
     return (
       getNewDestroyField(fieldModel, item) ||
       getDestroyField(fieldModel, item) ||
+      getNumberField(fieldModel, item) ||
+      getSelectField(fieldModel, item) ||
       getTextField(fieldModel, item) ||
       getTextareaField(fieldModel, item)
     );

@@ -1,6 +1,4 @@
 import React, { FC, useState } from 'react';
-import { AssociatedActionsForm } from '../../components/AssociatedActionsForm';
-import { AssociatedCreatureFeaturesForm } from '../../components/AssociatedCreatureFeaturesForm';
 import { AssociatedSpellsForm } from '../../components/AssociatedSpellsForm';
 import {
   CREATURE_ROUTE,
@@ -23,12 +21,7 @@ import {
   useParams
 } from 'react-router-dom';
 import { getSpells } from '../../utilities/Api/Spells';
-import {
-  ICreature,
-  ICreatureAction,
-  ICreatureFeature,
-  ICreatureLegendaryAction,
-} from '../../types/models';
+import { ICreature } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
 import { Modal } from '../../components/Modal';
 import { Navbar } from '../../components/Navbar/Navbar';
@@ -40,8 +33,6 @@ import {
 } from '@tanstack/react-query';
 
 const CreatureEditPage: FC = () => {
-  const [actionsModalOpen, setActionsModalOpen] = useState(false);
-  const [featuresModalOpen, setFeaturesModalOpen] = useState(false);
   const [spellsModalOpen, setSpellsModalOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -142,40 +133,6 @@ const CreatureEditPage: FC = () => {
     uploadCreatureImageMutation.mutate({ data, id });
   };
 
-  const getActionsModal = () => {
-    if (!actionsModalOpen || !creature) return null;
-
-    return (
-      <Modal
-        onCloseModal={() => setActionsModalOpen(false)}
-        onCloseModalOverlay={() => setActionsModalOpen(false)}>
-        <AssociatedActionsForm
-          buttonLabel="Update Actions"
-          creature={creature}
-          handleSubmit={(creatureActions: ICreatureAction[]) => {
-            handleSubmit({ ...creature, creatureActions });
-          }}/>
-      </Modal>
-    );
-  };
-
-  const getFeaturesModal = () => {
-    if (!featuresModalOpen || !creature) return null;
-
-    return (
-      <Modal
-        onCloseModal={() => setFeaturesModalOpen(false)}
-        onCloseModalOverlay={() => setFeaturesModalOpen(false)}>
-        <AssociatedCreatureFeaturesForm
-          buttonLabel="Update Features"
-          creature={creature}
-          handleSubmit={(creatureFeatures: ICreatureFeature[]) => {
-            handleSubmit({ ...creature, creatureFeatures });
-          }}/>
-      </Modal>
-    );
-  };
-
   const getSpellsModal = () => {
     if (!spellsModalOpen || !creature) return null;
 
@@ -213,8 +170,6 @@ const CreatureEditPage: FC = () => {
           />
           <h3>Associations</h3>
           <div>
-            <button className="button" onClick={() => setActionsModalOpen(true)}>Actions</button>
-            <button className="button" onClick={() => setFeaturesModalOpen(true)}>Features</button>
             <button className="button" onClick={() => setSpellsModalOpen(true)}>Spells</button>
           </div>
           <CreatureForm
@@ -224,8 +179,6 @@ const CreatureEditPage: FC = () => {
           />
         </div>
       </div>
-      {getActionsModal()}
-      {getFeaturesModal()}
       {getSpellsModal()}
     </>
   );
