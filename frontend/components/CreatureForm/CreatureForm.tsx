@@ -5,6 +5,10 @@ import {
   AlignmentTypes,
   CreatureCategoryTypes
 } from '../../utilities/GameSystem/enums';
+import {
+  ArrowsCollapseIcon,
+  ArrowsExpandIcon
+} from '../../components/Icons';
 import { CollectionField } from '../CollectionField';
 import {
   CHA,
@@ -141,6 +145,13 @@ const CreatureForm: FC<ICreatureFormProps> = ({
     wisdomScore: 0
   });
 
+  const [isDisplayedActions, setIsDisplayedActions] = useState<boolean>(true);
+  const [isDisplayedFeatures, setIsDisplayedFeatures] = useState<boolean>(true);
+  const [isDisplayedLairActions, setIsDisplayedLairActions] = useState<boolean>(true);
+  const [isDisplayedLegendaryActions, setIsDisplayedLegendaryActions] = useState<boolean>(true);
+  const [isDisplayedRegionalEffects, setIsDisplayedRegionalEffects] = useState<boolean>(true);
+  const [isDisplayedSpellcasting, setIsDisplayedSpellcasting] = useState<boolean>(true);
+
   useEffect(() => {
     if (creature) setForm(getFormCopy(creature));
   }, []);
@@ -222,6 +233,267 @@ const CreatureForm: FC<ICreatureFormProps> = ({
   const onSubmit = e => {
     e.preventDefault();
     handleSubmit(form);
+  };
+
+  const toggleIsDisplayedActions = e => {
+    e.preventDefault();
+    setIsDisplayedActions(!isDisplayedActions);
+  };
+
+  const toggleIsDisplayedFeatures = e => {
+    e.preventDefault();
+    setIsDisplayedFeatures(!isDisplayedFeatures);
+  };
+
+  const toggleIsDisplayedLairActions = e => {
+    e.preventDefault();
+    setIsDisplayedLairActions(!isDisplayedLairActions);
+  };
+  
+  const toggleIsDisplayedLegendaryActions = e => {
+    e.preventDefault();
+    setIsDisplayedLegendaryActions(!isDisplayedLegendaryActions);
+  };
+
+  const toggleIsDisplayedRegionalEffects = e => {
+    e.preventDefault();
+    setIsDisplayedRegionalEffects(!isDisplayedRegionalEffects);
+  };
+
+  const toggleIsDisplayedSpellcasting = e => {
+    e.preventDefault();
+    setIsDisplayedSpellcasting(!isDisplayedSpellcasting);
+  };
+
+  const getToggleButton = (isDisplayed: boolean, onClick: (e) => void) => {
+    const icon = isDisplayed ? <ArrowsCollapseIcon/> : <ArrowsExpandIcon/>;
+
+    return (
+      <button onClick={onClick}>
+        {icon}  
+      </button>
+    );
+  };
+
+  const getActions = () => {
+    if (!isDisplayedActions) return null;
+    
+    return (
+      <CollectionField
+        collection={creatureActions}
+        formModel={[
+          { fieldKey: 'name', label: 'Name', type: 'text' },
+          {
+            fieldKey: 'actionType',
+            label: 'Action Type',
+            options: [
+              {
+                label: '',
+                value: ''
+              },
+              {
+                label: ActionTypes.ACTION,
+                value: ActionTypes.ACTION
+              },
+              {
+                label: ActionTypes.BONUS_ACTION,
+                value: ActionTypes.BONUS_ACTION
+              },
+              {
+                label: ActionTypes.REACTION,
+                value: ActionTypes.REACTION
+              }
+            ],
+            type: 'select'
+          },
+          {
+            fieldKey: 'actionCombatType',
+            label: 'Action Combat Type',
+            options: [
+              {
+                label: '',
+                value: ''
+              },
+              {
+                label: ActionCombatTypes.MELEE_SPELL_ATTACK,
+                value: ActionCombatTypes.MELEE_SPELL_ATTACK
+              },
+              {
+                label: ActionCombatTypes.MELEE_WEAPON_ATTACK,
+                value: ActionCombatTypes.MELEE_WEAPON_ATTACK
+              },
+              {
+                label: ActionCombatTypes.RANGED_OR_MELEE_WEAPON_ATTACK,
+                value: ActionCombatTypes.RANGED_OR_MELEE_WEAPON_ATTACK
+              },
+              {
+                label: ActionCombatTypes.RANGED_SPELL_ATTACK,
+                value: ActionCombatTypes.RANGED_SPELL_ATTACK
+              },
+              {
+                label: ActionCombatTypes.RANGED_WEAPON_ATTACK,
+                value: ActionCombatTypes.RANGED_WEAPON_ATTACK
+              }
+            ],
+            type: 'select'
+          },
+          { fieldKey: 'range', label: 'Range', type: 'text' },
+          { fieldKey: 'attackBonus', label: 'Attack Bonus', type: 'number' },
+          { fieldKey: 'damageDiceRoll', label: 'Damage Dice Roll', type: 'text' },
+          { fieldKey: 'damageType', label: 'Damage Type', type: 'text' },
+          { fieldKey: 'damageTwoDiceRoll', label: 'Damage Two Dice Roll', type: 'text' },
+          { fieldKey: 'damageTwoType', label: 'Damage Two Type', type: 'text' },
+          { fieldKey: 'savingThrowDc', label: 'Saving Throw DC', type: 'number' },
+          {
+            fieldKey: 'savingThrowType',
+            label: 'Saving Throw Type',
+            options: [
+              {
+                label: '',
+                value: '',
+              },
+              {
+                label: STRENGTH,
+                value: STRENGTH
+              },
+              {
+                label: DEXTERITY,
+                value: DEXTERITY
+              },
+              {
+                label: CONSTITUTION,
+                value: CONSTITUTION
+              },
+              {
+                label: INTELLIGENCE,
+                value: INTELLIGENCE
+              },
+              {
+                label: WISDOM,
+                value: WISDOM
+              },
+              {
+                label: CHARISMA,
+                value: CHARISMA
+              }
+            ],
+            type: 'select'
+          },
+          { fieldKey: 'description', label: 'Description', type: 'textarea' },
+          { fieldKey: '_destroy', label: 'Destroy', type: 'destroy' }
+        ]}
+        onChange={(items) => handleFormChange('creatureActions', items)}
+      />
+    );
+  };
+
+  const getFeatures = () => {
+    if (!isDisplayedFeatures) return null;
+
+    return (
+      <CollectionField
+        collection={creatureFeatures}
+        formModel={[
+          { fieldKey: 'name', label: 'Name', type: 'text' },
+          { fieldKey: 'description', label: 'Description', type: 'textarea' },
+          { fieldKey: '_destroy', label: 'Destroy', type: 'destroy' }
+        ]}
+        onChange={(items) => handleFormChange('creatureFeatures', items)}
+      />
+    )
+  };
+
+  const getLairActions = () => {
+    if (!isDisplayedLairActions) return null;
+
+    return (
+      <>
+        <fieldset>
+          <label>Lair Actions Text</label>
+          <textarea
+            onChange={e => handleFormChange('lairActionsText', e.target.value)}
+            value={lairActionsText}>
+          </textarea>
+        </fieldset>
+        <CollectionField
+          collection={creatureLairActions}
+          formModel={[
+            { fieldKey: 'description', label: 'Description', type: 'textarea' },
+            { fieldKey: '_destroy', label: 'Destroy', type: 'destroy' }
+          ]}
+          onChange={(items) => handleFormChange('creatureLairActions', items)}
+        />
+      </>
+    );
+  };
+
+  const getLegendaryActions = () => {
+    if (!isDisplayedLegendaryActions) return null;
+
+    return (
+      <>
+        <fieldset>
+          <label>Legendary Actions Text</label>
+          <textarea
+            onChange={e => handleFormChange('legendaryActionsText', e.target.value)}
+            value={legendaryActionsText}>
+          </textarea>
+        </fieldset>
+        <CollectionField
+          collection={creatureLegendaryActions}
+          formModel={[
+            { fieldKey: 'name', label: 'Name', type: 'text' },
+            { fieldKey: 'description', label: 'Description', type: 'textarea' },
+            { fieldKey: '_destroy', label: 'Destroy', type: 'destroy' }
+          ]}
+          onChange={(items) => handleFormChange('creatureLegendaryActions', items)}/>
+      </>
+    );
+  };
+
+  const getRegionalEffects = () => {
+    if (!isDisplayedRegionalEffects) return null;
+
+    return (
+      <>
+        <fieldset>
+          <label>Regional Effects Text</label>
+          <textarea
+            onChange={e => handleFormChange('regionalEffectsText', e.target.value)}
+            value={regionalEffectsText}>
+          </textarea>
+        </fieldset>
+        <CollectionField
+          collection={creatureRegionalEffects}
+          formModel={[
+            { fieldKey: 'description', label: 'Description', type: 'textarea' },
+            { fieldKey: '_destroy', label: 'Destroy', type: 'destroy' }
+          ]}
+          onChange={(items) => handleFormChange('creatureRegionalEffects', items)}
+        />
+      </>
+    );
+  };
+
+  const getSpellcasting = () => {
+    if (!isDisplayedSpellcasting) return null;
+
+    return (
+      <fieldset>
+        <label>Spellcasting Level</label>
+        <input onChange={e => handleFormChange('spellcastingLevel', parseInt(e.target.value))} type="number" value={spellcastingLevel}/>
+        <label>Spellcasting Ability</label>
+        <select onChange={e => handleFormChange('spellcastingAbility', e.target.value)} value={spellcastingAbility}>
+          <option></option>
+          <option value={STRENGTH}>{STRENGTH}</option>
+          <option value={DEXTERITY}>{DEXTERITY}</option>
+          <option value={CONSTITUTION}>{CONSTITUTION}</option>
+          <option value={INTELLIGENCE}>{INTELLIGENCE}</option>
+          <option value={WISDOM}>{WISDOM}</option>
+          <option value={CHARISMA}>{CHARISMA}</option>
+        </select>
+      </fieldset>
+    );
   };
 
   return (
@@ -605,180 +877,25 @@ const CreatureForm: FC<ICreatureFormProps> = ({
         </div>
         <div className="column">
           <h3>Actions</h3>
-          <CollectionField
-            collection={creatureActions}
-            formModel={[
-              { fieldKey: '_destroy', label: 'Destroy', type: 'destroy' },
-              { fieldKey: 'name', label: 'Name', type: 'text' },
-              {
-                fieldKey: 'actionType',
-                label: 'Action Type',
-                options: [
-                  {
-                    label: '',
-                    value: ''
-                  },
-                  {
-                    label: ActionTypes.ACTION,
-                    value: ActionTypes.ACTION
-                  },
-                  {
-                    label: ActionTypes.BONUS_ACTION,
-                    value: ActionTypes.BONUS_ACTION
-                  },
-                  {
-                    label: ActionTypes.REACTION,
-                    value: ActionTypes.REACTION
-                  }
-                ],
-                type: 'select'
-              },
-              {
-                fieldKey: 'actionCombatType',
-                label: 'Action Combat Type',
-                options: [
-                  {
-                    label: '',
-                    value: ''
-                  },
-                  {
-                    label: ActionCombatTypes.MELEE_SPELL_ATTACK,
-                    value: ActionCombatTypes.MELEE_SPELL_ATTACK
-                  },
-                  {
-                    label: ActionCombatTypes.MELEE_WEAPON_ATTACK,
-                    value: ActionCombatTypes.MELEE_WEAPON_ATTACK
-                  },
-                  {
-                    label: ActionCombatTypes.RANGED_OR_MELEE_WEAPON_ATTACK,
-                    value: ActionCombatTypes.RANGED_OR_MELEE_WEAPON_ATTACK
-                  },
-                  {
-                    label: ActionCombatTypes.RANGED_SPELL_ATTACK,
-                    value: ActionCombatTypes.RANGED_SPELL_ATTACK
-                  },
-                  {
-                    label: ActionCombatTypes.RANGED_WEAPON_ATTACK,
-                    value: ActionCombatTypes.RANGED_WEAPON_ATTACK
-                  }
-                ],
-                type: 'select'
-              },
-              { fieldKey: 'range', label: 'Range', type: 'text' },
-              { fieldKey: 'attackBonus', label: 'Attack Bonus', type: 'number' },
-              { fieldKey: 'damageDiceRoll', label: 'Damage Dice Roll', type: 'text' },
-              { fieldKey: 'damageType', label: 'Damage Type', type: 'text' },
-              { fieldKey: 'damageTwoDiceRoll', label: 'Damage Two Dice Roll', type: 'text' },
-              { fieldKey: 'damageTwoType', label: 'Damage Two Type', type: 'text' },
-              { fieldKey: 'savingThrowDc', label: 'Saving Throw DC', type: 'number' },
-              {
-                fieldKey: 'savingThrowType',
-                label: 'Saving Throw Type',
-                options: [
-                  {
-                    label: '',
-                    value: '',
-                  },
-                  {
-                    label: STRENGTH,
-                    value: STRENGTH
-                  },
-                  {
-                    label: DEXTERITY,
-                    value: DEXTERITY
-                  },
-                  {
-                    label: CONSTITUTION,
-                    value: CONSTITUTION
-                  },
-                  {
-                    label: INTELLIGENCE,
-                    value: INTELLIGENCE
-                  },
-                  {
-                    label: WISDOM,
-                    value: WISDOM
-                  },
-                  {
-                    label: CHARISMA,
-                    value: CHARISMA
-                  }
-                ],
-                type: 'select'
-              },
-              { fieldKey: 'description', label: 'Description', type: 'textarea' }
-            ]}
-            onChange={(items) => handleFormChange('creatureActions', items)}/>
+          {getToggleButton(isDisplayedActions, toggleIsDisplayedActions)}
+          {getActions()}
           <h3>Features</h3>
-          <CollectionField
-            collection={creatureFeatures}
-            formModel={[
-              { fieldKey: '_destroy', label: 'Destroy', type: 'destroy' },
-              { fieldKey: 'name', label: 'Name', type: 'text' },
-              { fieldKey: 'description', label: 'Description', type: 'textarea' }
-            ]}
-            onChange={(items) => handleFormChange('creatureFeatures', items)}/>
+          {getToggleButton(isDisplayedFeatures, toggleIsDisplayedFeatures)}
+          {getFeatures()}
           <h3>Spellcasting</h3>
-          <fieldset>
-            <label>Spellcasting Level</label>
-            <input onChange={e => handleFormChange('spellcastingLevel', parseInt(e.target.value))} type="number" value={spellcastingLevel}/>
-            <label>Spellcasting Ability</label>
-            <select onChange={e => handleFormChange('spellcastingAbility', e.target.value)} value={spellcastingAbility}>
-              <option></option>
-              <option value={STRENGTH}>{STRENGTH}</option>
-              <option value={DEXTERITY}>{DEXTERITY}</option>
-              <option value={CONSTITUTION}>{CONSTITUTION}</option>
-              <option value={INTELLIGENCE}>{INTELLIGENCE}</option>
-              <option value={WISDOM}>{WISDOM}</option>
-              <option value={CHARISMA}>{CHARISMA}</option>
-            </select>
-          </fieldset>
+          {getToggleButton(isDisplayedSpellcasting, toggleIsDisplayedSpellcasting)}
+          {getSpellcasting()}
           <h3>Legendary Actions</h3>
-          <fieldset>
-            <label>Legendary Actions Text</label>
-            <textarea
-              onChange={e => handleFormChange('legendaryActionsText', e.target.value)}
-              value={legendaryActionsText}>
-            </textarea>
-          </fieldset>
-          <CollectionField
-            collection={creatureLegendaryActions}
-            formModel={[
-              { fieldKey: '_destroy', label: 'Destroy', type: 'destroy' },
-              { fieldKey: 'name', label: 'Name', type: 'text' },
-              { fieldKey: 'description', label: 'Description', type: 'textarea' }
-            ]}
-            onChange={(items) => handleFormChange('creatureLegendaryActions', items)}/>
+          {getToggleButton(isDisplayedLegendaryActions, toggleIsDisplayedLegendaryActions)}
+          {getLegendaryActions()}
           <h3>Lair Actions</h3>
-          <fieldset>
-            <label>Lair Actions Text</label>
-            <textarea
-              onChange={e => handleFormChange('lairActionsText', e.target.value)}
-              value={lairActionsText}>
-            </textarea>
-          </fieldset>
-          <CollectionField
-            collection={creatureLairActions}
-            formModel={[
-              { fieldKey: '_destroy', label: 'Destroy', type: 'destroy' },
-              { fieldKey: 'description', label: 'Description', type: 'textarea' }
-            ]}
-            onChange={(items) => handleFormChange('creatureLairActions', items)}/>
+          {getToggleButton(isDisplayedLairActions, toggleIsDisplayedLairActions)}
+          {getLairActions()}
           <h3>Regional Effects</h3>
-          <fieldset>
-            <label>Regional Effects Text</label>
-            <textarea
-              onChange={e => handleFormChange('regionalEffectsText', e.target.value)}
-              value={regionalEffectsText}>
-            </textarea>
-          </fieldset>
-          <CollectionField
-            collection={creatureRegionalEffects}
-            formModel={[
-              { fieldKey: '_destroy', label: 'Destroy', type: 'destroy' },
-              { fieldKey: 'description', label: 'Description', type: 'textarea' }
-            ]}
-            onChange={(items) => handleFormChange('creatureRegionalEffects', items)}/>
+          {getToggleButton(isDisplayedRegionalEffects, toggleIsDisplayedRegionalEffects)}
+          {getRegionalEffects()}
+        </div>
+        <div className="full">
           <fieldset>
             <button className="button button-constructive">
               {handleSubmitButtonLabel}

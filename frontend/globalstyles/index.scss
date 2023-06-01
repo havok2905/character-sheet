@@ -200,7 +200,7 @@ input[type="number"], input[type="password"], input[type="text"], select, textar
   box-shadow: $shadow-field;
   box-sizing: border-box;
   margin-bottom: $spacing-small;
-  padding: $spacing-standard;
+  padding: $spacing-small;
 }
 
 nav {

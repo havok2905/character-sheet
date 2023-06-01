@@ -175,7 +175,7 @@ const CreatureEditPage: FC = () => {
           <CreatureForm
             creature={creature}
             handleSubmit={handleSubmit}
-            handleSubmitButtonLabel="Update Creature"
+            handleSubmitButtonLabel="Save Creature"
           />
         </div>
       </div>

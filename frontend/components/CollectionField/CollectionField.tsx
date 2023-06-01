@@ -1,53 +1,23 @@
-import React, {useEffect, useId, useState} from 'react';
+import React, {FC, useEffect, useId, useState} from 'react';
+import {CollectionFieldForm} from './CollectionFieldForm';
+import {
+  ICollectionFieldCollectionItem,
+  IFieldModel
+} from './types';
+import './CollectionField.scss';
 
-interface IBaseFieldModel {
-  fieldKey: string;
-  label: string;
-}
-
-interface IDestroyFieldModel extends IBaseFieldModel {
-  type: 'destroy';
-}
-
-interface INumberFieldModel extends IBaseFieldModel {
-  type: 'number';
-}
-
-interface ISelectFieldModel extends IBaseFieldModel {
-  options: {
-    label: string;
-    value: string;
-  }[];
-  type: 'select';
-}
-
-interface ITextFieldModel extends IBaseFieldModel {
-  type: 'text';
-}
-
-interface ITextAreaFieldModel extends IBaseFieldModel {
-  type: 'textarea';
-}
-
-type IFieldModel = IDestroyFieldModel | INumberFieldModel | ISelectFieldModel | ITextFieldModel | ITextAreaFieldModel;
-
-interface ICollectionFieldProps<T> {
-  collection: T[];
+interface ICollectionFieldProps {
+  collection: any[];
   formModel: IFieldModel[];
-  onChange: (items: T[]) => void;
+  onChange: (items: any[]) => void;
 }
 
-interface ICollectionFieldCollectionItem<T> {
-  collectionItem: T;
-  collectionItemId: string;
-}
-
-export const CollectionField = <T extends object>({
+export const CollectionField: FC<ICollectionFieldProps> = ({
   collection,
   formModel,
   onChange
-}: ICollectionFieldProps<T>) => {
-  const [items, setItems] = useState<ICollectionFieldCollectionItem<T>[]>([]);
+}) => {
+  const [items, setItems] = useState<ICollectionFieldCollectionItem[]>([]);
   const collectionFieldId = useId();
 
   useEffect(() => {
@@ -67,26 +37,9 @@ export const CollectionField = <T extends object>({
 
   if (!formModel.length) return null;
 
-  const handleFieldChange = (
-    e,
-    fieldModel: IFieldModel,
-    item: ICollectionFieldCollectionItem<T>
-  ) => {
-    const newValue = fieldModel.type === 'destroy' ? e.target.checked : e.target.value;
-    const newItems = items.map((i) => {
-      const newCollectionItem = {...i.collectionItem};
+  const handleAddItem = e => {
+    e.preventDefault();
 
-      if (i.collectionItemId === item.collectionItemId) {
-        newCollectionItem[fieldModel.fieldKey] = newValue;
-      }
-
-      return newCollectionItem
-    });
-
-    onChange(newItems);
-  };
-
-  const handleAddItem = () => {
     const newItem = {}
 
     formModel.forEach(item => {
@@ -99,173 +52,25 @@ export const CollectionField = <T extends object>({
     onChange(newItems);
   };
 
-  const handleNewItemRemoval = (
-    item: ICollectionFieldCollectionItem<T>
-  ) => {
-    const newItems = items.filter(i => i.collectionItemId !== item.collectionItemId).map(item => ({ ...item.collectionItem }));
-
-    onChange(newItems);
-  };
-
-  const getNewDestroyField = (
-    fieldModel: IFieldModel,
-    item: ICollectionFieldCollectionItem<T>
-  ) => {
-    if (item.collectionItem?.id) return null;
-    if (fieldModel.type !== 'destroy') return null;
-
-    return (
-      <>
-        <label>{fieldModel.label}</label>
-        <button onClick={e => {
-          e.preventDefault();
-          handleNewItemRemoval(item);
-        }}>
-          Remove
-        </button>
-      </>
-    );
-  };
-  
-  const getDestroyField = (
-    fieldModel: IFieldModel,
-    item: ICollectionFieldCollectionItem<T>
-  ) => {
-    if (!item.collectionItem?.id) return null;
-    if (fieldModel.type !== 'destroy') return null;
-    
-    const value = item.collectionItem[fieldModel.fieldKey];
-
-    return (
-      <>
-        <label>{fieldModel.label}</label>
-        <input
-          checked={value}
-          name="_destroy"
-          onChange={e => handleFieldChange(e, fieldModel, item)}
-          type="checkbox"/>
-      </>
-    );
-  };
-
-  const getNumberField = (
-    fieldModel: IFieldModel,
-    item: ICollectionFieldCollectionItem<T>
-  ) => {
-    if (fieldModel.type !== 'number') return null;
-
-    const value = item.collectionItem[fieldModel.fieldKey];
-
-    return (
-      <>
-        <label>{fieldModel.label}</label>
-        <input
-          onChange={e => handleFieldChange(e, fieldModel, item)}
-          type="number"
-          value={value}>
-        </input>
-      </>
-    );
-  };
-
-  const getTextField = (
-    fieldModel: IFieldModel,
-    item: ICollectionFieldCollectionItem<T>
-  ) => {
-    if (fieldModel.type !== 'text') return null;
-
-    const value = item.collectionItem[fieldModel.fieldKey];
-
-    return (
-      <>
-        <label>{fieldModel.label}</label>
-        <input
-          onChange={e => handleFieldChange(e, fieldModel, item)}
-          type="text"
-          value={value}>
-        </input>
-      </>
-    );
-  };
-
-  const getSelectField = (
-    fieldModel: IFieldModel,
-    item: ICollectionFieldCollectionItem<T>
-  ) => {
-    if (fieldModel.type !== 'select') return null;
-
-    const value = item.collectionItem[fieldModel.fieldKey];
-
-    return (
-      <>
-        <label>{fieldModel.label}</label>
-        <select
-          onChange={e => handleFieldChange(e, fieldModel, item)}
-          value={value}>
-          {
-            fieldModel.options.map(optionItem => {
-              return (
-                <option value={optionItem.value}>
-                  {optionItem.label}
-                </option>
-              );
-            })
-          }
-        </select>
-      </>
-    );
-  };
-
-  const getTextareaField = (
-    fieldModel: IFieldModel,
-    item: ICollectionFieldCollectionItem<T>
-  ) => {
-    if (fieldModel.type !== 'textarea') return null;
-
-    const value = item.collectionItem[fieldModel.fieldKey];
-
-    return (
-      <>
-        <label>{fieldModel.label}</label>
-        <textarea
-          onChange={e => handleFieldChange(e, fieldModel, item)}
-          value={value}>
-        </textarea>
-      </>
-    );
-  };
-
-  const handleGetItem = (
-    fieldModel: IFieldModel,
-    item: ICollectionFieldCollectionItem<T>
-  ) => {
-    return (
-      getNewDestroyField(fieldModel, item) ||
-      getDestroyField(fieldModel, item) ||
-      getNumberField(fieldModel, item) ||
-      getSelectField(fieldModel, item) ||
-      getTextField(fieldModel, item) ||
-      getTextareaField(fieldModel, item)
-    );
-  };
-
   return (
-    <fieldset>
+    <div>
       {
         items.map(item => {
-          return formModel.map(fieldModel => {
-            return handleGetItem(fieldModel, item);
-          });
+          return (
+            <CollectionFieldForm
+              formModel={formModel}
+              item={item}
+              items={items}
+              onChange={onChange}
+            />
+          );
         }) 
       }
-      <button
-        className="button"
-        onClick={e => {
-          e.preventDefault();
-          handleAddItem();
-        }}>
-        Add
-      </button>
-    </fieldset>
+      <fieldset>
+        <button className="button button-primary" onClick={handleAddItem}>
+          Add
+        </button>
+      </fieldset>
+    </div>
   );
 };

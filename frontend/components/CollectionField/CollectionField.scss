@@ -1,0 +1,7 @@
+@import '../../globalstyles/variables.scss';
+
+.collection-field-form:not(:last-of-type) {
+  border-bottom: $border-standard;
+  margin-bottom: $spacing-standard;
+  padding-bottom: $spacing-standard;
+}
