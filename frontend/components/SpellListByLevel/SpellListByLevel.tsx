@@ -25,14 +25,20 @@ const SpellListByLevel: FC<ISpellListByLevelProps> = ({
         {!!spellSlots && `( ${spellSlots} )`}
       </h4>
       {
-        getSpellsByLevel(spellLevel, spells).map(spell => {
-          const {name} = spell;
-          return (
-            <ToggleItem heading={name}>
-              <SpellCard spell={spell}/>
-            </ToggleItem>
-          );
-        })
+        getSpellsByLevel(spellLevel, spells)
+          .sort((a, b) => {
+            if (a.name > b.name) return 1;
+            if (a.name < b.name) return -1;
+            return 0;
+          })
+          .map(spell => {
+            const {name} = spell;
+            return (
+              <ToggleItem heading={name}>
+                <SpellCard spell={spell}/>
+              </ToggleItem>
+            );
+          })
       }
     </>
   )
