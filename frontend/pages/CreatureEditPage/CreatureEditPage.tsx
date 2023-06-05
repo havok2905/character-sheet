@@ -1,5 +1,4 @@
-import React, { FC, useState } from 'react';
-import { AssociatedSpellsForm } from '../../components/AssociatedSpellsForm';
+import React, { FC } from 'react';
 import {
   CREATURE_ROUTE,
   CREATURES_ROUTE,
@@ -23,7 +22,6 @@ import {
 import { getSpells } from '../../utilities/Api/Spells';
 import { ICreature } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
-import { Modal } from '../../components/Modal';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
 import {
@@ -33,8 +31,6 @@ import {
 } from '@tanstack/react-query';
 
 const CreatureEditPage: FC = () => {
-  const [spellsModalOpen, setSpellsModalOpen] = useState(false);
-
   const navigate = useNavigate();
   const params = useParams();
 
@@ -133,22 +129,6 @@ const CreatureEditPage: FC = () => {
     uploadCreatureImageMutation.mutate({ data, id });
   };
 
-  const getSpellsModal = () => {
-    if (!spellsModalOpen || !creature) return null;
-
-    return (
-      <Modal
-        onCloseModal={() => setSpellsModalOpen(false)}
-        onCloseModalOverlay={() => setSpellsModalOpen(false)}>
-        <AssociatedSpellsForm
-          buttonLabel="Update Spells"
-          handleSubmit={(spellIds: string[]) => handleSubmit({ ...creature, spellIds })}
-          spellIds={(creature.spells || []).map(spell => String(spell.id))}
-          spells={spells}/>
-      </Modal>
-    );
-  };
-
   return (
     <>
       <Navbar authenticated={authQuery.isSuccess}/>
@@ -168,18 +148,14 @@ const CreatureEditPage: FC = () => {
             inputName="creature-image-file-upload"
             handleSubmit={handleImageUpload}
           />
-          <h3>Associations</h3>
-          <div>
-            <button className="button" onClick={() => setSpellsModalOpen(true)}>Spells</button>
-          </div>
           <CreatureForm
             creature={creature}
             handleSubmit={handleSubmit}
             handleSubmitButtonLabel="Save Creature"
+            spells={spells}
           />
         </div>
       </div>
-      {getSpellsModal()}
     </>
   );
 };

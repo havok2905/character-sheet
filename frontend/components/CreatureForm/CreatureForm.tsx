@@ -27,7 +27,8 @@ import {
   WIS,
   WISDOM
 } from '../../utilities/GameSystem/constants';
-import { ICreature } from '../../types/models';
+import { ICreature, ISpell } from '../../types/models';
+import { SpellSearch } from '../SpellSearch';
 
 const getFormCopy = (formModel: ICreature) => {
   return {
@@ -57,6 +58,11 @@ const getFormCopy = (formModel: ICreature) => {
         return { ...effect };
       })
     ],
+    spellIds: [
+      ...(formModel.spellIds || []).map(spellId => {
+        return spellId
+      })
+    ],
     spells: [
       ...(formModel.spells || []).map(spell => {
         return { ...spell };
@@ -69,12 +75,14 @@ interface ICreatureFormProps {
   creature?: ICreature;
   handleSubmit: (creature: ICreature) => void;
   handleSubmitButtonLabel: string;
+  spells: ISpell[];
 }
 
 const CreatureForm: FC<ICreatureFormProps> = ({
   creature,
   handleSubmit,
-  handleSubmitButtonLabel
+  handleSubmitButtonLabel,
+  spells
 }) => {
   const [form, setForm] = useState<ICreature>({
     ac: 0,
@@ -134,6 +142,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
     size: '',
     sleightOfHandProf: '',
     speed: '',
+    spellIds: [],
     spells: [],
     spellcastingAbility: '',
     spellcastingLevel: 0,
@@ -153,7 +162,11 @@ const CreatureForm: FC<ICreatureFormProps> = ({
   const [isDisplayedSpellcasting, setIsDisplayedSpellcasting] = useState<boolean>(true);
 
   useEffect(() => {
-    if (creature) setForm(getFormCopy(creature));
+    if (creature) {
+      const formCopy = getFormCopy(creature);
+      formCopy.spellIds = formCopy.spells.map(spell => String(spell.id));
+      setForm(formCopy);
+    }
   }, []);
 
   const {
@@ -224,8 +237,11 @@ const CreatureForm: FC<ICreatureFormProps> = ({
     wisdomScore
   } = form;
 
+  const creatureSpellIds = form.spellIds ?? [];
+
   const handleFormChange = (key: string, value: any) => {
     const updatedForm = getFormCopy(form);
+    console.log(key, value, updatedForm);
     updatedForm[key] = value;
     setForm(updatedForm);
   };
@@ -475,24 +491,35 @@ const CreatureForm: FC<ICreatureFormProps> = ({
     );
   };
 
+  const handleSpellIdsUpdate = (newSpellIds: string[]) => {
+    handleFormChange('spellIds', newSpellIds);
+  };
+
   const getSpellcasting = () => {
     if (!isDisplayedSpellcasting) return null;
 
     return (
-      <fieldset>
-        <label>Spellcasting Level</label>
-        <input onChange={e => handleFormChange('spellcastingLevel', parseInt(e.target.value))} type="number" value={spellcastingLevel}/>
-        <label>Spellcasting Ability</label>
-        <select onChange={e => handleFormChange('spellcastingAbility', e.target.value)} value={spellcastingAbility}>
-          <option></option>
-          <option value={STRENGTH}>{STRENGTH}</option>
-          <option value={DEXTERITY}>{DEXTERITY}</option>
-          <option value={CONSTITUTION}>{CONSTITUTION}</option>
-          <option value={INTELLIGENCE}>{INTELLIGENCE}</option>
-          <option value={WISDOM}>{WISDOM}</option>
-          <option value={CHARISMA}>{CHARISMA}</option>
-        </select>
-      </fieldset>
+      <>
+        <fieldset>
+          <label>Spellcasting Level</label>
+          <input onChange={e => handleFormChange('spellcastingLevel', parseInt(e.target.value))} type="number" value={spellcastingLevel}/>
+          <label>Spellcasting Ability</label>
+          <select onChange={e => handleFormChange('spellcastingAbility', e.target.value)} value={spellcastingAbility}>
+            <option></option>
+            <option value={STRENGTH}>{STRENGTH}</option>
+            <option value={DEXTERITY}>{DEXTERITY}</option>
+            <option value={CONSTITUTION}>{CONSTITUTION}</option>
+            <option value={INTELLIGENCE}>{INTELLIGENCE}</option>
+            <option value={WISDOM}>{WISDOM}</option>
+            <option value={CHARISMA}>{CHARISMA}</option>
+          </select>
+        </fieldset>
+        <SpellSearch
+          handleSpellIdsUpdate={handleSpellIdsUpdate}
+          spellIds={creatureSpellIds}
+          spells={spells}
+        />
+      </>
     );
   };
 

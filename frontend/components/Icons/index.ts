@@ -5,6 +5,8 @@ import { CloseIcon } from './CloseIcon';
 import { DoubleCheckIcon } from './DoubleCheckIcon';
 import { GearIcon } from './GearIcon';
 import { InfoIcon } from './InfoIcon';
+import { PlusIcon } from './PlusIcon';
+import { TrashIcon } from './TrashIcon';
 
 export {
   ArrowsCollapseIcon,
@@ -13,5 +15,7 @@ export {
   CloseIcon,
   DoubleCheckIcon,
   GearIcon,
-  InfoIcon
+  InfoIcon,
+  PlusIcon,
+  TrashIcon
 };

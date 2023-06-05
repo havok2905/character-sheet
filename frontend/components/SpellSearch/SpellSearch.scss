@@ -1,0 +1,24 @@
+@import '../../globalstyles/variables.scss';
+
+.spell-search-row button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-right: $spacing-standard;
+}
+
+.spell-search-row:not(:last-of-type) {
+  margin-bottom: $spacing-small;
+}
+
+.spell-search-row-add {
+  color: $color-button-constructive-background;
+}
+
+.spell-search-row-delete {
+  color: $color-button-destructive-background;
+}
+
+.spell-search-row-known {
+  text-decoration: line-through;
+}
