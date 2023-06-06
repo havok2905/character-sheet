@@ -12,10 +12,11 @@ import {
   Navigate,
   useNavigate
 } from 'react-router-dom';
+import { getSpells } from '../../utilities/Api/Spells';
 import { ICreature } from '../../types/models';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueries } from '@tanstack/react-query';
 
 const CreatureCreatePage: FC = () => {
   const navigate = useNavigate();
@@ -25,6 +26,15 @@ const CreatureCreatePage: FC = () => {
     isSuccess
   } = useAuth();
 
+  const results = useQueries({
+    queries: [
+      {
+        queryKey: ['spells'],
+        queryFn: getSpells
+      }
+    ]
+  });
+
   const creatureCreateMutation = useMutation({
     mutationFn: async (creature: ICreature) => createCreature({ creature }),
     onError: (error) => {
@@ -32,14 +42,23 @@ const CreatureCreatePage: FC = () => {
       location.reload();
     },
     onSuccess: (data) => {
-     const id = data.creature.id ?? '';
-     navigate(generatePath(CREATURE_ROUTE, { id }));
+      const id = data.creature.id ?? '';
+      navigate(generatePath(CREATURE_ROUTE, { id }));
     }
   });
 
-  if (isLoading) return null;
+  const [
+    spellsResults
+  ] = results;
+
+  if (
+    isLoading ||
+    spellsResults.isLoading || spellsResults.isError
+  ) return null;
 
   if (!isSuccess) return <Navigate replace to={LOGIN_ROUTE} />;
+
+  const spells = spellsResults.data?.spells ?? [];
 
   const handleSubmit = (creature: ICreature) => creatureCreateMutation.mutate(creature);
 
@@ -55,6 +74,7 @@ const CreatureCreatePage: FC = () => {
           <CreatureForm
             handleSubmit={handleSubmit}
             handleSubmitButtonLabel="Create Creature"
+            spells={spells}
           />
         </div>
       </div>
