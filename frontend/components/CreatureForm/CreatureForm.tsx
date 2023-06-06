@@ -416,7 +416,7 @@ const CreatureForm: FC<ICreatureFormProps> = ({
         ]}
         onChange={(items) => handleFormChange('creatureFeatures', items)}
       />
-    )
+    );
   };
 
   const getLairActions = () => {

@@ -7,6 +7,10 @@ export interface IDestroyFieldModel extends IBaseFieldModel {
   type: 'destroy';
 }
 
+export interface ICheckboxFieldModel extends IBaseFieldModel {
+  type: 'checkbox';
+}
+
 export interface INumberFieldModel extends IBaseFieldModel {
   type: 'number';
 }
@@ -27,7 +31,13 @@ export interface ITextAreaFieldModel extends IBaseFieldModel {
   type: 'textarea';
 }
 
-export type IFieldModel = IDestroyFieldModel | INumberFieldModel | ISelectFieldModel | ITextFieldModel | ITextAreaFieldModel;
+export type IFieldModel =
+  ICheckboxFieldModel |
+  IDestroyFieldModel |
+  INumberFieldModel |
+  ISelectFieldModel |
+  ITextFieldModel |
+  ITextAreaFieldModel;
 
 export interface ICollectionFieldCollectionItem {
   collectionItem: any;

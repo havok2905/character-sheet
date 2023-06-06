@@ -1,11 +1,6 @@
 import React, { FC, useState } from 'react';
-import { AssociatedAttacksForm } from '../../components/AssociatedAttacksForm';
-import { AssociatedCharacterFeaturesForm } from '../../components/AssociatedCharacterFeaturesForm';
 import { AssociatedCreaturesForm } from '../../components/AssociatedCreaturesForm';
-import { AssociatedFeatureResourcesForm } from '../../components/AssociatedFeatureResourcesForm';
-import { AssociatedInventoryForm } from '../../components/AssociatedInventoryForm';
 import { AssociatedMagicItemsForm } from '../../components/AssociatedMagicItemsForm';
-import { AssociatedSpellsForm } from '../../components/AssociatedSpellsForm';
 import {
   CHARACTER_ROUTE,
   CHARACTERS_ROUTE,
@@ -29,13 +24,7 @@ import { getCreatures } from '../../utilities/Api/Creatures';
 import { getMagicItems } from '../../utilities/Api/MagicItems';
 import { getSpells } from '../../utilities/Api/Spells';
 import { CharacterForm } from '../../components/CharacterForm/';
-import {
-  ICharacter,
-  ICharacterAttack,
-  ICharacterFeature,
-  ICharacterFeatureResource,
-  ICharacterItem,
-} from '../../types/models';
+import { ICharacter } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
 import { Modal } from '../../components/Modal';
 import { Navbar } from '../../components/Navbar/Navbar';
@@ -43,13 +32,8 @@ import { useAuth } from '../hooks/useAuth';
 import { useMutation, useQueries } from '@tanstack/react-query';
 
 const CharacterEditPage: FC = () => {
-  const [attacksModalOpen, setAttacksModalOpen] = useState(false);
   const [creaturesModalOpen, setCreaturesModalOpen] = useState(false);
-  const [featuresModalOpen, setFeaturesModalOpen] = useState(false);
-  const [featureResourcesModalOpen, setFeatureResourcesModalOpen] = useState(false);
-  const [inventoryModalOpen, setInventoryModalOpen] = useState(false);
   const [magicItemsModalOpen, setMagicItemsModalOpen] = useState(false);
-  const [spellsModalOpen, setSpellsModalOpen] = useState(false);
   
   const params = useParams();
   const navigate = useNavigate();
@@ -158,21 +142,6 @@ const CharacterEditPage: FC = () => {
     uploadCharacterImageMutation.mutate({ data, id });
   };
 
-  const getAttacksModal = () => {
-    if (!attacksModalOpen || !character) return null;
-
-    return (
-      <Modal
-        onCloseModal={() => setAttacksModalOpen(false)}
-        onCloseModalOverlay={() => setAttacksModalOpen(false)}>
-        <AssociatedAttacksForm
-          buttonLabel="Update Attacks"
-          character={character}
-          handleSubmit={(characterAttacks: ICharacterAttack[]) => handleSubmit({ ...character, characterAttacks })}/>
-      </Modal>
-    );
-  };
-
   const getCreaturesModal = () => {
     if (!creaturesModalOpen || !character) return null;
 
@@ -185,51 +154,6 @@ const CharacterEditPage: FC = () => {
           creatures={creatures}
           creatureIds={(character.creatures || []).map(creature => String(creature.id))}
           handleSubmit={(creatureIds: string[]) => handleSubmit({ ...character, creatureIds })}/>
-      </Modal>
-    );
-  };
-
-  const getFeaturesModal = () => {
-    if (!featuresModalOpen || !character) return null;
-
-    return (
-      <Modal
-        onCloseModal={() => setFeaturesModalOpen(false)}
-        onCloseModalOverlay={() => setFeaturesModalOpen(false)}>
-        <AssociatedCharacterFeaturesForm
-          buttonLabel="Update Features"
-          character={character}
-          handleSubmit={(characterFeatures: ICharacterFeature[]) => handleSubmit({ ...character, characterFeatures })}/>
-      </Modal>
-    );
-  };
-
-  const getFeatureResourcesModal = () => {
-    if (!featureResourcesModalOpen || !character) return null;
-
-    return (
-      <Modal
-        onCloseModal={() => setFeatureResourcesModalOpen(false)}
-        onCloseModalOverlay={() => setFeatureResourcesModalOpen(false)}>
-        <AssociatedFeatureResourcesForm
-          buttonLabel="Update Feature Resources"
-          character={character}
-          handleSubmit={(characterFeatureResources: ICharacterFeatureResource[]) => handleSubmit({ ...character, characterFeatureResources })}/>
-      </Modal>
-    );
-  };
-
-  const getInventoryModal = () => {
-    if (!inventoryModalOpen || !character) return null;
-
-    return (
-      <Modal
-        onCloseModal={() => setInventoryModalOpen(false)}
-        onCloseModalOverlay={() => setInventoryModalOpen(false)}>
-        <AssociatedInventoryForm
-          buttonLabel="Update Inventory"
-          character={character}
-          handleSubmit={(characterItems: ICharacterItem[]) => handleSubmit({ ...character, characterItems })}/>
       </Modal>
     );
   };
@@ -250,22 +174,6 @@ const CharacterEditPage: FC = () => {
     );
   };
 
-  const getSpellsModal = () => {
-    if (!spellsModalOpen || !character) return null;
-
-    return (
-      <Modal
-        onCloseModal={() => setSpellsModalOpen(false)}
-        onCloseModalOverlay={() => setSpellsModalOpen(false)}>
-        <AssociatedSpellsForm
-          buttonLabel="Update Spells"
-          handleSubmit={(spellIds: string[]) => handleSubmit({ ...character, spellIds })}
-          spellIds={(character.spells || []).map(spell => String(spell.id))}
-          spells={spells}/>
-      </Modal>
-    );
-  };
-
   return (
     <>
       <Navbar authenticated={authQuery.isSuccess}/>
@@ -278,37 +186,28 @@ const CharacterEditPage: FC = () => {
           <DeleteButton
             buttonText="Delete Character"
             handleDelete={handleDelete}/>
-          <h2>Character Image</h2>
+          <h3>Character Image</h3>
           <ImageForm
             buttonLabel="Upload Image"
             imageUrl={imageUrl}
             inputName="character-image-file-upload"
             handleSubmit={handleImageUpload}
           />
-          <h2>Character Associations</h2>
+          <h3>Character Associations</h3>
           <div>
-            <button className="button" onClick={() => setAttacksModalOpen(true)}>Attacks</button>
-            <button className="button" onClick={() => setFeaturesModalOpen(true)}>Features</button>
-            <button className="button" onClick={() => setFeatureResourcesModalOpen(true)}>Feature Resources</button>
-            <button className="button" onClick={() => setInventoryModalOpen(true)}>Inventory</button>
             <button className="button" onClick={() => setCreaturesModalOpen(true)}>Creatures</button>
-            <button className="button" onClick={() => setSpellsModalOpen(true)}>Spells</button>
             <button className="button" onClick={() => setMagicItemsModalOpen(true)}>Magic Items</button>
           </div>
           <CharacterForm
             character={character}
             handleSubmit={handleSubmit}
             handleSubmitButtonLabel="Update Character"
+            spells={spells}
           />
         </div>
       </div>
-      {getAttacksModal()}
       {getCreaturesModal()}
-      {getFeaturesModal()}
-      {getFeatureResourcesModal()}
-      {getInventoryModal()}
       {getMagicItemsModal()}
-      {getSpellsModal()}
     </>
   );
 };

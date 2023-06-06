@@ -52,7 +52,8 @@ export const CollectionFieldForm: FC<ICollectionFieldFormProps> = ({
   };
 
   const handleFieldChange = (e, fieldModel: IFieldModel) => {
-    const newValue = fieldModel.type === 'destroy' ? e.target.checked : e.target.value;
+    const isCheckbox = fieldModel.type === 'checkbox' || fieldModel.type === 'destroy';
+    const newValue = isCheckbox ? e.target.checked : e.target.value;
     const newItems = items.map((i) => {
       const newCollectionItem = {...i.collectionItem};
 
@@ -94,6 +95,19 @@ export const CollectionFieldForm: FC<ICollectionFieldFormProps> = ({
     )
   };
 
+  const getCheckboxField = (fieldModel: IFieldModel) => {
+    if (fieldModel.type !== 'checkbox') return null;
+
+    const value = item.collectionItem[fieldModel.fieldKey];
+
+    return (
+      <input
+        checked={value}
+        onChange={e => handleFieldChange(e, fieldModel)}
+        type="checkbox"/>
+    )
+  };
+
   const getNumberField = (fieldModel: IFieldModel) => {
     if (fieldModel.type !== 'number') return null;
 
@@ -105,23 +119,6 @@ export const CollectionFieldForm: FC<ICollectionFieldFormProps> = ({
         <input
           onChange={e => handleFieldChange(e, fieldModel)}
           type="number"
-          value={value}>
-        </input>
-      </>
-    );
-  };
-
-  const getTextField = (fieldModel: IFieldModel) => {
-    if (fieldModel.type !== 'text') return null;
-
-    const value = item.collectionItem[fieldModel.fieldKey];
-
-    return (
-      <>
-        <label>{fieldModel.label}</label>
-        <input
-          onChange={e => handleFieldChange(e, fieldModel)}
-          type="text"
           value={value}>
         </input>
       </>
@@ -153,6 +150,23 @@ export const CollectionFieldForm: FC<ICollectionFieldFormProps> = ({
     );
   };
 
+  const getTextField = (fieldModel: IFieldModel) => {
+    if (fieldModel.type !== 'text') return null;
+
+    const value = item.collectionItem[fieldModel.fieldKey];
+
+    return (
+      <>
+        <label>{fieldModel.label}</label>
+        <input
+          onChange={e => handleFieldChange(e, fieldModel)}
+          type="text"
+          value={value}>
+        </input>
+      </>
+    );
+  };
+
   const getTextareaField = (fieldModel: IFieldModel) => {
     if (fieldModel.type !== 'textarea') return null;
 
@@ -171,6 +185,7 @@ export const CollectionFieldForm: FC<ICollectionFieldFormProps> = ({
 
   const handleGetItem = (fieldModel: IFieldModel) => {
     return (
+      getCheckboxField(fieldModel) ||
       getNewDestroyField(fieldModel) ||
       getDestroyField(fieldModel) ||
       getNumberField(fieldModel) ||
