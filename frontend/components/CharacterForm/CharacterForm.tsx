@@ -22,7 +22,8 @@ import {
 } from '../../utilities/GameSystem/constants';
 import { CLASSES } from '../../utilities/GameSystem/constants';
 import { CollectionField } from '../CollectionField';
-import { ICharacter, ISpell } from '../../types/models';
+import { CreatureSearch } from '../CreatureSearch';
+import { ICharacter, ICreature, ISpell } from '../../types/models';
 import { SpellSearch } from '../SpellSearch';
 
 const getFormCopy = (formModel: ICharacter) => {
@@ -68,6 +69,7 @@ const getFormCopy = (formModel: ICharacter) => {
 
 interface ICharacterFormProps {
   character?: ICharacter;
+  creatures: ICreature[];
   handleSubmit: (character: ICharacter) => void;
   handleSubmitButtonLabel: string;
   spells: ISpell[];
@@ -75,6 +77,7 @@ interface ICharacterFormProps {
 
 const CharacterForm: FC<ICharacterFormProps> = ({
   character,
+  creatures,
   handleSubmit,
   handleSubmitButtonLabel,
   spells
@@ -164,6 +167,7 @@ const CharacterForm: FC<ICharacterFormProps> = ({
   });
 
   const [isDisplayedAttacks, setIsDisplayedAttacks] = useState<boolean>(true);
+  const [isDisplayedCreatures, setIsDisplayedCreatures] = useState<boolean>(true);
   const [isDisplayedFeatureResources, setIsDisplayedFeatureResources] = useState<boolean>(true);
   const [isDisplayedFeatures, setIsDisplayedFeatures] = useState<boolean>(true);
   const [isDisplayedItems, setIsDisplayedItems] = useState<boolean>(true);
@@ -172,6 +176,7 @@ const CharacterForm: FC<ICharacterFormProps> = ({
   useEffect(() => {
     if (character) {
       const formCopy = getFormCopy(character);
+      formCopy.creatureIds = formCopy.creatures.map(creature => String(creature.id));
       formCopy.spellIds = formCopy.spells.map(spell => String(spell.id));
       setForm(formCopy);
     }
@@ -261,6 +266,7 @@ const CharacterForm: FC<ICharacterFormProps> = ({
     wisdomScore
   } = form;
 
+  const characterCreatureIds = form.creatureIds ?? [];
   const characterSpellIds = form.spellIds ?? [];
 
   const handleFormChange = (key: string, value: any) => {
@@ -272,6 +278,34 @@ const CharacterForm: FC<ICharacterFormProps> = ({
   const onSubmit = e => {
     e.preventDefault();
     handleSubmit(form);
+  };
+
+  const handleCreatureIdsUpdate = (newCreatureIds: string[]) => {
+    handleFormChange('creatureIds', newCreatureIds);
+  };
+
+  const handleSpellIdsUpdate = (newSpellIds: string[]) => {
+    handleFormChange('spellIds', newSpellIds);
+  };
+
+  const toggleIsDisplayedAttacks = e => {
+    e.preventDefault();
+    setIsDisplayedAttacks(!isDisplayedAttacks);
+  };
+
+  const toggleIsDisplayedFeatureResources = e => {
+    e.preventDefault();
+    setIsDisplayedFeatureResources(!isDisplayedFeatureResources);
+  };
+
+  const toggleIsDisplayedFeatures = e => {
+    e.preventDefault();
+    setIsDisplayedFeatures(!isDisplayedFeatures);
+  };
+
+  const toggleIsDisplayedItems = e => {
+    e.preventDefault();
+    setIsDisplayedItems(!isDisplayedItems);
   };
 
   const getAttacks = () => {
@@ -350,6 +384,18 @@ const CharacterForm: FC<ICharacterFormProps> = ({
     );
   };
 
+  const getCreatures = () => {
+    if (!isDisplayedCreatures) return null;
+
+    return (
+      <CreatureSearch
+        creatureIds={characterCreatureIds}
+        creatures={creatures}
+        handleCreatureIdsUpdate={handleCreatureIdsUpdate}
+      />
+    );
+  };
+
   const getFeatures = () => {
     if (!isDisplayedFeatures) return null;
 
@@ -383,10 +429,6 @@ const CharacterForm: FC<ICharacterFormProps> = ({
     );
   };
 
-  const handleSpellIdsUpdate = (newSpellIds: string[]) => {
-    handleFormChange('spellIds', newSpellIds);
-  };
-
   const getSpellcasting = () => {
     if (!isDisplayedSpellcasting) return null;
 
@@ -411,26 +453,6 @@ const CharacterForm: FC<ICharacterFormProps> = ({
         />
       </>
     );
-  };
-
-  const toggleIsDisplayedAttacks = e => {
-    e.preventDefault();
-    setIsDisplayedAttacks(!isDisplayedAttacks);
-  };
-
-  const toggleIsDisplayedFeatureResources = e => {
-    e.preventDefault();
-    setIsDisplayedFeatureResources(!isDisplayedFeatureResources);
-  };
-
-  const toggleIsDisplayedFeatures = e => {
-    e.preventDefault();
-    setIsDisplayedFeatures(!isDisplayedFeatures);
-  };
-
-  const toggleIsDisplayedItems = e => {
-    e.preventDefault();
-    setIsDisplayedItems(!isDisplayedItems);
   };
 
   const getToggleButton = (isDisplayed: boolean, onClick: (e) => void) => {
@@ -912,6 +934,9 @@ const CharacterForm: FC<ICharacterFormProps> = ({
           <h3>Spellcasting</h3>
           {getToggleButton(isDisplayedSpellcasting, setIsDisplayedSpellcasting)}
           {getSpellcasting()}
+          <h3>Creatures</h3>
+          {getToggleButton(isDisplayedCreatures, setIsDisplayedCreatures)}
+          {getCreatures()}
         </div>
         <div className="full">
           <fieldset>

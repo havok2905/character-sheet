@@ -1,6 +1,4 @@
-import React, { FC, useState } from 'react';
-import { AssociatedCreaturesForm } from '../../components/AssociatedCreaturesForm';
-import { AssociatedMagicItemsForm } from '../../components/AssociatedMagicItemsForm';
+import React, { FC } from 'react';
 import {
   CHARACTER_ROUTE,
   CHARACTERS_ROUTE,
@@ -26,18 +24,15 @@ import { getSpells } from '../../utilities/Api/Spells';
 import { CharacterForm } from '../../components/CharacterForm/';
 import { ICharacter } from '../../types/models';
 import { ImageForm } from '../../components/ImageForm';
-import { Modal } from '../../components/Modal';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { useAuth } from '../hooks/useAuth';
 import { useMutation, useQueries } from '@tanstack/react-query';
 
 const CharacterEditPage: FC = () => {
-  const [creaturesModalOpen, setCreaturesModalOpen] = useState(false);
-  const [magicItemsModalOpen, setMagicItemsModalOpen] = useState(false);
-  
   const params = useParams();
+
   const navigate = useNavigate();
-  
+
   const authQuery = useAuth();
 
   const results = useQueries({
@@ -120,7 +115,6 @@ const CharacterEditPage: FC = () => {
 
   const character = characterResults.data.character;
   const creatures = creaturesResults.data.creatures;
-  const magicItems = magicItemsResults.data.magicItems;
   const spells = spellsResults.data.spells;
 
   if (!authQuery.isSuccess) return <Navigate replace to={LOGIN_ROUTE} />;
@@ -142,38 +136,6 @@ const CharacterEditPage: FC = () => {
     uploadCharacterImageMutation.mutate({ data, id });
   };
 
-  const getCreaturesModal = () => {
-    if (!creaturesModalOpen || !character) return null;
-
-    return (
-      <Modal
-        onCloseModal={() => setCreaturesModalOpen(false)}
-        onCloseModalOverlay={() => setCreaturesModalOpen(false)}>
-        <AssociatedCreaturesForm
-          buttonLabel="Update Creatures"
-          creatures={creatures}
-          creatureIds={(character.creatures || []).map(creature => String(creature.id))}
-          handleSubmit={(creatureIds: string[]) => handleSubmit({ ...character, creatureIds })}/>
-      </Modal>
-    );
-  };
-
-  const getMagicItemsModal = () => {
-    if (!magicItemsModalOpen || !character) return null;
-
-    return (
-      <Modal
-        onCloseModal={() => setMagicItemsModalOpen(false)}
-        onCloseModalOverlay={() => setMagicItemsModalOpen(false)}>
-        <AssociatedMagicItemsForm
-          buttonLabel="Update Magic Items"
-          handleSubmit={(magicItemIds: string[]) => handleSubmit({ ...character, magicItemIds })}
-          magicItemIds={(character.magicItems || []).map(magicItem => String(magicItem.id))}
-          magicItems={magicItems}/>
-      </Modal>
-    );
-  };
-
   return (
     <>
       <Navbar authenticated={authQuery.isSuccess}/>
@@ -193,21 +155,15 @@ const CharacterEditPage: FC = () => {
             inputName="character-image-file-upload"
             handleSubmit={handleImageUpload}
           />
-          <h3>Character Associations</h3>
-          <div>
-            <button className="button" onClick={() => setCreaturesModalOpen(true)}>Creatures</button>
-            <button className="button" onClick={() => setMagicItemsModalOpen(true)}>Magic Items</button>
-          </div>
           <CharacterForm
             character={character}
+            creatures={creatures}
             handleSubmit={handleSubmit}
             handleSubmitButtonLabel="Update Character"
             spells={spells}
           />
         </div>
       </div>
-      {getCreaturesModal()}
-      {getMagicItemsModal()}
     </>
   );
 };

@@ -1,0 +1,24 @@
+@import '../../globalstyles/variables.scss';
+
+.creature-search-row button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-right: $spacing-standard;
+}
+
+.creature-search-row:not(:last-of-type) {
+  margin-bottom: $spacing-small;
+}
+
+.creature-search-row-add {
+  color: $color-button-constructive-background;
+}
+
+.creature-search-row-delete {
+  color: $color-button-destructive-background;
+}
+
+.creature-search-row-known {
+  text-decoration: line-through;
+}
