@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import {
   ICollectionFieldCollectionItem,
   IFieldModel
@@ -10,6 +10,75 @@ interface ICollectionFieldFormProps {
   items: ICollectionFieldCollectionItem[];
   onChange: (items: any[]) => void;
 }
+
+interface ITextFieldProps {
+  fieldModel: IFieldModel,
+  handleFieldChange: (e, fieldModel: IFieldModel) => void;
+  value: string;
+}
+
+interface ITextAreaFieldProps {
+  fieldModel: IFieldModel,
+  handleFieldChange: (e, fieldModel: IFieldModel) => void;
+  value: string;
+}
+
+const TextField: FC<ITextFieldProps> = ({
+  fieldModel,
+  handleFieldChange,
+  value
+}) => {
+  const [cursor, setCursor] = useState<number | null>(null);
+  const el = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (el.current && cursor !== null) {
+      el.current.setSelectionRange(cursor, cursor);
+    }
+  }, [cursor, el, value]);
+
+  const onChange = e => {
+    setCursor(e.target.selectionStart);
+    handleFieldChange(e, fieldModel);
+  };
+
+  return (
+    <input
+      onChange={onChange}
+      ref={el}
+      type="text"
+      value={value}>
+    </input>
+  );
+};
+
+const TextAreaField: FC<ITextAreaFieldProps> = ({
+  fieldModel,
+  handleFieldChange,
+  value
+}) => {
+  const [cursor, setCursor] = useState<number | null>(null);
+  const el = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (el.current && cursor !== null) {
+      el.current.setSelectionRange(cursor, cursor);
+    }
+  }, [cursor, el, value]);
+
+  const onChange = e => {
+    setCursor(e.target.selectionStart);
+    handleFieldChange(e, fieldModel);
+  };
+
+  return (
+    <textarea
+      onChange={onChange}
+      ref={el}
+      value={value}>
+    </textarea>
+  );
+};
 
 export const CollectionFieldForm: FC<ICollectionFieldFormProps> = ({
   formModel,
@@ -158,11 +227,11 @@ export const CollectionFieldForm: FC<ICollectionFieldFormProps> = ({
     return (
       <>
         <label>{fieldModel.label}</label>
-        <input
-          onChange={e => handleFieldChange(e, fieldModel)}
-          type="text"
-          value={value}>
-        </input>
+        <TextField
+          fieldModel={fieldModel}
+          handleFieldChange={handleFieldChange}
+          value={value}
+        />
       </>
     );
   };
@@ -175,10 +244,11 @@ export const CollectionFieldForm: FC<ICollectionFieldFormProps> = ({
     return (
       <>
         <label>{fieldModel.label}</label>
-        <textarea
-          onChange={e => handleFieldChange(e, fieldModel)}
-          value={value}>
-        </textarea>
+        <TextAreaField
+          fieldModel={fieldModel}
+          handleFieldChange={handleFieldChange}
+          value={value}
+        />
       </>
     );
   };
